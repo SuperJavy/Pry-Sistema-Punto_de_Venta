@@ -16,5 +16,10 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             InitializeComponent();
         }
+
+        private void btnIniciar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,98 +28,111 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnIniciar = new System.Windows.Forms.Button();
-            this.txtpassword = new System.Windows.Forms.TextBox();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAlertaCodigo));
+            panel1 = new Panel();
+            btnMostrar = new Button();
+            pictureBox3 = new PictureBox();
+            txtpassword = new TextBox();
+            btnIniciar = new Button();
+            label1 = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.btnIniciar);
-            this.panel1.Controls.Add(this.txtpassword);
-            this.panel1.Location = new System.Drawing.Point(32, 34);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(317, 176);
-            this.panel1.TabIndex = 3;
+            panel1.BackColor = Color.Gainsboro;
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(btnMostrar);
+            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(txtpassword);
+            panel1.Controls.Add(btnIniciar);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(640, 275);
+            panel1.TabIndex = 3;
+            // 
+            // btnMostrar
+            // 
+            btnMostrar.BackgroundImage = (Image)resources.GetObject("btnMostrar.BackgroundImage");
+            btnMostrar.BackgroundImageLayout = ImageLayout.Zoom;
+            btnMostrar.Location = new Point(488, 100);
+            btnMostrar.Name = "btnMostrar";
+            btnMostrar.Size = new Size(48, 35);
+            btnMostrar.TabIndex = 15;
+            btnMostrar.UseVisualStyleBackColor = true;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.White;
-            this.pictureBox3.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.candado;
-            this.pictureBox3.Location = new System.Drawing.Point(57, 58);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(21, 21);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 9;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.ojo;
-            this.pictureBox1.Location = new System.Drawing.Point(251, 58);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btnIniciar
-            // 
-            this.btnIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciar.Location = new System.Drawing.Point(63, 123);
-            this.btnIniciar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(208, 25);
-            this.btnIniciar.TabIndex = 6;
-            this.btnIniciar.Text = "Iniciar ";
-            this.btnIniciar.UseVisualStyleBackColor = true;
+            pictureBox3.BackColor = Color.Transparent;
+            pictureBox3.Image = Properties.Resources.candado;
+            pictureBox3.Location = new Point(86, 100);
+            pictureBox3.Margin = new Padding(3, 4, 3, 4);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(34, 35);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 14;
+            pictureBox3.TabStop = false;
             // 
             // txtpassword
             // 
-            this.txtpassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtpassword.Location = new System.Drawing.Point(57, 57);
-            this.txtpassword.Margin = new System.Windows.Forms.Padding(2);
-            this.txtpassword.Name = "txtpassword";
-            this.txtpassword.Size = new System.Drawing.Size(215, 26);
-            this.txtpassword.TabIndex = 5;
-            this.txtpassword.Text = "Ingrese su contraseña";
-            this.txtpassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtpassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtpassword.ForeColor = SystemColors.WindowText;
+            txtpassword.Location = new Point(126, 100);
+            txtpassword.Margin = new Padding(3, 4, 3, 4);
+            txtpassword.Name = "txtpassword";
+            txtpassword.PlaceholderText = "Ingrese su contraseña";
+            txtpassword.Size = new Size(356, 35);
+            txtpassword.TabIndex = 13;
+            // 
+            // btnIniciar
+            // 
+            btnIniciar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnIniciar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnIniciar.Location = new Point(238, 175);
+            btnIniciar.Margin = new Padding(3, 4, 3, 4);
+            btnIniciar.Name = "btnIniciar";
+            btnIniciar.Size = new Size(132, 46);
+            btnIniciar.TabIndex = 6;
+            btnIniciar.Text = "Iniciar ";
+            btnIniciar.UseVisualStyleBackColor = true;
+            btnIniciar.Click += btnIniciar_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(133, 36);
+            label1.Name = "label1";
+            label1.Size = new Size(349, 32);
+            label1.TabIndex = 16;
+            label1.Text = "Contraseña de confirmacion.";
             // 
             // FrmAlertaCodigo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 261);
-            this.Controls.Add(this.panel1);
-            this.Name = "FrmAlertaCodigo";
-            this.Text = "Alerta de codigo";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(640, 275);
+            Controls.Add(panel1);
+            Margin = new Padding(5, 6, 5, 6);
+            Name = "FrmAlertaCodigo";
+            Text = "Alerta de codigo";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ResumeLayout(false);
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnIniciar;
-        private System.Windows.Forms.TextBox txtpassword;
+        private Button btnMostrar;
+        private PictureBox pictureBox3;
+        private TextBox txtpassword;
+        private Label label1;
     }
 }

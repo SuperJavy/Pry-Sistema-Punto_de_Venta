@@ -28,68 +28,93 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnacceder = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            btnIniciar = new Button();
+            txtpassword = new TextBox();
+            label1 = new Label();
+            btnbuscarproduct = new Button();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
-            // btnacceder
+            // panel1
             // 
-            this.btnacceder.BackColor = System.Drawing.SystemColors.Control;
-            this.btnacceder.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnacceder.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.comprobado;
-            this.btnacceder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnacceder.Location = new System.Drawing.Point(178, 179);
-            this.btnacceder.Name = "btnacceder";
-            this.btnacceder.Padding = new System.Windows.Forms.Padding(180, 0, 0, 0);
-            this.btnacceder.Size = new System.Drawing.Size(470, 36);
-            this.btnacceder.TabIndex = 74;
-            this.btnacceder.Text = "Acceder";
-            this.btnacceder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnacceder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnacceder.UseVisualStyleBackColor = false;
-            this.btnacceder.Click += new System.EventHandler(this.btnacceder_Click);
+            panel1.BackColor = Color.Gainsboro;
+            panel1.Controls.Add(btnbuscarproduct);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(txtpassword);
+            panel1.Controls.Add(btnIniciar);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(654, 357);
+            panel1.TabIndex = 4;
             // 
-            // textBox3
+            // btnIniciar
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Black;
-            this.textBox3.Location = new System.Drawing.Point(178, 135);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(470, 38);
-            this.textBox3.TabIndex = 73;
+            btnIniciar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnIniciar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnIniciar.Location = new Point(96, 396);
+            btnIniciar.Margin = new Padding(3, 4, 3, 4);
+            btnIniciar.Name = "btnIniciar";
+            btnIniciar.Size = new Size(347, 48);
+            btnIniciar.TabIndex = 6;
+            btnIniciar.Text = "Iniciar ";
+            btnIniciar.UseVisualStyleBackColor = true;
+            // 
+            // txtpassword
+            // 
+            txtpassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtpassword.ForeColor = SystemColors.WindowText;
+            txtpassword.Location = new Point(142, 144);
+            txtpassword.Margin = new Padding(3, 4, 3, 4);
+            txtpassword.Name = "txtpassword";
+            txtpassword.PlaceholderText = "Ingrese codigo del producto";
+            txtpassword.Size = new Size(356, 35);
+            txtpassword.TabIndex = 13;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(248, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(328, 39);
-            this.label1.TabIndex = 72;
-            this.label1.Text = "Eliminar Productos";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(213, 59);
+            label1.Name = "label1";
+            label1.Size = new Size(231, 32);
+            label1.TabIndex = 14;
+            label1.Text = "Eliminar producto.";
+            // 
+            // btnbuscarproduct
+            // 
+            btnbuscarproduct.Location = new Point(255, 208);
+            btnbuscarproduct.Name = "btnbuscarproduct";
+            btnbuscarproduct.Size = new Size(132, 46);
+            btnbuscarproduct.TabIndex = 15;
+            btnbuscarproduct.Text = "Buscar.";
+            btnbuscarproduct.UseVisualStyleBackColor = true;
             // 
             // FrmAlertaEliminar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(826, 258);
-            this.Controls.Add(this.btnacceder);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label1);
-            this.Name = "FrmAlertaEliminar";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FrmAlertaEliminar";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(654, 357);
+            Controls.Add(panel1);
+            Margin = new Padding(5, 6, 5, 6);
+            Name = "FrmAlertaEliminar";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "FrmAlertaEliminar";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnacceder;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label1;
+        private Panel panel1;
+        private Button btnIniciar;
+        private Button btnbuscarproduct;
+        private Label label1;
+        private TextBox txtpassword;
     }
 }
