@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             panel1 = new Panel();
+            btnMostrar = new Button();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             btnIniciar = new Button();
             txtUsuario = new TextBox();
             txtpassword = new TextBox();
             ptxLogin = new PictureBox();
-            btnMostrar = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -52,20 +52,32 @@
             panel1.Controls.Add(btnIniciar);
             panel1.Controls.Add(txtUsuario);
             panel1.Controls.Add(txtpassword);
-            panel1.Location = new Point(105, 358);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(126, 430);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(528, 346);
+            panel1.Size = new Size(634, 415);
             panel1.TabIndex = 1;
+            // 
+            // btnMostrar
+            // 
+            btnMostrar.BackgroundImage = (Image)resources.GetObject("btnMostrar.BackgroundImage");
+            btnMostrar.BackgroundImageLayout = ImageLayout.Zoom;
+            btnMostrar.Location = new Point(546, 150);
+            btnMostrar.Margin = new Padding(4, 4, 4, 4);
+            btnMostrar.Name = "btnMostrar";
+            btnMostrar.Size = new Size(58, 42);
+            btnMostrar.TabIndex = 10;
+            btnMostrar.UseVisualStyleBackColor = true;
+            btnMostrar.Click += btnMostrar_Click;
             // 
             // pictureBox3
             // 
             pictureBox3.BackColor = Color.Transparent;
             pictureBox3.Image = Properties.Resources.candado;
-            pictureBox3.Location = new Point(53, 125);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
+            pictureBox3.Location = new Point(64, 150);
+            pictureBox3.Margin = new Padding(4, 5, 4, 5);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(34, 35);
+            pictureBox3.Size = new Size(41, 42);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 9;
             pictureBox3.TabStop = false;
@@ -74,10 +86,10 @@
             // 
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = Properties.Resources.correo;
-            pictureBox2.Location = new Point(53, 46);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
+            pictureBox2.Location = new Point(64, 55);
+            pictureBox2.Margin = new Padding(4, 5, 4, 5);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(34, 35);
+            pictureBox2.Size = new Size(41, 42);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
@@ -85,10 +97,10 @@
             // btnIniciar
             // 
             btnIniciar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnIniciar.Location = new Point(93, 252);
-            btnIniciar.Margin = new Padding(3, 4, 3, 4);
+            btnIniciar.Location = new Point(112, 302);
+            btnIniciar.Margin = new Padding(4, 5, 4, 5);
             btnIniciar.Name = "btnIniciar";
-            btnIniciar.Size = new Size(356, 48);
+            btnIniciar.Size = new Size(427, 58);
             btnIniciar.TabIndex = 0;
             btnIniciar.Text = "Iniciar";
             btnIniciar.UseVisualStyleBackColor = true;
@@ -98,54 +110,44 @@
             // 
             txtUsuario.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsuario.ForeColor = SystemColors.WindowText;
-            txtUsuario.Location = new Point(93, 46);
-            txtUsuario.Margin = new Padding(3, 4, 3, 4);
+            txtUsuario.Location = new Point(112, 55);
+            txtUsuario.Margin = new Padding(4, 5, 4, 5);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.PlaceholderText = "Ingrese su Usuario";
-            txtUsuario.Size = new Size(356, 35);
+            txtUsuario.Size = new Size(426, 39);
             txtUsuario.TabIndex = 2;
             // 
             // txtpassword
             // 
             txtpassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtpassword.ForeColor = SystemColors.WindowText;
-            txtpassword.Location = new Point(93, 125);
-            txtpassword.Margin = new Padding(3, 4, 3, 4);
+            txtpassword.Location = new Point(112, 150);
+            txtpassword.Margin = new Padding(4, 5, 4, 5);
             txtpassword.Name = "txtpassword";
+            txtpassword.PasswordChar = '*';
             txtpassword.PlaceholderText = "Ingrese su contraseña";
-            txtpassword.Size = new Size(356, 35);
+            txtpassword.Size = new Size(426, 39);
             txtpassword.TabIndex = 3;
             // 
             // ptxLogin
             // 
             ptxLogin.Image = Properties.Resources.informacion_personal;
-            ptxLogin.Location = new Point(210, 21);
-            ptxLogin.Margin = new Padding(3, 4, 3, 4);
+            ptxLogin.Location = new Point(252, 25);
+            ptxLogin.Margin = new Padding(4, 5, 4, 5);
             ptxLogin.Name = "ptxLogin";
-            ptxLogin.Size = new Size(347, 256);
+            ptxLogin.Size = new Size(416, 307);
             ptxLogin.SizeMode = PictureBoxSizeMode.Zoom;
             ptxLogin.TabIndex = 0;
             ptxLogin.TabStop = false;
             // 
-            // btnMostrar
-            // 
-            btnMostrar.BackgroundImage = (Image)resources.GetObject("btnMostrar.BackgroundImage");
-            btnMostrar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnMostrar.Location = new Point(455, 125);
-            btnMostrar.Name = "btnMostrar";
-            btnMostrar.Size = new Size(48, 35);
-            btnMostrar.TabIndex = 10;
-            btnMostrar.UseVisualStyleBackColor = true;
-            btnMostrar.Click += btnMostrar_Click;
-            // 
             // FrmLogin
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(723, 790);
+            ClientSize = new Size(868, 948);
             Controls.Add(panel1);
             Controls.Add(ptxLogin);
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "FrmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
