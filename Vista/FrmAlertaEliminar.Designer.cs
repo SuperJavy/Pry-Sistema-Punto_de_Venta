@@ -63,6 +63,7 @@
             btnbuscarproduct.TabIndex = 15;
             btnbuscarproduct.Text = "Buscar";
             btnbuscarproduct.UseVisualStyleBackColor = false;
+            btnbuscarproduct.Click += btnbuscarproduct_Click;
             // 
             // label1
             // 
@@ -85,7 +86,7 @@
             txtpassword.Margin = new Padding(3, 4, 3, 4);
             txtpassword.Name = "txtpassword";
             txtpassword.PlaceholderText = "Ingrese código del producto";
-            txtpassword.Size = new Size(356, 39);
+            txtpassword.Size = new Size(335, 39);
             txtpassword.TabIndex = 13;
             // 
             // FrmAlertaEliminar

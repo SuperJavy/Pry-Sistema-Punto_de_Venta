@@ -28,68 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.btnacceder = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(243, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(344, 39);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Modificar Productos";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Black;
-            this.textBox3.Location = new System.Drawing.Point(173, 126);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(470, 38);
-            this.textBox3.TabIndex = 70;
+            btnacceder = new Button();
+            textBox3 = new TextBox();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // btnacceder
             // 
-            this.btnacceder.BackColor = System.Drawing.SystemColors.Control;
-            this.btnacceder.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnacceder.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.comprobado;
-            this.btnacceder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnacceder.Location = new System.Drawing.Point(173, 170);
-            this.btnacceder.Name = "btnacceder";
-            this.btnacceder.Padding = new System.Windows.Forms.Padding(180, 0, 0, 0);
-            this.btnacceder.Size = new System.Drawing.Size(470, 36);
-            this.btnacceder.TabIndex = 71;
-            this.btnacceder.Text = "Acceder";
-            this.btnacceder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnacceder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnacceder.UseVisualStyleBackColor = false;
-            this.btnacceder.Click += new System.EventHandler(this.btnacceder_Click);
+            btnacceder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnacceder.BackColor = Color.FromArgb(52, 152, 219);
+            btnacceder.Cursor = Cursors.Hand;
+            btnacceder.FlatAppearance.BorderSize = 0;
+            btnacceder.FlatStyle = FlatStyle.Flat;
+            btnacceder.Font = new Font("Microsoft Sans Serif", 12F);
+            btnacceder.ForeColor = Color.White;
+            btnacceder.Location = new Point(210, 132);
+            btnacceder.Margin = new Padding(0);
+            btnacceder.Name = "btnacceder";
+            btnacceder.Size = new Size(301, 77);
+            btnacceder.TabIndex = 74;
+            btnacceder.Text = "\r\nBuscar\r\n";
+            btnacceder.TextAlign = ContentAlignment.TopCenter;
+            btnacceder.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnacceder.UseVisualStyleBackColor = false;
+            btnacceder.Click += btnacceder_Click_1;
+            // 
+            // textBox3
+            // 
+            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox3.Font = new Font("Microsoft Sans Serif", 12F);
+            textBox3.ForeColor = Color.FromArgb(47, 53, 66);
+            textBox3.Location = new Point(178, 78);
+            textBox3.Margin = new Padding(5, 6, 5, 6);
+            textBox3.Name = "textBox3";
+            textBox3.PlaceholderText = "Ingrese el código del producto ";
+            textBox3.Size = new Size(344, 35);
+            textBox3.TabIndex = 73;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Font = new Font("Microsoft Sans Serif", 12F);
+            label1.ForeColor = Color.FromArgb(47, 53, 66);
+            label1.Location = new Point(210, 21);
+            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(252, 37);
+            label1.TabIndex = 72;
+            label1.Text = "Modificar Productos";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FrmAlertaM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(826, 258);
-            this.Controls.Add(this.btnacceder);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label1);
-            this.Name = "FrmAlertaM";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmModificar";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(654, 249);
+            Controls.Add(btnacceder);
+            Controls.Add(textBox3);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(5, 6, 5, 6);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmAlertaM";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Buscar Producto para Modificar";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button btnacceder;
+        private Button btnacceder;
+        private TextBox textBox3;
+        private Label label1;
     }
 }

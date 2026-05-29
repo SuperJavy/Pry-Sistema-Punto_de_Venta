@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
-    
+
     public partial class FrmAlertaM : Form
     {
         ClsPrincipal principal = new ClsPrincipal();
@@ -21,17 +21,16 @@ namespace Pry_Sistema_Punto_de_Venta
             InitializeComponent();
             productos = frmProductos;
         }
-
-        private void btnacceder_Click(object sender, EventArgs e)
+        private void btnacceder_Click_1(object sender, EventArgs e)
         {
             principal.agregaralcontenedor(
-                new FrmModoficar(),
-                productos.PnlProductos
-            );
+                  new FrmModoficar(),
+                  productos.PnlProductos
+              );
 
             this.Close();
         }
     }
 
-   
+
 }

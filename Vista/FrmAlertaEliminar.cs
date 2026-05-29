@@ -19,10 +19,8 @@ namespace Pry_Sistema_Punto_de_Venta
             InitializeComponent();
             productos = frmProductos;
         }
-
-        private void btnacceder_Click(object sender, EventArgs e)
+        private void btnbuscarproduct_Click(object sender, EventArgs e)
         {
-
             principal.agregaralcontenedor(
                 new FrmEliminarproductos(),
                 productos.PnlProductos
