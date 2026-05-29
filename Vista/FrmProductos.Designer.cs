@@ -28,122 +28,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eDITARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlproductos = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            label2 = new Label();
+            menuStrip1 = new MenuStrip();
+            nuevoToolStripMenuItem = new ToolStripMenuItem();
+            eDITARToolStripMenuItem = new ToolStripMenuItem();
+            eliminarToolStripMenuItem = new ToolStripMenuItem();
+            categoriasToolStripMenuItem = new ToolStripMenuItem();
+            pnlproductos = new Panel();
+            panel1.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.menuStrip1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1428, 62);
-            this.panel1.TabIndex = 74;
+            panel1.BackColor = Color.FromArgb(240, 242, 245);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(menuStrip1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1428, 90);
+            panel1.TabIndex = 74;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 25);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Productos";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.FromArgb(47, 53, 66);
+            label2.Location = new Point(12, 9);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(173, 45);
+            label2.TabIndex = 0;
+            label2.Text = "Productos";
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuevoToolStripMenuItem,
-            this.eDITARToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.categoriasToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 26);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1428, 36);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.BackColor = Color.Transparent;
+            menuStrip1.Dock = DockStyle.Bottom;
+            menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.ImageScalingSize = new Size(24, 24);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem, eliminarToolStripMenuItem, categoriasToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 52);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1428, 38);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
             // nuevoToolStripMenuItem
             // 
-            this.nuevoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuevoToolStripMenuItem.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.agregar_producto;
-            this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(110, 32);
-            this.nuevoToolStripMenuItem.Text = "Nuevo";
-            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
+            nuevoToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            nuevoToolStripMenuItem.Image = Properties.Resources.agregar_producto;
+            nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
+            nuevoToolStripMenuItem.Size = new Size(117, 34);
+            nuevoToolStripMenuItem.Text = "Nuevo";
+            nuevoToolStripMenuItem.Click += nuevoToolStripMenuItem_Click;
             // 
             // eDITARToolStripMenuItem
             // 
-            this.eDITARToolStripMenuItem.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.editar;
-            this.eDITARToolStripMenuItem.Name = "eDITARToolStripMenuItem";
-            this.eDITARToolStripMenuItem.Size = new System.Drawing.Size(136, 32);
-            this.eDITARToolStripMenuItem.Text = "Modificar";
-            this.eDITARToolStripMenuItem.Click += new System.EventHandler(this.eDITARToolStripMenuItem_Click);
+            eDITARToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            eDITARToolStripMenuItem.Image = Properties.Resources.editar;
+            eDITARToolStripMenuItem.Name = "eDITARToolStripMenuItem";
+            eDITARToolStripMenuItem.Size = new Size(145, 34);
+            eDITARToolStripMenuItem.Text = "Modificar";
+            eDITARToolStripMenuItem.Click += eDITARToolStripMenuItem_Click;
             // 
             // eliminarToolStripMenuItem
             // 
-            this.eliminarToolStripMenuItem.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.borrar;
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(127, 32);
-            this.eliminarToolStripMenuItem.Text = "Eliminar ";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
+            eliminarToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            eliminarToolStripMenuItem.Image = Properties.Resources.borrar;
+            eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            eliminarToolStripMenuItem.Size = new Size(135, 34);
+            eliminarToolStripMenuItem.Text = "Eliminar ";
+            eliminarToolStripMenuItem.Click += eliminarToolStripMenuItem_Click;
             // 
             // categoriasToolStripMenuItem
             // 
-            this.categoriasToolStripMenuItem.Image = global::Pry_Sistema_Punto_de_Venta.Properties.Resources.opciones;
-            this.categoriasToolStripMenuItem.Name = "categoriasToolStripMenuItem";
-            this.categoriasToolStripMenuItem.Size = new System.Drawing.Size(145, 32);
-            this.categoriasToolStripMenuItem.Text = "Categorias";
-            this.categoriasToolStripMenuItem.Click += new System.EventHandler(this.categoriasToolStripMenuItem_Click);
+            categoriasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            categoriasToolStripMenuItem.Image = Properties.Resources.opciones;
+            categoriasToolStripMenuItem.Name = "categoriasToolStripMenuItem";
+            categoriasToolStripMenuItem.Size = new Size(156, 34);
+            categoriasToolStripMenuItem.Text = "Categorias";
+            categoriasToolStripMenuItem.Click += categoriasToolStripMenuItem_Click;
             // 
             // pnlproductos
             // 
-            this.pnlproductos.BackColor = System.Drawing.Color.White;
-            this.pnlproductos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlproductos.Location = new System.Drawing.Point(0, 62);
-            this.pnlproductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlproductos.Name = "pnlproductos";
-            this.pnlproductos.Size = new System.Drawing.Size(1428, 678);
-            this.pnlproductos.TabIndex = 75;
+            pnlproductos.BackColor = Color.White;
+            pnlproductos.Dock = DockStyle.Fill;
+            pnlproductos.Location = new Point(0, 90);
+            pnlproductos.Margin = new Padding(4, 5, 4, 5);
+            pnlproductos.Name = "pnlproductos";
+            pnlproductos.Size = new Size(1428, 650);
+            pnlproductos.TabIndex = 75;
             // 
             // FrmProductos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1428, 740);
-            this.Controls.Add(this.pnlproductos);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "FrmProductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmProductos";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(1428, 740);
+            Controls.Add(pnlproductos);
+            Controls.Add(panel1);
+            Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.None;
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmProductos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "FrmProductos";
+            WindowState = FormWindowState.Maximized;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

@@ -29,90 +29,87 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            btnIniciar = new Button();
-            txtpassword = new TextBox();
-            label1 = new Label();
             btnbuscarproduct = new Button();
+            label1 = new Label();
+            txtpassword = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Gainsboro;
+            panel1.BackColor = Color.White;
             panel1.Controls.Add(btnbuscarproduct);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtpassword);
-            panel1.Controls.Add(btnIniciar);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(654, 357);
+            panel1.Size = new Size(654, 249);
             panel1.TabIndex = 4;
-            // 
-            // btnIniciar
-            // 
-            btnIniciar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnIniciar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnIniciar.Location = new Point(96, 396);
-            btnIniciar.Margin = new Padding(3, 4, 3, 4);
-            btnIniciar.Name = "btnIniciar";
-            btnIniciar.Size = new Size(347, 48);
-            btnIniciar.TabIndex = 6;
-            btnIniciar.Text = "Iniciar ";
-            btnIniciar.UseVisualStyleBackColor = true;
-            // 
-            // txtpassword
-            // 
-            txtpassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtpassword.ForeColor = SystemColors.WindowText;
-            txtpassword.Location = new Point(142, 144);
-            txtpassword.Margin = new Padding(3, 4, 3, 4);
-            txtpassword.Name = "txtpassword";
-            txtpassword.PlaceholderText = "Ingrese codigo del producto";
-            txtpassword.Size = new Size(356, 35);
-            txtpassword.TabIndex = 13;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(213, 59);
-            label1.Name = "label1";
-            label1.Size = new Size(231, 32);
-            label1.TabIndex = 14;
-            label1.Text = "Eliminar producto.";
             // 
             // btnbuscarproduct
             // 
-            btnbuscarproduct.Location = new Point(255, 208);
+            btnbuscarproduct.Anchor = AnchorStyles.Top;
+            btnbuscarproduct.BackColor = Color.FromArgb(52, 152, 219);
+            btnbuscarproduct.Cursor = Cursors.Hand;
+            btnbuscarproduct.FlatAppearance.BorderSize = 0;
+            btnbuscarproduct.FlatStyle = FlatStyle.Flat;
+            btnbuscarproduct.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnbuscarproduct.ForeColor = Color.White;
+            btnbuscarproduct.Location = new Point(255, 165);
             btnbuscarproduct.Name = "btnbuscarproduct";
-            btnbuscarproduct.Size = new Size(132, 46);
+            btnbuscarproduct.Size = new Size(132, 40);
             btnbuscarproduct.TabIndex = 15;
-            btnbuscarproduct.Text = "Buscar.";
-            btnbuscarproduct.UseVisualStyleBackColor = true;
+            btnbuscarproduct.Text = "Buscar";
+            btnbuscarproduct.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Font = new Font("Segoe UI Black", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.FromArgb(47, 53, 66);
+            label1.Location = new Point(12, 35);
+            label1.Name = "label1";
+            label1.Size = new Size(630, 37);
+            label1.TabIndex = 14;
+            label1.Text = "Eliminar Producto";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // txtpassword
+            // 
+            txtpassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtpassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtpassword.ForeColor = Color.FromArgb(47, 53, 66);
+            txtpassword.Location = new Point(142, 110);
+            txtpassword.Margin = new Padding(3, 4, 3, 4);
+            txtpassword.Name = "txtpassword";
+            txtpassword.PlaceholderText = "Ingrese código del producto";
+            txtpassword.Size = new Size(356, 39);
+            txtpassword.TabIndex = 13;
             // 
             // FrmAlertaEliminar
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(654, 357);
+            ClientSize = new Size(654, 249);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(5, 6, 5, 6);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmAlertaEliminar";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "FrmAlertaEliminar";
+            Text = "Confirmar Acción";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private Panel panel1;
-        private Button btnIniciar;
         private Button btnbuscarproduct;
         private Label label1;
         private TextBox txtpassword;
