@@ -20,9 +20,11 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
+            
+
             FrmPrincipal principal = new FrmPrincipal();
             principal.Show();
-          
+
 
         }
 

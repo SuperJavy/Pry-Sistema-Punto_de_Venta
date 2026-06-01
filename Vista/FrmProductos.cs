@@ -17,6 +17,10 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             InitializeComponent();
         }
+        public Panel PnlProductos
+        {
+            get { return pnlproductos; }
+        }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -26,17 +30,17 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void eDITARToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAlertaM mdf= new FrmAlertaM(this);
+            FrmAlerta mdf = new FrmAlerta(this, "Modificar");
             mdf.Show();
         }
-        public Panel PnlProductos
+        public Panel PnlProducto
         {
             get { return pnlproductos; }
         }
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAlertaEliminar alertaEliminar = new FrmAlertaEliminar(this);
+            FrmAlerta alertaEliminar = new FrmAlerta(this, "Eliminar");
             alertaEliminar.Show();
         }
 
@@ -44,6 +48,11 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             FrmCategorias categorias = new FrmCategorias();
             principal.agregaralcontenedor(categorias, pnlproductos);
+        }
+
+        private void pnlproductos_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

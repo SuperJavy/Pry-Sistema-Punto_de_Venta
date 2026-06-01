@@ -1,6 +1,6 @@
 ﻿namespace Pry_Sistema_Punto_de_Venta
 {
-    partial class FrmAlertaEliminar
+    partial class FrmAlerta
     {
         /// <summary>
         /// Required designer variable.
@@ -74,7 +74,7 @@
             label1.Name = "label1";
             label1.Size = new Size(630, 37);
             label1.TabIndex = 14;
-            label1.Text = "Eliminar Producto";
+            label1.Text = "Buscar Producto";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtpassword
@@ -89,7 +89,7 @@
             txtpassword.Size = new Size(335, 39);
             txtpassword.TabIndex = 13;
             // 
-            // FrmAlertaEliminar
+            // FrmAlerta
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -100,8 +100,8 @@
             Margin = new Padding(5, 6, 5, 6);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FrmAlertaEliminar";
-            StartPosition = FormStartPosition.CenterParent;
+            Name = "FrmAlerta";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Confirmar Acción";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

@@ -122,6 +122,7 @@
             pnlproductos.Name = "pnlproductos";
             pnlproductos.Size = new Size(1428, 650);
             pnlproductos.TabIndex = 75;
+            pnlproductos.Paint += pnlproductos_Paint;
             // 
             // FrmProductos
             // 
