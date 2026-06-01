@@ -36,7 +36,7 @@
             lblMenuTitle = new Label();
             pnlTopBar = new Panel();
             lblFormTitle = new Label();
-            pnlMainContent = new Panel();
+            pnlConfiguraciones = new Panel();
             pnlSidebar.SuspendLayout();
             pnlMenuHeader.SuspendLayout();
             pnlTopBar.SuspendLayout();
@@ -148,14 +148,14 @@
             lblFormTitle.TabIndex = 0;
             lblFormTitle.Text = "Configuraciones";
             // 
-            // pnlMainContent
+            // pnlConfiguraciones
             // 
-            pnlMainContent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnlMainContent.BackColor = Color.White;
-            pnlMainContent.Location = new Point(285, 95);
-            pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1190, 880);
-            pnlMainContent.TabIndex = 2;
+            pnlConfiguraciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlConfiguraciones.BackColor = Color.White;
+            pnlConfiguraciones.Location = new Point(285, 95);
+            pnlConfiguraciones.Name = "pnlConfiguraciones";
+            pnlConfiguraciones.Size = new Size(1190, 880);
+            pnlConfiguraciones.TabIndex = 2;
             // 
             // FrmConfiguraciones
             // 
@@ -163,7 +163,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(243, 244, 246);
             ClientSize = new Size(1500, 1000);
-            Controls.Add(pnlMainContent);
+            Controls.Add(pnlConfiguraciones);
             Controls.Add(pnlTopBar);
             Controls.Add(pnlSidebar);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -189,7 +189,7 @@
         private System.Windows.Forms.Button btnEditarTicket;
         private System.Windows.Forms.Panel pnlTopBar;
         private System.Windows.Forms.Label lblFormTitle;
-        private System.Windows.Forms.Panel pnlMainContent; // Este reemplaza a tu pnlConfiguraciones original de forma fluida
+        private System.Windows.Forms.Panel pnlConfiguraciones; // Este reemplaza a tu pnlConfiguraciones original de forma fluida
         private System.Windows.Forms.Panel pnlNavIndicator;
     }
 }
