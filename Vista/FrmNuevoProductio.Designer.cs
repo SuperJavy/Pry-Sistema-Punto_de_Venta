@@ -28,343 +28,361 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panelHeader = new System.Windows.Forms.Panel();
-            this.groupBoxDatos = new System.Windows.Forms.GroupBox();
-            this.groupBoxStock = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.panelHeader.SuspendLayout();
-            this.groupBoxDatos.SuspendLayout();
-            this.groupBoxStock.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // panelHeader
-            // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
-            this.panelHeader.Controls.Add(this.label10);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(867, 50);
-            this.panelHeader.TabIndex = 100;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
-            this.label10.Location = new System.Drawing.Point(16, 15);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(201, 21);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Registro de Nuevo Producto";
-            // 
-            // groupBoxDatos
-            // 
-            this.groupBoxDatos.Controls.Add(this.label1);
-            this.groupBoxDatos.Controls.Add(this.textBox1);
-            this.groupBoxDatos.Controls.Add(this.label2);
-            this.groupBoxDatos.Controls.Add(this.textBox2);
-            this.groupBoxDatos.Controls.Add(this.label5);
-            this.groupBoxDatos.Controls.Add(this.checkBox1);
-            this.groupBoxDatos.Controls.Add(this.checkBox2);
-            this.groupBoxDatos.Controls.Add(this.label4);
-            this.groupBoxDatos.Controls.Add(this.textBox4);
-            this.groupBoxDatos.Controls.Add(this.label3);
-            this.groupBoxDatos.Controls.Add(this.numericUpDown1);
-            this.groupBoxDatos.Controls.Add(this.label6);
-            this.groupBoxDatos.Controls.Add(this.textBox5);
-            this.groupBoxDatos.Controls.Add(this.label7);
-            this.groupBoxDatos.Controls.Add(this.textBox6);
-            this.groupBoxDatos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.groupBoxDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(104)))));
-            this.groupBoxDatos.Location = new System.Drawing.Point(21, 74);
-            this.groupBoxDatos.Name = "groupBoxDatos";
-            this.groupBoxDatos.Size = new System.Drawing.Size(460, 380);
-            this.groupBoxDatos.TabIndex = 101;
-            this.groupBoxDatos.TabStop = false;
-            this.groupBoxDatos.Text = " INFORMACIÓN DEL PRODUCTO ";
+            label1 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
+            textBox4 = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            textBox5 = new TextBox();
+            label6 = new Label();
+            textBox6 = new TextBox();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            textBox7 = new TextBox();
+            textBox8 = new TextBox();
+            numericUpDown1 = new NumericUpDown();
+            label10 = new Label();
+            button1 = new Button();
+            panelHeader = new Panel();
+            groupBoxDatos = new GroupBox();
+            groupBoxStock = new GroupBox();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            panelHeader.SuspendLayout();
+            groupBoxDatos.SuspendLayout();
+            groupBoxStock.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(15, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Código de barras :";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 11F);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(25, 63);
+            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(192, 30);
+            label1.TabIndex = 0;
+            label1.Text = "Código de barras :";
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox1.Location = new System.Drawing.Point(160, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(275, 27);
-            this.textBox1.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(15, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Descripción :";
+            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox1.Font = new Font("Segoe UI", 11F);
+            textBox1.Location = new Point(267, 58);
+            textBox1.Margin = new Padding(5, 6, 5, 6);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(456, 37);
+            textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox2.Location = new System.Drawing.Point(160, 77);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(275, 27);
-            this.textBox2.TabIndex = 3;
+            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox2.Font = new Font("Segoe UI", 11F);
+            textBox2.Location = new Point(267, 148);
+            textBox2.Margin = new Padding(5, 6, 5, 6);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(456, 37);
+            textBox2.TabIndex = 3;
             // 
-            // label5
+            // label2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(15, 127);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 20);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Se vende :";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.checkBox1.ForeColor = System.Drawing.Color.Black;
-            this.checkBox1.Location = new System.Drawing.Point(160, 126);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(102, 24);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Por Unidad";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.checkBox2.ForeColor = System.Drawing.Color.Black;
-            this.checkBox2.Location = new System.Drawing.Point(280, 126);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(83, 24);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "A Granel";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(15, 175);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Precio Costo :";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox4.Location = new System.Drawing.Point(160, 172);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(275, 27);
-            this.textBox4.TabIndex = 7;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 11F);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(25, 154);
+            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(136, 30);
+            label2.TabIndex = 2;
+            label2.Text = "Descripción :";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(15, 222);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "% Ganancia :";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11F);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(25, 427);
+            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(135, 30);
+            label3.TabIndex = 4;
+            label3.Text = "% Ganancia :";
             // 
-            // numericUpDown1
+            // textBox4
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.numericUpDown1.Location = new System.Drawing.Point(160, 220);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(100, 27);
-            this.numericUpDown1.TabIndex = 19;
+            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox4.Font = new Font("Segoe UI", 11F);
+            textBox4.Location = new Point(267, 331);
+            textBox4.Margin = new Padding(5, 6, 5, 6);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(456, 37);
+            textBox4.TabIndex = 7;
             // 
-            // label6
+            // label4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.label6.Location = new System.Drawing.Point(15, 271);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(106, 20);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Precio Venta :";
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 11F);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(25, 337);
+            label4.Margin = new Padding(5, 0, 5, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(146, 30);
+            label4.TabIndex = 6;
+            label4.Text = "Precio Costo :";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 11F);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(25, 244);
+            label5.Margin = new Padding(5, 0, 5, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(114, 30);
+            label5.TabIndex = 8;
+            label5.Text = "Se vende :";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI", 11F);
+            checkBox1.ForeColor = Color.Black;
+            checkBox1.Location = new Point(267, 242);
+            checkBox1.Margin = new Padding(5, 6, 5, 6);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(146, 34);
+            checkBox1.TabIndex = 9;
+            checkBox1.Text = "Por Unidad";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI", 11F);
+            checkBox2.ForeColor = Color.Black;
+            checkBox2.Location = new Point(467, 242);
+            checkBox2.Margin = new Padding(5, 6, 5, 6);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(122, 34);
+            checkBox2.TabIndex = 10;
+            checkBox2.Text = "A Granel";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // textBox5
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(250)))));
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.textBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.textBox5.Location = new System.Drawing.Point(160, 268);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(275, 27);
-            this.textBox5.TabIndex = 14;
+            textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox5.BackColor = Color.FromArgb(245, 246, 250);
+            textBox5.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            textBox5.ForeColor = Color.FromArgb(46, 204, 113);
+            textBox5.Location = new Point(267, 515);
+            textBox5.Margin = new Padding(5, 6, 5, 6);
+            textBox5.Name = "textBox5";
+            textBox5.ReadOnly = true;
+            textBox5.Size = new Size(456, 37);
+            textBox5.TabIndex = 14;
             // 
-            // label7
+            // label6
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(15, 319);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Categoría :";
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label6.ForeColor = Color.FromArgb(46, 204, 113);
+            label6.Location = new Point(25, 521);
+            label6.Margin = new Padding(5, 0, 5, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(156, 30);
+            label6.TabIndex = 13;
+            label6.Text = "Precio Venta :";
             // 
             // textBox6
             // 
-            this.textBox6.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox6.Location = new System.Drawing.Point(160, 316);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(275, 27);
-            this.textBox6.TabIndex = 12;
+            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox6.Font = new Font("Segoe UI", 11F);
+            textBox6.Location = new Point(267, 608);
+            textBox6.Margin = new Padding(5, 6, 5, 6);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(456, 37);
+            textBox6.TabIndex = 12;
             // 
-            // groupBoxStock
+            // label7
             // 
-            this.groupBoxStock.Controls.Add(this.label8);
-            this.groupBoxStock.Controls.Add(this.textBox7);
-            this.groupBoxStock.Controls.Add(this.label9);
-            this.groupBoxStock.Controls.Add(this.textBox8);
-            this.groupBoxStock.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.groupBoxStock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(104)))));
-            this.groupBoxStock.Location = new System.Drawing.Point(503, 74);
-            this.groupBoxStock.Name = "groupBoxStock";
-            this.groupBoxStock.Size = new System.Drawing.Size(340, 140);
-            this.groupBoxStock.TabIndex = 102;
-            this.groupBoxStock.TabStop = false;
-            this.groupBoxStock.Text = " INVENTARIO / EXISTENCIAS ";
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 11F);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(25, 613);
+            label7.Margin = new Padding(5, 0, 5, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(118, 30);
+            label7.TabIndex = 11;
+            label7.Text = "Categoría :";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(20, 37);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 20);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Stock Actual :";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox7.Location = new System.Drawing.Point(140, 34);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(175, 27);
-            this.textBox7.TabIndex = 17;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11F);
+            label8.ForeColor = Color.Black;
+            label8.Location = new Point(33, 71);
+            label8.Margin = new Padding(5, 0, 5, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(141, 30);
+            label8.TabIndex = 15;
+            label8.Text = "Stock Actual :";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(20, 85);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(106, 20);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Stock Mínimo :";
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 11F);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(33, 163);
+            label9.Margin = new Padding(5, 0, 5, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(156, 30);
+            label9.TabIndex = 16;
+            label9.Text = "Stock Mínimo :";
+            // 
+            // textBox7
+            // 
+            textBox7.Font = new Font("Segoe UI", 11F);
+            textBox7.Location = new Point(233, 65);
+            textBox7.Margin = new Padding(5, 6, 5, 6);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(289, 37);
+            textBox7.TabIndex = 17;
             // 
             // textBox8
             // 
-            this.textBox8.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.textBox8.Location = new System.Drawing.Point(140, 82);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(175, 27);
-            this.textBox8.TabIndex = 18;
+            textBox8.Font = new Font("Segoe UI", 11F);
+            textBox8.Location = new Point(233, 158);
+            textBox8.Margin = new Padding(5, 6, 5, 6);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(289, 37);
+            textBox8.TabIndex = 18;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Font = new Font("Segoe UI", 11F);
+            numericUpDown1.Location = new Point(267, 423);
+            numericUpDown1.Margin = new Padding(5, 6, 5, 6);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(167, 37);
+            numericUpDown1.TabIndex = 19;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(47, 53, 66);
+            label10.Location = new Point(27, 29);
+            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(339, 32);
+            label10.TabIndex = 0;
+            label10.Text = "Registro de Nuevo Producto";
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(503, 399);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(340, 55);
-            this.button1.TabIndex = 99;
-            this.button1.Text = "Guardar Producto";
-            this.button1.UseVisualStyleBackColor = false;
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button1.BackColor = Color.FromArgb(46, 204, 113);
+            button1.Cursor = Cursors.Hand;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(838, 767);
+            button1.Margin = new Padding(5, 6, 5, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(567, 106);
+            button1.TabIndex = 99;
+            button1.Text = "Guardar Producto";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // panelHeader
+            // 
+            panelHeader.BackColor = Color.FromArgb(240, 242, 245);
+            panelHeader.Controls.Add(label10);
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Margin = new Padding(5, 6, 5, 6);
+            panelHeader.Name = "panelHeader";
+            panelHeader.RightToLeft = RightToLeft.No;
+            panelHeader.Size = new Size(1445, 80);
+            panelHeader.TabIndex = 100;
+            // 
+            // groupBoxDatos
+            // 
+            groupBoxDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxDatos.Controls.Add(label1);
+            groupBoxDatos.Controls.Add(textBox1);
+            groupBoxDatos.Controls.Add(label2);
+            groupBoxDatos.Controls.Add(textBox2);
+            groupBoxDatos.Controls.Add(label5);
+            groupBoxDatos.Controls.Add(checkBox1);
+            groupBoxDatos.Controls.Add(checkBox2);
+            groupBoxDatos.Controls.Add(label4);
+            groupBoxDatos.Controls.Add(textBox4);
+            groupBoxDatos.Controls.Add(label3);
+            groupBoxDatos.Controls.Add(numericUpDown1);
+            groupBoxDatos.Controls.Add(label6);
+            groupBoxDatos.Controls.Add(textBox5);
+            groupBoxDatos.Controls.Add(label7);
+            groupBoxDatos.Controls.Add(textBox6);
+            groupBoxDatos.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            groupBoxDatos.ForeColor = Color.FromArgb(74, 85, 104);
+            groupBoxDatos.Location = new Point(35, 142);
+            groupBoxDatos.Margin = new Padding(5, 6, 5, 6);
+            groupBoxDatos.Name = "groupBoxDatos";
+            groupBoxDatos.Padding = new Padding(5, 6, 5, 6);
+            groupBoxDatos.Size = new Size(767, 731);
+            groupBoxDatos.TabIndex = 101;
+            groupBoxDatos.TabStop = false;
+            groupBoxDatos.Text = " INFORMACIÓN DEL PRODUCTO ";
+            // 
+            // groupBoxStock
+            // 
+            groupBoxStock.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBoxStock.Controls.Add(label8);
+            groupBoxStock.Controls.Add(textBox7);
+            groupBoxStock.Controls.Add(label9);
+            groupBoxStock.Controls.Add(textBox8);
+            groupBoxStock.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            groupBoxStock.ForeColor = Color.FromArgb(74, 85, 104);
+            groupBoxStock.Location = new Point(838, 142);
+            groupBoxStock.Margin = new Padding(5, 6, 5, 6);
+            groupBoxStock.Name = "groupBoxStock";
+            groupBoxStock.Padding = new Padding(5, 6, 5, 6);
+            groupBoxStock.Size = new Size(567, 269);
+            groupBoxStock.TabIndex = 102;
+            groupBoxStock.TabStop = false;
+            groupBoxStock.Text = " INVENTARIO / EXISTENCIAS ";
             // 
             // FrmNuevoProductio
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(867, 481);
-            this.Controls.Add(this.groupBoxStock);
-            this.Controls.Add(this.groupBoxDatos);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.panelHeader);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FrmNuevoProductio";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmNuevoProductio";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.groupBoxDatos.ResumeLayout(false);
-            this.groupBoxDatos.PerformLayout();
-            this.groupBoxStock.ResumeLayout(false);
-            this.groupBoxStock.PerformLayout();
-            this.ResumeLayout(false);
-
-            // 1. El contenedor izquierdo: Información del Producto (Crece a lo alto y a lo ancho hacia el centro)
-            this.groupBoxDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-
-            // 2. Las cajas de texto de la Información del Producto (Se estiran horizontalmente al agrandar la pantalla)
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-
-            // 3. El contenedor derecho: Inventario / Existencias (Se mantiene fijo en la esquina superior derecha)
-            this.groupBoxStock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-
-            // 4. El botón "Guardar Producto" (Se mantiene fijo en la esquina inferior derecha)
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(1445, 925);
+            Controls.Add(groupBoxStock);
+            Controls.Add(groupBoxDatos);
+            Controls.Add(button1);
+            Controls.Add(panelHeader);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(5, 6, 5, 6);
+            Name = "FrmNuevoProductio";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "FrmNuevoProductio";
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            groupBoxDatos.ResumeLayout(false);
+            groupBoxDatos.PerformLayout();
+            groupBoxStock.ResumeLayout(false);
+            groupBoxStock.PerformLayout();
+            ResumeLayout(false);
 
         }
 

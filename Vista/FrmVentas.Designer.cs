@@ -61,7 +61,7 @@
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(24, 240);
-            dataGridView1.Margin = new Padding(4, 4, 4, 4);
+            dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(1352, 292);
@@ -73,7 +73,7 @@
             btnReporteventas.Image = Properties.Resources.beneficio_financiero;
             btnReporteventas.ImageAlign = ContentAlignment.MiddleLeft;
             btnReporteventas.Location = new Point(477, 160);
-            btnReporteventas.Margin = new Padding(4, 4, 4, 4);
+            btnReporteventas.Margin = new Padding(4);
             btnReporteventas.Name = "btnReporteventas";
             btnReporteventas.Padding = new Padding(12, 0, 0, 0);
             btnReporteventas.Size = new Size(240, 52);
@@ -87,7 +87,7 @@
             btnborrar.Image = Properties.Resources.borrar;
             btnborrar.ImageAlign = ContentAlignment.MiddleLeft;
             btnborrar.Location = new Point(250, 160);
-            btnborrar.Margin = new Padding(4, 4, 4, 4);
+            btnborrar.Margin = new Padding(4);
             btnborrar.Name = "btnborrar";
             btnborrar.Padding = new Padding(12, 0, 0, 0);
             btnborrar.Size = new Size(218, 52);
@@ -101,7 +101,7 @@
             btnbuscar.Image = Properties.Resources.busqueda;
             btnbuscar.ImageAlign = ContentAlignment.MiddleLeft;
             btnbuscar.Location = new Point(24, 160);
-            btnbuscar.Margin = new Padding(4, 4, 4, 4);
+            btnbuscar.Margin = new Padding(4);
             btnbuscar.Name = "btnbuscar";
             btnbuscar.Padding = new Padding(12, 0, 0, 0);
             btnbuscar.Size = new Size(218, 52);
@@ -116,7 +116,7 @@
             textBox1.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             textBox1.ForeColor = Color.FromArgb(46, 204, 113);
             textBox1.Location = new Point(1030, 552);
-            textBox1.Margin = new Padding(4, 4, 4, 4);
+            textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
             textBox1.Size = new Size(343, 71);
@@ -127,13 +127,13 @@
             // btncobrar
             // 
             btncobrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btncobrar.BackColor = Color.White;
+            btncobrar.BackColor = Color.FromArgb(46, 204, 113);
             btncobrar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             btncobrar.ForeColor = Color.Black;
             btncobrar.Image = Properties.Resources.ingreso__1_;
             btncobrar.ImageAlign = ContentAlignment.MiddleLeft;
             btncobrar.Location = new Point(706, 552);
-            btncobrar.Margin = new Padding(4, 4, 4, 4);
+            btncobrar.Margin = new Padding(4);
             btncobrar.Name = "btncobrar";
             btncobrar.Padding = new Padding(15, 0, 0, 0);
             btncobrar.Size = new Size(315, 75);
@@ -148,7 +148,7 @@
             panel1.Controls.Add(label10);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new Size(1400, 52);
             panel1.TabIndex = 125;
@@ -182,7 +182,7 @@
             textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox3.Font = new Font("Segoe UI", 13F);
             textBox3.Location = new Point(266, 82);
-            textBox3.Margin = new Padding(4, 4, 4, 4);
+            textBox3.Margin = new Padding(4);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(823, 42);
             textBox3.TabIndex = 118;
@@ -194,7 +194,7 @@
             btnagregarproducto.Image = Properties.Resources.agregar_p16;
             btnagregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
             btnagregarproducto.Location = new Point(1106, 80);
-            btnagregarproducto.Margin = new Padding(4, 4, 4, 4);
+            btnagregarproducto.Margin = new Padding(4);
             btnagregarproducto.Name = "btnagregarproducto";
             btnagregarproducto.Padding = new Padding(12, 0, 0, 0);
             btnagregarproducto.Size = new Size(270, 52);
@@ -220,7 +220,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "FrmVentas";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmVentas";
