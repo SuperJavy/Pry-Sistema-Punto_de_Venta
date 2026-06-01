@@ -28,188 +28,218 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
+            pnlHeader = new Panel();
+            lblTitulo = new Label();
+            lblTotalTexto = new Label();
+            lblTotalMonto = new Label();
+            lblPagoCon = new Label();
+            lblCambioTexto = new Label();
+            txtPagoCon = new TextBox();
+            lblCambioMonto = new Label();
+            pnlAcciones = new Panel();
+            btnCancelar = new Button();
+            btnCobrarSolo = new Button();
+            btnCobrarImprimir = new Button();
+            pnlHeader.SuspendLayout();
+            pnlAcciones.SuspendLayout();
+            SuspendLayout();
             // 
-            // panel1
+            // pnlHeader
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(850, 56);
-            this.panel1.TabIndex = 0;
+            pnlHeader.BackColor = SystemColors.ActiveCaption;
+            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(4, 5, 4, 5);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(850, 65);
+            pnlHeader.TabIndex = 0;
             // 
-            // label1
+            // lblTitulo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(13, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 40);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cobrar ";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.White;
+            lblTitulo.Location = new Point(20, 13);
+            lblTitulo.Margin = new Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(251, 45);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Procesar Cobro";
             // 
-            // label2
+            // lblTotalTexto
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(160, 110);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(167, 64);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "$0.00";
+            lblTotalTexto.AutoSize = true;
+            lblTotalTexto.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
+            lblTotalTexto.ForeColor = Color.FromArgb(127, 140, 141);
+            lblTotalTexto.Location = new Point(40, 100);
+            lblTotalTexto.Name = "lblTotalTexto";
+            lblTotalTexto.Size = new Size(210, 38);
+            lblTotalTexto.TabIndex = 1;
+            lblTotalTexto.Text = "Total a Cobrar :";
             // 
-            // label3
+            // lblTotalMonto
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(90, 240);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 29);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Pago con :";
+            lblTotalMonto.AutoSize = true;
+            lblTotalMonto.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
+            lblTotalMonto.ForeColor = Color.FromArgb(41, 128, 185);
+            lblTotalMonto.Location = new Point(35, 132);
+            lblTotalMonto.Margin = new Padding(4, 0, 4, 0);
+            lblTotalMonto.Name = "lblTotalMonto";
+            lblTotalMonto.Size = new Size(224, 96);
+            lblTotalMonto.TabIndex = 2;
+            lblTotalMonto.Text = "$0.00";
             // 
-            // label4
+            // lblPagoCon
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(78, 310);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 29);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Su cambio :";
+            lblPagoCon.AutoSize = true;
+            lblPagoCon.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
+            lblPagoCon.ForeColor = Color.FromArgb(44, 62, 80);
+            lblPagoCon.Location = new Point(20, 258);
+            lblPagoCon.Margin = new Padding(4, 0, 4, 0);
+            lblPagoCon.Name = "lblPagoCon";
+            lblPagoCon.Size = new Size(143, 36);
+            lblPagoCon.TabIndex = 3;
+            lblPagoCon.Text = "Paga con : ";
             // 
-            // textBox1
+            // lblCambioTexto
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(230, 237);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 35);
-            this.textBox1.TabIndex = 4;
+            lblCambioTexto.AutoSize = true;
+            lblCambioTexto.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
+            lblCambioTexto.ForeColor = Color.FromArgb(44, 62, 80);
+            lblCambioTexto.Location = new Point(20, 331);
+            lblCambioTexto.Margin = new Padding(4, 0, 4, 0);
+            lblCambioTexto.Name = "lblCambioTexto";
+            lblCambioTexto.Size = new Size(152, 36);
+            lblCambioTexto.TabIndex = 5;
+            lblCambioTexto.Text = "Su cambio :";
             // 
-            // label5
+            // txtPagoCon
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(235, 310);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 29);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "$0.00";
+            txtPagoCon.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            txtPagoCon.Location = new Point(170, 248);
+            txtPagoCon.Margin = new Padding(4, 5, 4, 5);
+            txtPagoCon.Name = "txtPagoCon";
+            txtPagoCon.Size = new Size(260, 50);
+            txtPagoCon.TabIndex = 4;
+            txtPagoCon.TextAlign = HorizontalAlignment.Right;
             // 
-            // panel2
+            // lblCambioMonto
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(500, 56);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(350, 494);
-            this.panel2.TabIndex = 15;
+            lblCambioMonto.AutoSize = true;
+            lblCambioMonto.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblCambioMonto.ForeColor = Color.FromArgb(39, 174, 96);
+            lblCambioMonto.Location = new Point(165, 320);
+            lblCambioMonto.Margin = new Padding(4, 0, 4, 0);
+            lblCambioMonto.Name = "lblCambioMonto";
+            lblCambioMonto.Size = new Size(153, 65);
+            lblCambioMonto.TabIndex = 6;
+            lblCambioMonto.Text = "$0.00";
             // 
-            // button4
+            // pnlAcciones
             // 
-            this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(40, 300);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(273, 62);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "ESC - Cancelar";
-            this.button4.UseVisualStyleBackColor = false;
+            pnlAcciones.BackColor = Color.FromArgb(248, 249, 250);
+            pnlAcciones.Controls.Add(btnCancelar);
+            pnlAcciones.Controls.Add(btnCobrarSolo);
+            pnlAcciones.Controls.Add(btnCobrarImprimir);
+            pnlAcciones.Dock = DockStyle.Right;
+            pnlAcciones.Location = new Point(480, 65);
+            pnlAcciones.Name = "pnlAcciones";
+            pnlAcciones.Size = new Size(370, 485);
+            pnlAcciones.TabIndex = 7;
             // 
-            // button5
+            // btnCancelar
             // 
-            this.button5.BackColor = System.Drawing.Color.White;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(40, 180);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(273, 62);
-            this.button5.TabIndex = 16;
-            this.button5.Text = "F2 - Cobrar S/Imprimir";
-            this.button5.UseVisualStyleBackColor = false;
+            btnCancelar.BackColor = Color.FromArgb(231, 76, 60);
+            btnCancelar.Cursor = Cursors.Hand;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(30, 350);
+            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(310, 65);
+            btnCancelar.TabIndex = 2;
+            btnCancelar.Text = "ESC - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // btnCobrarSolo
             // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(40, 60);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(273, 62);
-            this.button6.TabIndex = 15;
-            this.button6.Text = "F1 - Cobrar  e Imprimir";
-            this.button6.UseVisualStyleBackColor = true;
+            btnCobrarSolo.BackColor = Color.FromArgb(52, 152, 219);
+            btnCobrarSolo.Cursor = Cursors.Hand;
+            btnCobrarSolo.FlatAppearance.BorderSize = 0;
+            btnCobrarSolo.FlatStyle = FlatStyle.Flat;
+            btnCobrarSolo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnCobrarSolo.ForeColor = Color.White;
+            btnCobrarSolo.Location = new Point(30, 145);
+            btnCobrarSolo.Margin = new Padding(4, 5, 4, 5);
+            btnCobrarSolo.Name = "btnCobrarSolo";
+            btnCobrarSolo.Size = new Size(310, 65);
+            btnCobrarSolo.TabIndex = 1;
+            btnCobrarSolo.Text = "F2 - Cobrar S/ Imprimir";
+            btnCobrarSolo.UseVisualStyleBackColor = false;
+            // 
+            // btnCobrarImprimir
+            // 
+            btnCobrarImprimir.BackColor = Color.FromArgb(46, 204, 113);
+            btnCobrarImprimir.Cursor = Cursors.Hand;
+            btnCobrarImprimir.FlatAppearance.BorderSize = 0;
+            btnCobrarImprimir.FlatStyle = FlatStyle.Flat;
+            btnCobrarImprimir.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnCobrarImprimir.ForeColor = Color.White;
+            btnCobrarImprimir.Location = new Point(30, 45);
+            btnCobrarImprimir.Margin = new Padding(4, 5, 4, 5);
+            btnCobrarImprimir.Name = "btnCobrarImprimir";
+            btnCobrarImprimir.Size = new Size(310, 65);
+            btnCobrarImprimir.TabIndex = 0;
+            btnCobrarImprimir.Text = "F1 - Cobrar e Imprimir";
+            btnCobrarImprimir.UseVisualStyleBackColor = false;
             // 
             // FrmVentaproductos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(850, 550);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.panel1);
-            this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "FrmVentaproductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Venta de producto - Cobrar";
-            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
-            this.Load += new System.EventHandler(this.FrmVentaproductos_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(850, 550);
+            Controls.Add(pnlAcciones);
+            Controls.Add(lblCambioMonto);
+            Controls.Add(lblCambioTexto);
+            Controls.Add(txtPagoCon);
+            Controls.Add(lblPagoCon);
+            Controls.Add(lblTotalMonto);
+            Controls.Add(lblTotalTexto);
+            Controls.Add(pnlHeader);
+            Font = new Font("Segoe UI", 10F);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmVentaproductos";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Venta de Producto - Cobrar";
+            Load += FrmVentaproductos_Load;
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
+            pnlAcciones.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblTotalTexto;
+        private System.Windows.Forms.Label lblTotalMonto;
+        private System.Windows.Forms.Label lblPagoCon;
+        private System.Windows.Forms.TextBox txtPagoCon;
+        private System.Windows.Forms.Label lblCambioTexto;
+        private System.Windows.Forms.Label lblCambioMonto;
+        private System.Windows.Forms.Panel pnlAcciones;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnCobrarSolo;
+        private System.Windows.Forms.Button btnCobrarImprimir;
     }
 }
