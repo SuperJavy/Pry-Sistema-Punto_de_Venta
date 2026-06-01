@@ -28,202 +28,320 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.pnlContenedorPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlIzquierdoLogo = new System.Windows.Forms.Panel();
+            this.lblInfoLogo = new System.Windows.Forms.Label();
+            this.picLogo = new System.Windows.Forms.PictureBox();
+            this.btnCargarLogo = new System.Windows.Forms.Button();
+            this.btnQuitarLogo = new System.Windows.Forms.Button();
+            this.pnlDerechoCampos = new System.Windows.Forms.Panel();
+            this.lblNombreNegocio = new System.Windows.Forms.Label();
+            this.txtNombreNegocio = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.lblRfc = new System.Windows.Forms.Label();
+            this.txtRfc = new System.Windows.Forms.TextBox();
+            this.lblMensajeFinal = new System.Windows.Forms.Label();
+            this.txtMensajeFinal = new System.Windows.Forms.TextBox();
+            this.pnlAcciones = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            this.pnlContenedorPrincipal.SuspendLayout();
+            this.pnlIzquierdoLogo.SuspendLayout();
+            this.pnlDerechoCampos.SuspendLayout();
+            this.pnlAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // lblTitulo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(511, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(291, 29);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Configuracion de Ticket";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblTitulo.Location = new System.Drawing.Point(30, 25);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(282, 32);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Configuración de Ticket";
             // 
-            // pictureBox1
+            // pnlContenedorPrincipal
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(517, 90);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(294, 99);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.pnlContenedorPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlContenedorPrincipal.ColumnCount = 2;
+            this.pnlContenedorPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.pnlContenedorPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.pnlContenedorPrincipal.Controls.Add(this.pnlIzquierdoLogo, 0, 0);
+            this.pnlContenedorPrincipal.Controls.Add(this.pnlDerechoCampos, 1, 0);
+            this.pnlContenedorPrincipal.Location = new System.Drawing.Point(30, 80);
+            this.pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
+            this.pnlContenedorPrincipal.RowCount = 1;
+            this.pnlContenedorPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlContenedorPrincipal.Size = new System.Drawing.Size(850, 560);
+            this.pnlContenedorPrincipal.TabIndex = 1;
             // 
-            // button1
+            // pnlIzquierdoLogo
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(424, 224);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 42);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Cargar Logo";
-            this.button1.UseVisualStyleBackColor = true;
+            this.pnlIzquierdoLogo.Controls.Add(this.lblInfoLogo);
+            this.pnlIzquierdoLogo.Controls.Add(this.picLogo);
+            this.pnlIzquierdoLogo.Controls.Add(this.btnCargarLogo);
+            this.pnlIzquierdoLogo.Controls.Add(this.btnQuitarLogo);
+            this.pnlIzquierdoLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlIzquierdoLogo.Location = new System.Drawing.Point(3, 3);
+            this.pnlIzquierdoLogo.Name = "pnlIzquierdoLogo";
+            this.pnlIzquierdoLogo.Size = new System.Drawing.Size(334, 554);
+            this.pnlIzquierdoLogo.TabIndex = 0;
             // 
-            // button2
+            // lblInfoLogo
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(792, 224);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(153, 42);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Quitar Logo";
-            this.button2.UseVisualStyleBackColor = true;
+            this.lblInfoLogo.AutoSize = true;
+            this.lblInfoLogo.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblInfoLogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblInfoLogo.Location = new System.Drawing.Point(3, 10);
+            this.lblInfoLogo.Name = "lblInfoLogo";
+            this.lblInfoLogo.Size = new System.Drawing.Size(139, 23);
+            this.lblInfoLogo.TabIndex = 0;
+            this.lblInfoLogo.Text = "Logo del Ticket :";
             // 
-            // label2
+            // picLogo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(373, 306);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(197, 25);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Nombre del negocio :";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.picLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(244)))), ((int)(((byte)(245)))));
+            this.picLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picLogo.Location = new System.Drawing.Point(3, 41);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(318, 160);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom; // RESPONSIVO: Mantiene la proporción del logo sin deformarlo
+            this.picLogo.TabIndex = 1;
+            this.picLogo.TabStop = false;
             // 
-            // textBox1
+            // btnCargarLogo
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(576, 306);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(278, 30);
-            this.textBox1.TabIndex = 5;
+            this.btnCargarLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCargarLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnCargarLogo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCargarLogo.FlatAppearance.BorderSize = 0;
+            this.btnCargarLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCargarLogo.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCargarLogo.ForeColor = System.Drawing.Color.White;
+            this.btnCargarLogo.Location = new System.Drawing.Point(3, 215);
+            this.btnCargarLogo.Name = "btnCargarLogo";
+            this.btnCargarLogo.Size = new System.Drawing.Size(318, 40);
+            this.btnCargarLogo.TabIndex = 2;
+            this.btnCargarLogo.Text = "Cargar Logo";
+            this.btnCargarLogo.UseVisualStyleBackColor = false;
             // 
-            // textBox2
+            // btnQuitarLogo
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(576, 348);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(278, 30);
-            this.textBox2.TabIndex = 7;
+            this.btnQuitarLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuitarLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnQuitarLogo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnQuitarLogo.FlatAppearance.BorderSize = 0;
+            this.btnQuitarLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuitarLogo.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnQuitarLogo.ForeColor = System.Drawing.Color.White;
+            this.btnQuitarLogo.Location = new System.Drawing.Point(3, 265);
+            this.btnQuitarLogo.Name = "btnQuitarLogo";
+            this.btnQuitarLogo.Size = new System.Drawing.Size(318, 40);
+            this.btnQuitarLogo.TabIndex = 3;
+            this.btnQuitarLogo.Text = "Quitar Logo";
+            this.btnQuitarLogo.UseVisualStyleBackColor = false;
             // 
-            // label3
+            // pnlDerechoCampos
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(470, 351);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 25);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Telefono :";
+            this.pnlDerechoCampos.Controls.Add(this.lblNombreNegocio);
+            this.pnlDerechoCampos.Controls.Add(this.txtNombreNegocio);
+            this.pnlDerechoCampos.Controls.Add(this.lblTelefono);
+            this.pnlDerechoCampos.Controls.Add(this.txtTelefono);
+            this.pnlDerechoCampos.Controls.Add(this.lblDireccion);
+            this.pnlDerechoCampos.Controls.Add(this.txtDireccion);
+            this.pnlDerechoCampos.Controls.Add(this.lblRfc);
+            this.pnlDerechoCampos.Controls.Add(this.txtRfc);
+            this.pnlDerechoCampos.Controls.Add(this.lblMensajeFinal);
+            this.pnlDerechoCampos.Controls.Add(this.txtMensajeFinal);
+            this.pnlDerechoCampos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDerechoCampos.Location = new System.Drawing.Point(343, 3);
+            this.pnlDerechoCampos.Name = "pnlDerechoCampos";
+            this.pnlDerechoCampos.Size = new System.Drawing.Size(504, 554);
+            this.pnlDerechoCampos.TabIndex = 1;
             // 
-            // textBox3
+            // lblNombreNegocio
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(576, 393);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(278, 30);
-            this.textBox3.TabIndex = 9;
+            this.lblNombreNegocio.AutoSize = true;
+            this.lblNombreNegocio.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblNombreNegocio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblNombreNegocio.Location = new System.Drawing.Point(15, 10);
+            this.lblNombreNegocio.Name = "lblNombreNegocio";
+            this.lblNombreNegocio.Size = new System.Drawing.Size(175, 23);
+            this.lblNombreNegocio.TabIndex = 0;
+            this.lblNombreNegocio.Text = "Nombre del negocio :";
             // 
-            // label4
+            // txtNombreNegocio
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(465, 396);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 25);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Direccion :";
+            this.txtNombreNegocio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombreNegocio.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtNombreNegocio.Location = new System.Drawing.Point(15, 38);
+            this.txtNombreNegocio.Name = "txtNombreNegocio";
+            this.txtNombreNegocio.Size = new System.Drawing.Size(470, 32);
+            this.txtNombreNegocio.TabIndex = 1;
             // 
-            // textBox4
+            // lblTelefono
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(576, 440);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(278, 30);
-            this.textBox4.TabIndex = 11;
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblTelefono.Location = new System.Drawing.Point(15, 85);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(83, 23);
+            this.lblTelefono.TabIndex = 2;
+            this.lblTelefono.Text = "Teléfono :";
             // 
-            // label5
+            // txtTelefono
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(506, 443);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 25);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "RFC :";
+            this.txtTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtTelefono.Location = new System.Drawing.Point(15, 113);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(470, 32);
+            this.txtTelefono.TabIndex = 3;
             // 
-            // textBox5
+            // lblDireccion
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(577, 486);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(278, 30);
-            this.textBox5.TabIndex = 13;
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblDireccion.Location = new System.Drawing.Point(15, 160);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(90, 23);
+            this.lblDireccion.TabIndex = 4;
+            this.lblDireccion.Text = "Dirección :";
             // 
-            // label6
+            // txtDireccion
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(426, 489);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(145, 25);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Mensaje Final :";
+            this.txtDireccion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDireccion.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtDireccion.Location = new System.Drawing.Point(15, 188);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(470, 32);
+            this.txtDireccion.TabIndex = 5;
             // 
-            // button3
+            // lblRfc
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(701, 577);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(153, 42);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Cancelar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.lblRfc.AutoSize = true;
+            this.lblRfc.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblRfc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblRfc.Location = new System.Drawing.Point(15, 235);
+            this.lblRfc.Name = "lblRfc";
+            this.lblRfc.Size = new System.Drawing.Size(49, 23);
+            this.lblRfc.TabIndex = 6;
+            this.lblRfc.Text = "RFC :";
             // 
-            // button4
+            // txtRfc
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(475, 577);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 42);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Guardar";
-            this.button4.UseVisualStyleBackColor = true;
+            this.txtRfc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRfc.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtRfc.Location = new System.Drawing.Point(15, 263);
+            this.txtRfc.Name = "txtRfc";
+            this.txtRfc.Size = new System.Drawing.Size(470, 32);
+            this.txtRfc.TabIndex = 7;
+            // 
+            // lblMensajeFinal
+            // 
+            this.lblMensajeFinal.AutoSize = true;
+            this.lblMensajeFinal.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblMensajeFinal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblMensajeFinal.Location = new System.Drawing.Point(15, 310);
+            this.lblMensajeFinal.Name = "lblMensajeFinal";
+            this.lblMensajeFinal.Size = new System.Drawing.Size(121, 23);
+            this.lblMensajeFinal.TabIndex = 8;
+            this.lblMensajeFinal.Text = "Mensaje Final :";
+            // 
+            // txtMensajeFinal
+            // 
+            this.txtMensajeFinal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMensajeFinal.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtMensajeFinal.Location = new System.Drawing.Point(15, 338);
+            this.txtMensajeFinal.Multiline = true; // Permite escribir varias líneas para el agradecimiento del ticket
+            this.txtMensajeFinal.Name = "txtMensajeFinal";
+            this.txtMensajeFinal.Size = new System.Drawing.Size(470, 190);
+            this.txtMensajeFinal.TabIndex = 9;
+            // 
+            // pnlAcciones
+            // 
+            this.pnlAcciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAcciones.Controls.Add(this.btnGuardar);
+            this.pnlAcciones.Controls.Add(this.btnCancelar);
+            this.pnlAcciones.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft; // Alinea los botones a la extrema derecha de la pantalla
+            this.pnlAcciones.Location = new System.Drawing.Point(480, 655);
+            this.pnlAcciones.Name = "pnlAcciones";
+            this.pnlAcciones.Size = new System.Drawing.Size(400, 55);
+            this.pnlAcciones.TabIndex = 2;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.Location = new System.Drawing.Point(77, 3);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(150, 45);
+            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113))))); // Verde esmeralda de confirmación
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.Location = new System.Drawing.Point(233, 3);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(150, 45);
+            this.btnGuardar.TabIndex = 0;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = false;
             // 
             // Frmticket
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1946, 1105);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(910, 730);
+            this.Controls.Add(this.pnlAcciones);
+            this.Controls.Add(this.pnlContenedorPrincipal);
+            this.Controls.Add(this.lblTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "Frmticket";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Frmticket";
+            this.Text = "Configuración de Ticket";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            this.pnlContenedorPrincipal.ResumeLayout(false);
+            this.pnlIzquierdoLogo.ResumeLayout(false);
+            this.pnlIzquierdoLogo.PerformLayout();
+            this.pnlDerechoCampos.ResumeLayout(false);
+            this.pnlDerechoCampos.PerformLayout();
+            this.pnlAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,21 +349,26 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.TableLayoutPanel pnlContenedorPrincipal;
+        private System.Windows.Forms.Panel pnlIzquierdoLogo;
+        private System.Windows.Forms.Label lblInfoLogo;
+        private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.Button btnCargarLogo;
+        private System.Windows.Forms.Button btnQuitarLogo;
+        private System.Windows.Forms.Panel pnlDerechoCampos;
+        private System.Windows.Forms.Label lblNombreNegocio;
+        private System.Windows.Forms.TextBox txtNombreNegocio;
+        private System.Windows.Forms.Label lblTelefono;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.Label lblDireccion;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.Label lblRfc;
+        private System.Windows.Forms.TextBox txtRfc;
+        private System.Windows.Forms.Label lblMensajeFinal;
+        private System.Windows.Forms.TextBox txtMensajeFinal;
+        private System.Windows.Forms.FlowLayoutPanel pnlAcciones;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }
