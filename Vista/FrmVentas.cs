@@ -22,5 +22,11 @@ namespace Pry_Sistema_Punto_de_Venta
             FrmVentaproductos Vproduct = new FrmVentaproductos();
             Vproduct.Show();
         }
+
+        private void btnReporteventas_Click(object sender, EventArgs e)
+        {
+            FrmReporteDeVentas frmventa = new FrmReporteDeVentas();
+            frmventa.Show();    
+        }
     }
 }

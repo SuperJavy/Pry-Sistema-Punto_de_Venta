@@ -45,9 +45,9 @@
             panel2.Controls.Add(menuStrip1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(5, 6, 5, 6);
+            panel2.Margin = new Padding(72, 35, 72, 35);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1450, 77);
+            panel2.Size = new Size(1946, 76);
             panel2.TabIndex = 79;
             // 
             // label2
@@ -56,7 +56,7 @@
             label2.Dock = DockStyle.Top;
             label2.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Margin = new Padding(72, 0, 72, 0);
             label2.Name = "label2";
             label2.Size = new Size(117, 26);
             label2.TabIndex = 0;
@@ -69,10 +69,10 @@
             menuStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(24, 24);
             menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 41);
+            menuStrip1.Location = new Point(0, 20);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(7, 2, 0, 2);
-            menuStrip1.Size = new Size(1450, 36);
+            menuStrip1.Padding = new Padding(101, 12, 0, 12);
+            menuStrip1.Size = new Size(1946, 56);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -98,21 +98,21 @@
             // 
             pnlinventario.BackColor = Color.White;
             pnlinventario.Dock = DockStyle.Fill;
-            pnlinventario.Location = new Point(0, 77);
-            pnlinventario.Margin = new Padding(5, 6, 5, 6);
+            pnlinventario.Location = new Point(0, 76);
+            pnlinventario.Margin = new Padding(72, 35, 72, 35);
             pnlinventario.Name = "pnlinventario";
-            pnlinventario.Size = new Size(1450, 654);
+            pnlinventario.Size = new Size(1946, 1030);
             pnlinventario.TabIndex = 80;
             // 
             // FrmInventario
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1450, 731);
+            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            ClientSize = new Size(1946, 1106);
             Controls.Add(pnlinventario);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(5, 6, 5, 6);
+            Margin = new Padding(72, 35, 72, 35);
             Name = "FrmInventario";
             Text = "FrmInventario";
             Load += FrmInventario_Load;
@@ -121,7 +121,6 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion

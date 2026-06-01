@@ -80,6 +80,7 @@
             btnReporteventas.TabIndex = 121;
             btnReporteventas.Text = "    Reporte Ventas";
             btnReporteventas.UseVisualStyleBackColor = true;
+            btnReporteventas.Click += btnReporteventas_Click;
             // 
             // btnborrar
             // 
