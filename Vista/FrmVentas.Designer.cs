@@ -38,7 +38,7 @@
             panel1 = new Panel();
             label10 = new Label();
             label7 = new Label();
-            textBox3 = new TextBox();
+            txtCodigoBusq = new TextBox();
             btnagregarproducto = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
@@ -179,15 +179,15 @@
             label7.TabIndex = 117;
             label7.Text = "Código del producto :";
             // 
-            // textBox3
+            // txtCodigoBusq
             // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox3.Font = new Font("Segoe UI", 13F);
-            textBox3.Location = new Point(266, 82);
-            textBox3.Margin = new Padding(4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(823, 42);
-            textBox3.TabIndex = 118;
+            txtCodigoBusq.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtCodigoBusq.Font = new Font("Segoe UI", 13F);
+            txtCodigoBusq.Location = new Point(266, 82);
+            txtCodigoBusq.Margin = new Padding(4);
+            txtCodigoBusq.Name = "txtCodigoBusq";
+            txtCodigoBusq.Size = new Size(823, 42);
+            txtCodigoBusq.TabIndex = 118;
             // 
             // btnagregarproducto
             // 
@@ -217,7 +217,7 @@
             Controls.Add(btnagregarproducto);
             Controls.Add(btnReporteventas);
             Controls.Add(btnBorrar);
-            Controls.Add(textBox3);
+            Controls.Add(txtCodigoBusq);
             Controls.Add(btnBuscar);
             Controls.Add(label7);
             Controls.Add(dataGridView1);
@@ -248,7 +248,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtCodigoBusq;
         private System.Windows.Forms.Button btnagregarproducto;
     }
 }

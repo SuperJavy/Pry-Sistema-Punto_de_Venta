@@ -67,5 +67,6 @@ namespace Pry_Sistema_Punto_de_Venta
         {
 
         }
+
     }
 }
