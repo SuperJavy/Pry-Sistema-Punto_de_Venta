@@ -30,6 +30,8 @@
         {
             label1 = new Label();
             textBox1 = new TextBox();
+            labelNombre = new Label(); // Agregado
+            textBox3 = new TextBox(); // Agregado para el Nombre
             textBox2 = new TextBox();
             label2 = new Label();
             label3 = new Label();
@@ -63,7 +65,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(25, 63);
+            label1.Location = new Point(25, 45);
             label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
             label1.Size = new Size(192, 30);
@@ -74,74 +76,62 @@
             // 
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.Font = new Font("Segoe UI", 11F);
-            textBox1.Location = new Point(267, 58);
+            textBox1.Location = new Point(267, 40);
             textBox1.Margin = new Padding(5, 6, 5, 6);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(456, 37);
             textBox1.TabIndex = 1;
             // 
-            // textBox2
+            // labelNombre
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Font = new Font("Segoe UI", 11F);
-            textBox2.Location = new Point(267, 148);
-            textBox2.Margin = new Padding(5, 6, 5, 6);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(456, 37);
-            textBox2.TabIndex = 3;
+            labelNombre.AutoSize = true;
+            labelNombre.Font = new Font("Segoe UI", 11F);
+            labelNombre.ForeColor = Color.Black;
+            labelNombre.Location = new Point(25, 115);
+            labelNombre.Margin = new Padding(5, 0, 5, 0);
+            labelNombre.Name = "labelNombre";
+            labelNombre.Size = new Size(230, 30);
+            labelNombre.TabIndex = 20;
+            labelNombre.Text = "Nombre del Producto :";
+            // 
+            // textBox3
+            // 
+            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox3.Font = new Font("Segoe UI", 11F);
+            textBox3.Location = new Point(267, 110);
+            textBox3.Margin = new Padding(5, 6, 5, 6);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(456, 37);
+            textBox3.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11F);
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(25, 154);
+            label2.Location = new Point(25, 185);
             label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
             label2.Size = new Size(136, 30);
             label2.TabIndex = 2;
             label2.Text = "Descripción :";
             // 
-            // label3
+            // textBox2
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11F);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(25, 427);
-            label3.Margin = new Padding(5, 0, 5, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(135, 30);
-            label3.TabIndex = 4;
-            label3.Text = "% Ganancia :";
-            // 
-            // textBox4
-            // 
-            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox4.Font = new Font("Segoe UI", 11F);
-            textBox4.Location = new Point(267, 331);
-            textBox4.Margin = new Padding(5, 6, 5, 6);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(456, 37);
-            textBox4.TabIndex = 7;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 11F);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(25, 337);
-            label4.Margin = new Padding(5, 0, 5, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(146, 30);
-            label4.TabIndex = 6;
-            label4.Text = "Precio Costo :";
+            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox2.Font = new Font("Segoe UI", 11F);
+            textBox2.Location = new Point(267, 180);
+            textBox2.Margin = new Padding(5, 6, 5, 6);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(456, 37);
+            textBox2.TabIndex = 3;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11F);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(25, 244);
+            label5.Location = new Point(25, 260);
             label5.Margin = new Padding(5, 0, 5, 0);
             label5.Name = "label5";
             label5.Size = new Size(114, 30);
@@ -153,11 +143,11 @@
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 11F);
             checkBox1.ForeColor = Color.Black;
-            checkBox1.Location = new Point(267, 242);
+            checkBox1.Location = new Point(267, 258);
             checkBox1.Margin = new Padding(5, 6, 5, 6);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(146, 34);
-            checkBox1.TabIndex = 9;
+            checkBox1.TabIndex = 4;
             checkBox1.Text = "Por Unidad";
             checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -166,13 +156,68 @@
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI", 11F);
             checkBox2.ForeColor = Color.Black;
-            checkBox2.Location = new Point(467, 242);
+            checkBox2.Location = new Point(467, 258);
             checkBox2.Margin = new Padding(5, 6, 5, 6);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(122, 34);
-            checkBox2.TabIndex = 10;
+            checkBox2.TabIndex = 5;
             checkBox2.Text = "A Granel";
             checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 11F);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(25, 335);
+            label4.Margin = new Padding(5, 0, 5, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(146, 30);
+            label4.TabIndex = 6;
+            label4.Text = "Precio Costo :";
+            // 
+            // textBox4
+            // 
+            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox4.Font = new Font("Segoe UI", 11F);
+            textBox4.Location = new Point(267, 330);
+            textBox4.Margin = new Padding(5, 6, 5, 6);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(456, 37);
+            textBox4.TabIndex = 6;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11F);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(25, 415);
+            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(135, 30);
+            label3.TabIndex = 4;
+            label3.Text = "% Ganancia :";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Font = new Font("Segoe UI", 11F);
+            numericUpDown1.Location = new Point(267, 411);
+            numericUpDown1.Margin = new Padding(5, 6, 5, 6);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(167, 37);
+            numericUpDown1.TabIndex = 7;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label6.ForeColor = Color.FromArgb(46, 204, 113);
+            label6.Location = new Point(25, 495);
+            label6.Margin = new Padding(5, 0, 5, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(156, 30);
+            label6.TabIndex = 13;
+            label6.Text = "Precio Venta :";
             // 
             // textBox5
             // 
@@ -180,46 +225,34 @@
             textBox5.BackColor = Color.FromArgb(245, 246, 250);
             textBox5.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             textBox5.ForeColor = Color.FromArgb(46, 204, 113);
-            textBox5.Location = new Point(267, 515);
+            textBox5.Location = new Point(267, 490);
             textBox5.Margin = new Padding(5, 6, 5, 6);
             textBox5.Name = "textBox5";
             textBox5.ReadOnly = true;
             textBox5.Size = new Size(456, 37);
             textBox5.TabIndex = 14;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label6.ForeColor = Color.FromArgb(46, 204, 113);
-            label6.Location = new Point(25, 521);
-            label6.Margin = new Padding(5, 0, 5, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(156, 30);
-            label6.TabIndex = 13;
-            label6.Text = "Precio Venta :";
-            // 
-            // textBox6
-            // 
-            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox6.Font = new Font("Segoe UI", 11F);
-            textBox6.Location = new Point(267, 608);
-            textBox6.Margin = new Padding(5, 6, 5, 6);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(456, 37);
-            textBox6.TabIndex = 12;
-            // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11F);
             label7.ForeColor = Color.Black;
-            label7.Location = new Point(25, 613);
+            label7.Location = new Point(25, 575);
             label7.Margin = new Padding(5, 0, 5, 0);
             label7.Name = "label7";
             label7.Size = new Size(118, 30);
             label7.TabIndex = 11;
             label7.Text = "Categoría :";
+            // 
+            // textBox6
+            // 
+            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox6.Font = new Font("Segoe UI", 11F);
+            textBox6.Location = new Point(267, 570);
+            textBox6.Margin = new Padding(5, 6, 5, 6);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(456, 37);
+            textBox6.TabIndex = 8;
             // 
             // label8
             // 
@@ -233,6 +266,15 @@
             label8.TabIndex = 15;
             label8.Text = "Stock Actual :";
             // 
+            // textBox7
+            // 
+            textBox7.Font = new Font("Segoe UI", 11F);
+            textBox7.Location = new Point(233, 65);
+            textBox7.Margin = new Padding(5, 6, 5, 6);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(289, 37);
+            textBox7.TabIndex = 17;
+            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -245,15 +287,6 @@
             label9.TabIndex = 16;
             label9.Text = "Stock Mínimo :";
             // 
-            // textBox7
-            // 
-            textBox7.Font = new Font("Segoe UI", 11F);
-            textBox7.Location = new Point(233, 65);
-            textBox7.Margin = new Padding(5, 6, 5, 6);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(289, 37);
-            textBox7.TabIndex = 17;
-            // 
             // textBox8
             // 
             textBox8.Font = new Font("Segoe UI", 11F);
@@ -262,15 +295,6 @@
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(289, 37);
             textBox8.TabIndex = 18;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Font = new Font("Segoe UI", 11F);
-            numericUpDown1.Location = new Point(267, 423);
-            numericUpDown1.Margin = new Padding(5, 6, 5, 6);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(167, 37);
-            numericUpDown1.TabIndex = 19;
             // 
             // label10
             // 
@@ -306,7 +330,6 @@
             panelHeader.BackColor = Color.FromArgb(240, 242, 245);
             panelHeader.Controls.Add(label10);
             panelHeader.Dock = DockStyle.Top;
-            panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(5, 6, 5, 6);
             panelHeader.Name = "panelHeader";
             panelHeader.RightToLeft = RightToLeft.No;
@@ -318,6 +341,8 @@
             groupBoxDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxDatos.Controls.Add(label1);
             groupBoxDatos.Controls.Add(textBox1);
+            groupBoxDatos.Controls.Add(labelNombre); // Label agregado
+            groupBoxDatos.Controls.Add(textBox3);   // TextBox agregado
             groupBoxDatos.Controls.Add(label2);
             groupBoxDatos.Controls.Add(textBox2);
             groupBoxDatos.Controls.Add(label5);
@@ -383,13 +408,14 @@
             groupBoxStock.ResumeLayout(false);
             groupBoxStock.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelNombre; // Declaración agregada
+        private System.Windows.Forms.TextBox textBox3;   // Declaración agregada
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
