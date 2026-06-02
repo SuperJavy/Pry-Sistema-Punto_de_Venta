@@ -39,6 +39,16 @@
             label7 = new Label();
             textBox3 = new TextBox();
             btnAgregarproducto = new Button();
+
+            // Inicialización de las columnas adaptadas a compras
+            colCodigo = new DataGridViewTextBoxColumn();
+            colNombre = new DataGridViewTextBoxColumn();
+            colCantidad = new DataGridViewTextBoxColumn();
+            colCostoUnitario = new DataGridViewTextBoxColumn();
+            colImporte = new DataGridViewTextBoxColumn();
+            colImagen = new DataGridViewImageColumn();
+            colTipo = new DataGridViewTextBoxColumn();
+
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -59,12 +69,77 @@
             dataGridView1.BackgroundColor = Color.FromArgb(245, 246, 250);
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            // Inyección de las 7 columnas (Sin IVA) organizadas de forma proporcional
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] {
+                colCodigo,
+                colNombre,
+                colCantidad,
+                colCostoUnitario,
+                colImporte,
+                colImagen,
+                colTipo
+            });
+
             dataGridView1.Location = new Point(24, 240);
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.RowTemplate.Height = 70; // Altura para las imágenes miniaturas
             dataGridView1.Size = new Size(1352, 292);
             dataGridView1.TabIndex = 116;
+            // 
+            // colCodigo
+            // 
+            colCodigo.HeaderText = "Código de Barras";
+            colCodigo.Name = "colCodigo";
+            colCodigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colCodigo.Width = 140;
+            // 
+            // colNombre
+            // 
+            colNombre.HeaderText = "Descripción del Producto";
+            colNombre.Name = "colNombre";
+            colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Distribuye el espacio principal
+            colNombre.FillWeight = 50F;
+            colNombre.Width = 240;
+            // 
+            // colCantidad
+            // 
+            colCantidad.HeaderText = "Cantidad";
+            colCantidad.Name = "colCantidad";
+            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            colCantidad.Width = 85;
+            // 
+            // colCostoUnitario
+            // 
+            colCostoUnitario.HeaderText = "Costo Unit.";
+            colCostoUnitario.Name = "colCostoUnitario";
+            colCostoUnitario.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colCostoUnitario.Width = 100;
+            // 
+            // colImporte
+            // 
+            colImporte.HeaderText = "Importe Total";
+            colImporte.Name = "colImporte";
+            colImporte.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colImporte.Width = 110;
+            // 
+            // colImagen
+            // 
+            colImagen.HeaderText = "Imagen";
+            colImagen.Name = "colImagen";
+            colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            colImagen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Rellena la sección lateral
+            colImagen.FillWeight = 25F;
+            colImagen.Width = 130;
+            // 
+            // colTipo
+            // 
+            colTipo.HeaderText = "Categoría";
+            colTipo.Name = "colTipo";
+            colTipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colTipo.Width = 110;
             // 
             // btnBorrar
             // 
@@ -234,5 +309,14 @@
         private System.Windows.Forms.Button btnAgregarproducto;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
+
+        // Declaración de las columnas del grid (Sin colIVA)
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCostoUnitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colImporte;
+        private System.Windows.Forms.DataGridViewImageColumn colImagen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTipo;
     }
 }
