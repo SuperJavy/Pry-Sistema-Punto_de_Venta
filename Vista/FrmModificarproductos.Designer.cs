@@ -44,8 +44,8 @@
             label5 = new Label();
             textBox2 = new TextBox();
             label2 = new Label();
-            textBox3 = new TextBox(); // Agregado para el Nombre
-            labelNombre = new Label(); // Agregado
+            textBox3 = new TextBox();
+            labelNombre = new Label();
             textBox1 = new TextBox();
             label1 = new Label();
             groupBoxDatos = new GroupBox();
@@ -54,10 +54,15 @@
             textBox7 = new TextBox();
             label8 = new Label();
             groupBoxStock = new GroupBox();
+            groupBoxImagen = new GroupBox(); // Agregado para la imagen
+            pictureBoxProducto = new PictureBox(); // Agregado para la imagen
+            btnSeleccionarImagen = new Button(); // Agregado para la imagen
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             groupBoxDatos.SuspendLayout();
             groupBoxStock.SuspendLayout();
+            groupBoxImagen.SuspendLayout(); // Agregado
+            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).BeginInit(); // Agregado
             SuspendLayout();
             // 
             // label10
@@ -250,6 +255,16 @@
             label2.TabIndex = 2;
             label2.Text = "Descripción :";
             // 
+            // textBox3
+            // 
+            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox3.Font = new Font("Segoe UI", 11F);
+            textBox3.Location = new Point(267, 110);
+            textBox3.Margin = new Padding(5, 6, 5, 6);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(456, 37);
+            textBox3.TabIndex = 2;
+            // 
             // labelNombre
             // 
             labelNombre.AutoSize = true;
@@ -261,16 +276,6 @@
             labelNombre.Size = new Size(230, 30);
             labelNombre.TabIndex = 20;
             labelNombre.Text = "Nombre del Producto :";
-            // 
-            // textBox3
-            // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox3.Font = new Font("Segoe UI", 11F);
-            textBox3.Location = new Point(267, 110);
-            textBox3.Margin = new Padding(5, 6, 5, 6);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(456, 37);
-            textBox3.TabIndex = 2;
             // 
             // textBox1
             // 
@@ -299,8 +304,8 @@
             groupBoxDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxDatos.Controls.Add(label1);
             groupBoxDatos.Controls.Add(textBox1);
-            groupBoxDatos.Controls.Add(labelNombre); // Agregado
-            groupBoxDatos.Controls.Add(textBox3);   // Agregado
+            groupBoxDatos.Controls.Add(labelNombre);
+            groupBoxDatos.Controls.Add(textBox3);
             groupBoxDatos.Controls.Add(label2);
             groupBoxDatos.Controls.Add(textBox2);
             groupBoxDatos.Controls.Add(label5);
@@ -328,7 +333,7 @@
             // textBox8
             // 
             textBox8.Font = new Font("Segoe UI", 11F);
-            textBox8.Location = new Point(233, 158);
+            textBox8.Location = new Point(233, 133);
             textBox8.Margin = new Padding(5, 6, 5, 6);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(289, 37);
@@ -339,7 +344,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 11F);
             label9.ForeColor = Color.Black;
-            label9.Location = new Point(33, 163);
+            label9.Location = new Point(33, 138);
             label9.Margin = new Padding(5, 0, 5, 0);
             label9.Name = "label9";
             label9.Size = new Size(98, 30);
@@ -349,7 +354,7 @@
             // textBox7
             // 
             textBox7.Font = new Font("Segoe UI", 11F);
-            textBox7.Location = new Point(233, 65);
+            textBox7.Location = new Point(233, 50);
             textBox7.Margin = new Padding(5, 6, 5, 6);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(289, 37);
@@ -360,7 +365,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 11F);
             label8.ForeColor = Color.Black;
-            label8.Location = new Point(33, 71);
+            label8.Location = new Point(33, 56);
             label8.Margin = new Padding(5, 0, 5, 0);
             label8.Name = "label8";
             label8.Size = new Size(62, 30);
@@ -380,10 +385,52 @@
             groupBoxStock.Margin = new Padding(5, 6, 5, 6);
             groupBoxStock.Name = "groupBoxStock";
             groupBoxStock.Padding = new Padding(5, 6, 5, 6);
-            groupBoxStock.Size = new Size(567, 269);
+            groupBoxStock.Size = new Size(567, 210);
             groupBoxStock.TabIndex = 102;
             groupBoxStock.TabStop = false;
             groupBoxStock.Text = " INVENTARIO / EXISTENCIAS ";
+            // 
+            // groupBoxImagen
+            // 
+            groupBoxImagen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBoxImagen.Controls.Add(pictureBoxProducto);
+            groupBoxImagen.Controls.Add(btnSeleccionarImagen);
+            groupBoxImagen.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            groupBoxImagen.ForeColor = Color.FromArgb(74, 85, 104);
+            groupBoxImagen.Location = new Point(838, 375);
+            groupBoxImagen.Margin = new Padding(5, 6, 5, 6);
+            groupBoxImagen.Name = "groupBoxImagen";
+            groupBoxImagen.Padding = new Padding(5, 6, 5, 6);
+            groupBoxImagen.Size = new Size(567, 360);
+            groupBoxImagen.TabIndex = 103;
+            groupBoxImagen.TabStop = false;
+            groupBoxImagen.Text = " IMAGEN DEL PRODUCTO ";
+            // 
+            // pictureBoxProducto
+            // 
+            pictureBoxProducto.BackColor = Color.FromArgb(245, 246, 250);
+            pictureBoxProducto.BorderStyle = BorderStyle.FixedSingle;
+            pictureBoxProducto.Location = new Point(33, 40);
+            pictureBoxProducto.Name = "pictureBoxProducto";
+            pictureBoxProducto.Size = new Size(489, 230);
+            pictureBoxProducto.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxProducto.TabIndex = 0;
+            pictureBoxProducto.TabStop = false;
+            // 
+            // btnSeleccionarImagen
+            // 
+            btnSeleccionarImagen.BackColor = Color.FromArgb(52, 152, 219);
+            btnSeleccionarImagen.Cursor = Cursors.Hand;
+            btnSeleccionarImagen.FlatAppearance.BorderSize = 0;
+            btnSeleccionarImagen.FlatStyle = FlatStyle.Flat;
+            btnSeleccionarImagen.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSeleccionarImagen.ForeColor = Color.White;
+            btnSeleccionarImagen.Location = new Point(33, 285);
+            btnSeleccionarImagen.Name = "btnSeleccionarImagen";
+            btnSeleccionarImagen.Size = new Size(489, 50);
+            btnSeleccionarImagen.TabIndex = 1;
+            btnSeleccionarImagen.Text = "Cambiar Imagen...";
+            btnSeleccionarImagen.UseVisualStyleBackColor = false;
             // 
             // FrmModoficar
             // 
@@ -391,6 +438,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1445, 925);
+            Controls.Add(groupBoxImagen); // Agregado al contenedor principal
             Controls.Add(groupBoxStock);
             Controls.Add(groupBoxDatos);
             Controls.Add(button1);
@@ -408,6 +456,8 @@
             groupBoxDatos.PerformLayout();
             groupBoxStock.ResumeLayout(false);
             groupBoxStock.PerformLayout();
+            groupBoxImagen.ResumeLayout(false); // Agregado
+            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).EndInit(); // Agregado
             ResumeLayout(false);
         }
 
@@ -428,8 +478,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3; // Declaración agregada
-        private System.Windows.Forms.Label labelNombre; // Declaración agregada
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBoxDatos;
@@ -438,5 +488,8 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBoxStock;
+        private System.Windows.Forms.GroupBox groupBoxImagen; // Declaración agregada
+        private System.Windows.Forms.PictureBox pictureBoxProducto; // Declaración agregada
+        private System.Windows.Forms.Button btnSeleccionarImagen; // Declaración agregada
     }
 }
