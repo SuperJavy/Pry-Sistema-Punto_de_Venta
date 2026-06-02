@@ -216,7 +216,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmVentaproductos";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Venta de Producto - Cobrar";
             Load += FrmVentaproductos_Load;
             pnlHeader.ResumeLayout(false);
