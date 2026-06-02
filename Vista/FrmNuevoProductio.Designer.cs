@@ -52,17 +52,21 @@
             label10 = new Label();
             button1 = new Button();
             panelHeader = new Panel();
+            tableLayoutPanelPrincipal = new TableLayoutPanel(); // Contenedor responsivo
+            panelDerecho = new Panel(); // Manejador de la columna derecha
             groupBoxDatos = new GroupBox();
             groupBoxStock = new GroupBox();
-            groupBoxImagen = new GroupBox(); // Agregado para la imagen
-            pictureBoxProducto = new PictureBox(); // Agregado para la imagen
-            btnSeleccionarImagen = new Button(); // Agregado para la imagen
+            groupBoxImagen = new GroupBox();
+            pictureBoxProducto = new PictureBox();
+            btnSeleccionarImagen = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).BeginInit(); // Agregado
+            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).BeginInit();
             panelHeader.SuspendLayout();
+            tableLayoutPanelPrincipal.SuspendLayout();
+            panelDerecho.SuspendLayout();
             groupBoxDatos.SuspendLayout();
             groupBoxStock.SuspendLayout();
-            groupBoxImagen.SuspendLayout(); // Agregado
+            groupBoxImagen.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -273,11 +277,12 @@
             // 
             // textBox7
             // 
+            textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox7.Font = new Font("Segoe UI", 11F);
             textBox7.Location = new Point(233, 50);
             textBox7.Margin = new Padding(5, 6, 5, 6);
             textBox7.Name = "textBox7";
-            textBox7.Size = new Size(289, 37);
+            textBox7.Size = new Size(301, 37);
             textBox7.TabIndex = 17;
             // 
             // label9
@@ -294,11 +299,12 @@
             // 
             // textBox8
             // 
+            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox8.Font = new Font("Segoe UI", 11F);
             textBox8.Location = new Point(233, 133);
             textBox8.Margin = new Padding(5, 6, 5, 6);
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(289, 37);
+            textBox8.Size = new Size(301, 37);
             textBox8.TabIndex = 18;
             // 
             // label10
@@ -315,17 +321,17 @@
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button1.BackColor = Color.FromArgb(46, 204, 113);
             button1.Cursor = Cursors.Hand;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(838, 767);
+            button1.Location = new Point(3, 685);
             button1.Margin = new Padding(5, 6, 5, 6);
             button1.Name = "button1";
-            button1.Size = new Size(567, 106);
+            button1.Size = new Size(621, 106);
             button1.TabIndex = 99;
             button1.Text = "Guardar Producto";
             button1.UseVisualStyleBackColor = false;
@@ -341,9 +347,35 @@
             panelHeader.Size = new Size(1445, 80);
             panelHeader.TabIndex = 100;
             // 
+            // tableLayoutPanelPrincipal
+            // 
+            tableLayoutPanelPrincipal.ColumnCount = 2;
+            tableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55F));
+            tableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
+            tableLayoutPanelPrincipal.Controls.Add(groupBoxDatos, 0, 0);
+            tableLayoutPanelPrincipal.Controls.Add(panelDerecho, 1, 0);
+            tableLayoutPanelPrincipal.Dock = DockStyle.Fill;
+            tableLayoutPanelPrincipal.Location = new Point(0, 80);
+            tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
+            tableLayoutPanelPrincipal.Padding = new Padding(20);
+            tableLayoutPanelPrincipal.RowCount = 1;
+            tableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelPrincipal.Size = new Size(1445, 845);
+            tableLayoutPanelPrincipal.TabIndex = 104;
+            // 
+            // panelDerecho
+            // 
+            panelDerecho.Controls.Add(groupBoxStock);
+            panelDerecho.Controls.Add(groupBoxImagen);
+            panelDerecho.Controls.Add(button1);
+            panelDerecho.Dock = DockStyle.Fill;
+            panelDerecho.Location = new Point(795, 23);
+            panelDerecho.Name = "panelDerecho";
+            panelDerecho.Size = new Size(627, 799);
+            panelDerecho.TabIndex = 105;
+            // 
             // groupBoxDatos
             // 
-            groupBoxDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxDatos.Controls.Add(label1);
             groupBoxDatos.Controls.Add(textBox1);
             groupBoxDatos.Controls.Add(labelNombre);
@@ -361,73 +393,76 @@
             groupBoxDatos.Controls.Add(textBox5);
             groupBoxDatos.Controls.Add(label7);
             groupBoxDatos.Controls.Add(textBox6);
+            groupBoxDatos.Dock = DockStyle.Fill;
             groupBoxDatos.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBoxDatos.ForeColor = Color.FromArgb(74, 85, 104);
-            groupBoxDatos.Location = new Point(35, 142);
-            groupBoxDatos.Margin = new Padding(5, 6, 5, 6);
+            groupBoxDatos.Location = new Point(23, 23);
+            groupBoxDatos.Margin = new Padding(3, 3, 20, 3);
             groupBoxDatos.Name = "groupBoxDatos";
             groupBoxDatos.Padding = new Padding(5, 6, 5, 6);
-            groupBoxDatos.Size = new Size(767, 731);
+            groupBoxDatos.Size = new Size(749, 799);
             groupBoxDatos.TabIndex = 101;
             groupBoxDatos.TabStop = false;
             groupBoxDatos.Text = " INFORMACIÓN DEL PRODUCTO ";
             // 
             // groupBoxStock
             // 
-            groupBoxStock.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBoxStock.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxStock.Controls.Add(label8);
             groupBoxStock.Controls.Add(textBox7);
             groupBoxStock.Controls.Add(label9);
             groupBoxStock.Controls.Add(textBox8);
             groupBoxStock.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBoxStock.ForeColor = Color.FromArgb(74, 85, 104);
-            groupBoxStock.Location = new Point(838, 142);
+            groupBoxStock.Location = new Point(3, 0);
             groupBoxStock.Margin = new Padding(5, 6, 5, 6);
             groupBoxStock.Name = "groupBoxStock";
             groupBoxStock.Padding = new Padding(5, 6, 5, 6);
-            groupBoxStock.Size = new Size(567, 210);
+            groupBoxStock.Size = new Size(621, 195);
             groupBoxStock.TabIndex = 102;
             groupBoxStock.TabStop = false;
             groupBoxStock.Text = " INVENTARIO / EXISTENCIAS ";
             // 
             // groupBoxImagen
             // 
-            groupBoxImagen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBoxImagen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxImagen.Controls.Add(pictureBoxProducto);
             groupBoxImagen.Controls.Add(btnSeleccionarImagen);
             groupBoxImagen.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBoxImagen.ForeColor = Color.FromArgb(74, 85, 104);
-            groupBoxImagen.Location = new Point(838, 375);
+            groupBoxImagen.Location = new Point(3, 205);
             groupBoxImagen.Margin = new Padding(5, 6, 5, 6);
             groupBoxImagen.Name = "groupBoxImagen";
             groupBoxImagen.Padding = new Padding(5, 6, 5, 6);
-            groupBoxImagen.Size = new Size(567, 360);
+            groupBoxImagen.Size = new Size(621, 464);
             groupBoxImagen.TabIndex = 103;
             groupBoxImagen.TabStop = false;
             groupBoxImagen.Text = " IMAGEN DEL PRODUCTO ";
             // 
             // pictureBoxProducto
             // 
+            pictureBoxProducto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBoxProducto.BackColor = Color.FromArgb(245, 246, 250);
             pictureBoxProducto.BorderStyle = BorderStyle.FixedSingle;
             pictureBoxProducto.Location = new Point(33, 40);
             pictureBoxProducto.Name = "pictureBoxProducto";
-            pictureBoxProducto.Size = new Size(489, 230);
+            pictureBoxProducto.Size = new Size(555, 340);
             pictureBoxProducto.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxProducto.TabIndex = 0;
             pictureBoxProducto.TabStop = false;
             // 
             // btnSeleccionarImagen
             // 
+            btnSeleccionarImagen.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnSeleccionarImagen.BackColor = Color.FromArgb(52, 152, 219);
             btnSeleccionarImagen.Cursor = Cursors.Hand;
             btnSeleccionarImagen.FlatAppearance.BorderSize = 0;
             btnSeleccionarImagen.FlatStyle = FlatStyle.Flat;
             btnSeleccionarImagen.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSeleccionarImagen.ForeColor = Color.White;
-            btnSeleccionarImagen.Location = new Point(33, 285);
+            btnSeleccionarImagen.Location = new Point(33, 395);
             btnSeleccionarImagen.Name = "btnSeleccionarImagen";
-            btnSeleccionarImagen.Size = new Size(489, 50);
+            btnSeleccionarImagen.Size = new Size(555, 50);
             btnSeleccionarImagen.TabIndex = 1;
             btnSeleccionarImagen.Text = "Seleccionar Imagen...";
             btnSeleccionarImagen.UseVisualStyleBackColor = false;
@@ -438,10 +473,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1445, 925);
-            Controls.Add(groupBoxImagen); // Agregado al contenedor principal
-            Controls.Add(groupBoxStock);
-            Controls.Add(groupBoxDatos);
-            Controls.Add(button1);
+            Controls.Add(tableLayoutPanelPrincipal);
             Controls.Add(panelHeader);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(5, 6, 5, 6);
@@ -449,14 +481,16 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmNuevoProductio";
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).EndInit(); // Agregado
+            ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).EndInit();
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
+            tableLayoutPanelPrincipal.ResumeLayout(false);
+            panelDerecho.ResumeLayout(false);
             groupBoxDatos.ResumeLayout(false);
             groupBoxDatos.PerformLayout();
             groupBoxStock.ResumeLayout(false);
             groupBoxStock.PerformLayout();
-            groupBoxImagen.ResumeLayout(false); // Agregado
+            groupBoxImagen.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -486,10 +520,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPrincipal; // Agregado para fluidez
+        private System.Windows.Forms.Panel panelDerecho; // Agregado para fluidez
         private System.Windows.Forms.GroupBox groupBoxDatos;
         private System.Windows.Forms.GroupBox groupBoxStock;
-        private System.Windows.Forms.GroupBox groupBoxImagen; // Declaración agregada
-        private System.Windows.Forms.PictureBox pictureBoxProducto; // Declaración agregada
-        private System.Windows.Forms.Button btnSeleccionarImagen; // Declaración agregada
+        private System.Windows.Forms.GroupBox groupBoxImagen;
+        private System.Windows.Forms.PictureBox pictureBoxProducto;
+        private System.Windows.Forms.Button btnSeleccionarImagen;
     }
 }
