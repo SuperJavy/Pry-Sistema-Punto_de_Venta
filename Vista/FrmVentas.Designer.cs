@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label3 = new Label();
-            dataGridView1 = new DataGridView();
+            dtgVenta = new DataGridView();
             btnReporteventas = new Button();
             btnBorrar = new Button();
             btnBuscar = new Button();
@@ -38,9 +38,20 @@
             panel1 = new Panel();
             label10 = new Label();
             label7 = new Label();
-            textBox3 = new TextBox();
+            txtCodigoBusq = new TextBox();
             btnagregarproducto = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+
+            // Inicializar las 8 columnas del DataGridView
+            colCodigo = new DataGridViewTextBoxColumn();
+            colNombre = new DataGridViewTextBoxColumn();
+            colTipoVenta = new DataGridViewTextBoxColumn();
+            colCantidad = new DataGridViewTextBoxColumn();
+            colPrecio = new DataGridViewTextBoxColumn();
+            colImporte = new DataGridViewTextBoxColumn();
+            colImagen = new DataGridViewImageColumn();
+            colTipo = new DataGridViewTextBoxColumn();
+
+            ((System.ComponentModel.ISupportInitialize)dtgVenta).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,18 +65,93 @@
             label3.Size = new Size(0, 32);
             label3.TabIndex = 101;
             // 
-            // dataGridView1
+            // dtgVenta
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.BackgroundColor = Color.FromArgb(245, 246, 250);
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(24, 240);
-            dataGridView1.Margin = new Padding(4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1352, 292);
-            dataGridView1.TabIndex = 116;
+            dtgVenta.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dtgVenta.BackgroundColor = Color.FromArgb(245, 246, 250);
+            dtgVenta.BorderStyle = BorderStyle.None;
+            dtgVenta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            // Inserción de las columnas en la rejilla
+            dtgVenta.Columns.AddRange(new DataGridViewColumn[] {
+                colCodigo,
+                colNombre,
+                colTipoVenta,
+                colCantidad,
+                colPrecio,
+                colImporte,
+                colImagen,
+                colTipo
+            });
+
+            dtgVenta.Location = new Point(24, 240);
+            dtgVenta.Margin = new Padding(4);
+            dtgVenta.Name = "dtgVenta";
+            dtgVenta.RowHeadersWidth = 51;
+            dtgVenta.RowTemplate.Height = 70; // Altura ideal para la propaganda de imagen
+            dtgVenta.Size = new Size(1352, 292);
+            dtgVenta.TabIndex = 116;
+
+            // 
+            // colCodigo
+            // 
+            colCodigo.HeaderText = "Código de Barras";
+            colCodigo.Name = "colCodigo";
+            colCodigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; // Se ajusta al tamaño del código largo
+            colCodigo.Width = 140;
+            // 
+            // colNombre
+            // 
+            colNombre.HeaderText = "Nombre";
+            colNombre.Name = "colNombre";
+            colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Toma el espacio sobrante principal
+            colNombre.FillWeight = 40F; // Proporción de llenado
+            colNombre.Width = 240;
+            // 
+            // colTipoVenta
+            // 
+            colTipoVenta.HeaderText = "Tipo de Venta";
+            colTipoVenta.Name = "colTipoVenta";
+            colTipoVenta.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colTipoVenta.Width = 120;
+            // 
+            // colCantidad
+            // 
+            colCantidad.HeaderText = "Cantidad";
+            colCantidad.Name = "colCantidad";
+            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader; // Ajustado justo al texto "Cantidad"
+            colCantidad.Width = 85;
+            // 
+            // colPrecio
+            // 
+            colPrecio.HeaderText = "Precio";
+            colPrecio.Name = "colPrecio";
+            colPrecio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colPrecio.Width = 90;
+            // 
+            // colImporte
+            // 
+            colImporte.HeaderText = "Importe Total";
+            colImporte.Name = "colImporte";
+            colImporte.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colImporte.Width = 100;
+            // 
+            // colImagen
+            // 
+            colImagen.HeaderText = "Imagen";
+            colImagen.Name = "colImagen";
+            colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            colImagen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Llena el resto de la pantalla con la propaganda
+            colImagen.FillWeight = 25F; // Proporción de pantalla para la imagen
+            colImagen.Width = 130;
+            // 
+            // colTipo
+            // 
+            colTipo.HeaderText = "Tipo";
+            colTipo.Name = "colTipo";
+            colTipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colTipo.Width = 110;
+
             // 
             // btnReporteventas
             // 
@@ -93,7 +179,7 @@
             btnBorrar.Padding = new Padding(12, 0, 0, 0);
             btnBorrar.Size = new Size(218, 52);
             btnBorrar.TabIndex = 120;
-            btnBorrar.Text = "   DEL Borrar Art.";
+            btnBorrar.Text = "    DEL Borrar Art.";
             btnBorrar.UseVisualStyleBackColor = true;
             btnBorrar.Click += btnBorrar_Click;
             // 
@@ -141,7 +227,7 @@
             btnCobrar.Padding = new Padding(15, 0, 0, 0);
             btnCobrar.Size = new Size(315, 75);
             btnCobrar.TabIndex = 123;
-            btnCobrar.Text = "   F12 Cobrar";
+            btnCobrar.Text = "    F12 Cobrar";
             btnCobrar.UseVisualStyleBackColor = false;
             // 
             // panel1
@@ -179,15 +265,15 @@
             label7.TabIndex = 117;
             label7.Text = "Código del producto :";
             // 
-            // textBox3
+            // txtCodigoBusq
             // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox3.Font = new Font("Segoe UI", 13F);
-            textBox3.Location = new Point(266, 82);
-            textBox3.Margin = new Padding(4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(823, 42);
-            textBox3.TabIndex = 118;
+            txtCodigoBusq.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtCodigoBusq.Font = new Font("Segoe UI", 13F);
+            txtCodigoBusq.Location = new Point(266, 82);
+            txtCodigoBusq.Margin = new Padding(4);
+            txtCodigoBusq.Name = "txtCodigoBusq";
+            txtCodigoBusq.Size = new Size(823, 42);
+            txtCodigoBusq.TabIndex = 118;
             // 
             // btnagregarproducto
             // 
@@ -217,10 +303,10 @@
             Controls.Add(btnagregarproducto);
             Controls.Add(btnReporteventas);
             Controls.Add(btnBorrar);
-            Controls.Add(textBox3);
+            Controls.Add(txtCodigoBusq);
             Controls.Add(btnBuscar);
             Controls.Add(label7);
-            Controls.Add(dataGridView1);
+            Controls.Add(dtgVenta);
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
@@ -230,7 +316,7 @@
             Text = "FrmVentas";
             WindowState = FormWindowState.Maximized;
             KeyDown += FrmVentas_KeyDown;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dtgVenta).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -239,7 +325,7 @@
 
         #endregion
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dtgVenta;
         private System.Windows.Forms.Button btnReporteventas;
         private System.Windows.Forms.Button btnBorrar;
         private System.Windows.Forms.Button btnBuscar;
@@ -248,7 +334,17 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtCodigoBusq;
         private System.Windows.Forms.Button btnagregarproducto;
+
+        // Declaración de las 8 variables de columna
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTipoVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPrecio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colImporte;
+        private System.Windows.Forms.DataGridViewImageColumn colImagen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTipo;
     }
 }
