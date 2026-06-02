@@ -163,6 +163,7 @@
             btnCancelar.TabIndex = 2;
             btnCancelar.Text = "ESC - Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnCobrarSolo
             // 
@@ -195,6 +196,7 @@
             btnCobrarImprimir.TabIndex = 0;
             btnCobrarImprimir.Text = "F1 - Cobrar e Imprimir";
             btnCobrarImprimir.UseVisualStyleBackColor = false;
+            btnCobrarImprimir.Click += btnCobrarImprimir_Click;
             // 
             // FrmVentaproductos
             // 
@@ -212,13 +214,14 @@
             Controls.Add(pnlHeader);
             Font = new Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            KeyPreview = true;
             Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmVentaproductos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Venta de Producto - Cobrar";
-            Load += FrmVentaproductos_Load;
+            KeyDown += FrmVentaproductos_KeyDown;
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlAcciones.ResumeLayout(false);

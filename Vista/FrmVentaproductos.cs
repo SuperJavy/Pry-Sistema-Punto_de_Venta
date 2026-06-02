@@ -17,14 +17,30 @@ namespace Pry_Sistema_Punto_de_Venta
             InitializeComponent();
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void FrmVentaproductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    btnCobrarImprimir.PerformClick();
+                    break;
+                case Keys.F2:
+                    btnCobrarSolo.PerformClick();
+                    break;
+                case Keys.Escape:
+                    btnCancelar.PerformClick();
+                    break;
+            }
+        }
+
+        private void btnCobrarImprimir_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void FrmVentaproductos_Load(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }

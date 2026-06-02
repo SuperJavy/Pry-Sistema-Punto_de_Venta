@@ -30,15 +30,15 @@
         {
             label3 = new Label();
             dataGridView1 = new DataGridView();
-            btnborrar = new Button();
-            btnbuscar = new Button();
+            btnBorrar = new Button();
+            btnBuscar = new Button();
             textBox2 = new TextBox();
-            button2 = new Button();
+            btnComprar = new Button();
             panel1 = new Panel();
             label10 = new Label();
             label7 = new Label();
             textBox3 = new TextBox();
-            btnagregarproducto = new Button();
+            btnAgregarproducto = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -66,33 +66,35 @@
             dataGridView1.Size = new Size(1352, 292);
             dataGridView1.TabIndex = 116;
             // 
-            // btnborrar
+            // btnBorrar
             // 
-            btnborrar.Font = new Font("Segoe UI", 9.5F);
-            btnborrar.Image = Properties.Resources.borrar;
-            btnborrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnborrar.Location = new Point(250, 160);
-            btnborrar.Margin = new Padding(4);
-            btnborrar.Name = "btnborrar";
-            btnborrar.Padding = new Padding(12, 0, 0, 0);
-            btnborrar.Size = new Size(218, 52);
-            btnborrar.TabIndex = 120;
-            btnborrar.Text = "    DEL Borrar Art.";
-            btnborrar.UseVisualStyleBackColor = true;
+            btnBorrar.Font = new Font("Segoe UI", 9.5F);
+            btnBorrar.Image = Properties.Resources.borrar;
+            btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBorrar.Location = new Point(250, 160);
+            btnBorrar.Margin = new Padding(4);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Padding = new Padding(12, 0, 0, 0);
+            btnBorrar.Size = new Size(218, 52);
+            btnBorrar.TabIndex = 120;
+            btnBorrar.Text = "    DEL Borrar Art.";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
             // 
-            // btnbuscar
+            // btnBuscar
             // 
-            btnbuscar.Font = new Font("Segoe UI", 9.5F);
-            btnbuscar.Image = Properties.Resources.busqueda;
-            btnbuscar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnbuscar.Location = new Point(24, 160);
-            btnbuscar.Margin = new Padding(4);
-            btnbuscar.Name = "btnbuscar";
-            btnbuscar.Padding = new Padding(12, 0, 0, 0);
-            btnbuscar.Size = new Size(218, 52);
-            btnbuscar.TabIndex = 119;
-            btnbuscar.Text = "    F10 Buscar";
-            btnbuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Font = new Font("Segoe UI", 9.5F);
+            btnBuscar.Image = Properties.Resources.busqueda;
+            btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.Location = new Point(24, 160);
+            btnBuscar.Margin = new Padding(4);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Padding = new Padding(12, 0, 0, 0);
+            btnBuscar.Size = new Size(218, 52);
+            btnBuscar.TabIndex = 119;
+            btnBuscar.Text = "    F10 Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // textBox2
             // 
@@ -109,22 +111,23 @@
             textBox2.Text = "$0.00";
             textBox2.TextAlign = HorizontalAlignment.Right;
             // 
-            // button2
+            // btnComprar
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button2.BackColor = Color.FromArgb(46, 204, 113);
-            button2.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            button2.ForeColor = Color.Black;
-            button2.Image = Properties.Resources.ingreso__1_;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(706, 552);
-            button2.Margin = new Padding(4);
-            button2.Name = "button2";
-            button2.Padding = new Padding(15, 0, 0, 0);
-            button2.Size = new Size(315, 75);
-            button2.TabIndex = 123;
-            button2.Text = "    F12 Comprar";
-            button2.UseVisualStyleBackColor = false;
+            btnComprar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnComprar.BackColor = Color.FromArgb(46, 204, 113);
+            btnComprar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            btnComprar.ForeColor = Color.Black;
+            btnComprar.Image = Properties.Resources.ingreso__1_;
+            btnComprar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnComprar.Location = new Point(706, 552);
+            btnComprar.Margin = new Padding(4);
+            btnComprar.Name = "btnComprar";
+            btnComprar.Padding = new Padding(15, 0, 0, 0);
+            btnComprar.Size = new Size(315, 75);
+            btnComprar.TabIndex = 123;
+            btnComprar.Text = "    F12 Comprar";
+            btnComprar.UseVisualStyleBackColor = false;
+            btnComprar.Click += btnComprar_Click;
             // 
             // panel1
             // 
@@ -171,20 +174,21 @@
             textBox3.Size = new Size(823, 42);
             textBox3.TabIndex = 118;
             // 
-            // btnagregarproducto
+            // btnAgregarproducto
             // 
-            btnagregarproducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnagregarproducto.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnagregarproducto.Image = Properties.Resources.agregar_p16;
-            btnagregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
-            btnagregarproducto.Location = new Point(1106, 80);
-            btnagregarproducto.Margin = new Padding(4);
-            btnagregarproducto.Name = "btnagregarproducto";
-            btnagregarproducto.Padding = new Padding(12, 0, 0, 0);
-            btnagregarproducto.Size = new Size(270, 52);
-            btnagregarproducto.TabIndex = 122;
-            btnagregarproducto.Text = "  ENTER - Agregar";
-            btnagregarproducto.UseVisualStyleBackColor = true;
+            btnAgregarproducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAgregarproducto.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnAgregarproducto.Image = Properties.Resources.agregar_p16;
+            btnAgregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAgregarproducto.Location = new Point(1106, 80);
+            btnAgregarproducto.Margin = new Padding(4);
+            btnAgregarproducto.Name = "btnAgregarproducto";
+            btnAgregarproducto.Padding = new Padding(12, 0, 0, 0);
+            btnAgregarproducto.Size = new Size(270, 52);
+            btnAgregarproducto.TabIndex = 122;
+            btnAgregarproducto.Text = "  ENTER - Agregar";
+            btnAgregarproducto.UseVisualStyleBackColor = true;
+            btnAgregarproducto.Click += btnAgregarproducto_Click;
             // 
             // FrmCompra
             // 
@@ -194,20 +198,22 @@
             ClientSize = new Size(1400, 645);
             Controls.Add(panel1);
             Controls.Add(textBox2);
-            Controls.Add(button2);
-            Controls.Add(btnagregarproducto);
-            Controls.Add(btnborrar);
+            Controls.Add(btnComprar);
+            Controls.Add(btnAgregarproducto);
+            Controls.Add(btnBorrar);
             Controls.Add(textBox3);
-            Controls.Add(btnbuscar);
+            Controls.Add(btnBuscar);
             Controls.Add(label7);
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Margin = new Padding(4);
             Name = "FrmCompra";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmCompra";
             WindowState = FormWindowState.Maximized;
+            KeyDown += FrmCompra_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -220,12 +226,12 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnborrar;
-        private System.Windows.Forms.Button btnbuscar;
+        private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnComprar;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button btnagregarproducto;
+        private System.Windows.Forms.Button btnAgregarproducto;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
     }

@@ -31,10 +31,10 @@
             label3 = new Label();
             dataGridView1 = new DataGridView();
             btnReporteventas = new Button();
-            btnborrar = new Button();
-            btnbuscar = new Button();
+            btnBorrar = new Button();
+            btnBuscar = new Button();
             textBox1 = new TextBox();
-            btncobrar = new Button();
+            btnCobrar = new Button();
             panel1 = new Panel();
             label10 = new Label();
             label7 = new Label();
@@ -82,33 +82,35 @@
             btnReporteventas.UseVisualStyleBackColor = true;
             btnReporteventas.Click += btnReporteventas_Click;
             // 
-            // btnborrar
+            // btnBorrar
             // 
-            btnborrar.Font = new Font("Segoe UI", 9.5F);
-            btnborrar.Image = Properties.Resources.borrar;
-            btnborrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnborrar.Location = new Point(250, 160);
-            btnborrar.Margin = new Padding(4);
-            btnborrar.Name = "btnborrar";
-            btnborrar.Padding = new Padding(12, 0, 0, 0);
-            btnborrar.Size = new Size(218, 52);
-            btnborrar.TabIndex = 120;
-            btnborrar.Text = "   DEL Borrar Art.";
-            btnborrar.UseVisualStyleBackColor = true;
+            btnBorrar.Font = new Font("Segoe UI", 9.5F);
+            btnBorrar.Image = Properties.Resources.borrar;
+            btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBorrar.Location = new Point(250, 160);
+            btnBorrar.Margin = new Padding(4);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Padding = new Padding(12, 0, 0, 0);
+            btnBorrar.Size = new Size(218, 52);
+            btnBorrar.TabIndex = 120;
+            btnBorrar.Text = "   DEL Borrar Art.";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
             // 
-            // btnbuscar
+            // btnBuscar
             // 
-            btnbuscar.Font = new Font("Segoe UI", 9.5F);
-            btnbuscar.Image = Properties.Resources.busqueda;
-            btnbuscar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnbuscar.Location = new Point(24, 160);
-            btnbuscar.Margin = new Padding(4);
-            btnbuscar.Name = "btnbuscar";
-            btnbuscar.Padding = new Padding(12, 0, 0, 0);
-            btnbuscar.Size = new Size(218, 52);
-            btnbuscar.TabIndex = 119;
-            btnbuscar.Text = "    F10 Buscar";
-            btnbuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Font = new Font("Segoe UI", 9.5F);
+            btnBuscar.Image = Properties.Resources.busqueda;
+            btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.Location = new Point(24, 160);
+            btnBuscar.Margin = new Padding(4);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Padding = new Padding(12, 0, 0, 0);
+            btnBuscar.Size = new Size(218, 52);
+            btnBuscar.TabIndex = 119;
+            btnBuscar.Text = "    F10 Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // textBox1
             // 
@@ -125,23 +127,22 @@
             textBox1.Text = "$0.00";
             textBox1.TextAlign = HorizontalAlignment.Right;
             // 
-            // btncobrar
+            // btnCobrar
             // 
-            btncobrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btncobrar.BackColor = Color.FromArgb(46, 204, 113);
-            btncobrar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btncobrar.ForeColor = Color.Black;
-            btncobrar.Image = Properties.Resources.ingreso__1_;
-            btncobrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btncobrar.Location = new Point(706, 552);
-            btncobrar.Margin = new Padding(4);
-            btncobrar.Name = "btncobrar";
-            btncobrar.Padding = new Padding(15, 0, 0, 0);
-            btncobrar.Size = new Size(315, 75);
-            btncobrar.TabIndex = 123;
-            btncobrar.Text = "   F12 Cobrar";
-            btncobrar.UseVisualStyleBackColor = false;
-            btncobrar.Click += btncobrar_Click;
+            btnCobrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCobrar.BackColor = Color.FromArgb(46, 204, 113);
+            btnCobrar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            btnCobrar.ForeColor = Color.Black;
+            btnCobrar.Image = Properties.Resources.ingreso__1_;
+            btnCobrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCobrar.Location = new Point(706, 552);
+            btnCobrar.Margin = new Padding(4);
+            btnCobrar.Name = "btnCobrar";
+            btnCobrar.Padding = new Padding(15, 0, 0, 0);
+            btnCobrar.Size = new Size(315, 75);
+            btnCobrar.TabIndex = 123;
+            btnCobrar.Text = "   F12 Cobrar";
+            btnCobrar.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -202,6 +203,7 @@
             btnagregarproducto.TabIndex = 122;
             btnagregarproducto.Text = "  ENTER - Agregar";
             btnagregarproducto.UseVisualStyleBackColor = true;
+            btnagregarproducto.Click += btnagregarproducto_Click;
             // 
             // FrmVentas
             // 
@@ -211,21 +213,23 @@
             ClientSize = new Size(1400, 645);
             Controls.Add(panel1);
             Controls.Add(textBox1);
-            Controls.Add(btncobrar);
+            Controls.Add(btnCobrar);
             Controls.Add(btnagregarproducto);
             Controls.Add(btnReporteventas);
-            Controls.Add(btnborrar);
+            Controls.Add(btnBorrar);
             Controls.Add(textBox3);
-            Controls.Add(btnbuscar);
+            Controls.Add(btnBuscar);
             Controls.Add(label7);
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Margin = new Padding(4);
             Name = "FrmVentas";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmVentas";
             WindowState = FormWindowState.Maximized;
+            KeyDown += FrmVentas_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -237,10 +241,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnReporteventas;
-        private System.Windows.Forms.Button btnborrar;
-        private System.Windows.Forms.Button btnbuscar;
+        private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btncobrar;
+        private System.Windows.Forms.Button btnCobrar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;

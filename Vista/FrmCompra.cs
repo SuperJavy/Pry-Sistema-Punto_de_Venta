@@ -16,43 +16,42 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             InitializeComponent();
         }
+        private void FrmCompra_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    btnAgregarproducto_Click(sender, e);
+                    break;
 
-        private void FrmCompra_Load(object sender, EventArgs e)
+                case Keys.F10:
+                    btnBuscar_Click(sender, e);
+                    break;
+
+                case Keys.Delete:
+                    btnBorrar_Click(sender, e);
+                    break;
+                case Keys.F12:btnComprar_Click(sender, e);
+                    break;
+            }
+        }
+
+        private void btnAgregarproducto_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void btnBorrar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btncobrar_Click(object sender, EventArgs e)
+        private void btnComprar_Click(object sender, EventArgs e)
         {
 
         }
