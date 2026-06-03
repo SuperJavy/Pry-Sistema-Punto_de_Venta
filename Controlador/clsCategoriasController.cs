@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pry_Sistema_Punto_de_Venta.Modelo;
+using Pry_Sistema_Punto_de_Venta.Vista;
+
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -11,35 +13,34 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         clsCategoriaModelo categoria = new clsCategoriaModelo();
 
-        public void agregarCategoria(string nombreCategoria) 
+        public void agregarCategoria(string nombreCategoria, FrmCategorias vista) 
         {
-            if (nombreCategoria == null)
-            {
-                MessageBox.Show("El nombre de la categoria no puede quedar vacio", "validacion",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning
-                    );
+
+            if ( string.IsNullOrWhiteSpace(nombreCategoria))
+            { 
+                vista.notificarUsuario("El nombre de la categoria no puede estar vacio", false);
                 return;
-
             }
-
             try
             {
-                bool exito = categoria.insertarCategoria(nombreCategoria.Trim());
+                bool resultado = categoria.insertarCategoria(nombreCategoria.Trim());
 
-                if (exito)
+                if (resultado)
                 {
-                    MessageBox.Show("Categoria guardada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    vista.notificarUsuario("Categoria guardada de forma exitosa!", false);
+                    vista.limpiarPantalla();
                 }
-                else
+                else 
                 {
-                    MessageBox.Show("No se pudo guardar la categoria. Intente de nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                 }
             }
-            catch (Exception ex) { 
-                MessageBox.Show("Error al guardar la categoria: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex) 
+            {
+                vista.notificarUsuario("No se pudo registrar la categoria en el sistema" + ex.Message, true); 
             }
         }
 
     }
+    
 }

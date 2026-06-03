@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pry_Sistema_Punto_de_Venta.Controlador;
 
-namespace Pry_Sistema_Punto_de_Venta
+namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmCategorias : Form
     {
@@ -22,10 +22,24 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnGuardarCategoria_Click(object sender, EventArgs e)
         {
-            categoria.agregarCategoria(txtNombreCategoria.Text);
+            categoria.agregarCategoria(txtNombreCategoria.Text, this);
 
+           
+        }
+        public void limpiarPantalla()
+        {
             txtNombreCategoria.Clear();
             txtNombreCategoria.Focus();
+        }
+
+        public void notificarUsuario(string mensaje, bool esError)
+        {
+            MessageBox.Show(
+                mensaje,
+                "Punto de Venta",
+                MessageBoxButtons.OK,
+                esError ? MessageBoxIcon.Error : MessageBoxIcon.Information
+            );
         }
     }
 }

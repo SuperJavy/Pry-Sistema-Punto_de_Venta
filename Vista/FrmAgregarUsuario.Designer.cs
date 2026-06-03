@@ -28,204 +28,215 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblApellidoPaterno = new System.Windows.Forms.Label();
-            this.lblApellidoMaterno = new System.Windows.Forms.Label();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblContrasena = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.txtApellidoPaterno = new System.Windows.Forms.TextBox();
-            this.txtApellidoMaterno = new System.Windows.Forms.TextBox();
-            this.txtDireccion = new System.Windows.Forms.TextBox();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtContrasena = new System.Windows.Forms.TextBox();
-            this.BtnAgregarUsuario = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblTitulo = new Label();
+            lblNombre = new Label();
+            lblApellidoPaterno = new Label();
+            lblApellidoMaterno = new Label();
+            lblDireccion = new Label();
+            lblTelefono = new Label();
+            lblContrasena = new Label();
+            txtNombre = new TextBox();
+            txtApellidoPaterno = new TextBox();
+            txtApellidoMaterno = new TextBox();
+            txtDireccion = new TextBox();
+            txtTelefono = new TextBox();
+            txtPassword = new TextBox();
+            BtnAgregarUsuario = new Button();
+            comboBox1 = new ComboBox();
+            SuspendLayout();
             // 
             // lblTitulo
             // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblTitulo.Location = new System.Drawing.Point(40, 30);
-            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(262, 32);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Registrar Nuevo Usuario";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.ForeColor = Color.FromArgb(44, 62, 80);
+            lblTitulo.Location = new Point(48, 36);
+            lblTitulo.Margin = new Padding(5, 0, 5, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(399, 45);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Registrar Nuevo Usuario";
             // 
             // lblNombre
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblNombre.Location = new System.Drawing.Point(44, 105);
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(82, 23);
-            this.lblNombre.TabIndex = 1;
-            this.lblNombre.Text = "Nombre :";
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtNombre.Location = new System.Drawing.Point(44, 133);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(350, 32);
-            this.txtNombre.TabIndex = 2;
+            lblNombre.AutoSize = true;
+            lblNombre.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblNombre.ForeColor = Color.FromArgb(127, 140, 141);
+            lblNombre.Location = new Point(53, 126);
+            lblNombre.Margin = new Padding(5, 0, 5, 0);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(116, 32);
+            lblNombre.TabIndex = 1;
+            lblNombre.Text = "Nombre :";
             // 
             // lblApellidoPaterno
             // 
-            this.lblApellidoPaterno.AutoSize = true;
-            this.lblApellidoPaterno.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblApellidoPaterno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblApellidoPaterno.Location = new System.Drawing.Point(44, 190);
-            this.lblApellidoPaterno.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblApellidoPaterno.Name = "lblApellidoPaterno";
-            this.lblApellidoPaterno.Size = new System.Drawing.Size(147, 23);
-            this.lblApellidoPaterno.TabIndex = 3;
-            this.lblApellidoPaterno.Text = "Apellido Paterno :";
-            // 
-            // txtApellidoPaterno
-            // 
-            this.txtApellidoPaterno.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtApellidoPaterno.Location = new System.Drawing.Point(44, 218);
-            this.txtApellidoPaterno.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtApellidoPaterno.Name = "txtApellidoPaterno";
-            this.txtApellidoPaterno.Size = new System.Drawing.Size(350, 32);
-            this.txtApellidoPaterno.TabIndex = 4;
+            lblApellidoPaterno.AutoSize = true;
+            lblApellidoPaterno.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblApellidoPaterno.ForeColor = Color.FromArgb(127, 140, 141);
+            lblApellidoPaterno.Location = new Point(53, 228);
+            lblApellidoPaterno.Margin = new Padding(5, 0, 5, 0);
+            lblApellidoPaterno.Name = "lblApellidoPaterno";
+            lblApellidoPaterno.Size = new Size(208, 32);
+            lblApellidoPaterno.TabIndex = 3;
+            lblApellidoPaterno.Text = "Apellido Paterno :";
             // 
             // lblApellidoMaterno
             // 
-            this.lblApellidoMaterno.AutoSize = true;
-            this.lblApellidoMaterno.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblApellidoMaterno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblApellidoMaterno.Location = new System.Drawing.Point(44, 275);
-            this.lblApellidoMaterno.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblApellidoMaterno.Name = "lblApellidoMaterno";
-            this.lblApellidoMaterno.Size = new System.Drawing.Size(153, 23);
-            this.lblApellidoMaterno.TabIndex = 5;
-            this.lblApellidoMaterno.Text = "Apellido Materno :";
-            // 
-            // txtApellidoMaterno
-            // 
-            this.txtApellidoMaterno.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtApellidoMaterno.Location = new System.Drawing.Point(44, 303);
-            this.txtApellidoMaterno.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtApellidoMaterno.Name = "txtApellidoMaterno";
-            this.txtApellidoMaterno.Size = new System.Drawing.Size(350, 32);
-            this.txtApellidoMaterno.TabIndex = 6;
+            lblApellidoMaterno.AutoSize = true;
+            lblApellidoMaterno.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblApellidoMaterno.ForeColor = Color.FromArgb(127, 140, 141);
+            lblApellidoMaterno.Location = new Point(53, 330);
+            lblApellidoMaterno.Margin = new Padding(5, 0, 5, 0);
+            lblApellidoMaterno.Name = "lblApellidoMaterno";
+            lblApellidoMaterno.Size = new Size(217, 32);
+            lblApellidoMaterno.TabIndex = 5;
+            lblApellidoMaterno.Text = "Apellido Materno :";
             // 
             // lblDireccion
             // 
-            this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblDireccion.Location = new System.Drawing.Point(440, 105);
-            this.lblDireccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(90, 23);
-            this.lblDireccion.TabIndex = 7;
-            this.lblDireccion.Text = "Dirección :";
-            // 
-            // txtDireccion
-            // 
-            this.txtDireccion.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtDireccion.Location = new System.Drawing.Point(440, 133);
-            this.txtDireccion.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(350, 32);
-            this.txtDireccion.TabIndex = 8;
+            lblDireccion.AutoSize = true;
+            lblDireccion.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblDireccion.ForeColor = Color.FromArgb(127, 140, 141);
+            lblDireccion.Location = new Point(528, 126);
+            lblDireccion.Margin = new Padding(5, 0, 5, 0);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(128, 32);
+            lblDireccion.TabIndex = 7;
+            lblDireccion.Text = "Dirección :";
             // 
             // lblTelefono
             // 
-            this.lblTelefono.AutoSize = true;
-            this.lblTelefono.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblTelefono.Location = new System.Drawing.Point(440, 190);
-            this.lblTelefono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(83, 23);
-            this.lblTelefono.TabIndex = 9;
-            this.lblTelefono.Text = "Teléfono :";
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtTelefono.Location = new System.Drawing.Point(440, 218);
-            this.txtTelefono.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(350, 32);
-            this.txtTelefono.TabIndex = 10;
+            lblTelefono.AutoSize = true;
+            lblTelefono.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblTelefono.ForeColor = Color.FromArgb(127, 140, 141);
+            lblTelefono.Location = new Point(528, 228);
+            lblTelefono.Margin = new Padding(5, 0, 5, 0);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(120, 32);
+            lblTelefono.TabIndex = 9;
+            lblTelefono.Text = "Teléfono :";
             // 
             // lblContrasena
             // 
-            this.lblContrasena.AutoSize = true;
-            this.lblContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblContrasena.Location = new System.Drawing.Point(440, 275);
-            this.lblContrasena.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblContrasena.Name = "lblContrasena";
-            this.lblContrasena.Size = new System.Drawing.Size(106, 23);
-            this.lblContrasena.TabIndex = 11;
-            this.lblContrasena.Text = "Contraseña :";
+            lblContrasena.AutoSize = true;
+            lblContrasena.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblContrasena.ForeColor = Color.FromArgb(127, 140, 141);
+            lblContrasena.Location = new Point(528, 330);
+            lblContrasena.Margin = new Padding(5, 0, 5, 0);
+            lblContrasena.Name = "lblContrasena";
+            lblContrasena.Size = new Size(151, 32);
+            lblContrasena.TabIndex = 11;
+            lblContrasena.Text = "Contraseña :";
             // 
-            // txtContrasena
+            // txtNombre
             // 
-            this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtContrasena.Location = new System.Drawing.Point(440, 303);
-            this.txtContrasena.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtContrasena.Name = "txtContrasena";
-            this.txtContrasena.Size = new System.Drawing.Size(350, 32);
-            this.txtContrasena.TabIndex = 12;
-            this.txtContrasena.UseSystemPasswordChar = true; // TIP DE SEGURIDAD: Oculta los caracteres escritos automáticamente
+            txtNombre.Font = new Font("Segoe UI", 11F);
+            txtNombre.Location = new Point(53, 160);
+            txtNombre.Margin = new Padding(5, 7, 5, 7);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(419, 42);
+            txtNombre.TabIndex = 2;
+            // 
+            // txtApellidoPaterno
+            // 
+            txtApellidoPaterno.Font = new Font("Segoe UI", 11F);
+            txtApellidoPaterno.Location = new Point(53, 262);
+            txtApellidoPaterno.Margin = new Padding(5, 7, 5, 7);
+            txtApellidoPaterno.Name = "txtApellidoPaterno";
+            txtApellidoPaterno.Size = new Size(419, 42);
+            txtApellidoPaterno.TabIndex = 4;
+            // 
+            // txtApellidoMaterno
+            // 
+            txtApellidoMaterno.Font = new Font("Segoe UI", 11F);
+            txtApellidoMaterno.Location = new Point(53, 364);
+            txtApellidoMaterno.Margin = new Padding(5, 7, 5, 7);
+            txtApellidoMaterno.Name = "txtApellidoMaterno";
+            txtApellidoMaterno.Size = new Size(419, 42);
+            txtApellidoMaterno.TabIndex = 6;
+            // 
+            // txtDireccion
+            // 
+            txtDireccion.Font = new Font("Segoe UI", 11F);
+            txtDireccion.Location = new Point(528, 160);
+            txtDireccion.Margin = new Padding(5, 7, 5, 7);
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.Size = new Size(419, 42);
+            txtDireccion.TabIndex = 8;
+            // 
+            // txtTelefono
+            // 
+            txtTelefono.Font = new Font("Segoe UI", 11F);
+            txtTelefono.Location = new Point(528, 262);
+            txtTelefono.Margin = new Padding(5, 7, 5, 7);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(419, 42);
+            txtTelefono.TabIndex = 10;
+            // 
+            // txtPassword
+            // 
+            txtPassword.Font = new Font("Segoe UI", 11F);
+            txtPassword.Location = new Point(528, 364);
+            txtPassword.Margin = new Padding(5, 7, 5, 7);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(419, 42);
+            txtPassword.TabIndex = 12;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // BtnAgregarUsuario
             // 
-            this.BtnAgregarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113))))); // Verde esmeralda moderno
-            this.BtnAgregarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnAgregarUsuario.FlatAppearance.BorderSize = 0;
-            this.BtnAgregarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAgregarUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.BtnAgregarUsuario.ForeColor = System.Drawing.Color.White;
-            this.BtnAgregarUsuario.Location = new System.Drawing.Point(44, 380);
-            this.BtnAgregarUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
-            this.BtnAgregarUsuario.Size = new System.Drawing.Size(746, 45);
-            this.BtnAgregarUsuario.TabIndex = 13;
-            this.BtnAgregarUsuario.Text = "Guardar Usuario";
-            this.BtnAgregarUsuario.UseVisualStyleBackColor = false;
+            BtnAgregarUsuario.BackColor = Color.FromArgb(46, 204, 113);
+            BtnAgregarUsuario.Cursor = Cursors.Hand;
+            BtnAgregarUsuario.FlatAppearance.BorderSize = 0;
+            BtnAgregarUsuario.FlatStyle = FlatStyle.Flat;
+            BtnAgregarUsuario.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            BtnAgregarUsuario.ForeColor = Color.White;
+            BtnAgregarUsuario.Location = new Point(52, 564);
+            BtnAgregarUsuario.Margin = new Padding(4, 5, 4, 5);
+            BtnAgregarUsuario.Name = "BtnAgregarUsuario";
+            BtnAgregarUsuario.Size = new Size(895, 54);
+            BtnAgregarUsuario.TabIndex = 13;
+            BtnAgregarUsuario.Text = "Guardar Usuario";
+            BtnAgregarUsuario.UseVisualStyleBackColor = false;
+            BtnAgregarUsuario.Click += BtnAgregarUsuario_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(53, 456);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(419, 38);
+            comboBox1.TabIndex = 14;
             // 
             // FrmAgregarUsuario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(840, 480);
-            this.Controls.Add(this.BtnAgregarUsuario);
-            this.Controls.Add(this.txtContrasena);
-            this.Controls.Add(this.lblContrasena);
-            this.Controls.Add(this.txtTelefono);
-            this.Controls.Add(this.lblTelefono);
-            this.Controls.Add(this.txtDireccion);
-            this.Controls.Add(this.lblDireccion);
-            this.Controls.Add(this.txtApellidoMaterno);
-            this.Controls.Add(this.lblApellidoMaterno);
-            this.Controls.Add(this.txtApellidoPaterno);
-            this.Controls.Add(this.lblApellidoPaterno);
-            this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.lblTitulo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.Name = "FrmAgregarUsuario";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Agregar Usuario";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(1019, 669);
+            Controls.Add(comboBox1);
+            Controls.Add(BtnAgregarUsuario);
+            Controls.Add(txtPassword);
+            Controls.Add(lblContrasena);
+            Controls.Add(txtTelefono);
+            Controls.Add(lblTelefono);
+            Controls.Add(txtDireccion);
+            Controls.Add(lblDireccion);
+            Controls.Add(txtApellidoMaterno);
+            Controls.Add(lblApellidoMaterno);
+            Controls.Add(txtApellidoPaterno);
+            Controls.Add(lblApellidoPaterno);
+            Controls.Add(txtNombre);
+            Controls.Add(lblNombre);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(5, 7, 5, 7);
+            Name = "FrmAgregarUsuario";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Agregar Usuario";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -243,7 +254,8 @@
         private System.Windows.Forms.TextBox txtApellidoMaterno;
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.TextBox txtContrasena;
+        private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button BtnAgregarUsuario;
+        private ComboBox comboBox1;
     }
 }

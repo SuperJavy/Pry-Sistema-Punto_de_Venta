@@ -22,7 +22,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue("@nombre", nombreCategoria);
 
                     int filasAfectadas = cmd.ExecuteNonQuery();
-                    return filasAfectadas > 0; // Retorna true si se insertó correctamente, false en caso contrario
+                    return filasAfectadas > 0; 
                 }
             }
             catch (Exception ex)
