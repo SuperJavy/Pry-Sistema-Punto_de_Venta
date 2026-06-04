@@ -12,7 +12,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
     {
         public bool registrarUsuario(string nombre, string apellidoP, string apellidoM, string direcion, string telefono, string password, int id_rol)
         {
-            string consulta = "insert into usuario (`nombre`, `Apellido_paterno`, `apellido_materno`, `direccion`, `telefono`, `password`, `ID_rol` )value(@nombre, @paterno, @materno, @direccion, @telefono, @password, @id_rol)";
+            string consulta = "insert into usuario (`nombre`, `Apellido_paterno`, `Apellido_materno`, `direccion`, `telefono`, `password`, `ID_rol` ) VALUES (@nombre, @paterno, @materno, @direccion, @telefono, @password, @id_rol)";
 
             try
             {
@@ -43,31 +43,32 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 cerrarConexion();
             }
         }
+
         public DataTable obtenerRoles()
-        { 
+        {
             DataTable dt = new DataTable();
-            string consulta = "SELECT ID_rol, nombre_rol FROM rol";
+
+            String consulta = "SELECT id, Rol FROM rol";
+
             try
             {
                 MySqlConnection con = abrirConexion();
-                
-                    using (MySqlCommand cmd = new MySqlCommand(consulta, con))
+
+                using (MySqlCommand cmd = new MySqlCommand(consulta, con))
+                {
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
+                        da.Fill(dt);
                     }
+                }
                 return dt;
-                
             }
             catch (Exception ex)
-            {
-                throw new Exception("Error al obtener roles: " + ex.Message);
+            { 
+                throw new Exception("Error en UsuarioDAO: " + ex.Message);
             }
             finally { cerrarConexion(); }
 
         }
-
     }
 }

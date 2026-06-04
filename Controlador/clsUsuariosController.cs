@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pry_Sistema_Punto_de_Venta.Modelo;
+using Pry_Sistema_Punto_de_Venta.Vista;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -12,7 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         clsUsuarioModelo usuario = new clsUsuarioModelo();
 
-        public void registrarUsuario(string nombre, string apellidoP, string apellidoM, string direcion, string telefono, string password, int id_rol)
+        public void registrarUsuario(string nombre, string apellidoP, string apellidoM, string direcion, string telefono, string password, int id_rol, FrmAgregarUsuario vista)
         {
             if (string.IsNullOrEmpty(nombre)|| string.IsNullOrEmpty(telefono) || string.IsNullOrEmpty(password))
             {
@@ -30,8 +32,20 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-            
-    
+
+        public void cargarRoles(FrmAgregarUsuario vista)
+        {
+            try 
+            {
+                DataTable dtroles = usuario.obtenerRoles();
+
+                vista.llenarComboRoles(dtroles);
+            }
+            catch(Exception ex)
+            {
+                
+            }
+        }
         
     }
 }
