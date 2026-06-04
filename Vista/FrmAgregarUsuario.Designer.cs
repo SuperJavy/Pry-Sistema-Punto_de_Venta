@@ -42,12 +42,14 @@
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.BtnAgregarUsuario = new System.Windows.Forms.Button();
-
-            // NUEVOS COMPONENTES DECLARADOS
             this.lblCorreo = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
             this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
+
+            // COMPONENTES DEL COMBOBOX DE ROL
+            this.lblRol = new System.Windows.Forms.Label();
+            this.cmbRol = new System.Windows.Forms.ComboBox();
 
             this.SuspendLayout();
             // 
@@ -147,6 +149,29 @@
             this.txtNombreUsuario.Size = new System.Drawing.Size(350, 32);
             this.txtNombreUsuario.TabIndex = 15;
             // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblRol.Location = new System.Drawing.Point(44, 445); // Fila 5 (Izquierda)
+            this.lblRol.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(142, 23);
+            this.lblRol.TabIndex = 18;
+            this.lblRol.Text = "Rol de Usuario :";
+            // 
+            // cmbRol
+            // 
+            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; // Evita que escriban texto libre
+            this.cmbRol.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cmbRol.FormattingEnabled = true;
+            this.cmbRol.Location = new System.Drawing.Point(44, 473);
+            this.cmbRol.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.cmbRol.Name = "cmbRol";
+            this.cmbRol.Size = new System.Drawing.Size(350, 33);
+            this.cmbRol.TabIndex = 19;
+            // 
             // lblDireccion
             // 
             this.lblDireccion.AutoSize = true;
@@ -215,7 +240,7 @@
             this.lblContrasena.AutoSize = true;
             this.lblContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblContrasena.Location = new System.Drawing.Point(440, 360);
+            this.lblContrasena.Location = new System.Drawing.Point(440, 360); // Fila 4 (Derecha)
             this.lblContrasena.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblContrasena.Name = "lblContrasena";
             this.lblContrasena.Size = new System.Drawing.Size(106, 23);
@@ -240,7 +265,7 @@
             this.BtnAgregarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAgregarUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.BtnAgregarUsuario.ForeColor = System.Drawing.Color.White;
-            this.BtnAgregarUsuario.Location = new System.Drawing.Point(44, 465); // Movido más abajo para dar espacio a la fila 4
+            this.BtnAgregarUsuario.Location = new System.Drawing.Point(44, 550); // Ajustado al fondo para dar espacio a la nueva fila
             this.BtnAgregarUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
             this.BtnAgregarUsuario.Size = new System.Drawing.Size(746, 45);
@@ -253,7 +278,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(840, 550); // Incrementado de 480 a 550 de alto
+            this.ClientSize = new System.Drawing.Size(840, 640); // Incrementado de 550 a 640 para espacio óptimo del Combo
+            this.Controls.Add(this.cmbRol);
+            this.Controls.Add(this.lblRol);
             this.Controls.Add(this.BtnAgregarUsuario);
             this.Controls.Add(this.txtContrasena);
             this.Controls.Add(this.lblContrasena);
@@ -298,11 +325,13 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Button BtnAgregarUsuario;
-
-        // NUEVAS DECLARACIONES AL FINAL DEL ARCHIVO
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.TextBox txtCorreo;
         private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.TextBox txtNombreUsuario;
+
+        // NUEVAS DECLARACIONES
+        private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.ComboBox cmbRol;
     }
 }
