@@ -17,11 +17,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         public FrmAgregarUsuario()
         {
             InitializeComponent();
+            usuario.cargarRoles(this);
         }
 
         private void FrmAgregarUsuario_Load(object sender, EventArgs e)
         {
-            usuario.cargarRoles(this);
+          
         }
 
         private void BtnAgregarUsuario_Click(object sender, EventArgs e)
@@ -53,7 +54,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         {
             cmbRol.DataSource = roles;
             cmbRol.DisplayMember = "Rol";
-            cmbRol.ValueMember = "id";
+            cmbRol.ValueMember = "Id";
         }
 
         public void LimpiarCampos()
