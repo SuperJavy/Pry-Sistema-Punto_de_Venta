@@ -32,5 +32,7 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             this.Close();
         }
+
+        //pendiente programar el ticket de la compra que aparescan los productos 
     }
 }

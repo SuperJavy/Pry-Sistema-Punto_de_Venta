@@ -42,6 +42,13 @@
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.BtnAgregarUsuario = new System.Windows.Forms.Button();
+
+            // NUEVOS COMPONENTES DECLARADOS
+            this.lblCorreo = new System.Windows.Forms.Label();
+            this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.lblNombreUsuario = new System.Windows.Forms.Label();
+            this.txtNombreUsuario = new System.Windows.Forms.TextBox();
+
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -119,6 +126,27 @@
             this.txtApellidoMaterno.Size = new System.Drawing.Size(350, 32);
             this.txtApellidoMaterno.TabIndex = 6;
             // 
+            // lblNombreUsuario
+            // 
+            this.lblNombreUsuario.AutoSize = true;
+            this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblNombreUsuario.Location = new System.Drawing.Point(44, 360);
+            this.lblNombreUsuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNombreUsuario.Name = "lblNombreUsuario";
+            this.lblNombreUsuario.Size = new System.Drawing.Size(144, 23);
+            this.lblNombreUsuario.TabIndex = 14;
+            this.lblNombreUsuario.Text = "Crear Usuario / Nick :";
+            // 
+            // txtNombreUsuario
+            // 
+            this.txtNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtNombreUsuario.Location = new System.Drawing.Point(44, 388);
+            this.txtNombreUsuario.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtNombreUsuario.Name = "txtNombreUsuario";
+            this.txtNombreUsuario.Size = new System.Drawing.Size(350, 32);
+            this.txtNombreUsuario.TabIndex = 15;
+            // 
             // lblDireccion
             // 
             this.lblDireccion.AutoSize = true;
@@ -161,12 +189,33 @@
             this.txtTelefono.Size = new System.Drawing.Size(350, 32);
             this.txtTelefono.TabIndex = 10;
             // 
+            // lblCorreo
+            // 
+            this.lblCorreo.AutoSize = true;
+            this.lblCorreo.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCorreo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.lblCorreo.Location = new System.Drawing.Point(440, 275);
+            this.lblCorreo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(159, 23);
+            this.lblCorreo.TabIndex = 16;
+            this.lblCorreo.Text = "Correo Electrónico :";
+            // 
+            // txtCorreo
+            // 
+            this.txtCorreo.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtCorreo.Location = new System.Drawing.Point(440, 303);
+            this.txtCorreo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(350, 32);
+            this.txtCorreo.TabIndex = 17;
+            // 
             // lblContrasena
             // 
             this.lblContrasena.AutoSize = true;
             this.lblContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.lblContrasena.Location = new System.Drawing.Point(440, 275);
+            this.lblContrasena.Location = new System.Drawing.Point(440, 360);
             this.lblContrasena.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblContrasena.Name = "lblContrasena";
             this.lblContrasena.Size = new System.Drawing.Size(106, 23);
@@ -176,22 +225,22 @@
             // txtContrasena
             // 
             this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtContrasena.Location = new System.Drawing.Point(440, 303);
+            this.txtContrasena.Location = new System.Drawing.Point(440, 388);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.Size = new System.Drawing.Size(350, 32);
             this.txtContrasena.TabIndex = 12;
-            this.txtContrasena.UseSystemPasswordChar = true; // TIP DE SEGURIDAD: Oculta los caracteres escritos automáticamente
+            this.txtContrasena.UseSystemPasswordChar = true;
             // 
             // BtnAgregarUsuario
             // 
-            this.BtnAgregarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113))))); // Verde esmeralda moderno
+            this.BtnAgregarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.BtnAgregarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnAgregarUsuario.FlatAppearance.BorderSize = 0;
             this.BtnAgregarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAgregarUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.BtnAgregarUsuario.ForeColor = System.Drawing.Color.White;
-            this.BtnAgregarUsuario.Location = new System.Drawing.Point(44, 380);
+            this.BtnAgregarUsuario.Location = new System.Drawing.Point(44, 465); // Movido más abajo para dar espacio a la fila 4
             this.BtnAgregarUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
             this.BtnAgregarUsuario.Size = new System.Drawing.Size(746, 45);
@@ -204,14 +253,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(840, 480);
+            this.ClientSize = new System.Drawing.Size(840, 550); // Incrementado de 480 a 550 de alto
             this.Controls.Add(this.BtnAgregarUsuario);
             this.Controls.Add(this.txtContrasena);
             this.Controls.Add(this.lblContrasena);
+            this.Controls.Add(this.txtCorreo);
+            this.Controls.Add(this.lblCorreo);
             this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.lblTelefono);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.lblDireccion);
+            this.Controls.Add(this.txtNombreUsuario);
+            this.Controls.Add(this.lblNombreUsuario);
             this.Controls.Add(this.txtApellidoMaterno);
             this.Controls.Add(this.lblApellidoMaterno);
             this.Controls.Add(this.txtApellidoPaterno);
@@ -245,5 +298,11 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Button BtnAgregarUsuario;
+
+        // NUEVAS DECLARACIONES AL FINAL DEL ARCHIVO
+        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.Label lblNombreUsuario;
+        private System.Windows.Forms.TextBox txtNombreUsuario;
     }
 }
