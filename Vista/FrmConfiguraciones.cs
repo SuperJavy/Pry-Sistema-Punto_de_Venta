@@ -1,4 +1,5 @@
 ﻿using Pry_Sistema_Punto_de_Venta.vista;
+using Pry_Sistema_Punto_de_Venta.Vista;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
