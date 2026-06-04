@@ -1,4 +1,4 @@
-﻿namespace Pry_Sistema_Punto_de_Venta
+﻿namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     partial class FrmAgregarUsuario
     {
@@ -42,7 +42,7 @@
             txtTelefono = new TextBox();
             txtPassword = new TextBox();
             BtnAgregarUsuario = new Button();
-            comboBox1 = new ComboBox();
+            cmbRol = new ComboBox();
             SuspendLayout();
             // 
             // lblTitulo
@@ -201,13 +201,13 @@
             BtnAgregarUsuario.UseVisualStyleBackColor = false;
             BtnAgregarUsuario.Click += BtnAgregarUsuario_Click;
             // 
-            // comboBox1
+            // cmbRol
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(53, 456);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(419, 38);
-            comboBox1.TabIndex = 14;
+            cmbRol.FormattingEnabled = true;
+            cmbRol.Location = new Point(53, 456);
+            cmbRol.Name = "cmbRol";
+            cmbRol.Size = new Size(419, 38);
+            cmbRol.TabIndex = 14;
             // 
             // FrmAgregarUsuario
             // 
@@ -215,7 +215,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1019, 669);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbRol);
             Controls.Add(BtnAgregarUsuario);
             Controls.Add(txtPassword);
             Controls.Add(lblContrasena);
@@ -235,6 +235,7 @@
             Name = "FrmAgregarUsuario";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Agregar Usuario";
+            Load += FrmAgregarUsuario_Load;
             ResumeLayout(false);
             PerformLayout();
 
@@ -256,6 +257,6 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button BtnAgregarUsuario;
-        private ComboBox comboBox1;
+        private ComboBox cmbRol;
     }
 }
