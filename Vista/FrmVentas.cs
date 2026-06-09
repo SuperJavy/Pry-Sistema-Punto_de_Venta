@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmVentas : Form
@@ -15,12 +16,16 @@ namespace Pry_Sistema_Punto_de_Venta
         public FrmVentas()
         {
             InitializeComponent();
+
         }
+
+        clsVentasController controler = new clsVentasController();
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            FrmVentaproductos Vproduct = new FrmVentaproductos();
+            FrmVentaproductos Vproduct = new FrmVentaproductos(controler);
             Vproduct.Show();
+            
         }
 
         private void btnReporteventas_Click(object sender, EventArgs e)
@@ -55,6 +60,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnagregarproducto_Click(object sender, EventArgs e)
         {
+            string codigo = txtCodigoBusq.Text;
+            controler.procesarBusqueda(codigo, this);
 
         }
 
@@ -67,6 +74,33 @@ namespace Pry_Sistema_Punto_de_Venta
         {
 
         }
+        public void actualizarTabla(List<detalleVenta> detalleVenta)
+        {
+            dtgVenta.Rows.Clear();
+            foreach (var item in detalleVenta)
+            {
 
+                dtgVenta.Rows.Add(
+                    item.Producto.codigo_de_barras,
+                    item.Producto.nombre,
+                    "producto",
+                    item.Cantidad,
+                    item.PrecioUnitario,
+                    item.Importe,
+                    null,
+                    "productos"
+
+                    );
+            }
+
+        }
+        public void mostrarTotal(decimal TotalVenta)
+        {
+
+            txtTotal.Text = "$ " + TotalVenta.ToString();
+
+        }
+
+        
     }
 }
