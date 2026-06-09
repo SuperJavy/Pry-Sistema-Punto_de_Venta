@@ -9,8 +9,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class clsConexion
     {
-        //private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=123456;";
-        private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=;";
+        private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=123456;";
+        //private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=;";
 
         protected MySqlConnection conexion;
         public MySqlConnection abrirConexion()

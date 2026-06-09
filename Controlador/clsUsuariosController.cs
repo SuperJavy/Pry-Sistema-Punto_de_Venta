@@ -43,7 +43,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch(Exception ex)
             {
-                
+                vista.NotificarUsuario("Error al cargar los roles: " + ex.Message, true);
             }
         }
         

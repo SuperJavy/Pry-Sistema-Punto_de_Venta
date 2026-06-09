@@ -65,7 +65,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
             catch (Exception ex)
             { 
-                throw new Exception("Error en UsuarioDAO: " + ex.Message);
+                throw new Exception("Error en Usuario: " + ex.Message);
             }
             finally { cerrarConexion(); }
 
