@@ -40,7 +40,7 @@
             this.txtApellidoMaterno = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtContrasena = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.BtnAgregarUsuario = new System.Windows.Forms.Button();
             this.lblCorreo = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
@@ -261,13 +261,13 @@
             // 
             // txtContrasena
             // 
-            this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtContrasena.Location = new System.Drawing.Point(440, 388);
-            this.txtContrasena.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtContrasena.Name = "txtContrasena";
-            this.txtContrasena.Size = new System.Drawing.Size(350, 32);
-            this.txtContrasena.TabIndex = 12;
-            this.txtContrasena.UseSystemPasswordChar = true;
+            this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtPassword.Location = new System.Drawing.Point(440, 388);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtPassword.Name = "txtContrasena";
+            this.txtPassword.Size = new System.Drawing.Size(350, 32);
+            this.txtPassword.TabIndex = 12;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // BtnAgregarUsuario
             // 
@@ -294,7 +294,7 @@
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
             this.Controls.Add(this.BtnAgregarUsuario);
-            this.Controls.Add(this.txtContrasena);
+            this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblContrasena);
             this.Controls.Add(this.txtCorreo);
             this.Controls.Add(this.lblCorreo);
@@ -329,6 +329,8 @@
         private System.Windows.Forms.Label lblApellidoMaterno;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblTelefono;
+
+
         private System.Windows.Forms.Label lblContrasena;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtApellidoPaterno;
