@@ -7,63 +7,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Vista;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmPrincipal : Form
     {
+
+        private string Rolusuario;
         ClsPrincipal principal = new ClsPrincipal();
-        public FrmPrincipal()
+        ClsPrincipalController controller = new ClsPrincipalController();
+        public FrmPrincipal(string rolusuario)
         {
             InitializeComponent();
+
+
+            Rolusuario = rolusuario;
+            controller.verificarrol(Rolusuario, this);
+        }
+        public void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
-        private void ventasToolStripMenuItem_Click(object sender, EventArgs e)
+        public void mnsVentas_Click_1(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
             principal.agregaralcontenedor(new FrmVentas(), pnlcontenedor);
         }
 
-        private void agregarProductoToolStripMenuItem_Click(object sender, EventArgs e)
+        public void mnsProductos_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
             principal.agregaralcontenedor(new FrmProductos(), pnlcontenedor);
         }
 
-        private void compraToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mnsCompra_Click(object sender, EventArgs e)
         {
             FrmCompra frmCompras = new FrmCompra();
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
             principal = new ClsPrincipal();
             principal.agregaralcontenedor(new FrmCompra(), pnlcontenedor);
-
         }
 
-        private void inventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mnsInventario_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
             principal.agregaralcontenedor(new FrmInventario(), pnlcontenedor);
         }
-        private void agregraToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void mnsConfiguraciones_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
             principal.agregaralcontenedor(new FrmConfiguraciones(), pnlcontenedor);
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlcontenedor_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

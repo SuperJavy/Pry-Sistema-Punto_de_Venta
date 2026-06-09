@@ -313,6 +313,8 @@
         private System.Windows.Forms.Label lblApellidoMaterno;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblTelefono;
+
+
         private System.Windows.Forms.Label lblContrasena;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtApellidoPaterno;

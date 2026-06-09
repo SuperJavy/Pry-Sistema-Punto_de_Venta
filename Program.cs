@@ -1,4 +1,5 @@
 using Pry_Sistema_Punto_de_Venta;
+using Pry_Sistema_Punto_de_Venta.Vista;
 using System;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
