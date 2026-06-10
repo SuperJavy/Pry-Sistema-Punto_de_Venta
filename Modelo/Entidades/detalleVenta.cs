@@ -8,6 +8,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
 {
     public class detalleVenta
     {
+
         public Producto Producto { get; set; }
 
         public decimal Cantidad { get; set; }

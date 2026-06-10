@@ -9,6 +9,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
    
         public class Producto {
 
+            public int id_producto  { get; set; }
             public string codigo_de_barras { get; set; }
             public string nombre { get; set; }
             public decimal precio { get; set; }
