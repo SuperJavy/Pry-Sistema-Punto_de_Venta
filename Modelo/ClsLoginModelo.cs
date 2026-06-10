@@ -13,7 +13,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public string Nombre { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
-        public int idUsuario { get; set; }
+        public static int UsuarioActual { get; set; }
 
 
         public Boolean validarusuario(string Nombre, string password)
@@ -24,7 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    string query = "SELECT ID_rol FROM usuario WHERE Nombre = @Nombre AND password = @password";
+                    string query = "SELECT Id, ID_rol FROM usuario WHERE Nombre = @Nombre AND password = @password";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Nombre", Nombre);
@@ -33,6 +33,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         {
                             if (resultado.Read())
                             {
+                                UsuarioActual = Convert.ToInt32(resultado["Id"]);
                                 this.Rol = resultado["ID_rol"].ToString();
                                 return true;
                             }
