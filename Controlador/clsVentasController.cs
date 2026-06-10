@@ -15,8 +15,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     public class clsVentasController
     {
         clsVentasModelo modelo = new clsVentasModelo();
+        ClsLoginModelo usuario = new ClsLoginModelo();
 
-        
+
         private ventas venta = new ventas();
 
         public void procesarBusqueda(string codigo, FrmVentas vista)
@@ -37,12 +38,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             else { MessageBox.Show("El producto no existe en la base de datos."); }
         }
 
-        private void  agregarProducto(Producto producto)
+        private void agregarProducto(Producto producto)
         {
             var existe = venta.detalleVenta.FirstOrDefault(x => x.Producto.codigo_de_barras == producto.codigo_de_barras);
 
             if (existe != null) existe.Cantidad++;
-            else {
+            else
+            {
                 venta.detalleVenta.Add(
                     new detalleVenta
                     {
@@ -50,20 +52,35 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                         Cantidad = 1,
                         PrecioUnitario = producto.precio
                     }
-               
+
                 );
             }
         }
-      
-
-        public decimal obtenerCambios(decimal pago)
+        public decimal obtenerCambio(decimal pago)
         {
-            
-            return venta.calcaularCambio(pago);
+            venta.efectivo = pago;
+            return venta.cambio;        
         }
         public decimal obtenerTotal()
         {
             return venta.total;
+        }
+        public bool guardarVenta()
+        {
+            
+            venta.fecha = DateTime.Now;
+            foreach (var item in venta.detalleVenta)
+            {
+                if (item.Cantidad > item.Producto.stock)
+                {
+                    MessageBox.Show(
+                        $"Stock insuficiente para {item.Producto.nombre}");
+
+                    return false;
+                }
+            }
+            return modelo.ProcesarVenta(venta);
+
         }
     }
 }

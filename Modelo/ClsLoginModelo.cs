@@ -13,6 +13,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public string Nombre { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
+        public int idUsuario { get; set; }
 
 
         public Boolean validarusuario(string Nombre, string password)

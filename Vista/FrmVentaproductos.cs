@@ -42,7 +42,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnCobrarImprimir_Click(object sender, EventArgs e)
         {
-
+            controller.guardarVenta(); 
+                
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -54,14 +55,14 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             if (decimal.TryParse(txtPagoCon.Text, out decimal pago))
             {
-                decimal cambio = controller.obtenerCambios(pago);
+                decimal cambio = controller.obtenerCambio(pago);
                 if (cambio < 0)
                 {
                     lblCambioMonto.Text = Math.Abs(cambio).ToString("N2");
                 }
                 else
                 {
-                    lblCambioMonto.Text = "-" + cambio.ToString("N2");
+                    lblCambioMonto.Text = cambio.ToString("N2");
                 }
                 
             }
