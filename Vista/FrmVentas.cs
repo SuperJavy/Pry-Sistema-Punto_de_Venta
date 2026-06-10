@@ -72,7 +72,14 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
+            if (dtgVenta.CurrentRow == null)
+            {
+                return;
+            }
+            int indice = dtgVenta.CurrentRow.Index;
 
+            controler.eliminarProducto(indice, this);
+            
         }
         public void actualizarTabla(List<detalleVenta> detalleVenta)
         {
