@@ -122,7 +122,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 cmd.Parameters.AddWithValue(
                     "@id_usuario",
-                    "1");
+                    venta.IdUsuario);
 
                 cmd.Parameters.AddWithValue(
                     "@fecha_hora",

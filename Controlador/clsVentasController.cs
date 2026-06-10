@@ -67,7 +67,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public bool guardarVenta()
         {
-            
+            venta.IdUsuario = ClsLoginModelo.UsuarioActual;
             venta.fecha = DateTime.Now;
             foreach (var item in venta.detalleVenta)
             {
