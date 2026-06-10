@@ -82,5 +82,16 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             return modelo.ProcesarVenta(venta);
 
         }
+        public void eliminarProducto(int indice, FrmVentas vista) {
+
+            if (indice >= 0 && indice < venta.detalleVenta.Count)
+            {
+                venta.detalleVenta.RemoveAt(indice);
+
+                vista.actualizarTabla(venta.detalleVenta);
+
+                vista.mostrarTotal(venta.total);
+            }
+        }
     }
 }
