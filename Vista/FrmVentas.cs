@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pry_Sistema_Punto_de_Venta.Controlador;
 using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
+using Pry_Sistema_Punto_de_Venta.Vista;
 namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmVentas : Form
@@ -67,7 +68,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-
+            FrmBuscarProducto visBuscar = new FrmBuscarProducto(controler, this);
+            visBuscar.Show();
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)

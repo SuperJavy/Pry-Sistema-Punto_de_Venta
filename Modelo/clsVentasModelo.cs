@@ -69,6 +69,51 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             return producto;
         }
 
+        public List<Producto> buscarProductoAv(string filtro)
+        {
+            List<Producto> producto = new List<Producto>();
+
+            try
+            {
+                abrirConexion();
+                string consulta = @"SELECT p.ID,
+                    p.Codigo_de_barras,
+                    p.nombre,
+                    p.Venta AS Precio,
+                    p.Stock,
+                    p.Ruta_imagen AS Imagen,
+                    p.Tipo_venta AS Tipo
+                FROM productos p
+                WHERE p.nombre LIKE @filtro";
+
+                using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+
+                cmd.Parameters.AddWithValue ( "@filtro", "%" + filtro + "%");
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    producto.Add(
+                        new Producto
+                        {
+                            id_producto = Convert.ToInt32(dr["ID"]),
+                            codigo_de_barras = dr["Codigo_de_barras"].ToString(),
+                            nombre = dr["Nombre"].ToString(),
+                            precio = Convert.ToDecimal(dr["Precio"]),
+                            stock = Convert.ToDecimal(dr["Stock"]),
+                            imagen = dr["Imagen"].ToString(),
+                            tipoVenta = dr["Tipo"].ToString()
+                        }
+                    );
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el producto " + ex.Message);
+            }
+            finally { cerrarConexion(); }
+            return producto;
+        }
         public bool ProcesarVenta(ventas venta) {
 
             using (MySqlConnection con = abrirConexion())
