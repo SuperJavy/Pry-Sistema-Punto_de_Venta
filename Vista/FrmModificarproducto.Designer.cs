@@ -44,7 +44,7 @@
             chkUnidad = new CheckBox();
             chkGranel = new CheckBox();
             label4 = new Label();
-            txtPreciocosto = new TextBox();
+            txtCosto = new TextBox();
             label3 = new Label();
             nudPorcentaje = new NumericUpDown();
             label6 = new Label();
@@ -52,9 +52,9 @@
             panelDerecho = new Panel();
             groupBoxStock = new GroupBox();
             label8 = new Label();
-            txtStockmax = new TextBox();
+            txtStockactual = new TextBox();
             label9 = new Label();
-            txtStockmini = new TextBox();
+            txtStockminimo = new TextBox();
             groupBoxImagen = new GroupBox();
             pcbImagen = new PictureBox();
             btnSeleccionarImagen = new Button();
@@ -122,7 +122,7 @@
             groupBoxDatos.Controls.Add(chkUnidad);
             groupBoxDatos.Controls.Add(chkGranel);
             groupBoxDatos.Controls.Add(label4);
-            groupBoxDatos.Controls.Add(txtPreciocosto);
+            groupBoxDatos.Controls.Add(txtCosto);
             groupBoxDatos.Controls.Add(label3);
             groupBoxDatos.Controls.Add(nudPorcentaje);
             groupBoxDatos.Controls.Add(label6);
@@ -270,15 +270,15 @@
             label4.TabIndex = 6;
             label4.Text = "Precio Costo :";
             // 
-            // txtPreciocosto
+            // txtCosto
             // 
-            txtPreciocosto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtPreciocosto.Font = new Font("Segoe UI", 11F);
-            txtPreciocosto.Location = new Point(267, 406);
-            txtPreciocosto.MaxLength = 10;
-            txtPreciocosto.Name = "txtPreciocosto";
-            txtPreciocosto.Size = new Size(445, 37);
-            txtPreciocosto.TabIndex = 6;
+            txtCosto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtCosto.Font = new Font("Segoe UI", 11F);
+            txtCosto.Location = new Point(267, 406);
+            txtCosto.MaxLength = 10;
+            txtCosto.Name = "txtCosto";
+            txtCosto.Size = new Size(445, 37);
+            txtCosto.TabIndex = 6;
             // 
             // label3
             // 
@@ -298,6 +298,7 @@
             nudPorcentaje.Name = "nudPorcentaje";
             nudPorcentaje.Size = new Size(167, 37);
             nudPorcentaje.TabIndex = 7;
+            nudPorcentaje.ValueChanged += nudPorcentaje_ValueChanged;
             // 
             // label6
             // 
@@ -338,9 +339,9 @@
             // 
             groupBoxStock.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxStock.Controls.Add(label8);
-            groupBoxStock.Controls.Add(txtStockmax);
+            groupBoxStock.Controls.Add(txtStockactual);
             groupBoxStock.Controls.Add(label9);
-            groupBoxStock.Controls.Add(txtStockmini);
+            groupBoxStock.Controls.Add(txtStockminimo);
             groupBoxStock.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBoxStock.ForeColor = Color.FromArgb(74, 85, 104);
             groupBoxStock.Location = new Point(3, 0);
@@ -361,15 +362,15 @@
             label8.TabIndex = 15;
             label8.Text = "Hay :";
             // 
-            // txtStockmax
+            // txtStockactual
             // 
-            txtStockmax.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtStockmax.Font = new Font("Segoe UI", 11F);
-            txtStockmax.Location = new Point(233, 45);
-            txtStockmax.MaxLength = 10;
-            txtStockmax.Name = "txtStockmax";
-            txtStockmax.Size = new Size(355, 37);
-            txtStockmax.TabIndex = 17;
+            txtStockactual.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtStockactual.Font = new Font("Segoe UI", 11F);
+            txtStockactual.Location = new Point(233, 45);
+            txtStockactual.MaxLength = 10;
+            txtStockactual.Name = "txtStockactual";
+            txtStockactual.Size = new Size(355, 37);
+            txtStockactual.TabIndex = 17;
             // 
             // label9
             // 
@@ -382,15 +383,15 @@
             label9.TabIndex = 16;
             label9.Text = "Mínimo :";
             // 
-            // txtStockmini
+            // txtStockminimo
             // 
-            txtStockmini.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtStockmini.Font = new Font("Segoe UI", 11F);
-            txtStockmini.Location = new Point(233, 110);
-            txtStockmini.MaxLength = 10;
-            txtStockmini.Name = "txtStockmini";
-            txtStockmini.Size = new Size(355, 37);
-            txtStockmini.TabIndex = 18;
+            txtStockminimo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtStockminimo.Font = new Font("Segoe UI", 11F);
+            txtStockminimo.Location = new Point(233, 110);
+            txtStockminimo.MaxLength = 10;
+            txtStockminimo.Name = "txtStockminimo";
+            txtStockminimo.Size = new Size(355, 37);
+            txtStockminimo.TabIndex = 18;
             // 
             // groupBoxImagen
             // 
@@ -450,6 +451,7 @@
             button1.TabIndex = 98;
             button1.Text = "Actualizar este Producto";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // FrmModoficar
             // 
@@ -488,7 +490,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nudPorcentaje;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtPreciocosto;
+        private System.Windows.Forms.TextBox txtCosto;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkGranel;
         private System.Windows.Forms.CheckBox chkUnidad;
@@ -500,9 +502,9 @@
         private System.Windows.Forms.TextBox txtCodigodebarras;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBoxDatos;
-        private System.Windows.Forms.TextBox txtStockmini;
+        private System.Windows.Forms.TextBox txtStockminimo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtStockmax;
+        private System.Windows.Forms.TextBox txtStockactual;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBoxStock;
         private System.Windows.Forms.GroupBox groupBoxImagen;
