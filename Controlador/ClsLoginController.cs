@@ -18,9 +18,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {             ROl = ModeloLogin.Rol;
         }
 
-        public void validarcampos(string Nombre, string Password, FrmLogin vista)
+        public void validarcampos(string Nickname, string Password, FrmLogin vista)
         {
-            if (string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Nickname) || string.IsNullOrWhiteSpace(Password))
             {
                 vista.notificarUsuario("Los campos no pueden estar vacíos", true);
                 return;
@@ -29,7 +29,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 ClsLoginModelo DatosaValidar = new ClsLoginModelo
                 {
-                    Nombre = Nombre.Trim(),
+                    Nombre = Nickname.Trim(),
                     Password = Password.Trim()
                 };
                 bool esValido = ModeloLogin.validarusuario(DatosaValidar.Nombre, DatosaValidar.Password);
@@ -37,7 +37,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     this.ROl = ModeloLogin.Rol;
 
-                    vista.notificarUsuario("Bienvenido" + Nombre + "Punto de Venta", false);
+                    vista.notificarUsuario("Bienvenido" + Nickname + "Punto de Venta", false);
 
                 }
                 else
