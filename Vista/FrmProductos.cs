@@ -31,8 +31,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void eDITARToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAlerta mdf = new FrmAlerta(this, "Modificar");
-            mdf.Show();
+            FrmModoficar modificar = new FrmModoficar();
+            principal.agregaralcontenedor(modificar, pnlproductos);
         }
         public Panel PnlProducto
         {
@@ -41,8 +41,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAlerta alertaEliminar = new FrmAlerta(this, "Eliminar");
-            alertaEliminar.Show();
+            FrmEliminarproductos eliminar = new FrmEliminarproductos();
+            principal.agregaralcontenedor(eliminar,pnlproductos);
         }
 
         private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
