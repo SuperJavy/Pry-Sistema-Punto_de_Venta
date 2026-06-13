@@ -24,7 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         {
             categoria.agregarCategoria(txtNombreCategoria.Text, this);
 
-           
+
         }
         public void limpiarPantalla()
         {
@@ -40,6 +40,27 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 MessageBoxButtons.OK,
                 esError ? MessageBoxIcon.Error : MessageBoxIcon.Information
             );
+        }
+
+        private void FrmCategorias_Load(object sender, EventArgs e)
+        {
+            DataTable dt = categoria.CargarDTGcat(this);
+
+            // Verificamos que el DataTable no sea nulo y tenga datos
+            if (dt != null)
+            {
+                dgvMostrarcategorias.DataSource = dt;
+
+                if (dgvMostrarcategorias.Columns.Contains("Id"))
+                {
+                    dgvMostrarcategorias.Columns["Id"].Visible = false;
+                }
+
+
+                dgvMostrarcategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvMostrarcategorias.ReadOnly = true; // Que el usuario no pueda editar la lista
+                dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
         }
     }
 }

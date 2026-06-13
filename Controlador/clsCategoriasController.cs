@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Pry_Sistema_Punto_de_Venta.Modelo;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
+using Pry_Sistema_Punto_de_Venta.Vista;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pry_Sistema_Punto_de_Venta.Modelo;
-using Pry_Sistema_Punto_de_Venta.Vista;
 
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
@@ -39,6 +41,23 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 vista.notificarUsuario("No se pudo registrar la categoria en el sistema" + ex.Message, true); 
             }
+        }
+
+
+        public DataTable CargarDTGcat(FrmCategorias vista)
+        {
+            DataTable dtcategorias = null;
+            try
+            {
+                dtcategorias = categoria.Mostrarcategorias();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error real: " + e.ToString());
+                vista.notificarUsuario("Error al cargar las categorias", true);
+            }
+            return dtcategorias;
         }
 
     }
