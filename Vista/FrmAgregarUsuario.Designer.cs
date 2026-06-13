@@ -194,6 +194,7 @@
             BtnAgregarUsuario.TabIndex = 13;
             BtnAgregarUsuario.Text = "Guardar Usuario";
             BtnAgregarUsuario.UseVisualStyleBackColor = false;
+            BtnAgregarUsuario.Click += BtnAgregarUsuario_Click;
             // 
             // lblCorreo
             // 

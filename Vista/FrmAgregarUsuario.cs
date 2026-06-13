@@ -22,32 +22,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void FrmAgregarUsuario_Load(object sender, EventArgs e)
         {
-          
-        }
 
-        private void BtnAgregarUsuario_Click(object sender, EventArgs e)
-        {
-            if (cmbRol.SelectedValue == null)
-            {
-                NotificarUsuario("Por favor, selecciona un rol de la lista.", true);
-                return; 
-            }
-
-            int idRolSeleccionado = Convert.ToInt32(cmbRol.SelectedValue);
-
-           
-            usuario.registrarUsuario(
-                txtNombre.Text,
-                txtApellidoPaterno.Text,
-                txtApellidoMaterno.Text,
-                txtDireccion.Text,
-                txtTelefono.Text,
-                txtPassword.Text,
-                idRolSeleccionado, 
-                this
-            );
-            // Limpiamos los campos en caso de éxito
-            LimpiarCampos();
         }
 
         public void llenarComboRoles(DataTable roles)
@@ -62,8 +37,10 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             txtNombre.Clear();
             txtApellidoPaterno.Clear();
             txtApellidoMaterno.Clear();
+            txtNombreUsuario.Clear();
             txtDireccion.Clear();
             txtTelefono.Clear();
+            txtCorreo.Clear();
             txtPassword.Clear();
         }
 
@@ -78,6 +55,30 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             );
         }
 
+        private void BtnAgregarUsuario_Click(object sender, EventArgs e)
+        {
+            if (cmbRol.SelectedValue == null)
+            {
+                NotificarUsuario("Por favor, selecciona un rol de la lista.", true);
+                return;
+            }
 
+            int idRolSeleccionado = Convert.ToInt32(cmbRol.SelectedValue);
+
+
+            usuario.registrarUsuario(
+                txtNombre.Text,
+                txtApellidoPaterno.Text,
+                txtApellidoMaterno.Text,
+                txtNombreUsuario.Text,
+                txtDireccion.Text,
+                txtTelefono.Text,
+                txtPassword.Text,
+                idRolSeleccionado,
+                this
+            );
+            // Limpiamos los campos en caso de éxito
+            LimpiarCampos();
+        }
     }
 }

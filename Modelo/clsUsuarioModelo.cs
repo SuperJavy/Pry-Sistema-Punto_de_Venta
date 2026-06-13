@@ -10,9 +10,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class clsUsuarioModelo: clsConexion
     {
-        public bool registrarUsuario(string nombre, string apellidoP, string apellidoM, string direcion, string telefono, string password, int id_rol)
+        public bool registrarUsuario(string nombre, string apellidoP, string apellidoM, string nickname, string direcion, string telefono, string password, int id_rol)
         {
-            string consulta = "insert into usuario (`nombre`, `Apellido_paterno`, `Apellido_materno`, `direccion`, `telefono`, `password`, `ID_rol` ) VALUES (@nombre, @paterno, @materno, @direccion, @telefono, @password, @id_rol)";
+            string consulta = "insert into usuario (`nombre`, `Apellido_paterno`, `Apellido_materno`, `nickname`, `direccion`, `telefono`, `password`, `ID_rol` ) VALUES (@nombre, @paterno, @materno, @nickname,@direccion, @telefono, @password, @id_rol)";
 
             try
             {
@@ -23,6 +23,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue("@nombre", nombre);
                     cmd.Parameters.AddWithValue("@paterno", apellidoP);
                     cmd.Parameters.AddWithValue("@materno", apellidoM);
+                    cmd.Parameters.AddWithValue("@nickname", nickname);
                     cmd.Parameters.AddWithValue("@direccion", direcion);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@password", password);

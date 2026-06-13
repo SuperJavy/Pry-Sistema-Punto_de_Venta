@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Pry_Sistema_Punto_de_Venta.Modelo;
 using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 using Pry_Sistema_Punto_de_Venta.vista;
+using Pry_Sistema_Punto_de_Venta.Vista;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -15,8 +17,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     public class clsVentasController
     {
         clsVentasModelo modelo = new clsVentasModelo();
-
-        
+        ClsLoginModelo usuario = new ClsLoginModelo();
+        private List<Producto> resultadosBusqueda = new();
         private ventas venta = new ventas();
 
         public void procesarBusqueda(string codigo, FrmVentas vista)
@@ -29,41 +31,94 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             if (producto != null)
             {
-                agregarProducto(producto);
-                vista.actualizarTabla(venta.detalleVenta);
+                agregarProducto(producto, vista);
+                
 
                 vista.mostrarTotal(venta.total);
             }
             else { MessageBox.Show("El producto no existe en la base de datos."); }
         }
 
-        private void  agregarProducto(Producto producto)
+        public void agregarProducto(Producto producto, FrmVentas vista)
         {
-            var existe = venta.detalleVenta.FirstOrDefault(x => x.Producto.codigo_de_barras == producto.codigo_de_barras);
+            var existe = venta.detalleVenta
+          .FirstOrDefault(x =>
+              x.Producto.codigo_de_barras ==
+              producto.codigo_de_barras);
 
-            if (existe != null) existe.Cantidad++;
-            else {
+            if (existe != null)
+                existe.Cantidad++;
+            else
+            {
                 venta.detalleVenta.Add(
                     new detalleVenta
                     {
                         Producto = producto,
                         Cantidad = 1,
                         PrecioUnitario = producto.precio
-                    }
-               
-                );
+                    });
             }
-        }
-      
 
-        public decimal obtenerCambios(decimal pago)
+            vista.actualizarTabla(venta.detalleVenta);
+            vista.mostrarTotal(venta.total);
+        }
+        public decimal obtenerCambio(decimal pago)
         {
-            
-            return venta.calcaularCambio(pago);
+            venta.efectivo = pago;
+            return venta.cambio;        
         }
         public decimal obtenerTotal()
         {
             return venta.total;
+        }
+        public bool guardarVenta()
+        {
+            venta.IdUsuario = ClsLoginModelo.UsuarioActual;
+            venta.fecha = DateTime.Now;
+            foreach (var item in venta.detalleVenta)
+            {
+                if (item.Cantidad > item.Producto.stock)
+                {
+                    MessageBox.Show(
+                        $"Stock insuficiente para {item.Producto.nombre}");
+
+                    return false;
+                }
+            }
+            return modelo.ProcesarVenta(venta);
+
+        }
+        public void eliminarProducto(int indice, FrmVentas vista) {
+
+            if (indice >= 0 && indice < venta.detalleVenta.Count)
+            {
+                venta.detalleVenta.RemoveAt(indice);
+
+                vista.actualizarTabla(venta.detalleVenta);
+
+                vista.mostrarTotal(venta.total);
+            }
+        }
+
+        public void busquedaAvanzada(string filtro, FrmBuscarProducto vista)
+        {
+            if (string.IsNullOrWhiteSpace(filtro))
+            {
+                resultadosBusqueda.Clear();
+                vista.actualizarLista(resultadosBusqueda);
+                return;
+            }
+
+            resultadosBusqueda = modelo.buscarProductoAv(filtro);
+
+            vista.actualizarLista(resultadosBusqueda);
+        }
+        public Producto ObtenerProductoBusqueda(int indice)
+        {
+            if (indice < 0 || indice >= resultadosBusqueda.Count)
+                return null;
+
+            return resultadosBusqueda[indice];
         }
     }
 }
