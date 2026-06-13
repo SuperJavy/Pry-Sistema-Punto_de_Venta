@@ -15,28 +15,28 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         ClsProductModelo producto = new ClsProductModelo();
 
-        public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen,string porcentaje, FrmNuevoProductio vista)
+        public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmNuevoProductio vista)
         {
-            if (string.IsNullOrWhiteSpace(Codigo)|| string.IsNullOrWhiteSpace(Nombre)||string.IsNullOrWhiteSpace(Descripciom)|| string.IsNullOrWhiteSpace(TipVenta)||string.IsNullOrWhiteSpace(Costo)|| string.IsNullOrWhiteSpace(Precioventa)||string.IsNullOrWhiteSpace(Categoria)||string.IsNullOrWhiteSpace(Stockactuaal)||string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
+            if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
             {
-                vista.notificarUsuario("Los campos no pueden estar vacíos",true);
+                vista.notificarUsuario("Los campos no pueden estar vacíos", true);
                 return;
             }
 
             try
             {
-                bool esvalido=producto.Insertarproductos(Codigo,Nombre,Descripciom,TipVenta,Costo,Precioventa,Categoria,Stockactuaal,Stockminimo,Imagen,porcentaje);
-                if(esvalido )
+                bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, Imagen, porcentaje);
+                if (esvalido)
                 {
                     vista.notificarUsuario("Los datos fueron guardados correctamente", false);
                 }
                 else
                 {
-                    vista.notificarUsuario("Eror al intentar guardar los datos",true);
+                    vista.notificarUsuario("Eror al intentar guardar los datos", true);
                 }
 
             }
-            catch(Exception E)
+            catch (Exception E)
             {
                 MessageBox.Show(E.Message);
                 vista.notificarUsuario("Error en la conexion o Insercion", true);
@@ -47,7 +47,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
         public float Calcularprecioventa(string costo, string porcentaje, FrmNuevoProductio vista)
         {
-          return  producto.Calpventa(costo, porcentaje);
+            return producto.Calpventa(costo, porcentaje);
         }
 
 
@@ -58,35 +58,39 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             try
             {
                 dtcategorias = producto.Extraercategoria();
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                vista.notificarUsuario("Error al cargar las categorias",true);
+                vista.notificarUsuario("Error al cargar las categorias", true);
             }
             return dtcategorias;
 
         }
         //Empieza codigo de Modificar productos
-        public DataTable BuscarPro(string codigodebarras,FrmModoficar vista)
+        public DataTable BuscarPro(string codigodebarras, FrmModoficar vista)
         {
-            if (string.IsNullOrWhiteSpace(codigodebarras)) 
+            if (string.IsNullOrWhiteSpace(codigodebarras))
             {
-                vista.notificarUsuario("Ell campo codio de barras no pueden estar vacío", true);
-                
+                vista.notificarUsuario("El campo código de barras no puede estar vacío", true);
+                return null;
             }
 
             DataTable dtproducto = null;
             try
             {
                 dtproducto = producto.Buscarproduct(codigodebarras);
+
+                if (dtproducto != null && dtproducto.Rows.Count == 0)
+                {
+                    vista.notificarUsuario("No se encontró ningún producto con ese código de barras.", true);
+                }
             }
             catch (Exception e)
             {
-                vista.notificarUsuario("Error al cargar productos"+ e.Message, true);
+                vista.notificarUsuario("Error al cargar productos: " + e.Message, true);
             }
             return dtproducto;
-
         }
         public DataTable Cargarcategoriasm(FrmModoficar vista)
         {
@@ -101,6 +105,117 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }
             return dtcategorias;
+
+        }
+
+        public float Calcularprecioventa(string costo, string porcentaje,FrmModoficar vista)
+        {
+            return producto.Calpventa(costo, porcentaje);
+        }
+
+        public void Actualizarproduc(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmModoficar vista)
+        {
+
+            if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
+            {
+                vista.notificarUsuario("Los campos no pueden estar vacíos", true);
+                return;
+            }
+
+            try
+            {
+                bool esvalido = producto.Actualizarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, Imagen, porcentaje);
+                if (esvalido)
+                {
+                    vista.notificarUsuario("Los datos fueron actualizados correctamente", false);
+                }
+                else
+                {
+                    vista.notificarUsuario("Eror al intentar actualizar los datos", true);
+                }
+
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+                vista.notificarUsuario("Error en la conexion o Actualizacion", true);
+            }
+
+
+        }
+        //termina codigo de actualizar
+
+        //empeiza codigo de eliminar produto
+        public DataTable BuscarProEliminar(string codigodebarras, FrmEliminarproductos vista)
+        {
+            if (string.IsNullOrWhiteSpace(codigodebarras))
+            {
+                vista.notificarUsuario("El campo código de barras no puede estar vacío", true);
+                return null;
+            }
+
+            DataTable dtproducto = null;
+            try
+            {
+                dtproducto = producto.Buscarproduct(codigodebarras);
+
+                if (dtproducto != null && dtproducto.Rows.Count == 0)
+                {
+                    vista.notificarUsuario("No se encontró ningún producto con ese código de barras.", true);
+                }
+            }
+            catch (Exception e)
+            {
+                vista.notificarUsuario("Error al cargar productos: " + e.Message, true);
+            }
+            return dtproducto;
+
+        }
+        public DataTable Cargarcatego(FrmEliminarproductos vista)
+        {
+            DataTable dtcategorias = null;
+            try
+            {
+                dtcategorias = producto.Extraercategoria();
+
+            }
+            catch (Exception e)
+            {
+                vista.notificarUsuario("Error al cargar las categorias", true);
+            }
+            return dtcategorias;
+
+        }
+        public float Calcularpreciov(string costo, string porcentaje, FrmEliminarproductos vista)
+        {
+            return producto.Calpventa(costo, porcentaje);
+        }
+        public void Eliminarproduct(string codigodebarras, FrmEliminarproductos vista)
+        {
+            if (string.IsNullOrWhiteSpace(codigodebarras))
+            {
+                vista.notificarUsuario("El campo código de barras no puede estar vacío", true);
+                return; 
+            }
+
+            try
+            {
+                bool eliminado = producto.EliminarProducto(codigodebarras);
+
+                if (eliminado)
+                {
+                    vista.notificarUsuario("Producto eliminado correctamente.", false);
+                }
+                else
+                {
+                    vista.notificarUsuario("No existe ningún producto con ese código de barras.", true);
+                }
+            }
+            catch (Exception e)
+            {
+                vista.notificarUsuario("Error al eliminar el producto: " + e.Message, true);
+            }
+
 
         }
 

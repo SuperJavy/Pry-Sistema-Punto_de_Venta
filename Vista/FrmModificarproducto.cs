@@ -62,12 +62,12 @@ namespace Pry_Sistema_Punto_de_Venta
                     chkGranel.Checked = true;
                 }
 
-                txtPreciocosto.Text = producto["Costo"].ToString();
+                txtCosto.Text = producto["Costo"].ToString();
                 nudPorcentaje.Value = Convert.ToInt16(producto["Porcentaje"]);
                 txtPrecioventa.Text = producto["Venta"].ToString();
 
-                txtStockmax.Text = producto["Stock"].ToString();
-                txtStockmini.Text = producto["Stock_minimo"].ToString();
+                txtStockactual.Text = producto["Stock"].ToString();
+                txtStockminimo.Text = producto["Stock_minimo"].ToString();
                 if (dtproducto.Columns.Contains("Ruta_imagen") && producto["Ruta_imagen"] != DBNull.Value)
                 {
                     try
@@ -111,11 +111,11 @@ namespace Pry_Sistema_Punto_de_Venta
             cbxCategoria.SelectedIndex = -1;
             chkUnidad.Checked = false;
             chkGranel.Checked = false;
-            txtPreciocosto.Clear();
+            txtCosto.Clear();
             nudPorcentaje.Value = 0;
             txtPrecioventa.Clear();
-            txtStockmax.Clear();
-            txtStockmini.Clear();
+            txtStockactual.Clear();
+            txtStockminimo.Clear();
         }
 
 
@@ -124,16 +124,16 @@ namespace Pry_Sistema_Punto_de_Venta
             if (e.KeyCode == Keys.Enter)
             {
                 string codigo = txtCodigodebarras.Text.Trim();
-                
-                    DataTable dt = controlador.BuscarPro(codigo, this);
-                    llenarCampos(dt);
+
+                DataTable dt = controlador.BuscarPro(codigo, this);
+                llenarCampos(dt);
 
                 // Evita el sonido molesto "beep" de Windows al dar Enter
                 e.SuppressKeyPress = true;
             }
         }
 
-       
+
         public void llenarComboRoles(DataTable dtCategoria)
         {
             if (dtCategoria != null && dtCategoria.Rows.Count > 0)
@@ -165,6 +165,10 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 e.Handled = false; // Deja pasar el carácter
             }
+            else if (char.IsDigit(e.KeyChar)) // <-- ESTA ES LA LÍNEA NUEVA PARA LOS NÚMEROS
+            {
+                e.Handled = false; // Deja pasar números (0-9)
+            }
             else if (char.IsWhiteSpace(e.KeyChar))
             {
                 e.Handled = false; // Deja pasar el espacio
@@ -184,6 +188,10 @@ namespace Pry_Sistema_Punto_de_Venta
             if (char.IsLetter(e.KeyChar))
             {
                 e.Handled = false; // Deja pasar el carácter
+            }
+            else if (char.IsDigit(e.KeyChar)) // <-- ESTA ES LA LÍNEA NUEVA PARA LOS NÚMEROS
+            {
+                e.Handled = false; // Deja pasar números (0-9)
             }
             else if (char.IsWhiteSpace(e.KeyChar))
             {
@@ -211,6 +219,29 @@ namespace Pry_Sistema_Punto_de_Venta
             }
         }
 
-       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int tipoventa = 0;
+            if (chkUnidad.Checked)
+            {
+                tipoventa = 1;
+            }
+            else if (chkGranel.Checked)
+            {
+                tipoventa = 2;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, Seleccione un tipo de venta");
+            }
+            controlador.Actualizarproduc(txtCodigodebarras.Text, txtNombrep.Text, txtDescripcion.Text,
+                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
+        }
+
+        private void nudPorcentaje_ValueChanged(object sender, EventArgs e)
+        {
+            float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
+            txtPrecioventa.Text = preciov.ToString();
+        }
     }
 }

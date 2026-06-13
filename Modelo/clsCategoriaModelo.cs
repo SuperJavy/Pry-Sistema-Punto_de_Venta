@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,32 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             finally 
             {
                 cerrarConexion();     
+            }
+        }
+        public DataTable Mostrarcategorias()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                clsConexion conexionBD = new clsConexion();
+
+                using (var conexion = conexionBD.abrirConexion())
+                {
+                    string Query = "SELECT Id,Nombre FROM categoria";
+                    using (var Consulta = new MySqlCommand(Query,conexion))
+                    {
+                        using(MySqlDataAdapter result = new MySqlDataAdapter(Consulta))
+                        {
+                            result.Fill(dt);
+
+                        }
+                    }
+                }
+                return dt;
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Error al extraer categorias " + e.Message);
             }
         }
 
