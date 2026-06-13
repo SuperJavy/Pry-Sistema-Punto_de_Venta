@@ -17,9 +17,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     public class clsVentasController
     {
         clsVentasModelo modelo = new clsVentasModelo();
-        ClsLoginModelo usuario = new ClsLoginModelo();
         private List<Producto> resultadosBusqueda = new();
         private ventas venta = new ventas();
+
 
         public void procesarBusqueda(string codigo, FrmVentas vista)
         {
@@ -33,8 +33,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 agregarProducto(producto, vista);
                 
-
-                vista.mostrarTotal(venta.total);
             }
             else { MessageBox.Show("El producto no existe en la base de datos."); }
         }
@@ -71,22 +69,36 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             return venta.total;
         }
-        public bool guardarVenta()
+        public bool guardarVenta(FrmVentaproductos vistaCobro)
         {
             venta.IdUsuario = ClsLoginModelo.UsuarioActual;
             venta.fecha = DateTime.Now;
+            
             foreach (var item in venta.detalleVenta)
             {
                 if (item.Cantidad > item.Producto.stock)
                 {
-                    MessageBox.Show(
-                        $"Stock insuficiente para {item.Producto.nombre}");
-
+                    vistaCobro.NotificarUsuario($"Stock insuficiente para {item.Producto.nombre}", true);
                     return false;
                 }
             }
-            return modelo.ProcesarVenta(venta);
 
+            
+            bool exito = modelo.ProcesarVenta(venta);
+            
+            if (exito)
+            {
+                vistaCobro.NotificarUsuario("¡El ticket se cobró y guardó correctamente!", false);
+                vistaCobro.cerrarVentana();
+
+              
+            }
+            else
+            {
+                vistaCobro.NotificarUsuario("Hubo un error en la base de datos al intentar guardar.", true);
+            }
+
+            return exito;
         }
         public void eliminarProducto(int indice, FrmVentas vista) {
 
@@ -119,6 +131,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 return null;
 
             return resultadosBusqueda[indice];
+        }
+        public void LimpiarVenta(FrmVentas vista)
+        {
+            venta = new ventas();
+
+            vista.actualizarTabla(venta.detalleVenta);
+            vista.mostrarTotal(venta.total);
+        }
+        public bool TieneProductos()
+        {
+            return venta.detalleVenta.Count > 0;
         }
     }
 }

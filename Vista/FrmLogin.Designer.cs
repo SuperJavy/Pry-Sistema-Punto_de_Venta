@@ -140,6 +140,7 @@
             txtUsuario.PlaceholderText = "Ingrese su Usuario";
             txtUsuario.Size = new Size(356, 39);
             txtUsuario.TabIndex = 2;
+            txtUsuario.Text = "Admin";
             // 
             // txtpassword
             // 
@@ -154,6 +155,7 @@
             txtpassword.PlaceholderText = "Ingrese su contraseña";
             txtpassword.Size = new Size(356, 39);
             txtpassword.TabIndex = 3;
+            txtpassword.Text = "12345";
             txtpassword.KeyDown += txtpassword_KeyDown;
             txtpassword.KeyPress += txtpassword_KeyPress;
             // 

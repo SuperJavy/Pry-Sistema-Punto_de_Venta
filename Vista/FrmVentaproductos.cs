@@ -42,8 +42,14 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnCobrarImprimir_Click(object sender, EventArgs e)
         {
-            controller.guardarVenta(); 
-                
+            bool exito = controller.guardarVenta(this);
+
+            if (exito)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -64,8 +70,26 @@ namespace Pry_Sistema_Punto_de_Venta
                 {
                     lblCambioMonto.Text = cambio.ToString("N2");
                 }
-                
+
             }
         }
+
+        public void NotificarUsuario(string mensaje, bool esError)
+        {
+            if (esError)
+            {
+                MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+            }
+            else
+            {
+                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        public void cerrarVentana()
+        {
+            Close();
+        }
+        
     }
 }

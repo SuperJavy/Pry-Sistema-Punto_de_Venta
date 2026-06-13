@@ -24,15 +24,15 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT P.ID,
-                        p.Codigo_de_barras,
+                string consulta = @"SELECT p.id,
+                        p.codigo_de_barras,
                         p.nombre,
-                        p.Venta AS Precio,
-                        p.Stock,
-                        p.Ruta_imagen AS Imagen,
-                        p.Tipo_venta AS Tipo
+                        p.precio_venta AS precio,
+                        p.stock,
+                        p.ruta_imagen AS imagen,
+                        p.id_tipo_venta AS Tipo
                     FROM productos p
-                    WHERE p.Codigo_de_barras = @codigo";
+                    WHERE p.codigo_de_barras = @codigo";
 
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
@@ -45,12 +45,12 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     producto = new Producto
                     {
-                        id_producto = Convert.ToInt32(dr["Id"]),
-                        codigo_de_barras = dr["Codigo_de_barras"].ToString(),
-                        nombre = dr["Nombre"].ToString(),
-                        precio = Convert.ToDecimal(dr["Precio"]),
+                        id_producto = Convert.ToInt32(dr["id"]),
+                        codigo_de_barras = dr["codigo_de_barras"].ToString(),
+                        nombre = dr["nombre"].ToString(),
+                        precio = Convert.ToDecimal(dr["precio"]),
                         stock = Convert.ToDecimal(dr["stock"]),
-                        imagen = dr["Imagen"].ToString(),
+                        imagen = dr["imagen"].ToString(),
                         tipoVenta = dr["Tipo"].ToString()
                     };
 
@@ -76,13 +76,13 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.ID,
-                    p.Codigo_de_barras,
+                string consulta = @"SELECT p.id,
+                    p.codigo_de_barras,
                     p.nombre,
-                    p.Venta AS Precio,
-                    p.Stock,
-                    p.Ruta_imagen AS Imagen,
-                    p.Tipo_venta AS Tipo
+                    p.precio_venta AS Precio,
+                    p.stock,
+                    p.ruta_imagen AS Imagen,
+                    p.id_tipo_venta AS Tipo
                 FROM productos p
                 WHERE p.nombre LIKE @filtro";
 
@@ -145,7 +145,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             string query = @"
         INSERT INTO venta
         (
-            Id_usuario,
+            id_usuario,
             fecha,
             total,
             efectivo,
@@ -196,11 +196,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             string query = @"
         INSERT INTO detalle_venta
         (
-            Id_venta,
-            Id_producto,
-            Cantidad,
-            Precio_unitario,
-            Subtotal
+            id_venta,
+            id_producto,
+            cantidad,
+            precio_unitario,
+            subtotal
         )
         VALUES
         (

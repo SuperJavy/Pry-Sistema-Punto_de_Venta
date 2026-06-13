@@ -9,8 +9,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class clsConexion
     {
-       // private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=123456;";
-        private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=;";
+        // private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=123456;";
+        //private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=;";
+        private readonly string cadeConexion = "Server=31.97.208.122;Database=u138650717_proyecto_est;Uid=u138650717_proyecto_est;Pwd=12062026Vi;";
 
         protected MySqlConnection conexion;
         public MySqlConnection abrirConexion()
@@ -19,6 +20,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             try
             {
+                
                 conexion.Open();
                 return conexion;
             }

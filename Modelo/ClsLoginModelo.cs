@@ -24,7 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    string query = "SELECT Id, ID_rol FROM usuario WHERE Nombre = @Nombre AND password = @password";
+                    string query = "SELECT id, id_rol FROM usuario WHERE nickname = @Nickname AND password = @password";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Nickname", Nickname);
@@ -33,8 +33,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         {
                             if (resultado.Read())
                             {
-                                UsuarioActual = Convert.ToInt32(resultado["Id"]);
-                                this.Rol = resultado["ID_rol"].ToString();
+                                UsuarioActual = Convert.ToInt32(resultado["id"]);
+                                this.Rol = resultado["id_rol"].ToString();
                                 return true;
                             }
                             else
@@ -50,10 +50,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 throw new Exception("Error al validar el usuario: " + ex.Message);
             }
-            finally
-            {
-                cerrarConexion();
-            }
+           
         }
     }
 }

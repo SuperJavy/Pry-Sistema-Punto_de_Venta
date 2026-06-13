@@ -19,8 +19,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 clsConexion ConexionBd = new clsConexion();
                 using (var Conexion = ConexionBd.abrirConexion())
                 {
-                    string query = @"INSERT INTO Productos
-                                (Codigo_de_barras, nombre, Descripcion, Tipo_venta_id, Costo, Venta, Categoria_id, Stock, Stock_minimo, Ruta_imagen, Porcentaje)
+                    string query = @"INSERT INTO productos
+                                (codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje)
                                 VALUES
                                 (@Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, @Costo, @Venta, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, @Porcentaje)";
                     using (var Consulta = new MySqlCommand(query, Conexion))
@@ -95,7 +95,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 clsConexion conexionBD = new clsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    string query = "SELECT Id,Nombre FROM categoria";
+                    string query = "SELECT id,nombre FROM categoria";
                     using (var Consulta = new MySqlCommand(query, conexion))
                     {
                         using (MySqlDataAdapter respuest = new MySqlDataAdapter(Consulta))
@@ -125,9 +125,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 using (var conexion = conexionBD.abrirConexion())
                 {
 
-                    string Query = "SELECT  Codigo_de_barras, nombre, Descripcion," +
-                        " Categoria_id, Tipo_venta_id, Costo, Porcentaje," +
-                        " Venta, Stock,Stock_minimo,Ruta_imagen FROM productos WHERE Codigo_de_barras = @Codigobarras";
+                    string Query = "SELECT  codigo_de_barras, nombre, descripcion," +
+                        " id_categoria, id_tipo_venta, costo, porcentaje," +
+                        " precio_venta, stock,stock_minimo,Ruta_imagen FROM productos WHERE codigo_de_barras = @Codigobarras";
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Codigobarras", codigobarras);
@@ -153,9 +153,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 clsConexion conexionBD = new clsConexion();
                 using(var conexion = conexionBD.abrirConexion())
                 {
-                    string Query = "UPDATE productos SET nombre = @Nombre,Descripcion = @Descripcion,Categoria_id = @Categoria_id," +
-                        "Tipo_venta_id = @Tipo_venta_id,Costo = @Costo,Porcentaje = @Porcentaje," +
-                        "Venta = @Venta,Stock = @Stock,Stock_minimo = @Stock_minimo,Ruta_imagen = @Ruta_imagen WHERE Codigo_de_barras = @Codigo_de_barras";
+                    string Query = "UPDATE productos SET nombre = @Nombre,Descripcion = @Descripcion,id_categoria = @Categoria_id," +
+                        "id_tipo_venta = @Tipo_venta_id,costo = @Costo,porcentaje = @Porcentaje," +
+                        "precio_venta = @Venta,stock = @Stock,stock_minimo = @Stock_minimo,ruta_imagen = @Ruta_imagen WHERE codigo_de_barras = @Codigo_de_barras";
                     using (var Consulta = new MySqlCommand(Query,conexion))
                     {
                         Consulta.Parameters.AddWithValue("@Codigo_de_barras", Codigo);
@@ -204,7 +204,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 using (var conexion = conexionBD.abrirConexion())
                 {
                   
-                    string Query = "DELETE FROM productos WHERE Codigo_de_barras = @Codigobarras";
+                    string Query = "DELETE FROM productos WHERE codigo_de_barras = @Codigobarras";
 
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {

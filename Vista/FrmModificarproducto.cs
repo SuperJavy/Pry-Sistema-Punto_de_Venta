@@ -50,7 +50,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     cbxCategoria.SelectedValue = producto["Categoria_id"];
                 }
 
-                string tipoVenta = producto["Tipo_venta_id"].ToString();
+                string tipoVenta = producto["id_tipo_venta"].ToString();
                 if (tipoVenta == "1")
                 {
                     chkUnidad.Checked = true;
@@ -64,7 +64,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
                 txtCosto.Text = producto["Costo"].ToString();
                 nudPorcentaje.Value = Convert.ToInt16(producto["Porcentaje"]);
-                txtPrecioventa.Text = producto["Venta"].ToString();
+                txtPrecioventa.Text = producto["precio_venta"].ToString();
 
                 txtStockactual.Text = producto["Stock"].ToString();
                 txtStockminimo.Text = producto["Stock_minimo"].ToString();

@@ -12,7 +12,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
     {
         public Boolean insertarCategoria(string nombreCategoria) 
         {
-            String consulta = "INSERT INTO categoria (Nombre) value (@nombre)";
+            String consulta = "INSERT INTO categoria (nombre) value (@nombre)";
 
             try
             {
@@ -44,7 +44,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    string Query = "SELECT Id,Nombre FROM categoria";
+                    string Query = "SELECT id,nombre FROM categoria";
                     using (var Consulta = new MySqlCommand(Query,conexion))
                     {
                         using(MySqlDataAdapter result = new MySqlDataAdapter(Consulta))

@@ -14,7 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         clsUsuarioModelo usuario = new clsUsuarioModelo();
 
-        public void registrarUsuario(string nombre, string apellidoP, string apellidoM, string nickname, string direcion, string telefono, string password, int id_rol, FrmAgregarUsuario vista)
+        public void registrarUsuario(string nombre, string apellidoP, string apellidoM, string nickname, string direcion, string telefono, string correo, string password, int id_rol, FrmAgregarUsuario vista)
         {
             if (string.IsNullOrEmpty(nombre)|| string.IsNullOrEmpty(nickname)||string.IsNullOrEmpty(telefono) || string.IsNullOrEmpty(password))
             {
@@ -24,7 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             try
             {
-                bool exito = usuario.registrarUsuario(nombre.Trim(), apellidoP.Trim(), apellidoM.Trim(), nickname.Trim(),direcion.Trim(), telefono.Trim(), password, id_rol);
+                bool exito = usuario.registrarUsuario(nombre.Trim(), apellidoP.Trim(), apellidoM.Trim(), nickname.Trim(),direcion.Trim(), telefono.Trim(), correo.Trim(),password, id_rol);
                 MessageBox.Show("Usuario registrado con exito", "Aviso de estado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception e)

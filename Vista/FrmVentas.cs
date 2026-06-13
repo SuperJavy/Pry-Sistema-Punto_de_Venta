@@ -24,9 +24,19 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
+            if (!controler.TieneProductos())
+            {
+                MessageBox.Show("No hay productos en la venta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             FrmVentaproductos Vproduct = new FrmVentaproductos(controler);
-            Vproduct.Show();
-            
+           
+            if (Vproduct.ShowDialog() == DialogResult.OK)
+            {
+                controler.LimpiarVenta(this);
+            }
+
         }
 
         private void btnReporteventas_Click(object sender, EventArgs e)
@@ -109,7 +119,7 @@ namespace Pry_Sistema_Punto_de_Venta
             txtTotal.Text = "$ " + TotalVenta.ToString();
 
         }
+      
 
-        
     }
 }

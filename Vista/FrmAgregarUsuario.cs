@@ -39,6 +39,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             txtApellidoMaterno.Clear();
             txtNombreUsuario.Clear();
             txtDireccion.Clear();
+            txtCorreo.Clear();
             txtTelefono.Clear();
             txtCorreo.Clear();
             txtPassword.Clear();
@@ -72,6 +73,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 txtApellidoMaterno.Text,
                 txtNombreUsuario.Text,
                 txtDireccion.Text,
+                txtCorreo.Text,
                 txtTelefono.Text,
                 txtPassword.Text,
                 idRolSeleccionado,
