@@ -34,7 +34,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
                 else 
                 {
-
+                    vista.notificarUsuario("Eror al guardar la categoria!", true);
                 }
             }
             catch (Exception ex) 
@@ -54,10 +54,39 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error real: " + e.ToString());
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }
             return dtcategorias;
+        }
+
+        public void Deletecategory(string Nombre, FrmCategorias vista)
+        {
+            if (string.IsNullOrWhiteSpace(Nombre))
+            {
+                vista.notificarUsuario("El campo no puede ir vacio", false);
+            }
+            try
+            {
+
+                bool resultado = categoria.Deletecategoria(Nombre);
+
+                if (resultado)
+                {
+                    vista.notificarUsuario("Categoria Eliminada de forma exitosa!", false);
+                    vista.limpiarPantalla();
+                }
+                else
+                {
+                    vista.notificarUsuario("Error al eliminar la categoria!", false);
+                }
+
+            }
+            catch(Exception e)
+            {
+                vista.notificarUsuario("Error enla conexion o eliminacion", true);
+            }
+
+
         }
 
     }

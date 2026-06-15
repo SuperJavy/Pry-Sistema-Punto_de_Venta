@@ -13,18 +13,20 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmCategorias : Form
     {
+
+        private clsCategoriasController categoria = new clsCategoriasController();
         public FrmCategorias()
         {
             InitializeComponent();
         }
 
-        private clsCategoriasController categoria = new clsCategoriasController();
-
         private void btnGuardarCategoria_Click(object sender, EventArgs e)
         {
             categoria.agregarCategoria(txtNombreCategoria.Text, this);
 
+            limpiarPantalla();
 
+            ActualizarGrid();
         }
         public void limpiarPantalla()
         {
@@ -44,9 +46,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void FrmCategorias_Load(object sender, EventArgs e)
         {
+            ActualizarGrid();
+        }
+        public void ActualizarGrid()
+        {
             DataTable dt = categoria.CargarDTGcat(this);
 
-            // Verificamos que el DataTable no sea nulo y tenga datos
             if (dt != null)
             {
                 dgvMostrarcategorias.DataSource = dt;
@@ -56,10 +61,39 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     dgvMostrarcategorias.Columns["Id"].Visible = false;
                 }
 
-
                 dgvMostrarcategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvMostrarcategorias.ReadOnly = true; // Que el usuario no pueda editar la lista
-                dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
+        }
+
+        private void dgvMostrarcategorias_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvMostrarcategorias.Rows[e.RowIndex];
+
+                // Pasamos el valor de la celda al TextBox
+                // Asegúrate de usar el nombre correcto de tu columna (ej: "nombre")
+                txtNombreCategoria.Text = fila.Cells["nombre"].Value.ToString();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+                DialogResult resultado = MessageBox.Show(
+                "¿Estás seguro de que deseas eliminar la categoría: " + txtNombreCategoria.Text + "?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+                );
+
+            // 3. Si el usuario confirma, procedemos con el proceso
+            if (resultado == DialogResult.Yes)
+            {
+                categoria.Deletecategory(txtNombreCategoria.Text, this);
+
+                // 4. Limpiamos y refrescamos la vista
+                limpiarPantalla();
+                ActualizarGrid();
             }
         }
     }

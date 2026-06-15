@@ -31,7 +31,7 @@
             label10 = new Label();
             txtNombreCategoria = new TextBox();
             btnGuardarCategoria = new Button();
-            button1 = new Button();
+            btnEliminar = new Button();
             label1 = new Label();
             dgvMostrarcategorias = new DataGridView();
             panelHeader = new Panel();
@@ -80,22 +80,23 @@
             btnGuardarCategoria.UseVisualStyleBackColor = false;
             btnGuardarCategoria.Click += btnGuardarCategoria_Click;
             // 
-            // button1
+            // btnEliminar
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackColor = Color.Red;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(212, 183);
-            button1.Margin = new Padding(5, 6, 5, 6);
-            button1.Name = "button1";
-            button1.Size = new Size(233, 67);
-            button1.TabIndex = 106;
-            button1.Text = "Eliminar";
-            button1.UseVisualStyleBackColor = false;
+            btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminar.BackColor = Color.Red;
+            btnEliminar.Cursor = Cursors.Hand;
+            btnEliminar.FlatAppearance.BorderSize = 0;
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.Location = new Point(212, 183);
+            btnEliminar.Margin = new Padding(5, 6, 5, 6);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(233, 67);
+            btnEliminar.TabIndex = 106;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // label1
             // 
@@ -122,6 +123,7 @@
             dgvMostrarcategorias.RowTemplate.Height = 28;
             dgvMostrarcategorias.Size = new Size(274, 449);
             dgvMostrarcategorias.TabIndex = 111;
+            dgvMostrarcategorias.CellClick += dgvMostrarcategorias_CellClick;
             // 
             // panelHeader
             // 
@@ -140,7 +142,7 @@
             groupBoxFormulario.Controls.Add(label1);
             groupBoxFormulario.Controls.Add(txtNombreCategoria);
             groupBoxFormulario.Controls.Add(btnGuardarCategoria);
-            groupBoxFormulario.Controls.Add(button1);
+            groupBoxFormulario.Controls.Add(btnEliminar);
             groupBoxFormulario.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBoxFormulario.ForeColor = Color.FromArgb(74, 85, 104);
             groupBoxFormulario.Location = new Point(317, 221);
@@ -191,7 +193,7 @@
 
         #endregion
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.TextBox txtNombreCategoria;
         private System.Windows.Forms.Button btnGuardarCategoria;
         private System.Windows.Forms.Label label1;
