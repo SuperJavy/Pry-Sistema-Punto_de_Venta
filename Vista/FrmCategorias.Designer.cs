@@ -62,6 +62,7 @@
             txtNombreCategoria.Name = "txtNombreCategoria";
             txtNombreCategoria.Size = new Size(789, 37);
             txtNombreCategoria.TabIndex = 108;
+            txtNombreCategoria.KeyPress += txtNombreCategoria_KeyPress;
             // 
             // btnGuardarCategoria
             // 
@@ -112,18 +113,22 @@
             // 
             // dgvMostrarcategorias
             // 
+            dgvMostrarcategorias.AllowUserToDeleteRows = false;
             dgvMostrarcategorias.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvMostrarcategorias.BackgroundColor = Color.FromArgb(245, 246, 250);
             dgvMostrarcategorias.BorderStyle = BorderStyle.None;
             dgvMostrarcategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMostrarcategorias.Location = new Point(33, 221);
             dgvMostrarcategorias.Margin = new Padding(5, 6, 5, 6);
+            dgvMostrarcategorias.MultiSelect = false;
             dgvMostrarcategorias.Name = "dgvMostrarcategorias";
+            dgvMostrarcategorias.ReadOnly = true;
             dgvMostrarcategorias.RowHeadersWidth = 62;
             dgvMostrarcategorias.RowTemplate.Height = 28;
+            dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMostrarcategorias.Size = new Size(274, 449);
             dgvMostrarcategorias.TabIndex = 111;
-            dgvMostrarcategorias.CellClick += dgvMostrarcategorias_CellClick;
+            dgvMostrarcategorias.CellClick += dgvMostrarcategorias_CellClick_1;
             // 
             // panelHeader
             // 

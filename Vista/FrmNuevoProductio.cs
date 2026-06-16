@@ -92,7 +92,6 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Permite letras, números, espacios y backspace
             if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
