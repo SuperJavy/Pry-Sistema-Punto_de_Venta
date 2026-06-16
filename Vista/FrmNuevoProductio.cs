@@ -48,7 +48,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 MessageBox.Show("Por favor, Seleccione un tipo de venta");
             }
             controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
-                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image,nudPorcentaje.Value.ToString(), this);
+                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
         }
 
         private void nudGanancia_ValueChanged(object sender, EventArgs e)
@@ -92,44 +92,11 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-            if (char.IsLetter(e.KeyChar))
+            // Permite letras, números, espacios y backspace
+            if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = false; // Deja pasar el carácter
+                e.Handled = true;
             }
-            else if (char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el espacio
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false; // Deja borrar texto
-            }
-            else
-            {
-                e.Handled = true; // "Atrapa" el evento y lo cancela
-            }
-        }
-
-        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el carácter
-            }
-            else if (char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el espacio
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false; // Deja borrar texto
-            }
-            else
-            {
-                e.Handled = true; // "Atrapa" el evento y lo cancela
-            }
-
         }
 
         private void txtPrecioventa_TextChanged(object sender, EventArgs e)
@@ -137,5 +104,36 @@ namespace Pry_Sistema_Punto_de_Venta
             txtPrecioventa.ReadOnly = true;
         }
 
+        private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true; // Ignora la tecla presionada
+            }
+        }
+
+        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockactual_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockminimo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

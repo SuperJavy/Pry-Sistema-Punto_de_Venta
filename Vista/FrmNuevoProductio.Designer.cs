@@ -91,6 +91,7 @@
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(456, 37);
             txtCodigo.TabIndex = 1;
+            txtCodigo.KeyPress += txtCodigo_KeyPress;
             // 
             // labelNombre
             // 
@@ -150,6 +151,7 @@
             txtCosto.Name = "txtCosto";
             txtCosto.Size = new Size(456, 37);
             txtCosto.TabIndex = 6;
+            txtCosto.KeyPress += txtCosto_KeyPress;
             // 
             // label4
             // 
@@ -262,6 +264,7 @@
             txtStockactual.Name = "txtStockactual";
             txtStockactual.Size = new Size(301, 37);
             txtStockactual.TabIndex = 17;
+            txtStockactual.KeyPress += txtStockactual_KeyPress;
             // 
             // txtStockminimo
             // 
@@ -273,6 +276,7 @@
             txtStockminimo.Name = "txtStockminimo";
             txtStockminimo.Size = new Size(301, 37);
             txtStockminimo.TabIndex = 18;
+            txtStockminimo.KeyPress += txtStockminimo_KeyPress;
             // 
             // nudPorcentaje
             // 
@@ -404,7 +408,6 @@
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(456, 37);
             txtDescripcion.TabIndex = 3;
-            txtDescripcion.KeyPress += txtDescripcion_KeyPress;
             // 
             // panelDerecho
             // 
