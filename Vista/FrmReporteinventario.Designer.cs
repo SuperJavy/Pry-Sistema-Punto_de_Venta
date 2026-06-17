@@ -91,7 +91,15 @@
             dgvInventario.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvInventario.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             dgvInventario.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
+            // --- BLOQUE DE CONFIGURACIÓN dgvInventario ---
+            dgvInventario.ReadOnly = true;
+            dgvInventario.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInventario.MultiSelect = false;
+            dgvInventario.AllowUserToAddRows = false;
+            dgvInventario.AllowUserToDeleteRows = false;
+            dgvInventario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInventario.RowHeadersVisible = false; // Elimina la columna gris lateral para un look más limpio
+                                                     // ---------------------------------------------
             dgvInventario.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 249); // Fila alterna gris claro
             dgvInventario.DefaultCellStyle.BackColor = Color.White;
             dgvInventario.DefaultCellStyle.ForeColor = Color.FromArgb(50, 50, 50);

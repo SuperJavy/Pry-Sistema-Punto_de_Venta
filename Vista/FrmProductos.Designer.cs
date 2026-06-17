@@ -49,18 +49,18 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1428, 90);
+            panel1.Size = new Size(1428, 80);
             panel1.TabIndex = 74;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(47, 53, 66);
             label2.Location = new Point(12, 9);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(173, 45);
+            label2.Size = new Size(131, 32);
             label2.TabIndex = 0;
             label2.Text = "Productos";
             // 
@@ -71,7 +71,7 @@
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(24, 24);
             menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem, eliminarToolStripMenuItem, categoriasToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 52);
+            menuStrip1.Location = new Point(0, 42);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1428, 38);
             menuStrip1.TabIndex = 0;
@@ -117,10 +117,10 @@
             // 
             pnlproductos.BackColor = Color.White;
             pnlproductos.Dock = DockStyle.Fill;
-            pnlproductos.Location = new Point(0, 90);
+            pnlproductos.Location = new Point(0, 80);
             pnlproductos.Margin = new Padding(4, 5, 4, 5);
             pnlproductos.Name = "pnlproductos";
-            pnlproductos.Size = new Size(1428, 650);
+            pnlproductos.Size = new Size(1428, 660);
             pnlproductos.TabIndex = 75;
             pnlproductos.Paint += pnlproductos_Paint;
             // 

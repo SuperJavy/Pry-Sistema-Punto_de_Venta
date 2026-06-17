@@ -38,7 +38,7 @@ namespace Pry_Sistema_Punto_de_Venta
             dgvProductosBajos.DataSource = dt;
 
             // Renombrar columnas
-            dgvProductosBajos.Columns["codigo_de_barras"].HeaderText = "Código";
+            dgvProductosBajos.Columns["codigo_de_barras"].HeaderText = "Código de Barras";
             dgvProductosBajos.Columns["nombre"].HeaderText = "Producto";
             dgvProductosBajos.Columns["stock"].HeaderText = "Existencias";
             dgvProductosBajos.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
