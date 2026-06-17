@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
+using Pry_Sistema_Punto_de_Venta.Vista;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +15,8 @@ namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmCompra : Form
     {
+        ClsComprasController controller = new ClsComprasController();
+        private Producto productoEnEspera = null;
         public FrmCompra()
         {
             InitializeComponent();
@@ -38,22 +43,104 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnAgregarproducto_Click(object sender, EventArgs e)
         {
+            if (productoEnEspera == null)
+            {
+                string codigo = txtCodigoProducto.Text.Trim();
+                if (!string.IsNullOrEmpty(codigo))
+                {
+                    Producto prod = controller.buscarProducto(codigo);
+                    if (prod != null)
+                    {
+                        prepararProductoEnPantalla(prod);
+                    }
+                    else
+                    {
+                        notificarUsuario("El código de producto no coincide con ningún registro.", true);
+                        txtCodigoProducto.SelectAll();
+                    }
+                }
+                return;
+            }
 
+            controller.procesarEntradaCompra(
+                productoEnEspera,
+                txtCantidadCompra.Text,
+                txtCostoCompra.Text,
+                this
+            );
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-
+            using (FrmBuscarProducto frmBuscar = new FrmBuscarProducto(controller.busquedaAvanzada))
+            {
+                if (frmBuscar.ShowDialog() == DialogResult.OK)
+                {
+                    prepararProductoEnPantalla(frmBuscar.productoSeleccionado);
+                }
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-
+            if (dtgCompras.CurrentRow != null && dtgCompras.CurrentRow.Index >= 0)
+            {
+                controller.eliminarProducto(dtgCompras.CurrentRow.Index, this);
+            }
+            else
+            {
+                notificarUsuario("Por favor, seleccione una fila del listado para eliminar.", false);
+            }
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            controller.guardarCompra(this);
+        }
+        public void actualizarTabla(List<DetalleCompra> listaCompra)
+        {
+            dtgCompras.Rows.Clear();
+            foreach (var item in listaCompra)
+            {
+                dtgCompras.Rows.Add(
+                    item.producto.codigo_de_barras,
+                    item.producto.nombre,
+                    item.cantidad,
+                    item.precioCompra,
+                    item.subtotalCompra
 
+                    );
+            }
+        
+        }
+        public void mostrarTotal(decimal totalCompta) 
+        {
+            txtTotalCompra.Text ="$ " + totalCompta.ToString();
+        }
+        private void prepararProductoEnPantalla(Producto prod)
+        {
+            productoEnEspera = prod;
+            txtCodigoProducto.Text = prod.codigo_de_barras;
+            txtCostoCompra.Text = prod.precio_compra.ToString();
+            txtCantidadCompra.Text = "1";
+
+            // Foco interactivo: selecciona el texto para sobreescribir de inmediato
+            txtCantidadCompra.Focus();
+            txtCantidadCompra.SelectAll();
+        }
+        public void limpiarCamposEdicion()
+        {
+            productoEnEspera = null;
+            txtCodigoProducto.Clear();
+            txtCantidadCompra.Clear();
+            txtCostoCompra.Clear();
+            txtCodigoProducto.Focus();
+        }
+        public void notificarUsuario(string mensaje, bool esError)
+        {
+            MessageBoxIcon icono = esError ? MessageBoxIcon.Warning : MessageBoxIcon.Information;
+            string titulo = esError ? "Error en Operación" : "Notificación del Sistema";
+            MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
         }
     }
 }
