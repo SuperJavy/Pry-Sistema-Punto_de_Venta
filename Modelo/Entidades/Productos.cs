@@ -16,7 +16,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
             public decimal precio { get; set; }
             public decimal stock { get; set; }
             public decimal importe { get; set; }
-            public string imagen { get; set; }
+            public Image imagen { get; set; }
             public string tipoVenta { get; set; }
 
 

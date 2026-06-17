@@ -23,7 +23,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         p.nombre,
                         p.costo AS Costo,
                         p.stock,
-                        p.ruta_imagen AS imagen,
                         p.id_tipo_venta AS Tipo
                     FROM productos p
                     WHERE p.codigo_de_barras = @codigo";
@@ -44,7 +43,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         nombre = dr["nombre"].ToString(),
                         precio_compra = Convert.ToDecimal(dr["Costo"]),
                         stock = Convert.ToDecimal(dr["stock"]),
-                        imagen = dr["imagen"].ToString(),
                         tipoVenta = dr["Tipo"].ToString()
                     };
 
@@ -190,8 +188,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 p.codigo_de_barras,             
                 p.nombre,             
                 p.costo AS Costo,             
-                p.stock,             
-                p.ruta_imagen AS Imagen,             
+                p.stock,                          
                 p.id_tipo_venta AS Tipo         
             FROM productos p         
             WHERE p.nombre LIKE @filtro OR p.codigo_de_barras LIKE @filtro";
@@ -213,7 +210,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                             nombre = dr["nombre"].ToString(),
                             precio_compra = Convert.ToDecimal(dr["Costo"]),
                             stock = Convert.ToDecimal(dr["stock"]),
-                            imagen = dr["Imagen"].ToString(),
                             tipoVenta = dr["Tipo"].ToString()
                         }
                     );

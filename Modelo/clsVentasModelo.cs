@@ -50,12 +50,20 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         nombre = dr["nombre"].ToString(),
                         precio = Convert.ToDecimal(dr["precio"]),
                         stock = Convert.ToDecimal(dr["stock"]),
-                        imagen = dr["imagen"].ToString(),
                         tipoVenta = dr["Tipo"].ToString()
                     };
+                }
+                if (dr["imagen"] != DBNull.Value)
+                {
+                    // 2. Extraemos los datos crudos
+                    byte[] imagenBytes = (byte[])dr["imagen"];
 
-
-                    
+                    // 3. Usamos tu convertidor para armar la imagen y guardarla en el objeto
+                    producto.imagen = BytesAImagen(imagenBytes);
+                }
+                else
+                {
+                    producto.imagen = null; // Opcional: Aquí podrías poner una imagen genérica de "Sin Foto"
                 }
 
 
@@ -67,6 +75,15 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             finally {cerrarConexion();}
 
             return producto;
+        }
+
+        private Image BytesAImagen(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0) return null;
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes))
+            {
+                return Image.FromStream(ms);
+            }
         }
 
         public List<Producto> buscarProductoAv(string filtro)
@@ -92,18 +109,29 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    producto.Add(
-                        new Producto
-                        {
-                            id_producto = Convert.ToInt32(dr["ID"]),
-                            codigo_de_barras = dr["Codigo_de_barras"].ToString(),
-                            nombre = dr["Nombre"].ToString(),
-                            precio = Convert.ToDecimal(dr["Precio"]),
-                            stock = Convert.ToDecimal(dr["Stock"]),
-                            imagen = dr["Imagen"].ToString(),
-                            tipoVenta = dr["Tipo"].ToString()
-                        }
-                    );
+                    Producto prodTemporal = new Producto
+                    {
+                        id_producto = Convert.ToInt32(dr["id"]),
+                        codigo_de_barras = dr["codigo_de_barras"].ToString(),
+                        nombre = dr["nombre"].ToString(),
+                        precio = Convert.ToDecimal(dr["Precio"]),
+                        stock = Convert.ToDecimal(dr["stock"]),
+                        tipoVenta = dr["Tipo"].ToString()
+                    };
+
+                    // 2. Evaluamos la columna binaria de la imagen de forma segura
+                    if (dr["Imagen"] != DBNull.Value)
+                    {
+                        byte[] imagenBytes = (byte[])dr["Imagen"];
+                        prodTemporal.imagen = BytesAImagen(imagenBytes);
+                    }
+                    else
+                    {
+                        prodTemporal.imagen = null;
+                    }
+
+                    // 3. Una vez que el producto está 100% armado, lo metemos a la lista
+                    producto.Add(prodTemporal);
                 }
 
             }

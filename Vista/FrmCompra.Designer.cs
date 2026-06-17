@@ -19,6 +19,11 @@
         {
             label3 = new Label();
             dtgCompras = new DataGridView();
+            colCodigo = new DataGridViewTextBoxColumn();
+            colNombre = new DataGridViewTextBoxColumn();
+            colCantidad = new DataGridViewTextBoxColumn();
+            colCostoUnitario = new DataGridViewTextBoxColumn();
+            colImporte = new DataGridViewTextBoxColumn();
             btnBorrar = new Button();
             btnBuscar = new Button();
             txtTotalCompra = new TextBox();
@@ -33,11 +38,6 @@
             lblCosto = new Label();
             txtCostoCompra = new TextBox();
             pnlGridContainer = new Panel();
-            colCodigo = new DataGridViewTextBoxColumn();
-            colNombre = new DataGridViewTextBoxColumn();
-            colCantidad = new DataGridViewTextBoxColumn();
-            colCostoUnitario = new DataGridViewTextBoxColumn();
-            colImporte = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dtgCompras).BeginInit();
             panel1.SuspendLayout();
             pnlGridContainer.SuspendLayout();
@@ -61,12 +61,58 @@
             dtgCompras.Columns.AddRange(new DataGridViewColumn[] { colCodigo, colNombre, colCantidad, colCostoUnitario, colImporte });
             dtgCompras.Dock = DockStyle.Fill;
             dtgCompras.Location = new Point(0, 0);
-            dtgCompras.Margin = new Padding(5, 5, 5, 5);
+            dtgCompras.Margin = new Padding(5);
             dtgCompras.Name = "dtgCompras";
+            dtgCompras.ReadOnly = true;
             dtgCompras.RowHeadersWidth = 51;
             dtgCompras.RowTemplate.Height = 70;
             dtgCompras.Size = new Size(1577, 341);
             dtgCompras.TabIndex = 116;
+            // 
+            // colCodigo
+            // 
+            colCodigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colCodigo.HeaderText = "Código de Barras";
+            colCodigo.MinimumWidth = 9;
+            colCodigo.Name = "colCodigo";
+            colCodigo.ReadOnly = true;
+            colCodigo.Width = 212;
+            // 
+            // colNombre
+            // 
+            colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colNombre.FillWeight = 50F;
+            colNombre.HeaderText = "Nombre";
+            colNombre.MinimumWidth = 9;
+            colNombre.Name = "colNombre";
+            colNombre.ReadOnly = true;
+            // 
+            // colCantidad
+            // 
+            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            colCantidad.HeaderText = "Cantidad";
+            colCantidad.MinimumWidth = 9;
+            colCantidad.Name = "colCantidad";
+            colCantidad.ReadOnly = true;
+            colCantidad.Width = 137;
+            // 
+            // colCostoUnitario
+            // 
+            colCostoUnitario.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colCostoUnitario.HeaderText = "Costo Unit.";
+            colCostoUnitario.MinimumWidth = 9;
+            colCostoUnitario.Name = "colCostoUnitario";
+            colCostoUnitario.ReadOnly = true;
+            colCostoUnitario.Width = 156;
+            // 
+            // colImporte
+            // 
+            colImporte.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colImporte.HeaderText = "Importe Total";
+            colImporte.MinimumWidth = 9;
+            colImporte.Name = "colImporte";
+            colImporte.ReadOnly = true;
+            colImporte.Width = 177;
             // 
             // btnBorrar
             // 
@@ -74,7 +120,7 @@
             btnBorrar.Image = Properties.Resources.borrar;
             btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
             btnBorrar.Location = new Point(292, 187);
-            btnBorrar.Margin = new Padding(5, 5, 5, 5);
+            btnBorrar.Margin = new Padding(5);
             btnBorrar.Name = "btnBorrar";
             btnBorrar.Padding = new Padding(14, 0, 0, 0);
             btnBorrar.Size = new Size(254, 61);
@@ -89,7 +135,7 @@
             btnBuscar.Image = Properties.Resources.busqueda;
             btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
             btnBuscar.Location = new Point(28, 187);
-            btnBuscar.Margin = new Padding(5, 5, 5, 5);
+            btnBuscar.Margin = new Padding(5);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Padding = new Padding(14, 0, 0, 0);
             btnBuscar.Size = new Size(254, 61);
@@ -105,7 +151,7 @@
             txtTotalCompra.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             txtTotalCompra.ForeColor = Color.FromArgb(46, 204, 113);
             txtTotalCompra.Location = new Point(1202, 644);
-            txtTotalCompra.Margin = new Padding(5, 5, 5, 5);
+            txtTotalCompra.Margin = new Padding(5);
             txtTotalCompra.Name = "txtTotalCompra";
             txtTotalCompra.ReadOnly = true;
             txtTotalCompra.Size = new Size(400, 82);
@@ -122,7 +168,7 @@
             btnComprar.Image = Properties.Resources.ingreso__1_;
             btnComprar.ImageAlign = ContentAlignment.MiddleLeft;
             btnComprar.Location = new Point(824, 644);
-            btnComprar.Margin = new Padding(5, 5, 5, 5);
+            btnComprar.Margin = new Padding(5);
             btnComprar.Name = "btnComprar";
             btnComprar.Padding = new Padding(18, 0, 0, 0);
             btnComprar.Size = new Size(368, 88);
@@ -137,7 +183,7 @@
             panel1.Controls.Add(label10);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(5, 5, 5, 5);
+            panel1.Margin = new Padding(5);
             panel1.Name = "panel1";
             panel1.Size = new Size(1633, 61);
             panel1.TabIndex = 125;
@@ -170,7 +216,7 @@
             // 
             txtCodigoProducto.Font = new Font("Segoe UI", 13F);
             txtCodigoProducto.Location = new Point(135, 96);
-            txtCodigoProducto.Margin = new Padding(5, 5, 5, 5);
+            txtCodigoProducto.Margin = new Padding(5);
             txtCodigoProducto.Name = "txtCodigoProducto";
             txtCodigoProducto.Size = new Size(408, 48);
             txtCodigoProducto.TabIndex = 118;
@@ -182,7 +228,7 @@
             btnAgregarproducto.Image = Properties.Resources.agregar_p16;
             btnAgregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
             btnAgregarproducto.Location = new Point(1190, 93);
-            btnAgregarproducto.Margin = new Padding(5, 5, 5, 5);
+            btnAgregarproducto.Margin = new Padding(5);
             btnAgregarproducto.Name = "btnAgregarproducto";
             btnAgregarproducto.Padding = new Padding(14, 0, 0, 0);
             btnAgregarproducto.Size = new Size(292, 61);
@@ -207,7 +253,7 @@
             // 
             txtCantidadCompra.Font = new Font("Segoe UI", 13F);
             txtCantidadCompra.Location = new Point(688, 96);
-            txtCantidadCompra.Margin = new Padding(4, 4, 4, 4);
+            txtCantidadCompra.Margin = new Padding(4);
             txtCantidadCompra.Name = "txtCantidadCompra";
             txtCantidadCompra.Size = new Size(139, 48);
             txtCantidadCompra.TabIndex = 127;
@@ -228,7 +274,7 @@
             // 
             txtCostoCompra.Font = new Font("Segoe UI", 13F);
             txtCostoCompra.Location = new Point(945, 96);
-            txtCostoCompra.Margin = new Padding(4, 4, 4, 4);
+            txtCostoCompra.Margin = new Padding(4);
             txtCostoCompra.Name = "txtCostoCompra";
             txtCostoCompra.Size = new Size(209, 48);
             txtCostoCompra.TabIndex = 129;
@@ -238,50 +284,10 @@
             pnlGridContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlGridContainer.Controls.Add(dtgCompras);
             pnlGridContainer.Location = new Point(28, 280);
-            pnlGridContainer.Margin = new Padding(4, 4, 4, 4);
+            pnlGridContainer.Margin = new Padding(4);
             pnlGridContainer.Name = "pnlGridContainer";
             pnlGridContainer.Size = new Size(1577, 341);
             pnlGridContainer.TabIndex = 130;
-            // 
-            // colCodigo
-            // 
-            colCodigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colCodigo.HeaderText = "Código de Barras";
-            colCodigo.MinimumWidth = 9;
-            colCodigo.Name = "colCodigo";
-            colCodigo.Width = 212;
-            // 
-            // colNombre
-            // 
-            colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colNombre.FillWeight = 50F;
-            colNombre.HeaderText = "Nombre";
-            colNombre.MinimumWidth = 9;
-            colNombre.Name = "colNombre";
-            // 
-            // colCantidad
-            // 
-            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colCantidad.HeaderText = "Cantidad";
-            colCantidad.MinimumWidth = 9;
-            colCantidad.Name = "colCantidad";
-            colCantidad.Width = 137;
-            // 
-            // colCostoUnitario
-            // 
-            colCostoUnitario.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colCostoUnitario.HeaderText = "Costo Unit.";
-            colCostoUnitario.MinimumWidth = 9;
-            colCostoUnitario.Name = "colCostoUnitario";
-            colCostoUnitario.Width = 156;
-            // 
-            // colImporte
-            // 
-            colImporte.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colImporte.HeaderText = "Importe Total";
-            colImporte.MinimumWidth = 9;
-            colImporte.Name = "colImporte";
-            colImporte.Width = 177;
             // 
             // FrmCompra
             // 
@@ -305,7 +311,7 @@
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "FrmCompra";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmCompra";
