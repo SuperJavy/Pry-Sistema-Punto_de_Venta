@@ -12,7 +12,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
     {
         public bool registrarUsuario(string nombre, string apellidoP, string apellidoM, string nickname, string direcion, string telefono, string correo,string password, int id_rol)
         {
-            string consulta = "insert into usuario (`nombre`, `apellido_paterno`, `apellido_materno`, `nickname`, `direccion`, `telefono`,`correo` ,`password`, `Id_rol` ) VALUES (@nombre, @paterno, @materno, @nickname,@direccion, @telefono, @correo, @password, @id_rol)";
+            string consulta = "insert into usuario (`nombre`, `apellido_paterno`, `apellido_materno`, `nickname`, `direccion`, `correo`,`telefono`, `password`, `Id_rol` ) VALUES (@nombre, @paterno, @materno, @nickname,@direccion, @correo ,@telefono, @password, @id_rol)";
 
             try
             {
