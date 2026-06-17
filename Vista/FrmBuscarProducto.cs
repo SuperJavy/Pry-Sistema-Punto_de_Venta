@@ -14,22 +14,30 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmBuscarProducto : Form
     {
-        clsVentasController controller = new clsVentasController();
-        FrmVentas vista;
+        public Producto productoSeleccionado { get; private set; }
 
-        private List<Producto> resultadosBusqueda = new();
-        public FrmBuscarProducto(clsVentasController controller, FrmVentas vista)
+        private readonly Func<string, List<Producto>> funcionBusqueda;
+     
+        private List<Producto> resultadosBusqueda = new List<Producto>();
+
+        public FrmBuscarProducto(Func<string, List<Producto>> funcionBusqueda)
         {
             InitializeComponent();
-            this.controller = controller;
-            this.vista = vista;
+            this.funcionBusqueda = funcionBusqueda;
         }
-
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             string filtro = txtBusqueda.Text.Trim();
 
-            controller.busquedaAvanzada(filtro, this);
+            if (string.IsNullOrWhiteSpace(filtro))
+            {
+                actualizarLista(new List<Producto>());
+                return;
+            }
+
+            List<Producto> resultados = funcionBusqueda(filtro);
+
+            actualizarLista(resultados);
         }
         public void actualizarLista(List<Producto> producto)
         {
@@ -50,23 +58,16 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void dtgResultados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+                return;
 
-            Producto producto =
-                controller.ObtenerProductoBusqueda(e.RowIndex);
+            productoSeleccionado = resultadosBusqueda[e.RowIndex];
 
-            if (producto != null)
-            {
-                
-                controller.agregarProducto(producto, vista);
+            DialogResult = DialogResult.OK;
 
-                // Opcional 
-                MessageBox.Show(
-                    $"Agregado: {producto.nombre}");
+            Close();
 
-                Close();
-                
-            }
         }
     }
 }
+

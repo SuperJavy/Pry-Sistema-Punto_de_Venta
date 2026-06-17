@@ -112,18 +112,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
 
-        public void busquedaAvanzada(string filtro, FrmBuscarProducto vista)
+        public List<Producto>busquedaAvanzada(string filtro)
         {
             if (string.IsNullOrWhiteSpace(filtro))
             {
-                resultadosBusqueda.Clear();
-                vista.actualizarLista(resultadosBusqueda);
-                return;
+                return new List<Producto>();
             }
-
-            resultadosBusqueda = modelo.buscarProductoAv(filtro);
-
-            vista.actualizarLista(resultadosBusqueda);
+            return modelo.buscarProductoAv(filtro);
         }
         public Producto ObtenerProductoBusqueda(int indice)
         {

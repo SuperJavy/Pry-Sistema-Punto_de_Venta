@@ -78,8 +78,16 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmBuscarProducto visBuscar = new FrmBuscarProducto(controler, this);
-            visBuscar.Show();
+            using(FrmBuscarProducto frm = new FrmBuscarProducto(controler.busquedaAvanzada)) 
+            { 
+
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    controler.agregarProducto(
+                    frm.productoSeleccionado,
+                    this);
+                }
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
