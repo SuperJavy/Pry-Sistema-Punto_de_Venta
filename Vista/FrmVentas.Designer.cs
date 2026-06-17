@@ -72,6 +72,7 @@
             dtgVenta.Location = new Point(28, 280);
             dtgVenta.Margin = new Padding(5);
             dtgVenta.Name = "dtgVenta";
+            dtgVenta.ReadOnly = true;
             dtgVenta.RowHeadersWidth = 51;
             dtgVenta.RowTemplate.Height = 70;
             dtgVenta.Size = new Size(1577, 341);
@@ -83,6 +84,7 @@
             colCodigo.HeaderText = "Código de Barras";
             colCodigo.MinimumWidth = 9;
             colCodigo.Name = "colCodigo";
+            colCodigo.ReadOnly = true;
             colCodigo.Width = 212;
             // 
             // colNombre
@@ -92,6 +94,7 @@
             colNombre.HeaderText = "Nombre";
             colNombre.MinimumWidth = 9;
             colNombre.Name = "colNombre";
+            colNombre.ReadOnly = true;
             // 
             // colTipoVenta
             // 
@@ -99,6 +102,7 @@
             colTipoVenta.HeaderText = "Tipo de Venta";
             colTipoVenta.MinimumWidth = 9;
             colTipoVenta.Name = "colTipoVenta";
+            colTipoVenta.ReadOnly = true;
             colTipoVenta.Width = 167;
             // 
             // colCantidad
@@ -107,6 +111,7 @@
             colCantidad.HeaderText = "Cantidad";
             colCantidad.MinimumWidth = 9;
             colCantidad.Name = "colCantidad";
+            colCantidad.ReadOnly = true;
             colCantidad.Width = 137;
             // 
             // colPrecio
@@ -115,6 +120,7 @@
             colPrecio.HeaderText = "Precio";
             colPrecio.MinimumWidth = 9;
             colPrecio.Name = "colPrecio";
+            colPrecio.ReadOnly = true;
             colPrecio.Width = 111;
             // 
             // colImporte
@@ -123,6 +129,7 @@
             colImporte.HeaderText = "Importe Total";
             colImporte.MinimumWidth = 9;
             colImporte.Name = "colImporte";
+            colImporte.ReadOnly = true;
             colImporte.Width = 163;
             // 
             // colImagen
@@ -133,6 +140,7 @@
             colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom;
             colImagen.MinimumWidth = 9;
             colImagen.Name = "colImagen";
+            colImagen.ReadOnly = true;
             // 
             // colTipo
             // 
@@ -140,6 +148,7 @@
             colTipo.HeaderText = "Tipo";
             colTipo.MinimumWidth = 9;
             colTipo.Name = "colTipo";
+            colTipo.ReadOnly = true;
             colTipo.Width = 94;
             // 
             // btnReporteventas

@@ -114,7 +114,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     item.Cantidad,
                     item.PrecioUnitario,
                     item.Importe,
-                    null,
+                    item.Producto.imagen,
                     "productos"
 
                     );

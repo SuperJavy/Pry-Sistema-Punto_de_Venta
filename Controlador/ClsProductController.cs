@@ -23,6 +23,19 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 return;
             }
 
+            if (Imagen == null)
+            {
+                if (int.TryParse(Categoria, out int idCategoria))
+                {
+                    Imagen = imagenPorCategoria(idCategoria);
+                }
+                else
+                {
+                    Imagen = imagenPorCategoria(0);
+                }
+            }
+
+
             try
             {
                 bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, Imagen, porcentaje);
@@ -217,6 +230,37 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
 
 
+        }
+
+        private Image imagenPorCategoria(int idCategoria)
+        {
+            switch (idCategoria)
+            {
+
+                case 1: return Properties.Resources.cat_Farmacos;
+                case 9: return Properties.Resources.cat_bebidas;
+                case 11: return Properties.Resources.cat_Limpieza;
+                case 15: return Properties.Resources.cat_Lacteos;
+                case 19: return Properties.Resources.cat_Dulces;               
+                case 20: return Properties.Resources.cat_higiene_Personal;
+                case 21: return Properties.Resources.cat_Cocina;
+
+
+                default:
+                    Random rnd = new Random();
+                    int opcionAleatoria = rnd.Next(1,4);
+
+                    switch (opcionAleatoria)
+                    {
+                        case 1: return Properties.Resources.generico_1;
+                        case 2: return Properties.Resources.generico_2;
+                        case 3: return Properties.Resources.generico_3;
+                        case 4: return Properties.Resources.generico_4;
+                        case 5: return Properties.Resources.generico_5;
+                        default: return Properties.Resources.generico_1;
+                    }
+
+            }
         }
 
     }
