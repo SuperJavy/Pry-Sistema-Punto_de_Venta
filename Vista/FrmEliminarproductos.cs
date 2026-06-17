@@ -91,7 +91,6 @@ namespace Pry_Sistema_Punto_de_Venta
                     }
                     catch (ArgumentException)
                     {
-                        // Si la imagen en la BD guardada anteriormente sigue corrupta, no congelará el sistema
                         pcbImagen.Image = null;
                     }
                 }

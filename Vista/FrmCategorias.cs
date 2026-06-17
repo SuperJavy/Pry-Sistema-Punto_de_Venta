@@ -13,18 +13,20 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmCategorias : Form
     {
+
+        private clsCategoriasController categoria = new clsCategoriasController();
         public FrmCategorias()
         {
             InitializeComponent();
         }
 
-        private clsCategoriasController categoria = new clsCategoriasController();
-
         private void btnGuardarCategoria_Click(object sender, EventArgs e)
         {
             categoria.agregarCategoria(txtNombreCategoria.Text, this);
 
+            limpiarPantalla();
 
+            ActualizarGrid();
         }
         public void limpiarPantalla()
         {
@@ -44,22 +46,72 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void FrmCategorias_Load(object sender, EventArgs e)
         {
+            ActualizarGrid();
+        }
+        public void ActualizarGrid()
+        {
             DataTable dt = categoria.CargarDTGcat(this);
-
-            // Verificamos que el DataTable no sea nulo y tenga datos
             if (dt != null)
             {
                 dgvMostrarcategorias.DataSource = dt;
+
+                // Esto es vital para que al hacer clic en cualquier parte se dispare el evento
+                dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
                 if (dgvMostrarcategorias.Columns.Contains("Id"))
                 {
                     dgvMostrarcategorias.Columns["Id"].Visible = false;
                 }
-
-
                 dgvMostrarcategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvMostrarcategorias.ReadOnly = true; // Que el usuario no pueda editar la lista
-                dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
+        }
+
+        private void dgvMostrarcategorias_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvMostrarcategorias.Rows[e.RowIndex];
+
+                // Pasamos el valor de la celda al TextBox
+                // Asegúrate de usar el nombre correcto de tu columna (ej: "nombre")
+                txtNombreCategoria.Text = fila.Cells["nombre"].Value.ToString();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show(
+            "¿Estás seguro de que deseas eliminar la categoría: " + txtNombreCategoria.Text + "?",
+            "Confirmar eliminación",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+            );
+
+            // 3. Si el usuario confirma, procedemos con el proceso
+            if (resultado == DialogResult.Yes)
+            {
+                categoria.Deletecategory(txtNombreCategoria.Text, this);
+
+                // 4. Limpiamos y refrescamos la vista
+                limpiarPantalla();
+                ActualizarGrid();
+            }
+        }
+
+        private void txtNombreCategoria_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgvMostrarcategorias_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvMostrarcategorias.Rows[e.RowIndex];
+                txtNombreCategoria.Text = fila.Cells[1].Value.ToString();
             }
         }
     }

@@ -28,104 +28,95 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            label2 = new Label();
+            label1 = new Label();
+            dgvProductosBajos = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvProductosBajos).BeginInit();
+            SuspendLayout();
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60))))); // Color Rojo Alerta/Gamer para stock bajo
-            this.label2.Location = new System.Drawing.Point(13, 15);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(342, 32);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Productos Bajos en Inventario";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.FromArgb(231, 76, 60);
+            label2.Location = new Point(14, 19);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(410, 38);
+            label2.TabIndex = 1;
+            label2.Text = "Productos Bajos en Inventario";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gray; // Texto descriptivo secundario elegante
-            this.label1.Location = new System.Drawing.Point(14, 58);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(618, 23);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Se mostrará una lista de productos con inventario por debajo de su mínimo configurado.";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Gray;
+            label1.Location = new Point(16, 72);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(786, 28);
+            label1.TabIndex = 2;
+            label1.Text = "Se mostrará una lista de productos con inventario por debajo de su mínimo configurado.";
             // 
-            // dataGridView1
+            // dgvProductosBajos
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            // ELÁSTICO: Se amarra a los 4 bordes para crecer responsivamente
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-
-            // Cabecera estilizada de la tabla (Gris/Azul Oscuro Pro)
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeight = 40;
-
-            // Celdas de datos limpias y legibles
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(237)))), ((int)(((byte)(237))))); // Sombrado rojo muy tenue al seleccionar fila caída
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
-            this.dataGridView1.Location = new System.Drawing.Point(12, 110); // Ajustado ligeramente para dar espacio limpio
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 30;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-
-            // Filas alternadas para que leer la lista sea súper cómodo
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-
-            this.dataGridView1.RowTemplate.Height = 35;
-            this.dataGridView1.Size = new System.Drawing.Size(1922, 884);
-            this.dataGridView1.TabIndex = 3;
+            dgvProductosBajos.AllowUserToAddRows = false;
+            dgvProductosBajos.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 250, 250);
+            dgvProductosBajos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvProductosBajos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvProductosBajos.BackgroundColor = Color.White;
+            dgvProductosBajos.BorderStyle = BorderStyle.None;
+            dgvProductosBajos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvProductosBajos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(44, 62, 80);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(44, 62, 80);
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvProductosBajos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dgvProductosBajos.ColumnHeadersHeight = 40;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(253, 237, 237);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(192, 57, 43);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvProductosBajos.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvProductosBajos.EnableHeadersVisualStyles = false;
+            dgvProductosBajos.GridColor = Color.FromArgb(242, 243, 244);
+            dgvProductosBajos.Location = new Point(13, 138);
+            dgvProductosBajos.Margin = new Padding(3, 4, 3, 4);
+            dgvProductosBajos.Name = "dgvProductosBajos";
+            dgvProductosBajos.RowHeadersWidth = 30;
+            dgvProductosBajos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgvProductosBajos.RowTemplate.Height = 35;
+            dgvProductosBajos.Size = new Size(1920, 953);
+            dgvProductosBajos.TabIndex = 3;
             // 
             // FrmProductosbajos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font; // Escala por fuentes nativa para no romper contenedores
-            this.BackColor = System.Drawing.Color.White; // Blanco puro
-            this.ClientSize = new System.Drawing.Size(1946, 1006);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "FrmProductosbajos";
-            this.Text = "FrmProductosbajos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(1946, 1106);
+            Controls.Add(dgvProductosBajos);
+            Controls.Add(label1);
+            Controls.Add(label2);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 6, 4, 6);
+            Name = "FrmProductosbajos";
+            Text = "FrmProductosbajos";
+            Load += FrmProductosbajos_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvProductosBajos).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -133,6 +124,6 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvProductosBajos;
     }
 }

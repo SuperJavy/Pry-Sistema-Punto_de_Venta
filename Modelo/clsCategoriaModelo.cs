@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
@@ -59,6 +60,40 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             catch(Exception e)
             {
                 throw new Exception("Error al extraer categorias " + e.Message);
+            }
+        }
+        public Boolean  Deletecategoria(string Nombre)
+        {
+            try
+            {
+                clsConexion conexionBD = new clsConexion();
+                using (var conexion = conexionBD.abrirConexion())
+                {
+                    string Query = "DELETE FROM categoria WHERE Nombre = @Nombre;";
+
+                    using( var consulta = new MySqlCommand(Query, conexion))
+                    {
+                        consulta.Parameters.AddWithValue("@Nombre", Nombre);
+                        using( var result =  consulta.ExecuteReader())
+                        {
+                            if(result.Read())
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Error al borrar la categoria" + e.Message);
             }
         }
 

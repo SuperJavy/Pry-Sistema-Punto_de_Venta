@@ -159,51 +159,11 @@ namespace Pry_Sistema_Punto_de_Venta
             txtPrecioventa.ReadOnly = true;
         }
 
-        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el carácter
-            }
-            else if (char.IsDigit(e.KeyChar)) // <-- ESTA ES LA LÍNEA NUEVA PARA LOS NÚMEROS
-            {
-                e.Handled = false; // Deja pasar números (0-9)
-            }
-            else if (char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el espacio
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false; // Deja borrar texto
-            }
-            else
-            {
-                e.Handled = true; // "Atrapa" el evento y lo cancela
-            }
-        }
-
         private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar))
+            if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = false; // Deja pasar el carácter
-            }
-            else if (char.IsDigit(e.KeyChar)) // <-- ESTA ES LA LÍNEA NUEVA PARA LOS NÚMEROS
-            {
-                e.Handled = false; // Deja pasar números (0-9)
-            }
-            else if (char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = false; // Deja pasar el espacio
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false; // Deja borrar texto
-            }
-            else
-            {
-                e.Handled = true; // "Atrapa" el evento y lo cancela
+                e.Handled = true;
             }
         }
 
@@ -242,6 +202,38 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
             txtPrecioventa.Text = preciov.ToString();
+        }
+
+        private void txtCodigodebarras_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true; // Ignora la tecla presionada
+            }
+        }
+
+        private void txtStockactual_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockminimo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

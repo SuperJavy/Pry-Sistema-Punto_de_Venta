@@ -179,6 +179,7 @@
             txtCodigodebarras.Size = new Size(445, 37);
             txtCodigodebarras.TabIndex = 1;
             txtCodigodebarras.KeyDown += txtCodigodebarras_KeyDown;
+            txtCodigodebarras.KeyPress += txtCodigodebarras_KeyPress;
             // 
             // labelNombre
             // 
@@ -222,7 +223,6 @@
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(445, 37);
             txtDescripcion.TabIndex = 3;
-            txtDescripcion.KeyPress += txtDescripcion_KeyPress;
             // 
             // label5
             // 
@@ -279,6 +279,7 @@
             txtCosto.Name = "txtCosto";
             txtCosto.Size = new Size(445, 37);
             txtCosto.TabIndex = 6;
+            txtCosto.KeyPress += txtCosto_KeyPress;
             // 
             // label3
             // 
@@ -371,6 +372,7 @@
             txtStockactual.Name = "txtStockactual";
             txtStockactual.Size = new Size(355, 37);
             txtStockactual.TabIndex = 17;
+            txtStockactual.KeyPress += txtStockactual_KeyPress;
             // 
             // label9
             // 
@@ -392,6 +394,7 @@
             txtStockminimo.Name = "txtStockminimo";
             txtStockminimo.Size = new Size(355, 37);
             txtStockminimo.TabIndex = 18;
+            txtStockminimo.KeyPress += txtStockminimo_KeyPress;
             // 
             // groupBoxImagen
             // 
