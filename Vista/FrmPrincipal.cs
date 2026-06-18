@@ -16,8 +16,6 @@ namespace Pry_Sistema_Punto_de_Venta
     {
 
         private string Rolusuario;
-        ClsPrincipal principal = new ClsPrincipal();
-        ClsPrincipalController controller = new ClsPrincipalController();
         public FrmPrincipal(string rolusuario)
         {
             InitializeComponent();
