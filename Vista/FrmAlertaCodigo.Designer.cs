@@ -49,9 +49,9 @@
             panel1.Controls.Add(btnIniciar);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Margin = new Padding(5, 6, 5, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(580, 376);
+            panel1.Size = new Size(696, 451);
             panel1.TabIndex = 0;
             // 
             // pcbMostrar
@@ -61,10 +61,10 @@
             pcbMostrar.Cursor = Cursors.Hand;
             pcbMostrar.FlatAppearance.BorderSize = 0;
             pcbMostrar.FlatStyle = FlatStyle.Flat;
-            pcbMostrar.Location = new Point(484, 163);
-            pcbMostrar.Margin = new Padding(4, 5, 4, 5);
+            pcbMostrar.Location = new Point(587, 188);
+            pcbMostrar.Margin = new Padding(5, 6, 5, 6);
             pcbMostrar.Name = "pcbMostrar";
-            pcbMostrar.Size = new Size(50, 58);
+            pcbMostrar.Size = new Size(60, 70);
             pcbMostrar.TabIndex = 1;
             pcbMostrar.UseVisualStyleBackColor = true;
             pcbMostrar.MouseDown += pcbMostrar_MouseDown;
@@ -75,20 +75,20 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(30, 41, 59);
-            label1.Location = new Point(70, 50);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(50, 57);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(479, 38);
+            label1.Size = new Size(563, 45);
             label1.TabIndex = 0;
             label1.Text = "🔒 Confirmación de Administrador";
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.candado;
-            pictureBox3.Location = new Point(12, 167);
-            pictureBox3.Margin = new Padding(4, 5, 4, 5);
+            pictureBox3.Location = new Point(19, 188);
+            pictureBox3.Margin = new Padding(5, 6, 5, 6);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(46, 53);
+            pictureBox3.Size = new Size(55, 64);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
@@ -96,12 +96,12 @@
             // txtpassword
             // 
             txtpassword.Font = new Font("Segoe UI", 11F);
-            txtpassword.Location = new Point(70, 167);
-            txtpassword.Margin = new Padding(4, 5, 4, 5);
+            txtpassword.Location = new Point(84, 200);
+            txtpassword.Margin = new Padding(5, 6, 5, 6);
             txtpassword.Name = "txtpassword";
             txtpassword.PasswordChar = '*';
             txtpassword.PlaceholderText = "Ingrese la contraseña del administrador";
-            txtpassword.Size = new Size(398, 37);
+            txtpassword.Size = new Size(477, 42);
             txtpassword.TabIndex = 3;
             txtpassword.KeyDown += txtpassword_KeyDown;
             txtpassword.KeyPress += txtpassword_KeyPress;
@@ -113,10 +113,10 @@
             btnIniciar.FlatStyle = FlatStyle.Flat;
             btnIniciar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnIniciar.ForeColor = Color.White;
-            btnIniciar.Location = new Point(156, 259);
-            btnIniciar.Margin = new Padding(4, 5, 4, 5);
+            btnIniciar.Location = new Point(199, 304);
+            btnIniciar.Margin = new Padding(5, 6, 5, 6);
             btnIniciar.Name = "btnIniciar";
-            btnIniciar.Size = new Size(214, 70);
+            btnIniciar.Size = new Size(257, 84);
             btnIniciar.TabIndex = 4;
             btnIniciar.Text = "Confirmar";
             btnIniciar.UseVisualStyleBackColor = false;
@@ -124,13 +124,13 @@
             // 
             // FrmAlertaCodigo
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(580, 376);
+            ClientSize = new Size(696, 451);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(5, 6, 5, 6);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmAlertaCodigo";
