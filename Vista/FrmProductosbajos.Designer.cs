@@ -72,6 +72,13 @@
             dgvProductosBajos.BorderStyle = BorderStyle.None;
             dgvProductosBajos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvProductosBajos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvProductosBajos.ReadOnly = true;
+            dgvProductosBajos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProductosBajos.MultiSelect = false;
+            dgvProductosBajos.AllowUserToAddRows = false;
+            dgvProductosBajos.AllowUserToDeleteRows = false;
+            dgvProductosBajos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProductosBajos.RowHeadersVisible = false;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(44, 62, 80);
             dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);

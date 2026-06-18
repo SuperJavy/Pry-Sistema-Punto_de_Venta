@@ -140,14 +140,13 @@
             txtUsuario.PlaceholderText = "Ingrese su Usuario";
             txtUsuario.Size = new Size(356, 39);
             txtUsuario.TabIndex = 2;
-            txtUsuario.Text = "Admin";
             // 
             // txtpassword
             // 
             txtpassword.BorderStyle = BorderStyle.FixedSingle;
             txtpassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtpassword.ForeColor = Color.FromArgb(15, 23, 42);
-            txtpassword.Location = new Point(101, 128);
+            txtpassword.Location = new Point(101, 124);
             txtpassword.Margin = new Padding(3, 4, 3, 4);
             txtpassword.MaxLength = 8;
             txtpassword.Name = "txtpassword";
@@ -155,7 +154,6 @@
             txtpassword.PlaceholderText = "Ingrese su contraseña";
             txtpassword.Size = new Size(356, 39);
             txtpassword.TabIndex = 3;
-            txtpassword.Text = "12345";
             txtpassword.KeyDown += txtpassword_KeyDown;
             txtpassword.KeyPress += txtpassword_KeyPress;
             // 

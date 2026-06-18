@@ -30,107 +30,123 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAlertaCodigo));
             panel1 = new Panel();
-            btnMostrar = new Button();
+            pcbMostrar = new Button();
+            label1 = new Label();
             pictureBox3 = new PictureBox();
             txtpassword = new TextBox();
             btnIniciar = new Button();
-            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Gainsboro;
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(pcbMostrar);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(btnMostrar);
             panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(txtpassword);
             panel1.Controls.Add(btnIniciar);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(640, 275);
-            panel1.TabIndex = 3;
+            panel1.Size = new Size(580, 376);
+            panel1.TabIndex = 0;
             // 
-            // btnMostrar
+            // pcbMostrar
             // 
-            btnMostrar.BackgroundImage = (Image)resources.GetObject("btnMostrar.BackgroundImage");
-            btnMostrar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnMostrar.Location = new Point(488, 100);
-            btnMostrar.Name = "btnMostrar";
-            btnMostrar.Size = new Size(48, 35);
-            btnMostrar.TabIndex = 15;
-            btnMostrar.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.Image = Properties.Resources.candado;
-            pictureBox3.Location = new Point(86, 100);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(34, 35);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 14;
-            pictureBox3.TabStop = false;
-            // 
-            // txtpassword
-            // 
-            txtpassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtpassword.ForeColor = SystemColors.WindowText;
-            txtpassword.Location = new Point(126, 100);
-            txtpassword.Margin = new Padding(3, 4, 3, 4);
-            txtpassword.Name = "txtpassword";
-            txtpassword.PlaceholderText = "Ingrese su contraseña";
-            txtpassword.Size = new Size(356, 35);
-            txtpassword.TabIndex = 13;
-            // 
-            // btnIniciar
-            // 
-            btnIniciar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnIniciar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnIniciar.Location = new Point(238, 175);
-            btnIniciar.Margin = new Padding(3, 4, 3, 4);
-            btnIniciar.Name = "btnIniciar";
-            btnIniciar.Size = new Size(132, 46);
-            btnIniciar.TabIndex = 6;
-            btnIniciar.Text = "Iniciar ";
-            btnIniciar.UseVisualStyleBackColor = true;
-            btnIniciar.Click += btnIniciar_Click;
+            pcbMostrar.BackgroundImage = (Image)resources.GetObject("pcbMostrar.BackgroundImage");
+            pcbMostrar.BackgroundImageLayout = ImageLayout.Zoom;
+            pcbMostrar.Cursor = Cursors.Hand;
+            pcbMostrar.FlatAppearance.BorderSize = 0;
+            pcbMostrar.FlatStyle = FlatStyle.Flat;
+            pcbMostrar.Location = new Point(484, 163);
+            pcbMostrar.Margin = new Padding(4, 5, 4, 5);
+            pcbMostrar.Name = "pcbMostrar";
+            pcbMostrar.Size = new Size(50, 58);
+            pcbMostrar.TabIndex = 1;
+            pcbMostrar.UseVisualStyleBackColor = true;
+            pcbMostrar.MouseDown += pcbMostrar_MouseDown;
+            pcbMostrar.MouseUp += pcbMostrar_MouseUp;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(133, 36);
+            label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(30, 41, 59);
+            label1.Location = new Point(70, 50);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(349, 32);
-            label1.TabIndex = 16;
-            label1.Text = "Contraseña de confirmacion.";
+            label1.Size = new Size(479, 38);
+            label1.TabIndex = 0;
+            label1.Text = "🔒 Confirmación de Administrador";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.candado;
+            pictureBox3.Location = new Point(12, 167);
+            pictureBox3.Margin = new Padding(4, 5, 4, 5);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(46, 53);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 2;
+            pictureBox3.TabStop = false;
+            // 
+            // txtpassword
+            // 
+            txtpassword.Font = new Font("Segoe UI", 11F);
+            txtpassword.Location = new Point(70, 167);
+            txtpassword.Margin = new Padding(4, 5, 4, 5);
+            txtpassword.Name = "txtpassword";
+            txtpassword.PasswordChar = '*';
+            txtpassword.PlaceholderText = "Ingrese la contraseña del administrador";
+            txtpassword.Size = new Size(398, 37);
+            txtpassword.TabIndex = 3;
+            txtpassword.KeyDown += txtpassword_KeyDown;
+            txtpassword.KeyPress += txtpassword_KeyPress;
+            // 
+            // btnIniciar
+            // 
+            btnIniciar.BackColor = Color.FromArgb(34, 197, 94);
+            btnIniciar.FlatAppearance.BorderSize = 0;
+            btnIniciar.FlatStyle = FlatStyle.Flat;
+            btnIniciar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnIniciar.ForeColor = Color.White;
+            btnIniciar.Location = new Point(156, 259);
+            btnIniciar.Margin = new Padding(4, 5, 4, 5);
+            btnIniciar.Name = "btnIniciar";
+            btnIniciar.Size = new Size(214, 70);
+            btnIniciar.TabIndex = 4;
+            btnIniciar.Text = "Confirmar";
+            btnIniciar.UseVisualStyleBackColor = false;
+            btnIniciar.Click += btnIniciar_Click;
             // 
             // FrmAlertaCodigo
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(640, 275);
+            BackColor = Color.White;
+            ClientSize = new Size(580, 376);
             Controls.Add(panel1);
-            Margin = new Padding(5, 6, 5, 6);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmAlertaCodigo";
-            Text = "Alerta de codigo";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Confirmación de Administrador";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnIniciar;
-        private Button btnMostrar;
+        private Button pcbMostrar;
         private PictureBox pictureBox3;
         private TextBox txtpassword;
         private Label label1;
