@@ -20,37 +20,43 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
         public void validarcampos(string Nickname, string Password, FrmLogin vista)
         {
-            if (string.IsNullOrWhiteSpace(Nickname) || string.IsNullOrWhiteSpace(Password))
-            {
-                vista.notificarUsuario("Los campos no pueden estar vacíos", true);
-                return;
-            }
+
             try
             {
-                ClsLoginModelo DatosaValidar = new ClsLoginModelo
-                {
-                    Nombre = Nickname.Trim(),
-                    Password = Password.Trim()
-                };
-                bool esValido = ModeloLogin.validarusuario(DatosaValidar.Nombre, DatosaValidar.Password);
+                bool esValido = ModeloLogin.validarusuario(Nickname.Trim(), Password.Trim());
+
                 if (esValido)
                 {
+                    // AQUÍ ESTÁ EL CAMBIO: Asignamos el valor directamente del modelo
                     this.ROl = ModeloLogin.Rol;
-
-                    vista.notificarUsuario("Bienvenido" + Nickname + "Punto de Venta", false);
-
+                    vista.notificarUsuario("Bienvenido, " + Nickname, false);
                 }
                 else
                 {
-                    //vista.notificarUsuario($"Incorrecto. Busqué el Usuario: [{Nombre}] y la Contraseña: [{Password}]", true);
                     vista.notificarUsuario("Usuario o contraseña incorrectos", true);
                 }
-
-
             }
             catch (Exception ex)
             {
-                vista.notificarUsuario("Error de conexión o consulta: " + ex.Message, true);
+                vista.notificarUsuario("Error: " + ex.Message, true);
+            }
+        }
+
+        public bool Validaradmin(string password)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    throw new Exception("La contraseña no puede estar vacía.");
+                }
+
+                return ModeloLogin.Validarpassword(password);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("" + e.Message);
             }
         }
     }

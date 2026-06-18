@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Logging;
+using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Vista;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,22 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Pry_Sistema_Punto_de_Venta.Controlador;
-using Pry_Sistema_Punto_de_Venta.Vista;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmPrincipal : Form
     {
-
+        ClsLoginController login = new ClsLoginController();
         private string Rolusuario;
+        ClsPrincipal principal = new ClsPrincipal();
         public FrmPrincipal(string rolusuario)
         {
             InitializeComponent();
-
-
             Rolusuario = rolusuario;
-            controller.verificarrol(Rolusuario, this);
+
         }
         public void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -37,29 +37,53 @@ namespace Pry_Sistema_Punto_de_Venta
 
         public void mnsProductos_Click(object sender, EventArgs e)
         {
-            principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmProductos(), pnlcontenedor);
-        }
+            IntentarAcceso(new FrmProductos())
+;        }
 
         private void mnsCompra_Click(object sender, EventArgs e)
         {
             FrmCompra frmCompras = new FrmCompra();
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
-            principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmCompra(), pnlcontenedor);
+            IntentarAcceso(new FrmCompra());
+            
         }
 
         private void mnsInventario_Click(object sender, EventArgs e)
         {
-            principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmInventario(), pnlcontenedor);
+            IntentarAcceso(new FrmInventario());
         }
 
         private void mnsConfiguraciones_Click(object sender, EventArgs e)
         {
-            principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmConfiguraciones(), pnlcontenedor);
+            IntentarAcceso(new FrmConfiguraciones());
+        }
+        
+        private void IntentarAcceso(Form formulario)
+        {
+            // Si el usuario actual ya es Admin (rol "1"), accede directo
+            if (Rolusuario == "1")
+            {
+                principal.agregaralcontenedor(formulario, pnlcontenedor);
+            }
+            else
+            {
+                // Es cajero: pedir llave maestra
+                FrmAlertaCodigo frmAuth = new FrmAlertaCodigo();
+                if (frmAuth.ShowDialog() == DialogResult.OK)
+                {
+                    // Validamos contra la contraseña del admin en BD
+                    if (login.Validaradmin(frmAuth.PasswordIngresado))
+                    {
+                        principal.agregaralcontenedor(formulario, pnlcontenedor);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Acceso denegado: Contraseña de Administrador incorrecta",
+                                        "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }
