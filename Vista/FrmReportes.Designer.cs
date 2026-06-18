@@ -17,15 +17,13 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlLineaSeparadora = new Panel();
             pnlHerramientas = new Panel();
-            btnImprimir = new Button();
             btnGenerar = new Button();
-            btnInventario = new Button();
             btnCompras = new Button();
             btnVentas = new Button();
             btnCorte = new Button();
@@ -51,7 +49,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1084, 50);
+            pnlHeader.Size = new Size(1153, 50);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -71,39 +69,21 @@
             pnlLineaSeparadora.Dock = DockStyle.Top;
             pnlLineaSeparadora.Location = new Point(0, 50);
             pnlLineaSeparadora.Name = "pnlLineaSeparadora";
-            pnlLineaSeparadora.Size = new Size(1084, 1);
+            pnlLineaSeparadora.Size = new Size(1153, 1);
             pnlLineaSeparadora.TabIndex = 1;
             // 
             // pnlHerramientas
             // 
             pnlHerramientas.BackColor = Color.White;
-            pnlHerramientas.Controls.Add(btnImprimir);
             pnlHerramientas.Controls.Add(btnGenerar);
-            pnlHerramientas.Controls.Add(btnInventario);
             pnlHerramientas.Controls.Add(btnCompras);
             pnlHerramientas.Controls.Add(btnVentas);
             pnlHerramientas.Controls.Add(btnCorte);
             pnlHerramientas.Dock = DockStyle.Top;
             pnlHerramientas.Location = new Point(0, 51);
             pnlHerramientas.Name = "pnlHerramientas";
-            pnlHerramientas.Size = new Size(1084, 70);
+            pnlHerramientas.Size = new Size(1153, 70);
             pnlHerramientas.TabIndex = 2;
-            // 
-            // btnImprimir
-            // 
-            btnImprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnImprimir.BackColor = Color.White;
-            btnImprimir.Cursor = Cursors.Hand;
-            btnImprimir.FlatAppearance.BorderColor = Color.Silver;
-            btnImprimir.FlatStyle = FlatStyle.Flat;
-            btnImprimir.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnImprimir.ForeColor = Color.Black;
-            btnImprimir.Location = new Point(900, 15);
-            btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(160, 40);
-            btnImprimir.TabIndex = 5;
-            btnImprimir.Text = "🖨️ Imprimir / PDF";
-            btnImprimir.UseVisualStyleBackColor = false;
             // 
             // btnGenerar
             // 
@@ -114,28 +94,13 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnGenerar.ForeColor = Color.Black;
-            btnGenerar.Location = new Point(740, 15);
+            btnGenerar.Location = new Point(930, 15);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(150, 40);
+            btnGenerar.Size = new Size(199, 40);
             btnGenerar.TabIndex = 4;
             btnGenerar.Text = "🔍 Buscar";
             btnGenerar.UseVisualStyleBackColor = false;
             btnGenerar.Click += btnGenerar_Click_1;
-            // 
-            // btnInventario
-            // 
-            btnInventario.BackColor = Color.White;
-            btnInventario.Cursor = Cursors.Hand;
-            btnInventario.FlatAppearance.BorderColor = Color.Silver;
-            btnInventario.FlatStyle = FlatStyle.Flat;
-            btnInventario.Font = new Font("Segoe UI", 10F);
-            btnInventario.ForeColor = Color.Black;
-            btnInventario.Location = new Point(530, 15);
-            btnInventario.Name = "btnInventario";
-            btnInventario.Size = new Size(160, 40);
-            btnInventario.TabIndex = 3;
-            btnInventario.Text = "📦 Inventario";
-            btnInventario.UseVisualStyleBackColor = false;
             // 
             // btnCompras
             // 
@@ -145,7 +110,7 @@
             btnCompras.FlatStyle = FlatStyle.Flat;
             btnCompras.Font = new Font("Segoe UI", 10F);
             btnCompras.ForeColor = Color.Black;
-            btnCompras.Location = new Point(360, 15);
+            btnCompras.Location = new Point(431, 15);
             btnCompras.Name = "btnCompras";
             btnCompras.Size = new Size(160, 40);
             btnCompras.TabIndex = 2;
@@ -161,12 +126,13 @@
             btnVentas.FlatStyle = FlatStyle.Flat;
             btnVentas.Font = new Font("Segoe UI", 10F);
             btnVentas.ForeColor = Color.Black;
-            btnVentas.Location = new Point(190, 15);
+            btnVentas.Location = new Point(256, 15);
             btnVentas.Name = "btnVentas";
             btnVentas.Size = new Size(160, 40);
             btnVentas.TabIndex = 1;
             btnVentas.Text = "📊 Ventas";
             btnVentas.UseVisualStyleBackColor = false;
+            btnVentas.Click += btnVentas_Click_1;
             // 
             // btnCorte
             // 
@@ -178,7 +144,7 @@
             btnCorte.ForeColor = Color.Black;
             btnCorte.Location = new Point(20, 15);
             btnCorte.Name = "btnCorte";
-            btnCorte.Size = new Size(160, 40);
+            btnCorte.Size = new Size(230, 40);
             btnCorte.TabIndex = 0;
             btnCorte.Text = "💵 Corte de Caja";
             btnCorte.UseVisualStyleBackColor = false;
@@ -195,7 +161,7 @@
             pnlFiltros.Dock = DockStyle.Top;
             pnlFiltros.Location = new Point(0, 121);
             pnlFiltros.Name = "pnlFiltros";
-            pnlFiltros.Size = new Size(1084, 60);
+            pnlFiltros.Size = new Size(1153, 60);
             pnlFiltros.TabIndex = 3;
             // 
             // lblHasta
@@ -204,7 +170,7 @@
             lblHasta.AutoSize = true;
             lblHasta.Font = new Font("Segoe UI", 10F);
             lblHasta.ForeColor = Color.Black;
-            lblHasta.Location = new Point(861, 22);
+            lblHasta.Location = new Point(900, 21);
             lblHasta.Name = "lblHasta";
             lblHasta.Size = new Size(78, 32);
             lblHasta.TabIndex = 3;
@@ -215,9 +181,9 @@
             dtpHasta.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpHasta.Font = new Font("Segoe UI", 10.8F);
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(945, 15);
+            dtpHasta.Location = new Point(984, 13);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(115, 41);
+            dtpHasta.Size = new Size(157, 41);
             dtpHasta.TabIndex = 4;
             // 
             // lblDesde
@@ -226,7 +192,7 @@
             lblDesde.AutoSize = true;
             lblDesde.Font = new Font("Segoe UI", 10F);
             lblDesde.ForeColor = Color.Black;
-            lblDesde.Location = new Point(648, 21);
+            lblDesde.Location = new Point(639, 21);
             lblDesde.Name = "lblDesde";
             lblDesde.Size = new Size(86, 32);
             lblDesde.TabIndex = 1;
@@ -237,9 +203,9 @@
             dtpDesde.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpDesde.Font = new Font("Segoe UI", 10.8F);
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(740, 15);
+            dtpDesde.Location = new Point(731, 13);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(130, 41);
+            dtpDesde.Size = new Size(163, 41);
             dtpDesde.TabIndex = 2;
             // 
             // lblInstruccion
@@ -247,7 +213,7 @@
             lblInstruccion.AutoSize = true;
             lblInstruccion.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
             lblInstruccion.ForeColor = Color.Black;
-            lblInstruccion.Location = new Point(20, 18);
+            lblInstruccion.Location = new Point(20, 13);
             lblInstruccion.Name = "lblInstruccion";
             lblInstruccion.Size = new Size(257, 36);
             lblInstruccion.TabIndex = 0;
@@ -261,7 +227,7 @@
             pnlGridContainer.Location = new Point(0, 181);
             pnlGridContainer.Name = "pnlGridContainer";
             pnlGridContainer.Padding = new Padding(20);
-            pnlGridContainer.Size = new Size(1084, 430);
+            pnlGridContainer.Size = new Size(1153, 430);
             pnlGridContainer.TabIndex = 4;
             // 
             // dtgResultados
@@ -270,23 +236,23 @@
             dtgResultados.AllowUserToDeleteRows = false;
             dtgResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgResultados.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.2F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgResultados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.2F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgResultados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgResultados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dtgResultados.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.2F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dtgResultados.DefaultCellStyle = dataGridViewCellStyle4;
             dtgResultados.Dock = DockStyle.Fill;
             dtgResultados.Location = new Point(20, 20);
             dtgResultados.Name = "dtgResultados";
@@ -295,14 +261,14 @@
             dtgResultados.RowHeadersWidth = 51;
             dtgResultados.RowTemplate.Height = 35;
             dtgResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgResultados.Size = new Size(1044, 390);
+            dtgResultados.Size = new Size(1113, 390);
             dtgResultados.TabIndex = 0;
             // 
             // FrmReportes
             // 
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(1084, 611);
+            ClientSize = new Size(1153, 611);
             Controls.Add(pnlGridContainer);
             Controls.Add(pnlFiltros);
             Controls.Add(pnlHerramientas);
@@ -334,9 +300,7 @@
         private System.Windows.Forms.Button btnCorte;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button btnCompras;
-        private System.Windows.Forms.Button btnInventario;
         private System.Windows.Forms.Button btnGenerar;
-        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Panel pnlFiltros;
         private System.Windows.Forms.Label lblInstruccion;
         private System.Windows.Forms.Label lblDesde;

@@ -38,7 +38,8 @@ namespace Pry_Sistema_Punto_de_Venta
         public void mnsProductos_Click(object sender, EventArgs e)
         {
             IntentarAcceso(new FrmProductos())
-;        }
+;
+        }
 
         private void mnsCompra_Click(object sender, EventArgs e)
         {
@@ -46,7 +47,7 @@ namespace Pry_Sistema_Punto_de_Venta
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
             IntentarAcceso(new FrmCompra());
-            
+
         }
 
         private void mnsInventario_Click(object sender, EventArgs e)
@@ -58,7 +59,7 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             IntentarAcceso(new FrmConfiguraciones());
         }
-        
+
         private void IntentarAcceso(Form formulario)
         {
             // Si el usuario actual ya es Admin (rol "1"), accede directo
@@ -84,6 +85,11 @@ namespace Pry_Sistema_Punto_de_Venta
                     }
                 }
             }
+        }
+
+        private void mnsReportes_Click(object sender, EventArgs e)
+        {
+            IntentarAcceso(new FrmReportes());
         }
     }
 }

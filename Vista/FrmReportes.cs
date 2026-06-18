@@ -22,7 +22,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private ClsReportesController controlador = new ClsReportesController();
 
-        private void btnVentas_Click(object sender, EventArgs e)
+        private void btnVentas_Click_1(object sender, EventArgs e)
         {
             PrepararInterfazVentas();
         }
@@ -57,7 +57,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 case "Ventas":
                     controlador.GenerarReporteVentas(inicio, fin, this, dtgResultados);
                     break;
-                case "Compras": 
+                case "Compras":
                     controlador.GenerarReporteCompras(inicio, fin, this, dtgResultados);
                     break;
 
@@ -67,7 +67,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
         }
 
-       
+
         private void dtgResultados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -81,5 +81,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 ventanaPopUp.ShowDialog();
             }
         }
+
+        
     }
 }

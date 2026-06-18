@@ -40,6 +40,7 @@
             mnsProductos = new ToolStripMenuItem();
             mnsCompra = new ToolStripMenuItem();
             mnsInventario = new ToolStripMenuItem();
+            mnsReportes = new ToolStripMenuItem();
             mnsConfiguraciones = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -53,7 +54,7 @@
             pnlcontenedor.Location = new Point(0, 98);
             pnlcontenedor.Margin = new Padding(3, 2, 3, 2);
             pnlcontenedor.Name = "pnlcontenedor";
-            pnlcontenedor.Size = new Size(1102, 442);
+            pnlcontenedor.Size = new Size(1301, 442);
             pnlcontenedor.TabIndex = 1;
             // 
             // panel1
@@ -66,7 +67,7 @@
             panel1.ForeColor = Color.AliceBlue;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1102, 98);
+            panel1.Size = new Size(1301, 98);
             panel1.TabIndex = 2;
             // 
             // pictureBox1
@@ -87,7 +88,7 @@
             label1.ForeColor = Color.Black;
             label1.Location = new Point(107, 18);
             label1.Name = "label1";
-            label1.Size = new Size(480, 40);
+            label1.Size = new Size(551, 48);
             label1.TabIndex = 3;
             label1.Text = "Sistema de Punto de Venta";
             // 
@@ -96,39 +97,39 @@
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, mnsVentas, mnsProductos, mnsCompra, mnsInventario, mnsConfiguraciones });
-            menuStrip1.Location = new Point(0, 59);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, mnsVentas, mnsProductos, mnsCompra, mnsInventario, mnsReportes, mnsConfiguraciones });
+            menuStrip1.Location = new Point(0, 54);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(4, 2, 0, 2);
-            menuStrip1.Size = new Size(1102, 39);
+            menuStrip1.Size = new Size(1301, 44);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
             // ventaToolStripMenuItem
             // 
             ventaToolStripMenuItem.Name = "ventaToolStripMenuItem";
-            ventaToolStripMenuItem.Size = new Size(16, 35);
+            ventaToolStripMenuItem.Size = new Size(18, 40);
             // 
             // mnsVentas
             // 
             mnsVentas.DropDownItems.AddRange(new ToolStripItem[] { ventasToolStripMenuItem });
             mnsVentas.Image = (Image)resources.GetObject("mnsVentas.Image");
             mnsVentas.Name = "mnsVentas";
-            mnsVentas.Size = new Size(128, 35);
+            mnsVentas.Size = new Size(143, 40);
             mnsVentas.Text = "Ventas";
             mnsVentas.Click += mnsVentas_Click_1;
             // 
             // ventasToolStripMenuItem
             // 
             ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            ventasToolStripMenuItem.Size = new Size(196, 40);
+            ventasToolStripMenuItem.Size = new Size(225, 44);
             ventasToolStripMenuItem.Text = "Ventas";
             // 
             // mnsProductos
             // 
             mnsProductos.Image = (Image)resources.GetObject("mnsProductos.Image");
             mnsProductos.Name = "mnsProductos";
-            mnsProductos.Size = new Size(166, 35);
+            mnsProductos.Size = new Size(189, 40);
             mnsProductos.Text = "Productos";
             mnsProductos.Click += mnsProductos_Click;
             // 
@@ -137,7 +138,7 @@
             mnsCompra.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             mnsCompra.Image = (Image)resources.GetObject("mnsCompra.Image");
             mnsCompra.Name = "mnsCompra";
-            mnsCompra.Size = new Size(151, 35);
+            mnsCompra.Size = new Size(173, 40);
             mnsCompra.Text = "Compras";
             mnsCompra.Click += mnsCompra_Click;
             // 
@@ -145,24 +146,32 @@
             // 
             mnsInventario.Image = (Image)resources.GetObject("mnsInventario.Image");
             mnsInventario.Name = "mnsInventario";
-            mnsInventario.Size = new Size(166, 35);
+            mnsInventario.Size = new Size(187, 40);
             mnsInventario.Text = "Inventario";
             mnsInventario.Click += mnsInventario_Click;
+            // 
+            // mnsReportes
+            // 
+            mnsReportes.Image = (Image)resources.GetObject("mnsReportes.Image");
+            mnsReportes.Name = "mnsReportes";
+            mnsReportes.Size = new Size(173, 40);
+            mnsReportes.Text = "Reportes";
+            mnsReportes.Click += mnsReportes_Click;
             // 
             // mnsConfiguraciones
             // 
             mnsConfiguraciones.Image = Properties.Resources.configuraciones;
             mnsConfiguraciones.Name = "mnsConfiguraciones";
-            mnsConfiguraciones.Size = new Size(235, 35);
+            mnsConfiguraciones.Size = new Size(270, 40);
             mnsConfiguraciones.Text = "Configuraciones";
             mnsConfiguraciones.Click += mnsConfiguraciones_Click;
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(10F, 22F);
+            AutoScaleDimensions = new SizeF(12F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1102, 540);
+            ClientSize = new Size(1301, 540);
             Controls.Add(pnlcontenedor);
             Controls.Add(panel1);
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -197,6 +206,7 @@
         public System.Windows.Forms.ToolStripMenuItem mnsVentas;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ToolStripMenuItem ventasToolStripMenuItem;
+        private ToolStripMenuItem mnsReportes;
     }
 }
 
