@@ -52,19 +52,25 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         stock = Convert.ToDecimal(dr["stock"]),
                         tipoVenta = dr["Tipo"].ToString()
                     };
-                }
-                if (dr["imagen"] != DBNull.Value)
-                {
-                    // 2. Extraemos los datos crudos
-                    byte[] imagenBytes = (byte[])dr["imagen"];
+                    if (dr["imagen"] != DBNull.Value)
+                    {
+                        try
+                        {
+                            byte[] imagenBytes = (byte[])dr["imagen"];
+                            producto.imagen = BytesAImagen(imagenBytes);
+                        }
+                        catch
+                        {
 
-                    // 3. Usamos tu convertidor para armar la imagen y guardarla en el objeto
-                    producto.imagen = BytesAImagen(imagenBytes);
+                            producto.imagen = null;
+                        }
+                    }
+                    else
+                    {
+                        producto.imagen = null; 
+                    }
                 }
-                else
-                {
-                    producto.imagen = null; // Opcional: Aquí podrías poner una imagen genérica de "Sin Foto"
-                }
+                
 
 
             }
@@ -80,9 +86,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         private Image BytesAImagen(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0) return null;
-            using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes))
+
+            using (MemoryStream ms = new MemoryStream(bytes))
             {
-                return Image.FromStream(ms);
+                Image img = Image.FromStream(ms);
+                return new Bitmap(img); // Creamos un clon en memoria independiente del stream
             }
         }
 
@@ -119,18 +127,23 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         tipoVenta = dr["Tipo"].ToString()
                     };
 
-                    // 2. Evaluamos la columna binaria de la imagen de forma segura
                     if (dr["Imagen"] != DBNull.Value)
                     {
-                        byte[] imagenBytes = (byte[])dr["Imagen"];
-                        prodTemporal.imagen = BytesAImagen(imagenBytes);
+                        try
+                        {
+                            byte[] imagenBytes = (byte[])dr["Imagen"];
+                            prodTemporal.imagen = BytesAImagen(imagenBytes);
+                        }
+                        catch
+                        {
+                            prodTemporal.imagen = null;
+                        }
                     }
                     else
                     {
                         prodTemporal.imagen = null;
                     }
 
-                    // 3. Una vez que el producto está 100% armado, lo metemos a la lista
                     producto.Add(prodTemporal);
                 }
 

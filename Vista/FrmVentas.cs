@@ -18,6 +18,30 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             InitializeComponent();
 
+            this.colCantidad.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.colCantidad.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            this.colPrecio.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.colPrecio.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            this.colImporte.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.colImporte.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            this.colImagen.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.colImagen.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            this.colTipo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.colTipo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+            this.colCodigo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            this.colCodigo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            this.colNombre.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            this.colNombre.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            this.colTipoVenta.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            this.colTipoVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
         clsVentasController controler = new clsVentasController();
