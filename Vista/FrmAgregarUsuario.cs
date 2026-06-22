@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmAgregarUsuario : Form
     {
         private clsUsuariosController usuario = new clsUsuariosController();
+        private encryptado md5 = new encryptado();
         public FrmAgregarUsuario()
         {
             InitializeComponent();
@@ -66,7 +68,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             int idRolSeleccionado = Convert.ToInt32(cmbRol.SelectedValue);
 
-
+            string pass = txtPassword.Text;
+            string passSegura = md5.EncryptPassword(pass);
             usuario.registrarUsuario(
                 txtNombre.Text,
                 txtApellidoPaterno.Text,
@@ -75,7 +78,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 txtDireccion.Text,
                 txtCorreo.Text,
                 txtTelefono.Text,
-                txtPassword.Text,
+                passSegura,
                 idRolSeleccionado,
                 this
             );
