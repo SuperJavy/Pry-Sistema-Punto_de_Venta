@@ -25,7 +25,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 using (var conexion = conexionBD.abrirConexion())
                 {
 
-                    string query = "SELECT id, id_rol FROM usuario WHERE nickname = @Nickname AND password = @password";
+                    string query = "SELECT id, id_rol FROM usuario WHERE BINARY nickname = @Nickname AND BINARY password = @password";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Nickname", Nickname);
@@ -56,7 +56,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
         public bool Validarpassword(string passwordIngresado)
         {
-            // Buscamos si existe CUALQUIER usuario con rol 1 y esa contraseña
             string query = "SELECT COUNT(*) FROM usuario WHERE id_rol = 1 AND password = @password";
 
             using (var conexion = abrirConexion())
