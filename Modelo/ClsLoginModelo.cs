@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
@@ -14,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public string Password { get; set; }
         public string Rol { get; set; }
         public static int UsuarioActual { get; set; }
-
+        encryptado md5 = new encryptado();
 
         public Boolean validarusuario(string Nickname, string password)
         {
@@ -24,12 +25,12 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                 using (var conexion = conexionBD.abrirConexion())
                 {
-
+                    string pass = md5.EncryptPassword(password); 
                     string query = "SELECT id, id_rol FROM usuario WHERE BINARY nickname = @Nickname AND BINARY password = @password";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Nickname", Nickname);
-                        consulta.Parameters.AddWithValue("@password", password);
+                        consulta.Parameters.AddWithValue("@password", pass);
                         using (var resultado = consulta.ExecuteReader())
                         {
                             if (resultado.Read())
@@ -62,7 +63,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 using (var consulta = new MySqlCommand(query, conexion))
                 {
-                    consulta.Parameters.AddWithValue("@password", passwordIngresado);
+                    string pass = md5.EncryptPassword(passwordIngresado);
+                    consulta.Parameters.AddWithValue("@password", pass);
                     int count = Convert.ToInt32(consulta.ExecuteScalar());
                     return count > 0;
                 }
