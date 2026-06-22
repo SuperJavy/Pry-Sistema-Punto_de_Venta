@@ -89,6 +89,17 @@ namespace Pry_Sistema_Punto_de_Venta
                 case Keys.F12:
                     btnCobrar_Click(sender, e);
                     break;
+                case Keys.Add:      
+                case Keys.Oemplus:  
+                    AumentarCantidad();
+                    e.SuppressKeyPress = true; 
+                    break;
+
+                case Keys.Subtract: 
+                case Keys.OemMinus: 
+                    DisminuirCantidad();
+                    e.SuppressKeyPress = true; 
+                    break;
 
             }
         }
@@ -151,7 +162,31 @@ namespace Pry_Sistema_Punto_de_Venta
             txtTotal.Text = "$ " + TotalVenta.ToString();
 
         }
-      
+        private void AumentarCantidad()
+        {
+            if (dtgVenta.CurrentRow == null) return;
+
+            int indice = dtgVenta.CurrentRow.Index;
+            controler.ModificarCantidad(indice, 1, this); 
+
+            if (dtgVenta.Rows.Count > indice)
+            {
+                dtgVenta.Rows[indice].Selected = true;
+            }
+        }
+
+        private void DisminuirCantidad()
+        {
+            if (dtgVenta.CurrentRow == null) return;
+
+            int indice = dtgVenta.CurrentRow.Index;
+            controler.ModificarCantidad(indice, -1, this); 
+
+            if (dtgVenta.Rows.Count > indice)
+            {
+                dtgVenta.Rows[indice].Selected = true;
+            }
+        }
 
     }
 }

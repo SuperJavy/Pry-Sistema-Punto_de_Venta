@@ -138,5 +138,24 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             return venta.detalleVenta.Count > 0;
         }
+
+        public void ModificarCantidad(int indice, int cantidadExtra, FrmVentas vista)
+        {
+            if (indice >= 0 && indice <venta.detalleVenta.Count)
+            {
+                venta.detalleVenta[indice].Cantidad += cantidadExtra;
+
+                if (venta.detalleVenta[indice].Cantidad <= 0)
+                {
+                    eliminarProducto(indice, vista); 
+                    return;
+                }
+
+
+
+                vista.actualizarTabla(venta.detalleVenta);
+                vista.mostrarTotal(venta.total);
+            }
+        }
     }
 }
