@@ -91,5 +91,11 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             IntentarAcceso(new FrmReportes());
         }
+
+        private void pcbPerfil_Click(object sender, EventArgs e)
+        {
+            FrmPerfil perfil = new FrmPerfil();
+            perfil.ShowDialog();
+        }
     }
 }

@@ -273,6 +273,26 @@ namespace Pry_Sistema_Punto_de_Venta.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cuenta {
+            get {
+                object obj = ResourceManager.GetObject("cuenta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cuenta__1_ {
+            get {
+                object obj = ResourceManager.GetObject("cuenta (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap disco_flexible {
             get {
                 object obj = ResourceManager.GetObject("disco_flexible", resourceCulture);
