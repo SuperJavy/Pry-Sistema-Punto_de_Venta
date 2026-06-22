@@ -30,6 +30,7 @@
         {
             lblTitulo = new Label();
             pnlCardPerfil = new Panel();
+            pcbMostrar = new PictureBox();
             btnGuardarContrasena = new Button();
             btnCerrarSesion = new Button();
             txtTelefono = new TextBox();
@@ -45,6 +46,7 @@
             txtNombre = new TextBox();
             lblNombre = new Label();
             pnlCardPerfil.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pcbMostrar).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
@@ -63,6 +65,7 @@
             // 
             pnlCardPerfil.BackColor = Color.White;
             pnlCardPerfil.BorderStyle = BorderStyle.Fixed3D;
+            pnlCardPerfil.Controls.Add(pcbMostrar);
             pnlCardPerfil.Controls.Add(btnGuardarContrasena);
             pnlCardPerfil.Controls.Add(btnCerrarSesion);
             pnlCardPerfil.Controls.Add(txtTelefono);
@@ -83,6 +86,18 @@
             pnlCardPerfil.Size = new Size(1074, 600);
             pnlCardPerfil.TabIndex = 1;
             // 
+            // pcbMostrar
+            // 
+            pcbMostrar.Image = Properties.Resources.ojo;
+            pcbMostrar.Location = new Point(957, 179);
+            pcbMostrar.Name = "pcbMostrar";
+            pcbMostrar.Size = new Size(42, 37);
+            pcbMostrar.SizeMode = PictureBoxSizeMode.Zoom;
+            pcbMostrar.TabIndex = 14;
+            pcbMostrar.TabStop = false;
+            pcbMostrar.MouseDown += pcbMostrar_MouseDown;
+            pcbMostrar.MouseUp += pcbMostrar_MouseUp;
+            // 
             // btnGuardarContrasena
             // 
             btnGuardarContrasena.BackColor = Color.FromArgb(52, 152, 219);
@@ -98,6 +113,7 @@
             btnGuardarContrasena.TabIndex = 9;
             btnGuardarContrasena.Text = "Actualizar Contraseña";
             btnGuardarContrasena.UseVisualStyleBackColor = false;
+            btnGuardarContrasena.Click += btnGuardarContrasena_Click;
             // 
             // btnCerrarSesion
             // 
@@ -171,7 +187,6 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(449, 37);
             txtPassword.TabIndex = 5;
-            txtPassword.UseSystemPasswordChar = true;
             // 
             // lblContrasena
             // 
@@ -189,7 +204,7 @@
             // 
             txtUsuario.BackColor = Color.FromArgb(245, 247, 250);
             txtUsuario.Font = new Font("Segoe UI", 11F);
-            txtUsuario.Location = new Point(50, 179);
+            txtUsuario.Location = new Point(50, 77);
             txtUsuario.Margin = new Padding(4);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.ReadOnly = true;
@@ -201,7 +216,7 @@
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblUsuario.ForeColor = Color.FromArgb(127, 140, 141);
-            lblUsuario.Location = new Point(50, 144);
+            lblUsuario.Location = new Point(50, 42);
             lblUsuario.Margin = new Padding(4, 0, 4, 0);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(92, 28);
@@ -212,7 +227,7 @@
             // 
             txtApellido.BackColor = Color.FromArgb(245, 247, 250);
             txtApellido.Font = new Font("Segoe UI", 11F);
-            txtApellido.Location = new Point(550, 79);
+            txtApellido.Location = new Point(50, 179);
             txtApellido.Margin = new Padding(4);
             txtApellido.Name = "txtApellido";
             txtApellido.ReadOnly = true;
@@ -224,7 +239,7 @@
             lblApellido.AutoSize = true;
             lblApellido.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblApellido.ForeColor = Color.FromArgb(127, 140, 141);
-            lblApellido.Location = new Point(550, 44);
+            lblApellido.Location = new Point(50, 144);
             lblApellido.Margin = new Padding(4, 0, 4, 0);
             lblApellido.Name = "lblApellido";
             lblApellido.Size = new Size(107, 28);
@@ -235,7 +250,7 @@
             // 
             txtNombre.BackColor = Color.FromArgb(245, 247, 250);
             txtNombre.Font = new Font("Segoe UI", 11F);
-            txtNombre.Location = new Point(50, 79);
+            txtNombre.Location = new Point(550, 77);
             txtNombre.Margin = new Padding(4);
             txtNombre.Name = "txtNombre";
             txtNombre.ReadOnly = true;
@@ -247,7 +262,7 @@
             lblNombre.AutoSize = true;
             lblNombre.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblNombre.ForeColor = Color.FromArgb(127, 140, 141);
-            lblNombre.Location = new Point(50, 44);
+            lblNombre.Location = new Point(550, 42);
             lblNombre.Margin = new Padding(4, 0, 4, 0);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(98, 28);
@@ -270,6 +285,7 @@
             Text = "Mi Perfil";
             pnlCardPerfil.ResumeLayout(false);
             pnlCardPerfil.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pcbMostrar).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -301,5 +317,6 @@
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Button btnGuardarContrasena;
         private TextBox txtCorreo;
+        private PictureBox pcbMostrar;
     }
 }

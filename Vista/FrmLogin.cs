@@ -48,7 +48,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
             else
             {
-                FrmPrincipal principal = new FrmPrincipal(LOGIN.ROl);
+                FrmPrincipal principal = new FrmPrincipal(LOGIN.ROl, txtUsuario.Text);
                 principal.Show();
                 this.Hide();
             }

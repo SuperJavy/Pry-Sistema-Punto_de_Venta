@@ -17,12 +17,13 @@ namespace Pry_Sistema_Punto_de_Venta
     {
         ClsLoginController login = new ClsLoginController();
         private string Rolusuario;
+        private string Usuario;
         ClsPrincipal principal = new ClsPrincipal();
-        public FrmPrincipal(string rolusuario)
+        public FrmPrincipal(string rolusuario, string usuario)
         {
             InitializeComponent();
             Rolusuario = rolusuario;
-
+            Usuario = usuario;
         }
         public void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -94,7 +95,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void pcbPerfil_Click(object sender, EventArgs e)
         {
-            FrmPerfil perfil = new FrmPerfil();
+            FrmPerfil perfil = new FrmPerfil(Usuario);
             perfil.ShowDialog();
         }
     }

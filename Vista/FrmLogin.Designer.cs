@@ -63,7 +63,7 @@
             // pcbMostrar
             // 
             pcbMostrar.Image = Properties.Resources.ojo;
-            pcbMostrar.Location = new Point(415, 130);
+            pcbMostrar.Location = new Point(415, 128);
             pcbMostrar.Name = "pcbMostrar";
             pcbMostrar.Size = new Size(42, 33);
             pcbMostrar.SizeMode = PictureBoxSizeMode.Zoom;
