@@ -17,7 +17,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         public Producto productoSeleccionado { get; private set; }
 
         private readonly Func<string, List<Producto>> funcionBusqueda;
-     
+
         private List<Producto> resultadosBusqueda = new List<Producto>();
 
         public FrmBuscarProducto(Func<string, List<Producto>> funcionBusqueda)
@@ -67,6 +67,23 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             Close();
 
+        }
+
+        private void FrmBuscarProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (dtgResultados.CurrentRow != null)
+                    {
+                        int indiceActual = dtgResultados.CurrentRow.Index;
+                        DataGridViewCellEventArgs evento = new DataGridViewCellEventArgs(0, indiceActual);
+                        dtgResultados_CellClick(sender, evento);
+                        e.SuppressKeyPress = true;
+                    }
+                    break;
+            
+            }
         }
     }
 }
