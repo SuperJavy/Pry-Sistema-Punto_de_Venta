@@ -30,7 +30,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Nickname", Nickname);
-                        consulta.Parameters.AddWithValue("@password", pass);
+                        consulta.Parameters.AddWithValue("@password", password);
                         using (var resultado = consulta.ExecuteReader())
                         {
                             if (resultado.Read())

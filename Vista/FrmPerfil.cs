@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pry_Sistema_Punto_de_Venta.Controlador;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,40 +13,77 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmPerfil : Form
     {
-        public FrmPerfil()
+        ClsPerfilController perfilController = new ClsPerfilController();
+        private string usuario;
+        public FrmPerfil(string usuario)
         {
             InitializeComponent();
+            this.usuario = usuario;
+            CargarPerfil();
+
             txtNombre.ReadOnly = true;
             txtApellido.ReadOnly = true;
             txtCorreo.ReadOnly = true;
             txtTelefono.ReadOnly = true;
             txtUsuario.ReadOnly = true;
         }
-
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        public void notificarUsuario(string mensaje, bool esError)
         {
-
-            Form frmLoginOculto = Application.OpenForms["FrmLogin"];
-
-            if (frmLoginOculto != null)
+            if (esError)
             {
-                frmLoginOculto.Show();
+                MessageBox.Show(mensaje, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                FrmLogin nuevoLogin = new FrmLogin();
-                nuevoLogin.Show();
+                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
 
-            // 2. Buscamos el FrmPrincipal activo en pantalla y lo cerramos de verdad
-            Form frmPrincipalReal = Application.OpenForms["FrmPrincipal"];
-            if (frmPrincipalReal != null)
+        public void CargarPerfil()
+        {
+            DataTable dtPerfil = perfilController.ObtenerPerfil(usuario);
+            if (dtPerfil.Rows.Count > 0)
             {
-                frmPrincipalReal.Close(); 
+                DataRow row = dtPerfil.Rows[0];
+                txtNombre.Text = row["nombre"].ToString();
+                txtApellido.Text = row["apellido_paterno"].ToString();
+                txtUsuario.Text = row["nickname"].ToString();
+                txtCorreo.Text = row["correo"].ToString();
+                txtTelefono.Text = row["telefono"].ToString();
             }
+            else
+            {
+                MessageBox.Show("No se encontró información del perfil.");
+            }
+        }
 
-            this.Close();
+        private void btnGuardarContrasena_Click(object sender, EventArgs e)
+        {
+            perfilController.Actualizarpassword(usuario, txtPassword.Text, this);
+        }
 
+        private void pcbMostrar_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtPassword.PasswordChar = '\0';
+        }
+
+        private void pcbMostrar_MouseUp(object sender, MouseEventArgs e)
+        {
+            txtPassword.PasswordChar = '*';
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnGuardarContrasena_Click(sender, e);
+                //ruido windows
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

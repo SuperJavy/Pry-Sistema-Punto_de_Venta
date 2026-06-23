@@ -15,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         ClsProductModelo producto = new ClsProductModelo();
 
-        public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmNuevoProductio vista)
+        public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmNuevoProducto vista)
         {
             if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
             {
@@ -58,14 +58,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
 
 
-        public float Calcularprecioventa(string costo, string porcentaje, FrmNuevoProductio vista)
+        public float Calcularprecioventa(string costo, string porcentaje, FrmNuevoProducto vista)
         {
             return producto.Calpventa(costo, porcentaje);
         }
 
 
 
-        public DataTable Cargarcategorias(FrmNuevoProductio vista)
+        public DataTable Cargarcategorias(FrmNuevoProducto vista)
         {
             DataTable dtcategorias = null;
             try
