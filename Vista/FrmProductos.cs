@@ -26,7 +26,7 @@ namespace Pry_Sistema_Punto_de_Venta
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmNuevoProductio(), pnlproductos);
+            principal.agregaralcontenedor(new FrmNuevoProducto(), pnlproductos);
         }
 
         private void eDITARToolStripMenuItem_Click(object sender, EventArgs e)

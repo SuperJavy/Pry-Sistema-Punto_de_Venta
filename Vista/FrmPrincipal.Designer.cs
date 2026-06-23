@@ -37,12 +37,12 @@
             menuStrip1 = new MenuStrip();
             ventaToolStripMenuItem = new ToolStripMenuItem();
             mnsVentas = new ToolStripMenuItem();
-            ventasToolStripMenuItem = new ToolStripMenuItem();
             mnsProductos = new ToolStripMenuItem();
             mnsCompra = new ToolStripMenuItem();
             mnsInventario = new ToolStripMenuItem();
             mnsReportes = new ToolStripMenuItem();
             mnsConfiguraciones = new ToolStripMenuItem();
+            ventasToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcbPerfil).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -134,12 +134,6 @@
             mnsVentas.Text = "Ventas";
             mnsVentas.Click += mnsVentas_Click_1;
             // 
-            // ventasToolStripMenuItem
-            // 
-            ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            ventasToolStripMenuItem.Size = new Size(196, 40);
-            ventasToolStripMenuItem.Text = "Ventas";
-            // 
             // mnsProductos
             // 
             mnsProductos.Image = (Image)resources.GetObject("mnsProductos.Image");
@@ -181,6 +175,12 @@
             mnsConfiguraciones.Text = "Configuraciones";
             mnsConfiguraciones.Click += mnsConfiguraciones_Click;
             // 
+            // ventasToolStripMenuItem
+            // 
+            ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
+            ventasToolStripMenuItem.Size = new Size(196, 40);
+            ventasToolStripMenuItem.Text = "Ventas";
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(10F, 22F);
@@ -221,9 +221,9 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ToolStripMenuItem mnsVentas;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private ToolStripMenuItem ventasToolStripMenuItem;
         private ToolStripMenuItem mnsReportes;
         private PictureBox pcbPerfil;
+        private ToolStripMenuItem ventasToolStripMenuItem;
     }
 }
 

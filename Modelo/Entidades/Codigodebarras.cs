@@ -10,18 +10,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
 {
     internal class Codigodebarras
     {
-        static void Main()
-        {
-            // 1. Buscamos un número que sea 100% único
-            string numeroUnico = ObtenerNumeroUnicoEInexistente();
-            Console.WriteLine($"1. ¡Éxito! Encontrado número único que no está en la BD: {numeroUnico}");
-
-            // 2. Aquí deberías guardar el número en tu BD para que la próxima vez ya cuente como "existente"
-            // GuardarEnBaseDeDatos(numeroUnico); 
-
-            // 3. Generamos su código de barras
-            GuardarCodigoBarras(numeroUnico);
-        }
 
         /// <summary>
         /// Esta función no parará hasta encontrar un número que no exista en la BD.

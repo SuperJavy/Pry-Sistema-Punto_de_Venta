@@ -1,6 +1,6 @@
 ﻿namespace Pry_Sistema_Punto_de_Venta
 {
-    partial class FrmNuevoProductio
+    partial class FrmNuevoProducto
     {
         /// <summary>
         /// Required designer variable.
@@ -51,6 +51,7 @@
             panelHeader = new Panel();
             tableLayoutPanelPrincipal = new TableLayoutPanel();
             groupBoxDatos = new GroupBox();
+            btnGenerar = new Button();
             cbxCategoria = new ComboBox();
             label7 = new Label();
             txtDescripcion = new TextBox();
@@ -89,7 +90,7 @@
             txtCodigo.Margin = new Padding(5, 6, 5, 6);
             txtCodigo.MaxLength = 13;
             txtCodigo.Name = "txtCodigo";
-            txtCodigo.Size = new Size(456, 37);
+            txtCodigo.Size = new Size(352, 37);
             txtCodigo.TabIndex = 1;
             txtCodigo.KeyPress += txtCodigo_KeyPress;
             // 
@@ -348,6 +349,7 @@
             // 
             // groupBoxDatos
             // 
+            groupBoxDatos.Controls.Add(btnGenerar);
             groupBoxDatos.Controls.Add(cbxCategoria);
             groupBoxDatos.Controls.Add(label7);
             groupBoxDatos.Controls.Add(label1);
@@ -376,6 +378,17 @@
             groupBoxDatos.TabIndex = 101;
             groupBoxDatos.TabStop = false;
             groupBoxDatos.Text = " INFORMACIÓN DEL PRODUCTO ";
+            // 
+            // btnGenerar
+            // 
+            btnGenerar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnGenerar.Location = new Point(627, 40);
+            btnGenerar.Name = "btnGenerar";
+            btnGenerar.Size = new Size(96, 38);
+            btnGenerar.TabIndex = 24;
+            btnGenerar.Text = "Generar";
+            btnGenerar.UseVisualStyleBackColor = true;
+            btnGenerar.Click += btnGenerar_Click;
             // 
             // cbxCategoria
             // 
@@ -483,7 +496,7 @@
             btnSeleccionarImagen.UseVisualStyleBackColor = false;
             btnSeleccionarImagen.Click += btnSeleccionarImagen_Click;
             // 
-            // FrmNuevoProductio
+            // FrmNuevoProducto
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -493,7 +506,7 @@
             Controls.Add(panelHeader);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(5, 6, 5, 6);
-            Name = "FrmNuevoProductio";
+            Name = "FrmNuevoProducto";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmNuevoProductio";
             ((System.ComponentModel.ISupportInitialize)nudPorcentaje).EndInit();
@@ -543,5 +556,6 @@
         private TextBox txtDescripcion;
         private ComboBox cbxCategoria;
         private Label label7;
+        private Button btnGenerar;
     }
 }

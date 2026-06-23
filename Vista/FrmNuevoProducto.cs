@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Vista;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
-    public partial class FrmNuevoProductio : Form
+    public partial class FrmNuevoProducto : Form
     {
         ClsProductController controlador = new ClsProductController();
-        public FrmNuevoProductio()
+        public FrmNuevoProducto()
         {
             InitializeComponent();
             DataTable dt = controlador.Cargarcategorias(this);
@@ -133,6 +134,12 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+            FrmCodigodeBarras frmCodigoBarras = new FrmCodigodeBarras();
+            frmCodigoBarras.ShowDialog();
         }
     }
 }
