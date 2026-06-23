@@ -187,6 +187,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(449, 37);
             txtPassword.TabIndex = 5;
+            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // lblContrasena
             // 

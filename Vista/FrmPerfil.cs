@@ -75,5 +75,15 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         {
             txtPassword.PasswordChar = '*';
         }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnGuardarContrasena_Click(sender, e);
+                //ruido windows
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }
