@@ -12,7 +12,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
 
         public int IdVenta { get; set; }
         public int IdUsuario { get; set; }
-
         public decimal efectivo { get; set; }
         public DateTime fecha { get; set; }
         public List<detalleVenta> detalleVenta { set; get; } = new List<detalleVenta>();
@@ -22,8 +21,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
             {
                 return detalleVenta.Sum(x => x.Importe);
             }
+            set { }
         }
-
-        public decimal cambio { get { return efectivo - total; } }
+        public decimal cambio { get { return efectivo - total; }  set { } }
+        public int id_estado { get; set; }
     }
 }

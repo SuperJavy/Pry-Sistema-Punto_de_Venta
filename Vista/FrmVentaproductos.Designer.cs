@@ -72,7 +72,7 @@
             lblTotalTexto.AutoSize = true;
             lblTotalTexto.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             lblTotalTexto.ForeColor = Color.FromArgb(127, 140, 141);
-            lblTotalTexto.Location = new Point(40, 100);
+            lblTotalTexto.Location = new Point(50, 87);
             lblTotalTexto.Name = "lblTotalTexto";
             lblTotalTexto.Size = new Size(247, 45);
             lblTotalTexto.TabIndex = 1;
@@ -117,11 +117,12 @@
             // txtPagoCon
             // 
             txtPagoCon.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            txtPagoCon.Location = new Point(170, 248);
+            txtPagoCon.Location = new Point(182, 258);
             txtPagoCon.Margin = new Padding(4, 5, 4, 5);
             txtPagoCon.Name = "txtPagoCon";
             txtPagoCon.Size = new Size(260, 57);
             txtPagoCon.TabIndex = 4;
+            txtPagoCon.Text = "0.00";
             txtPagoCon.TextAlign = HorizontalAlignment.Right;
             txtPagoCon.TextChanged += txtPagoCon_TextChanged;
             // 
@@ -130,7 +131,7 @@
             lblCambioMonto.AutoSize = true;
             lblCambioMonto.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             lblCambioMonto.ForeColor = Color.FromArgb(39, 174, 96);
-            lblCambioMonto.Location = new Point(165, 320);
+            lblCambioMonto.Location = new Point(200, 320);
             lblCambioMonto.Margin = new Padding(4, 0, 4, 0);
             lblCambioMonto.Name = "lblCambioMonto";
             lblCambioMonto.Size = new Size(175, 74);
