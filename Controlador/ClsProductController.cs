@@ -30,6 +30,33 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             return code;
         }
+        public void Existentecode(string code, FrmCodigodeBarras vista)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                vista.notificarUsuario("El campo código de barras no puede ir vacío", true);
+                return;
+            }
+
+            try
+            {
+                bool existeEnBD = producto.Comsultarcode(code);
+
+                if (existeEnBD)
+                {
+                    vista.notificarUsuario("Código duplicado en el sistema.", true);
+                    vista.limpiarcaja();
+                }
+                else
+                {
+                    vista.notificarUsuario("Código válido y disponible", false);
+                }
+            }
+            catch (Exception e)
+            {
+                vista.notificarUsuario("Error en la consulta o conexión: " + e.Message, true);
+            }
+        }
         public void InsertCodeBD(string code, Image img, FrmCodigodeBarras vista)
         {
             if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }

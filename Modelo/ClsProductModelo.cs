@@ -37,6 +37,35 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
 
         }
+        public bool Comsultarcode(string code)
+        {
+            clsConexion conexionBD = new clsConexion();
+            string Query = "SELECT Codigo_barras FROM codigo_Barras WHERE Codigo_barras = @codigo LIMIT 1;";
+
+            try
+            {
+                using (var conexion = conexionBD.abrirConexion())
+                using (var consulta = new MySqlCommand(Query, conexion))
+                {
+                    consulta.Parameters.AddWithValue("@codigo", code);
+
+                    using (var result = consulta.ExecuteReader())
+                    {
+                        if (result.Read())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al consultar el código en la Base de Datos: " + e.Message);
+            }
+
+            return false; 
+        }
+        
         public bool InsercodeB(string code, Image img)
         {
             try
