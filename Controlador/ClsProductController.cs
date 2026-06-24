@@ -15,6 +15,56 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         ClsProductModelo producto = new ClsProductModelo();
 
+        public string generarcode(FrmCodigodeBarras vista)
+        {
+            string code = "";
+            try
+            {
+               code= producto.codigodebarras();
+
+                
+            }
+            catch (Exception ex)
+            {
+                vista.notificarUsuario("Error al generar el codigo de barras", true);
+            }
+            return code;
+        }
+        public void InsertCodeBD(string code, Image img, FrmCodigodeBarras vista)
+        {
+            if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }
+            bool esvalido = producto.InsercodeB(code, img);
+            try
+            {
+                if (esvalido)
+                {
+                    vista.notificarUsuario("Los datos se guardaron correctamente", false);
+                }
+                else
+                {
+                    vista.notificarUsuario("LOs datos se guardaron correctamente", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                vista.notificarUsuario("Error al guardar en BD o conexion", true);
+            }
+        }
+
+        public Image imgec(string c,FrmCodigodeBarras vista)
+        {
+            Image img= null ;
+            try
+            {
+                 img = producto.imgcodeb(c);
+            }
+            catch(Exception e) 
+            {
+                vista.notificarUsuario("", true);
+
+            }
+            return img;
+        }
         public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmNuevoProducto vista)
         {
             if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
@@ -51,7 +101,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message);
                 vista.notificarUsuario("Error en la conexion o Insercion", true);
             }
         }

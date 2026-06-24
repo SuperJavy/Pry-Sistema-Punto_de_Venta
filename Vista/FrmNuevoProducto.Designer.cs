@@ -92,6 +92,7 @@
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(352, 37);
             txtCodigo.TabIndex = 1;
+            txtCodigo.TextChanged += txtCodigo_TextChanged;
             txtCodigo.KeyPress += txtCodigo_KeyPress;
             // 
             // labelNombre
