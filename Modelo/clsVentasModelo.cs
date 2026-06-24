@@ -30,8 +30,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         p.precio_venta AS precio,
                         p.stock,
                         p.ruta_imagen AS imagen,
-                        p.id_tipo_venta AS Tipo
-                    FROM productos p
+                        t.nombre AS Tipo
+                    FROM productos p Inner JOIN tipo_venta t ON p.id_tipo_venta = t.id
                     WHERE p.codigo_de_barras = @codigo";
 
 
@@ -155,7 +155,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             finally { cerrarConexion(); }
             return producto;
         }
-        public bool ProcesarVenta(ventas venta) {
+        public bool ProcesarVenta(ventas venta, List<detalleVenta> cancelados, int estado) {
 
             using (MySqlConnection con = abrirConexion())
             {
@@ -163,10 +163,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     try
                     {
-                        int idVenta = insertarVenta(venta, con,trans);
-
-                        insertarDetalle(idVenta,venta.detalleVenta, con, trans);
-
+                        int idVenta = insertarVenta(venta, con,trans, estado);
+                        insertarDetalle(idVenta,venta.detalleVenta, con, trans, 1);
+                        insertarDetalle(idVenta, cancelados, con, trans, 3);
                         actualizarStock(venta.detalleVenta, con, trans);
 
                         trans.Commit();
@@ -180,7 +179,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
         
         }
-        private int insertarVenta(ventas venta, MySqlConnection con, MySqlTransaction trans)
+        private int insertarVenta(ventas venta, MySqlConnection con, MySqlTransaction trans, int estado)
         {
       
             string query = @"
@@ -190,7 +189,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             fecha,
             total,
             efectivo,
-            cambio
+            cambio,
+            id_estado
         )
         VALUES
         (
@@ -198,7 +198,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             @fecha_hora,
             @total,
             @efectivo,
-            @cambio
+            @cambio,
+            @id_estado
         );
 
         SELECT LAST_INSERT_ID();";
@@ -225,13 +226,17 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 cmd.Parameters.AddWithValue(
                     "@cambio",
                     venta.cambio);
+                cmd.Parameters.AddWithValue(
+                    "@id_estado",
+                    estado
+                    );
 
                 return Convert.ToInt32(
                     cmd.ExecuteScalar());
             }
 
         }
-        private void insertarDetalle(int idVenta, List<detalleVenta> detalles, MySqlConnection con, MySqlTransaction trans)
+        private void insertarDetalle(int idVenta, List<detalleVenta> detalles, MySqlConnection con, MySqlTransaction trans, int estado )
         {
            
             string query = @"
@@ -241,7 +246,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             id_producto,
             cantidad,
             precio_unitario,
-            subtotal
+            subtotal,
+            id_estado
         )
         VALUES
         (
@@ -249,7 +255,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             @id_producto,
             @cantidad,
             @precio_unitario,
-            @subtotal
+            @subtotal,
+            @id_estado
         )";
 
             foreach (var item in detalles)
@@ -276,6 +283,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue(
                         "@subtotal",
                         item.Importe);
+                    cmd.Parameters.AddWithValue(
+                        "@id_estado",
+                        estado
+                        );
 
                     cmd.ExecuteNonQuery();
                 }

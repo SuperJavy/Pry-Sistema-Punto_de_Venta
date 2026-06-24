@@ -42,6 +42,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
             this.colTipoVenta.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             this.colTipoVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            controler.recuperarVentaPendiente(this);
         }
 
         clsVentasController controler = new clsVentasController();
@@ -145,7 +147,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 dtgVenta.Rows.Add(
                     item.Producto.codigo_de_barras,
                     item.Producto.nombre,
-                    "producto",
+                    item.Producto.tipoVenta,
                     item.Cantidad,
                     item.PrecioUnitario,
                     item.Importe,

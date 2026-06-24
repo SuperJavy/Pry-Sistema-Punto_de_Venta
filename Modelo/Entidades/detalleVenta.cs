@@ -18,7 +18,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
         public decimal Importe
         {
             get { return Cantidad * PrecioUnitario; }
+            set { }
         }
+
+        public int id_estado { get; set; }
 
         
 

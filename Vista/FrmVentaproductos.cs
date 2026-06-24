@@ -59,20 +59,23 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void txtPagoCon_TextChanged(object sender, EventArgs e)
         {
-            if (decimal.TryParse(txtPagoCon.Text, out decimal pago))
-            {
-                decimal cambio = controller.obtenerCambio(pago);
-                if (cambio < 0)
-                {
-                    lblCambioMonto.Text = Math.Abs(cambio).ToString("N2");
-                }
-                else
-                {
-                    lblCambioMonto.Text = cambio.ToString("N2");
-                }
 
+            decimal pago = 0;
+            decimal.TryParse(txtPagoCon.Text, out pago);
+            decimal cambio = controller.obtenerCambio(pago);
+
+            if (cambio < 0)
+            {
+
+                lblCambioMonto.ForeColor = System.Drawing.Color.Red;
+                lblCambioMonto.Text = " -" + Math.Abs(cambio).ToString("N2");
             }
-        }
+            else
+            {
+                lblCambioMonto.ForeColor = System.Drawing.Color.Green;
+                lblCambioMonto.Text = cambio.ToString("N2");
+            }
+}
 
         public void NotificarUsuario(string mensaje, bool esError)
         {
