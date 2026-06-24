@@ -48,6 +48,9 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 MessageBox.Show("Por favor, Seleccione un tipo de venta");
             }
+            
+
+
             controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
                 tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
         }
@@ -138,8 +141,13 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            FrmCodigodeBarras frmCodigoBarras = new FrmCodigodeBarras();
+            var frmCodigoBarras = new Vista.FrmCodigodeBarras(this.txtCodigo);
             frmCodigoBarras.ShowDialog();
+        }
+
+        public void txtCodigo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

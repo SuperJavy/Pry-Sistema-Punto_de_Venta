@@ -11,7 +11,46 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class ClsProductModelo : clsConexion
     {
+
+        ECodigodebarras codigob = new ECodigodebarras();
         //empieza codigo de regitrar productos
+        public string codigodebarras()
+        {
+            try
+            {
+               return codigob.ObtenerNumeroUnicoEInexistente();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al extraer el código de barras: " + e.Message);
+            }
+        }
+        public Image imgcodeb (string c)
+        {
+            try
+            {
+                return codigob.imgcodeb(c);
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Error al extraer la imagen" + e.Message);
+            }
+
+        }
+        public bool InsercodeB(string code, Image img)
+        {
+            try
+            {
+                return codigob.insertarBD(code, img);
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al insertar en la Base de Datos "+e.Message);
+            }
+        }
+
+
         public Boolean Insertarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje)
         {
             try
