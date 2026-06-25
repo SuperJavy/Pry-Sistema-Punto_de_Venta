@@ -20,6 +20,7 @@ namespace Pry_Sistema_Punto_de_Venta
         public FrmCompra()
         {
             InitializeComponent();
+            controller.recuperarCompraPendiente(this);
         }
         private void FrmCompra_KeyDown(object sender, KeyEventArgs e)
         {
