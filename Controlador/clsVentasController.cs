@@ -41,6 +41,22 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void agregarProducto(Producto producto, FrmVentas vista)
         {
+
+            decimal cantidadFinal = 1;
+
+            if (producto.tipoVenta.ToLower() == "a granel")
+            {
+                FrmPedirPeso frmpeso = new FrmPedirPeso(producto.nombre);
+
+                if (frmpeso.ShowDialog() == DialogResult.OK)
+                {
+                    cantidadFinal = frmpeso.PesoIngresado;
+                }
+                else
+                { return; }
+            }
+
+
             var existe = venta.detalleVenta
           .FirstOrDefault(x =>
               x.Producto.codigo_de_barras ==
@@ -54,7 +70,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                     new detalleVenta
                     {
                         Producto = producto,
-                        Cantidad = 1,
+                        Cantidad = cantidadFinal,
                         PrecioUnitario = producto.precio
                     });
             }
@@ -165,34 +181,25 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 GuardarRespaldoJson();
             }
         }
+
+
         private readonly string rutaRespaldo = "venta_respaldo.json";
         public void GuardarRespaldoJson() 
         {
-            try 
-            {
-                if (venta.detalleVenta==null || venta.detalleVenta.Count==0)
-                {
-                    eliminarRespaldo();
-                    return; 
-                }
-                List<Itemrespaldo> respaldo = venta.detalleVenta.Select(d => new Itemrespaldo
-                {
-                    codigoBarras = d.Producto.codigo_de_barras,
-                    cantidad = d.Cantidad
-                }).ToList();
+            if (venta.detalleVenta == null) return;
 
-                string jsonSting = JsonSerializer.Serialize(respaldo);
-                File.WriteAllText(rutaRespaldo, jsonSting);
-            }
-            catch { }
+            var datos = venta.detalleVenta.Select(d => new Itemrespaldo
+            {
+                codigoBarras = d.Producto.codigo_de_barras,
+                cantidad = d.Cantidad
+
+            }).ToList();
+
+            ClsRespaldo.guardarRespaldo(rutaRespaldo, datos);
         }
         public void eliminarRespaldo() 
         {
-            if (File.Exists(rutaRespaldo))
-            {
-                
-                File.Delete(rutaRespaldo);
-            }
+            ClsRespaldo.eliminarRespaldo(rutaRespaldo);
         }
         public void recuperarVentaPendiente(FrmVentas vista)
         {
@@ -200,8 +207,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 try
                 {
-                    string jsonString = File.ReadAllText(rutaRespaldo);
-                    List<Itemrespaldo> respaldo = JsonSerializer.Deserialize<List<Itemrespaldo>>(jsonString);
+
+                    List<Itemrespaldo> respaldo = ClsRespaldo.recuperar(rutaRespaldo);
 
                     if (respaldo!=null && respaldo.Count>0)
                     {
@@ -265,8 +272,5 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
     }
 
-    public class Itemrespaldo {
-        public string codigoBarras { get; set; }
-        public decimal cantidad { get; set; }
-    }
+    
 }
