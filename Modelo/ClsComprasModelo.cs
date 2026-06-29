@@ -56,7 +56,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return producto;
         }
-        public bool procesarCompra(Compra compra)
+        public bool procesarCompra(Compra compra, List<DetalleCompra> cancelados, int estado)
         {
             using (MySqlConnection con = abrirConexion())
             {
@@ -64,10 +64,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     try
                     {
-                        int idCompra = insertarCompra(compra, con, trans);
+                        int idCompra = insertarCompra(compra, con, trans, estado);
                
-                        insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans);
-          
+                        insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
+                        insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
                         actualizarStockCompra(compra.detalleCompra, con, trans);
 
                         
@@ -85,7 +85,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         
         }
 
-        private int insertarCompra(Compra compra, MySqlConnection con, MySqlTransaction trans)
+        private int insertarCompra(Compra compra, MySqlConnection con, MySqlTransaction trans, int estado)
         {
             string query = @"
                 INSERT INTO compra     
@@ -93,7 +93,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     id_usuario,
                     id_proveedor,
                     fecha_de_compra,         
-                    total                  
+                    total,
+                    id_estado
                          
                 )     
                 VALUES     
@@ -101,7 +102,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     @id_usuario,
                     @id_proveedor,
                     @fecha,         
-                    @total                 
+                    @total,
+                    @id_estado
                          
                 );     
                 SELECT LAST_INSERT_ID();";
@@ -113,12 +115,13 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 cmd.Parameters.AddWithValue("@total", compra.total);
 
                 cmd.Parameters.AddWithValue("@id_proveedor", 1);
+                cmd.Parameters.AddWithValue("@id_estado", estado);
 
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
 
-        private void insertarDetalleCompra(int idCompra, List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans)
+        private void insertarDetalleCompra(int idCompra, List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans, int estado)
         {
             string query = @"
                 INSERT INTO detalle_compra     
@@ -127,7 +130,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     id_producto,
                     precio,
                     cantidad,                  
-                    subtotal     
+                    subtotal,
+                    id_estado
                 )     
                 VALUES     
                 (         
@@ -135,7 +139,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     @id_producto,
                     @costo_unitario,
                     @cantidad,                  
-                    @subtotal     
+                    @subtotal,
+                    @id_estado
                 )";
 
             foreach (var item in detalles)
@@ -147,6 +152,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue("@cantidad", item.cantidad);
                     cmd.Parameters.AddWithValue("@costo_unitario", item.precioCompra);
                     cmd.Parameters.AddWithValue("@subtotal", item.cantidad * item.subtotalCompra);
+                    cmd.Parameters.AddWithValue("@id_estado", estado);
 
                     cmd.ExecuteNonQuery();
                 }

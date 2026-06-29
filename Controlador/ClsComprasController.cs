@@ -12,6 +12,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         ClsComprasModelo modelo = new ClsComprasModelo();
         Compra compra = new Compra();
+        public List<DetalleCompra> compraCancelada = new List<DetalleCompra>();
         public Producto buscarProducto(string codigo)
         {
             if (string.IsNullOrEmpty(codigo)) return null;
@@ -78,7 +79,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             compra.IdUsuario = ClsLoginModelo.UsuarioActual;
             compra.fecha = DateTime.Now;
 
-            bool exito = modelo.procesarCompra(compra);
+            bool exito = modelo.procesarCompra(compra, compraCancelada, 1);
 
             if (exito)
             {
@@ -104,6 +105,11 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             if (indice >= 0 && indice < compra.detalleCompra.Count)
             {
+
+                DetalleCompra itemCancelado = compra.detalleCompra[indice];
+                compraCancelada.Add(itemCancelado);
+
+
                 compra.detalleCompra.RemoveAt(indice);
                 vista.actualizarTabla(compra.detalleCompra);
                 vista.mostrarTotal(compra.total);
@@ -118,8 +124,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             return modelo.busquedaAvanzada(filtro);
         }
-
-
         private readonly string rutaRespaldo = "compra_respaldo.json";
         public void GuardarRespaldoJson()
         {
@@ -190,6 +194,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                     fecha = DateTime.Now,
                                     detalleCompra = new List<DetalleCompra>()
                                 };
+                                modelo.procesarCompra(compraCancelada, listaAuditada, 3);
                             }
 
                             eliminarRespaldo();

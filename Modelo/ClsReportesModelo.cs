@@ -10,202 +10,131 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class ClsReportesModelo : clsConexion
     {
-
-        public DataTable ObtenerReporteVentas(DateTime fechaInicio, DateTime fechaFin)
+        public DataTable consultarReporteVentas(string estado, DateTime fechaInicio, DateTime fechaCorte)
         {
-            DataTable dtVentas = new DataTable();
-            try
+            DataTable historialVentas = new DataTable();
+
+            string query = @"SELECT
+                    v.id AS 'Folio',
+                    u.nickname AS 'Cajero',
+                    v.fecha AS 'Fecha y Hora',
+                    v.total AS 'Total',
+                    e.estado AS 'Estado'
+                FROM venta v
+                INNER JOIN usuario u ON v.id_usuario = u.id
+                INNER JOIN estado e ON v.id_estado = e.id
+                WHERE DATE(v.fecha) BETWEEN DATE(@fechaInicio) AND DATE(@fechaCorte)";
+            if (estado == "Solo Completadas")
             {
-                using (var conexion = abrirConexion())
+                query += " AND v.id_estado = 1"; 
+            }
+            else if (estado == "Solo Canceladas")
+            {
+                query += " AND v.id_estado = 3"; 
+            }
+            query += " ORDER BY v.fecha DESC";
+
+            try 
+            {
+                using (MySqlConnection conexion = abrirConexion())
                 {
-                    // Usamos DATE() para ignorar las horas y buscar solo por días completos
-                    string consulta = @"
-                        SELECT 
-                            id AS 'Folio de Venta',
-                            fecha AS 'Fecha y Hora',
-                            total AS 'Total Vendido'
-                        FROM venta 
-                        WHERE DATE(fecha) BETWEEN DATE(@fechaInicio) AND DATE(@fechaFin)
-                        ORDER BY fecha DESC";
-
-                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
-                    {
-                        // Pasamos las fechas como parámetros seguros
-                        cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
-                        cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
-
-                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
-                        {
-                            adaptador.Fill(dtVentas); // Llenamos la tabla virtual con los resultados
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al consultar el reporte de ventas: " + ex.Message);
-            }
-            finally
-            {
-                cerrarConexion();
-            }
-
-            return dtVentas;
-        
-        }
-        public DataTable ObtenerReporteCompras(DateTime fechaInicio, DateTime fechaFin)
-        {
-            DataTable dtCompras = new DataTable();
-            try
-            {
-                using (var conexion = abrirConexion())
-                {
-                    // Usamos tu tabla 'compra' y tu columna 'fecha_de_compra'
-                    string consulta = @"
-                SELECT 
-                    id AS 'Folio de Compra',
-                    fecha_de_compra AS 'Fecha de Compra',
-                    total AS 'Total Pagado'
-                FROM compra 
-                WHERE DATE(fecha_de_compra) BETWEEN DATE(@fechaInicio) AND DATE(@fechaFin)
-                ORDER BY fecha_de_compra DESC";
-
-                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
                         cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
-                        cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
-
-                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
-                        {
-                            adaptador.Fill(dtCompras);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al consultar el reporte de compras: " + ex.Message);
-            }
-            finally
-            {
-                cerrarConexion();
-            }
-
-            return dtCompras;
-        }
-
-        public DataTable ObtenerCorteCaja(DateTime fechaCorte)
-        {
-            DataTable dtCorte = new DataTable();
-            try
-            {
-                using (var conexion = abrirConexion())
-                {
-                    // Extraemos el detalle del día, separando solo la Hora para que sea más fácil de leer
-                    string consulta = @"
-                SELECT 
-                    id AS 'Folio de Venta',
-                    TIME(fecha) AS 'Hora de Venta',
-                    total AS 'Monto Ingresado'
-                FROM venta 
-                WHERE DATE(fecha) = DATE(@fechaCorte)
-                ORDER BY fecha DESC";
-
-                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
-                    {
-                        // Aquí solo pasamos una fecha, porque el corte es diario
                         cmd.Parameters.AddWithValue("@fechaCorte", fechaCorte);
 
                         using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
                         {
-                            adaptador.Fill(dtCorte);
+                            
+                            adaptador.Fill(historialVentas);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al consultar el corte de caja: " + ex.Message);
+                throw new Exception("Error al buscar el historial de ventas "+ex.Message);
             }
-            finally
-            {
-                cerrarConexion();
-            }
-
-            return dtCorte;
+            return historialVentas;
         }
-        public DataTable ObtenerDetalleVenta(int idVenta)
+        public DataTable consultarReporteCompras(DateTime fechaInicio, DateTime fechaCorte)
         {
-            DataTable dt = new DataTable();
+            DataTable historialCompras = new DataTable();
+
+            string query = @"
+        SELECT 
+            c.id AS 'Folio',
+            u.nickname AS 'Registró',
+            c.fecha_de_compra AS 'Fecha y Hora',
+            c.total AS 'Total Invertido'
+        FROM compra c
+        INNER JOIN usuario u ON c.id_usuario = u.id
+        WHERE DATE(c.fecha_de_compra) BETWEEN DATE(@fechaInicio) AND DATE(@fechaCorte)
+        ORDER BY c.fecha_de_compra DESC";
+
             try
             {
-                using (var conexion = abrirConexion())
+                using (MySqlConnection conexion = abrirConexion())
                 {
-                    // d.precio y d.codigo_producto deben coincidir con tus columnas de detalle_venta
-                    string query = @"
-                SELECT 
-                    d.id_producto AS 'Código',
-                    p.nombre AS 'Producto',
-                    d.cantidad AS 'Cantidad',
-                    d.precio_unitario AS 'Precio Unitario',
-                    (d.cantidad * d.precio_unitario) AS 'Importe'
-                FROM detalle_venta d
-                INNER JOIN productos p ON d.id_producto = p.id
-                WHERE d.id_venta = @idVenta";
-
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
-                        cmd.Parameters.AddWithValue("@idVenta", idVenta);
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("@fechaCorte", fechaCorte);
+
+                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            adaptador.Fill(historialCompras);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener detalle de venta: " + ex.Message);
+                throw new Exception("Error al buscar el historial de compras: " + ex.Message);
             }
-            finally { cerrarConexion(); }
-            return dt;
-        }
 
-        public DataTable ObtenerDetalleCompra(int idCompra)
-        {
-            DataTable dt = new DataTable();
+            return historialCompras;
+        }
+        public Dictionary<string, decimal> consultarResumenCorte(DateTime fechaCorte)
+        {      
+            Dictionary<string, decimal> totales = new Dictionary<string, decimal>();
+
+            string query = @"
+        SELECT 
+            (SELECT IFNULL(SUM(total), 0) FROM venta WHERE DATE(fecha) = DATE(@fechaCorte) AND id_estado = 1) AS VentasEfectivo,
+            (SELECT COUNT(id) FROM venta WHERE DATE(fecha) = DATE(@fechaCorte) AND id_estado = 1) AS TotalTickets,
+            (SELECT IFNULL(SUM(total), 0) FROM compra WHERE DATE(fecha_de_compra) = DATE(@fechaCorte)) AS Salidas,
+            (SELECT IFNULL(SUM(dv.cantidad), 0) FROM detalle_venta dv INNER JOIN venta v ON dv.id_venta = v.id WHERE DATE(v.fecha) = DATE(@fechaCorte) AND v.id_estado = 1) AS ArticulosVendidos,
+            (SELECT IFNULL(SUM(dv.cantidad), 0) FROM detalle_venta dv INNER JOIN venta v ON dv.id_venta = v.id WHERE DATE(v.fecha) = DATE(@fechaCorte) AND v.id_estado = 3) AS ArticulosCancelados";
+
             try
             {
-                using (var conexion = abrirConexion())
+                using (MySqlConnection conexion = abrirConexion())
                 {
-                    // d.precio_costo debe coincidir con tu columna de detalle_compra
-                    string query = @"
-                SELECT 
-                    d.id_producto AS 'Código',
-                    p.nombre AS 'Producto',
-                    d.cantidad AS 'Cantidad',
-                    d.precio AS 'Precio Costo',
-                    (d.cantidad * d.precio) AS 'Importe'
-                FROM detalle_compra d
-                INNER JOIN productos p ON d.id_producto = p.id
-                WHERE d.id_compra = @idCompra";
-
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
-                        cmd.Parameters.AddWithValue("@idCompra", idCompra);
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        cmd.Parameters.AddWithValue("@fechaCorte", fechaCorte);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            da.Fill(dt);
+                            if (reader.Read())
+                            {
+                                totales.Add("VentasEfectivo", Convert.ToDecimal(reader["VentasEfectivo"]));
+                                totales.Add("TotalTickets", Convert.ToDecimal(reader["TotalTickets"]));
+                                totales.Add("Salidas", Convert.ToDecimal(reader["Salidas"]));
+                                totales.Add("ArticulosVendidos", Convert.ToDecimal(reader["ArticulosVendidos"]));
+                                totales.Add("ArticulosCancelados", Convert.ToDecimal(reader["ArticulosCancelados"]));
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener detalle de compra: " + ex.Message);
+                throw new Exception("Error al calcular el corte de caja: " + ex.Message);
             }
-            finally { cerrarConexion(); }
-            return dt;
+
+            return totales;
         }
     }
 }
