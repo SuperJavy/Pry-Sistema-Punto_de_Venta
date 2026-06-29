@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,15 @@ using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
-    public partial class FrmCodigodeBarras : Form
+    public partial class FrmGernerador_CodBarras : Form
     {
         ClsProductController controller = new ClsProductController();
         private TextBox  _textBoxDestino;
-        public FrmCodigodeBarras()
+        public FrmGernerador_CodBarras()
         {
             InitializeComponent();
         }
-        public FrmCodigodeBarras(TextBox cajaDeTextoDeLaOtraPantalla)
+        public FrmGernerador_CodBarras(TextBox cajaDeTextoDeLaOtraPantalla)
         {
             InitializeComponent();
             _textBoxDestino = cajaDeTextoDeLaOtraPantalla;
@@ -42,6 +43,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
+            
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
                 txtCodigo.Text = controller.generarcode(this);
@@ -61,6 +63,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     picCodigoBarras.Image = image;
                 }
             }
+            string c =txtCodigo.Text;
+            controller.Existentecode(c,this);
         }
     
         private void btnUsarcode_Click(object sender, EventArgs e)
@@ -76,6 +80,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             this.Close();
 
             
+        }
+
+        public void limpiarcaja()
+        {
+            txtCodigo.Clear();
+            picCodigoBarras.Image= null;
         }
     }
 }

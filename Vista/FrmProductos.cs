@@ -42,7 +42,7 @@ namespace Pry_Sistema_Punto_de_Venta
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmEliminarproductos eliminar = new FrmEliminarproductos();
-            principal.agregaralcontenedor(eliminar,pnlproductos);
+            principal.agregaralcontenedor(eliminar, pnlproductos);
         }
 
         private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,6 +54,12 @@ namespace Pry_Sistema_Punto_de_Venta
         private void pnlproductos_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void gestorDeEtiquetasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           FrmVisualizar_Etiquetas V_Etiquetas = new FrmVisualizar_Etiquetas();
+            principal.agregaralcontenedor(V_Etiquetas, pnlproductos);
         }
     }
 }

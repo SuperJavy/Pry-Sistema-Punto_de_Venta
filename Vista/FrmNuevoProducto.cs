@@ -20,6 +20,8 @@ namespace Pry_Sistema_Punto_de_Venta
             InitializeComponent();
             DataTable dt = controlador.Cargarcategorias(this);
             llenarComboRoles(dt);
+            txtStockactual.ReadOnly = true;
+            txtStockminimo.ReadOnly = true;
         }
         public void notificarUsuario(string mensaje, bool esError)
         {
@@ -83,7 +85,6 @@ namespace Pry_Sistema_Punto_de_Venta
                 // 2. Asignación de miembros 
                 cbxCategoria.DisplayMember = "Nombre";
                 cbxCategoria.ValueMember = "Id";
-
                 // 3. Asignación del origen de datos
                 cbxCategoria.DataSource = dtCategoria;
             }
@@ -141,7 +142,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            var frmCodigoBarras = new Vista.FrmCodigodeBarras(this.txtCodigo);
+            var frmCodigoBarras = new Vista.FrmGernerador_CodBarras(this.txtCodigo);
             frmCodigoBarras.ShowDialog();
         }
 

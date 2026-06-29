@@ -36,6 +36,7 @@
             eliminarToolStripMenuItem = new ToolStripMenuItem();
             categoriasToolStripMenuItem = new ToolStripMenuItem();
             pnlproductos = new Panel();
+            gestorDeEtiquetasToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -70,7 +71,7 @@
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(24, 24);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem, eliminarToolStripMenuItem, categoriasToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem, eliminarToolStripMenuItem, categoriasToolStripMenuItem, gestorDeEtiquetasToolStripMenuItem });
             menuStrip1.Location = new Point(0, 42);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1428, 38);
@@ -124,6 +125,14 @@
             pnlproductos.TabIndex = 75;
             pnlproductos.Paint += pnlproductos_Paint;
             // 
+            // gestorDeEtiquetasToolStripMenuItem
+            // 
+            gestorDeEtiquetasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            gestorDeEtiquetasToolStripMenuItem.Name = "gestorDeEtiquetasToolStripMenuItem";
+            gestorDeEtiquetasToolStripMenuItem.Size = new Size(217, 34);
+            gestorDeEtiquetasToolStripMenuItem.Text = "Gestor de Etiquetas";
+            gestorDeEtiquetasToolStripMenuItem.Click += gestorDeEtiquetasToolStripMenuItem_Click;
+            // 
             // FrmProductos
             // 
             AutoScaleDimensions = new SizeF(12F, 30F);
@@ -158,5 +167,6 @@
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.Panel pnlproductos;
         private System.Windows.Forms.ToolStripMenuItem categoriasToolStripMenuItem;
+        private ToolStripMenuItem gestorDeEtiquetasToolStripMenuItem;
     }
 }

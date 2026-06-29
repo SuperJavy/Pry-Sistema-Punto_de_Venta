@@ -1,6 +1,6 @@
 ﻿namespace Pry_Sistema_Punto_de_Venta.Vista
 {
-    partial class FrmCodigodeBarras
+    partial class FrmGernerador_CodBarras
     {
         /// <summary>
         /// Required designer variable.

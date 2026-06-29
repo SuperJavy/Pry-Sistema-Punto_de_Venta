@@ -19,13 +19,16 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
         public void Actualizarpassword(string usuario, string nuevoPassword, FrmPerfil vista)
         {
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(nuevoPassword))
-            {
-                throw new ArgumentException("El nombre de usuario y la nueva contraseña no pueden estar vacíos.");
-            }
+            
 
             try
             {
+                if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(nuevoPassword))
+                {
+                    vista.notificarUsuario("El nombre de usuario y la nueva contraseña no pueden estar vacíos.",true);
+                }
+
+
                 bool esvalido = perfilModelo.Actualizarpassword(usuario, nuevoPassword);
 
                 if (esvalido)

@@ -30,6 +30,7 @@
         {
             lblTitulo = new Label();
             pnlCardPerfil = new Panel();
+            txtPassword = new TextBox();
             pcbMostrar = new PictureBox();
             btnGuardarContrasena = new Button();
             btnCerrarSesion = new Button();
@@ -37,7 +38,6 @@
             lblTelefono = new Label();
             txtCorreo = new TextBox();
             lblCorreo = new Label();
-            txtPassword = new TextBox();
             lblContrasena = new Label();
             txtUsuario = new TextBox();
             lblUsuario = new Label();
@@ -72,7 +72,6 @@
             pnlCardPerfil.Controls.Add(lblTelefono);
             pnlCardPerfil.Controls.Add(txtCorreo);
             pnlCardPerfil.Controls.Add(lblCorreo);
-            pnlCardPerfil.Controls.Add(txtPassword);
             pnlCardPerfil.Controls.Add(lblContrasena);
             pnlCardPerfil.Controls.Add(txtUsuario);
             pnlCardPerfil.Controls.Add(lblUsuario);
@@ -80,18 +79,30 @@
             pnlCardPerfil.Controls.Add(lblApellido);
             pnlCardPerfil.Controls.Add(txtNombre);
             pnlCardPerfil.Controls.Add(lblNombre);
+            pnlCardPerfil.Controls.Add(txtPassword);
             pnlCardPerfil.Location = new Point(56, 112);
             pnlCardPerfil.Margin = new Padding(4);
             pnlCardPerfil.Name = "pnlCardPerfil";
             pnlCardPerfil.Size = new Size(1074, 600);
             pnlCardPerfil.TabIndex = 1;
             // 
+            // txtPassword
+            // 
+            txtPassword.BackColor = Color.White;
+            txtPassword.Font = new Font("Segoe UI", 11F);
+            txtPassword.Location = new Point(550, 179);
+            txtPassword.Margin = new Padding(4);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(449, 37);
+            txtPassword.TabIndex = 5;
+            txtPassword.KeyDown += txtPassword_KeyDown;
+            // 
             // pcbMostrar
             // 
             pcbMostrar.Image = Properties.Resources.ojo;
-            pcbMostrar.Location = new Point(957, 179);
+            pcbMostrar.Location = new Point(959, 179);
             pcbMostrar.Name = "pcbMostrar";
-            pcbMostrar.Size = new Size(42, 37);
+            pcbMostrar.Size = new Size(40, 37);
             pcbMostrar.SizeMode = PictureBoxSizeMode.Zoom;
             pcbMostrar.TabIndex = 14;
             pcbMostrar.TabStop = false;
@@ -177,17 +188,6 @@
             lblCorreo.Size = new Size(189, 28);
             lblCorreo.TabIndex = 10;
             lblCorreo.Text = "Correo Electrónico :";
-            // 
-            // txtPassword
-            // 
-            txtPassword.BackColor = Color.White;
-            txtPassword.Font = new Font("Segoe UI", 11F);
-            txtPassword.Location = new Point(550, 179);
-            txtPassword.Margin = new Padding(4);
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(449, 37);
-            txtPassword.TabIndex = 5;
-            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // lblContrasena
             // 
