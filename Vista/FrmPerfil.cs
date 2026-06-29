@@ -26,6 +26,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             txtCorreo.ReadOnly = true;
             txtTelefono.ReadOnly = true;
             txtUsuario.ReadOnly = true;
+            txtPassword.UseSystemPasswordChar = true;
         }
         public void notificarUsuario(string mensaje, bool esError)
         {
@@ -68,12 +69,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void pcbMostrar_MouseDown(object sender, MouseEventArgs e)
         {
-            txtPassword.PasswordChar = '\0';
+            txtPassword.UseSystemPasswordChar = false;
         }
 
         private void pcbMostrar_MouseUp(object sender, MouseEventArgs e)
         {
-            txtPassword.PasswordChar = '*';
+            txtPassword.UseSystemPasswordChar = true;
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)

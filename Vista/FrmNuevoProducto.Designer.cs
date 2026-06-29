@@ -139,9 +139,9 @@
             label3.Location = new Point(25, 473);
             label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(135, 30);
+            label3.Size = new Size(192, 30);
             label3.TabIndex = 4;
-            label3.Text = "% Ganancia :";
+            label3.Text = "Margen de Venta :";
             // 
             // txtCosto
             // 

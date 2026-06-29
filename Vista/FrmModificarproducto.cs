@@ -20,6 +20,8 @@ namespace Pry_Sistema_Punto_de_Venta
 
             DataTable roles = controlador.Cargarcategoriasm(this);
             llenarComboRoles(roles);
+            txtStockactual.ReadOnly = true;
+            txtStockminimo.ReadOnly = true;
         }
 
 

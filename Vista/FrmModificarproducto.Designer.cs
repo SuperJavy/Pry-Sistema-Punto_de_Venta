@@ -288,9 +288,9 @@
             label3.ForeColor = Color.Black;
             label3.Location = new Point(25, 491);
             label3.Name = "label3";
-            label3.Size = new Size(135, 30);
+            label3.Size = new Size(192, 30);
             label3.TabIndex = 4;
-            label3.Text = "% Ganancia :";
+            label3.Text = "Margen de Venta :";
             // 
             // nudPorcentaje
             // 

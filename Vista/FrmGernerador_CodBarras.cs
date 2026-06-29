@@ -12,15 +12,15 @@ using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
-    public partial class FrmCodigodeBarras : Form
+    public partial class FrmGernerador_CodBarras : Form
     {
         ClsProductController controller = new ClsProductController();
         private TextBox  _textBoxDestino;
-        public FrmCodigodeBarras()
+        public FrmGernerador_CodBarras()
         {
             InitializeComponent();
         }
-        public FrmCodigodeBarras(TextBox cajaDeTextoDeLaOtraPantalla)
+        public FrmGernerador_CodBarras(TextBox cajaDeTextoDeLaOtraPantalla)
         {
             InitializeComponent();
             _textBoxDestino = cajaDeTextoDeLaOtraPantalla;

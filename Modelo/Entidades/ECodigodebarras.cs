@@ -85,11 +85,12 @@
                 clsConexion conexionBD = new clsConexion();
                 using (var conex = conexionBD.abrirConexion())
                 {
-                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras) VALUES (@codigo, @img);";
+                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras, id_estado) VALUES (@codigo, @img,@estado);";
                     using(var consulta = new MySqlCommand(Query, conex))
                     {
                         consulta.Parameters.AddWithValue("@codigo",codigo);
                         consulta.Parameters.AddWithValue("@img",imagenABytes(img));
+                    consulta.Parameters.AddWithValue("@estado", int.Parse("2"));
                         using (var result = consulta.ExecuteReader())
                         {
                             if (result.Read())

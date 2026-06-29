@@ -15,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     {
         ClsProductModelo producto = new ClsProductModelo();
 
-        public string generarcode(FrmCodigodeBarras vista)
+        public string generarcode(FrmGernerador_CodBarras vista)
         {
             string code = "";
             try
@@ -30,7 +30,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             return code;
         }
-        public void Existentecode(string code, FrmCodigodeBarras vista)
+        public void Existentecode(string code, FrmGernerador_CodBarras vista)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -57,7 +57,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 vista.notificarUsuario("Error en la consulta o conexión: " + e.Message, true);
             }
         }
-        public void InsertCodeBD(string code, Image img, FrmCodigodeBarras vista)
+        public void InsertCodeBD(string code, Image img, FrmGernerador_CodBarras vista)
         {
             if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }
             bool esvalido = producto.InsercodeB(code, img);
@@ -78,7 +78,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
 
-        public Image imgec(string c,FrmCodigodeBarras vista)
+        public Image imgec(string c,FrmGernerador_CodBarras vista)
         {
             Image img= null ;
             try
