@@ -181,8 +181,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 GuardarRespaldoJson();
             }
         }
-
-
         private readonly string rutaRespaldo = "venta_respaldo.json";
         public void GuardarRespaldoJson() 
         {
