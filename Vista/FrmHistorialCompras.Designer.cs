@@ -126,9 +126,9 @@
             pnlTotales.Controls.Add(lblTotalInvertido);
             pnlTotales.Controls.Add(lblTituloInvertido);
             pnlTotales.Dock = DockStyle.Bottom;
-            pnlTotales.Location = new Point(0, 410);
+            pnlTotales.Location = new Point(0, 389);
             pnlTotales.Name = "pnlTotales";
-            pnlTotales.Size = new Size(1150, 90);
+            pnlTotales.Size = new Size(1150, 111);
             pnlTotales.TabIndex = 1;
             // 
             // lblTotalInvertido
@@ -136,9 +136,9 @@
             lblTotalInvertido.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalInvertido.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             lblTotalInvertido.ForeColor = Color.FromArgb(230, 126, 34);
-            lblTotalInvertido.Location = new Point(630, 15);
+            lblTotalInvertido.Location = new Point(702, 15);
             lblTotalInvertido.Name = "lblTotalInvertido";
-            lblTotalInvertido.Size = new Size(500, 60);
+            lblTotalInvertido.Size = new Size(436, 87);
             lblTotalInvertido.TabIndex = 0;
             lblTotalInvertido.Text = "$ 0.00";
             lblTotalInvertido.TextAlign = ContentAlignment.MiddleRight;
@@ -163,7 +163,7 @@
             pnlGridContainer.Location = new Point(0, 80);
             pnlGridContainer.Name = "pnlGridContainer";
             pnlGridContainer.Padding = new Padding(20);
-            pnlGridContainer.Size = new Size(1150, 330);
+            pnlGridContainer.Size = new Size(1150, 309);
             pnlGridContainer.TabIndex = 0;
             // 
             // dtgResultados
@@ -185,7 +185,7 @@
             dtgResultados.RowHeadersWidth = 72;
             dtgResultados.RowTemplate.Height = 40;
             dtgResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgResultados.Size = new Size(1110, 290);
+            dtgResultados.Size = new Size(1110, 269);
             dtgResultados.TabIndex = 0;
             // 
             // FrmHistorialCompras

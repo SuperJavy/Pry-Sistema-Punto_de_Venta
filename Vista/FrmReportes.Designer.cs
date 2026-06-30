@@ -27,7 +27,7 @@
             // 
             // pnlHeader
             // 
-            pnlHeader.BackColor = Color.FromArgb(44, 62, 80);
+            pnlHeader.BackColor = Color.White;
             pnlHeader.Controls.Add(lblTitulo);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
@@ -39,7 +39,7 @@
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitulo.ForeColor = Color.White;
+            lblTitulo.ForeColor = Color.Black;
             lblTitulo.Location = new Point(20, 9);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(159, 45);
