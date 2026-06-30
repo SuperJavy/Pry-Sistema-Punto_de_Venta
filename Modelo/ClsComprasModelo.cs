@@ -19,13 +19,14 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 abrirConexion();
                 string consulta = @"SELECT p.id,
-                        p.codigo_de_barras,
-                        p.nombre,
-                        p.costo AS Costo,
-                        p.stock,
-                        p.id_tipo_venta AS Tipo
+                    cb.Codigo_barras AS codigo_de_barras,
+                    p.nombre,
+                    p.costo AS Costo,
+                    p.stock,
+                    p.id_tipo_venta AS Tipo
                     FROM productos p
-                    WHERE p.codigo_de_barras = @codigo";
+                    INNER JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                    WHERE cb.Codigo_barras = @codigo";
 
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
