@@ -30,9 +30,6 @@ namespace Pry_Sistema_Punto_de_Venta
             this.colImagen.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.colImagen.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            this.colTipo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.colTipo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
 
             this.colCodigo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             this.colCodigo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -65,11 +62,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         }
 
-        private void btnReporteventas_Click(object sender, EventArgs e)
-        {
-            FrmReporteDeVentas frmventa = new FrmReporteDeVentas();
-            frmventa.Show();
-        }
+      
 
         private void FrmVentas_KeyDown(object sender, KeyEventArgs e)
         {

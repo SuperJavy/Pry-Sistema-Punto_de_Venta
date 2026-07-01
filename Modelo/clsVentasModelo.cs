@@ -104,14 +104,16 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 abrirConexion();
                 string consulta = @"SELECT p.id,
-                    p.codigo_de_barras,
-                    p.nombre,
-                    p.precio_venta AS Precio,
-                    p.stock,
-                    p.ruta_imagen AS Imagen,
-                    p.id_tipo_venta AS Tipo
-                FROM productos p
-                WHERE p.nombre LIKE @filtro";
+                                   cb.Codigo_barras AS codigo_de_barras,
+                                   p.nombre,
+                                   p.precio_venta AS Precio, 
+                                   p.stock,
+                                   p.ruta_imagen AS Imagen, 
+                                   t.nombre AS Tipo
+                            FROM productos p
+                            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                            WHERE p.nombre LIKE @filtro";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
 

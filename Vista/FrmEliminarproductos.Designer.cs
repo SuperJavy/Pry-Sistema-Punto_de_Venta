@@ -77,7 +77,7 @@
             btnEliminar.FlatStyle = FlatStyle.Flat;
             btnEliminar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(3, 693);
+            btnEliminar.Location = new Point(3, 699);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(621, 106);
             btnEliminar.TabIndex = 97;
@@ -258,7 +258,7 @@
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1445, 80);
+            panelHeader.Size = new Size(1445, 74);
             panelHeader.TabIndex = 100;
             // 
             // tableLayoutPanelPrincipal
@@ -269,12 +269,12 @@
             tableLayoutPanelPrincipal.Controls.Add(groupBoxDatos, 0, 0);
             tableLayoutPanelPrincipal.Controls.Add(panelDerecho, 1, 0);
             tableLayoutPanelPrincipal.Dock = DockStyle.Fill;
-            tableLayoutPanelPrincipal.Location = new Point(0, 80);
+            tableLayoutPanelPrincipal.Location = new Point(0, 74);
             tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
             tableLayoutPanelPrincipal.Padding = new Padding(20);
             tableLayoutPanelPrincipal.RowCount = 1;
             tableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelPrincipal.Size = new Size(1445, 845);
+            tableLayoutPanelPrincipal.Size = new Size(1445, 851);
             tableLayoutPanelPrincipal.TabIndex = 104;
             // 
             // groupBoxDatos
@@ -303,7 +303,7 @@
             groupBoxDatos.Margin = new Padding(3, 3, 20, 3);
             groupBoxDatos.Name = "groupBoxDatos";
             groupBoxDatos.Padding = new Padding(20);
-            groupBoxDatos.Size = new Size(749, 799);
+            groupBoxDatos.Size = new Size(749, 805);
             groupBoxDatos.TabIndex = 101;
             groupBoxDatos.TabStop = false;
             groupBoxDatos.Text = " BÚSQUEDA E INFORMACIÓN DEL PRODUCTO ";
@@ -338,7 +338,7 @@
             panelDerecho.Dock = DockStyle.Fill;
             panelDerecho.Location = new Point(795, 23);
             panelDerecho.Name = "panelDerecho";
-            panelDerecho.Size = new Size(627, 799);
+            panelDerecho.Size = new Size(627, 805);
             panelDerecho.TabIndex = 105;
             // 
             // groupBoxStock
@@ -409,7 +409,7 @@
             groupBoxImagen.Location = new Point(3, 215);
             groupBoxImagen.Name = "groupBoxImagen";
             groupBoxImagen.Padding = new Padding(20);
-            groupBoxImagen.Size = new Size(621, 450);
+            groupBoxImagen.Size = new Size(621, 456);
             groupBoxImagen.TabIndex = 103;
             groupBoxImagen.TabStop = false;
             groupBoxImagen.Text = " IMAGEN DEL PRODUCTO ";
@@ -421,7 +421,7 @@
             pcbImagen.Dock = DockStyle.Fill;
             pcbImagen.Location = new Point(20, 47);
             pcbImagen.Name = "pcbImagen";
-            pcbImagen.Size = new Size(581, 383);
+            pcbImagen.Size = new Size(581, 389);
             pcbImagen.SizeMode = PictureBoxSizeMode.Zoom;
             pcbImagen.TabIndex = 0;
             pcbImagen.TabStop = false;

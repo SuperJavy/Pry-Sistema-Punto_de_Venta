@@ -17,8 +17,8 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlFiltros = new Panel();
             btnGenerar = new Button();
             lblEstado = new Label();
@@ -79,9 +79,9 @@
             lblEstado.AutoSize = true;
             lblEstado.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEstado.ForeColor = Color.Gray;
-            lblEstado.Location = new Point(418, 10);
+            lblEstado.Location = new Point(403, 10);
             lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(97, 32);
+            lblEstado.Size = new Size(80, 28);
             lblEstado.TabIndex = 1;
             lblEstado.Text = "Estado:";
             // 
@@ -91,9 +91,9 @@
             cmbEstadoVenta.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbEstadoVenta.Font = new Font("Segoe UI", 11.5F);
             cmbEstadoVenta.Items.AddRange(new object[] { "Todas las Ventas", "Solo Completadas", "Solo Canceladas" });
-            cmbEstadoVenta.Location = new Point(421, 33);
+            cmbEstadoVenta.Location = new Point(403, 32);
             cmbEstadoVenta.Name = "cmbEstadoVenta";
-            cmbEstadoVenta.Size = new Size(180, 45);
+            cmbEstadoVenta.Size = new Size(180, 39);
             cmbEstadoVenta.TabIndex = 6;
             // 
             // lblHasta
@@ -104,7 +104,7 @@
             lblHasta.ForeColor = Color.Gray;
             lblHasta.Location = new Point(798, 10);
             lblHasta.Name = "lblHasta";
-            lblHasta.Size = new Size(85, 32);
+            lblHasta.Size = new Size(71, 28);
             lblHasta.TabIndex = 7;
             lblHasta.Text = "Hasta:";
             // 
@@ -115,7 +115,7 @@
             dtpHasta.Format = DateTimePickerFormat.Short;
             dtpHasta.Location = new Point(801, 32);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(160, 45);
+            dtpHasta.Size = new Size(181, 39);
             dtpHasta.TabIndex = 8;
             // 
             // lblDesde
@@ -126,7 +126,7 @@
             lblDesde.ForeColor = Color.Gray;
             lblDesde.Location = new Point(618, 10);
             lblDesde.Name = "lblDesde";
-            lblDesde.Size = new Size(91, 32);
+            lblDesde.Size = new Size(75, 28);
             lblDesde.TabIndex = 9;
             lblDesde.Text = "Desde:";
             // 
@@ -135,9 +135,9 @@
             dtpDesde.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpDesde.Font = new Font("Segoe UI", 12F);
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(621, 32);
+            dtpDesde.Location = new Point(604, 32);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(160, 45);
+            dtpDesde.Size = new Size(177, 39);
             dtpDesde.TabIndex = 10;
             // 
             // lblInstruccion
@@ -147,7 +147,7 @@
             lblInstruccion.ForeColor = Color.FromArgb(44, 62, 80);
             lblInstruccion.Location = new Point(20, 25);
             lblInstruccion.Name = "lblInstruccion";
-            lblInstruccion.Size = new Size(311, 45);
+            lblInstruccion.Size = new Size(263, 38);
             lblInstruccion.TabIndex = 11;
             lblInstruccion.Text = "Historial de Ventas";
             // 
@@ -182,7 +182,7 @@
             lblTituloEfectivo.ForeColor = Color.White;
             lblTituloEfectivo.Location = new Point(478, 35);
             lblTituloEfectivo.Name = "lblTituloEfectivo";
-            lblTituloEfectivo.Size = new Size(238, 38);
+            lblTituloEfectivo.Size = new Size(202, 32);
             lblTituloEfectivo.TabIndex = 1;
             lblTituloEfectivo.Text = "TOTAL COBRADO:";
             // 
@@ -205,23 +205,23 @@
             dtgResultados.BackgroundColor = Color.White;
             dtgResultados.BorderStyle = BorderStyle.None;
             dtgResultados.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(44, 62, 80);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(44, 62, 80);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dtgResultados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(44, 62, 80);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(44, 62, 80);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dtgResultados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgResultados.ColumnHeadersHeight = 45;
             dtgResultados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(47, 53, 66);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(236, 240, 241);
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dtgResultados.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(47, 53, 66);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(236, 240, 241);
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dtgResultados.DefaultCellStyle = dataGridViewCellStyle4;
             dtgResultados.Dock = DockStyle.Fill;
             dtgResultados.EnableHeadersVisualStyles = false;
             dtgResultados.Location = new Point(20, 20);
@@ -236,7 +236,7 @@
             // 
             // FrmHistorialVentas
             // 
-            AutoScaleDimensions = new SizeF(168F, 168F);
+            AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
             ClientSize = new Size(1168, 567);

@@ -33,14 +33,6 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label3 = new Label();
             dtgVenta = new DataGridView();
-            colCodigo = new DataGridViewTextBoxColumn();
-            colNombre = new DataGridViewTextBoxColumn();
-            colTipoVenta = new DataGridViewTextBoxColumn();
-            colCantidad = new DataGridViewTextBoxColumn();
-            colPrecio = new DataGridViewTextBoxColumn();
-            colImporte = new DataGridViewTextBoxColumn();
-            colImagen = new DataGridViewImageColumn();
-            colTipo = new DataGridViewTextBoxColumn();
             btnBorrar = new Button();
             btnBuscar = new Button();
             txtTotal = new TextBox();
@@ -50,6 +42,13 @@
             label7 = new Label();
             txtCodigoBusq = new TextBox();
             btnagregarproducto = new Button();
+            colCodigo = new DataGridViewTextBoxColumn();
+            colNombre = new DataGridViewTextBoxColumn();
+            colTipoVenta = new DataGridViewTextBoxColumn();
+            colCantidad = new DataGridViewTextBoxColumn();
+            colPrecio = new DataGridViewTextBoxColumn();
+            colImporte = new DataGridViewTextBoxColumn();
+            colImagen = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)dtgVenta).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -58,10 +57,10 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(1662, 112);
-            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Location = new Point(1425, 96);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(0, 38);
+            label3.Size = new Size(0, 32);
             label3.TabIndex = 101;
             // 
             // dtgVenta
@@ -84,7 +83,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dtgVenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgVenta.ColumnHeadersHeight = 40;
-            dtgVenta.Columns.AddRange(new DataGridViewColumn[] { colCodigo, colNombre, colTipoVenta, colCantidad, colPrecio, colImporte, colImagen, colTipo });
+            dtgVenta.Columns.AddRange(new DataGridViewColumn[] { colCodigo, colNombre, colTipoVenta, colCantidad, colPrecio, colImporte, colImagen });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
@@ -95,8 +94,8 @@
             dtgVenta.DefaultCellStyle = dataGridViewCellStyle3;
             dtgVenta.EnableHeadersVisualStyles = false;
             dtgVenta.GridColor = Color.FromArgb(242, 243, 244);
-            dtgVenta.Location = new Point(28, 280);
-            dtgVenta.Margin = new Padding(5);
+            dtgVenta.Location = new Point(24, 240);
+            dtgVenta.Margin = new Padding(4, 4, 4, 4);
             dtgVenta.MultiSelect = false;
             dtgVenta.Name = "dtgVenta";
             dtgVenta.ReadOnly = true;
@@ -105,8 +104,132 @@
             dtgVenta.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dtgVenta.RowTemplate.Height = 70;
             dtgVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVenta.Size = new Size(1577, 341);
+            dtgVenta.Size = new Size(1352, 292);
             dtgVenta.TabIndex = 116;
+            // 
+            // btnBorrar
+            // 
+            btnBorrar.Font = new Font("Segoe UI", 9.5F);
+            btnBorrar.Image = Properties.Resources.borrar;
+            btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBorrar.Location = new Point(250, 160);
+            btnBorrar.Margin = new Padding(4, 4, 4, 4);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Padding = new Padding(12, 0, 0, 0);
+            btnBorrar.Size = new Size(218, 52);
+            btnBorrar.TabIndex = 120;
+            btnBorrar.Text = "    DEL Borrar Art.";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Font = new Font("Segoe UI", 9.5F);
+            btnBuscar.Image = Properties.Resources.busqueda;
+            btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.Location = new Point(24, 160);
+            btnBuscar.Margin = new Padding(4, 4, 4, 4);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Padding = new Padding(12, 0, 0, 0);
+            btnBuscar.Size = new Size(218, 52);
+            btnBuscar.TabIndex = 119;
+            btnBuscar.Text = "    F10 Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
+            // txtTotal
+            // 
+            txtTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtTotal.BackColor = Color.White;
+            txtTotal.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            txtTotal.ForeColor = Color.FromArgb(46, 204, 113);
+            txtTotal.Location = new Point(1030, 552);
+            txtTotal.Margin = new Padding(4, 4, 4, 4);
+            txtTotal.Name = "txtTotal";
+            txtTotal.ReadOnly = true;
+            txtTotal.Size = new Size(343, 71);
+            txtTotal.TabIndex = 124;
+            txtTotal.Text = "$0.00";
+            txtTotal.TextAlign = HorizontalAlignment.Right;
+            // 
+            // btnCobrar
+            // 
+            btnCobrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCobrar.BackColor = Color.FromArgb(46, 204, 113);
+            btnCobrar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            btnCobrar.ForeColor = Color.Black;
+            btnCobrar.Image = Properties.Resources.ingreso__1_;
+            btnCobrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCobrar.Location = new Point(706, 552);
+            btnCobrar.Margin = new Padding(4, 4, 4, 4);
+            btnCobrar.Name = "btnCobrar";
+            btnCobrar.Padding = new Padding(15, 0, 0, 0);
+            btnCobrar.Size = new Size(315, 75);
+            btnCobrar.TabIndex = 123;
+            btnCobrar.Text = "    F12 Cobrar";
+            btnCobrar.UseVisualStyleBackColor = false;
+            btnCobrar.Click += btnCobrar_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(240, 242, 245);
+            panel1.Controls.Add(label10);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1400, 52);
+            panel1.TabIndex = 125;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(47, 53, 66);
+            label10.Location = new Point(18, 10);
+            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(191, 30);
+            label10.TabIndex = 0;
+            label10.Text = "Módulo de Venta";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label7.ForeColor = Color.FromArgb(47, 53, 66);
+            label7.Location = new Point(24, 92);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(216, 28);
+            label7.TabIndex = 117;
+            label7.Text = "Código del producto :";
+            // 
+            // txtCodigoBusq
+            // 
+            txtCodigoBusq.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtCodigoBusq.Font = new Font("Segoe UI", 13F);
+            txtCodigoBusq.Location = new Point(266, 82);
+            txtCodigoBusq.Margin = new Padding(4, 4, 4, 4);
+            txtCodigoBusq.Name = "txtCodigoBusq";
+            txtCodigoBusq.Size = new Size(823, 42);
+            txtCodigoBusq.TabIndex = 118;
+            // 
+            // btnagregarproducto
+            // 
+            btnagregarproducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnagregarproducto.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnagregarproducto.Image = Properties.Resources.agregar_p16;
+            btnagregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
+            btnagregarproducto.Location = new Point(1106, 80);
+            btnagregarproducto.Margin = new Padding(4, 4, 4, 4);
+            btnagregarproducto.Name = "btnagregarproducto";
+            btnagregarproducto.Padding = new Padding(12, 0, 0, 0);
+            btnagregarproducto.Size = new Size(270, 52);
+            btnagregarproducto.TabIndex = 122;
+            btnagregarproducto.Text = "  ENTER - Agregar";
+            btnagregarproducto.UseVisualStyleBackColor = true;
+            btnagregarproducto.Click += btnagregarproducto_Click;
             // 
             // colCodigo
             // 
@@ -115,7 +238,7 @@
             colCodigo.MinimumWidth = 9;
             colCodigo.Name = "colCodigo";
             colCodigo.ReadOnly = true;
-            colCodigo.Width = 253;
+            colCodigo.Width = 214;
             // 
             // colNombre
             // 
@@ -133,7 +256,7 @@
             colTipoVenta.MinimumWidth = 9;
             colTipoVenta.Name = "colTipoVenta";
             colTipoVenta.ReadOnly = true;
-            colTipoVenta.Width = 217;
+            colTipoVenta.Width = 183;
             // 
             // colCantidad
             // 
@@ -142,7 +265,7 @@
             colCantidad.MinimumWidth = 9;
             colCantidad.Name = "colCantidad";
             colCantidad.ReadOnly = true;
-            colCantidad.Width = 158;
+            colCantidad.Width = 135;
             // 
             // colPrecio
             // 
@@ -151,7 +274,7 @@
             colPrecio.MinimumWidth = 9;
             colPrecio.Name = "colPrecio";
             colPrecio.ReadOnly = true;
-            colPrecio.Width = 127;
+            colPrecio.Width = 108;
             // 
             // colImporte
             // 
@@ -160,7 +283,7 @@
             colImporte.MinimumWidth = 9;
             colImporte.Name = "colImporte";
             colImporte.ReadOnly = true;
-            colImporte.Width = 216;
+            colImporte.Width = 181;
             // 
             // colImagen
             // 
@@ -172,145 +295,12 @@
             colImagen.Name = "colImagen";
             colImagen.ReadOnly = true;
             // 
-            // colTipo
-            // 
-            colTipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colTipo.HeaderText = "Tipo";
-            colTipo.MinimumWidth = 9;
-            colTipo.Name = "colTipo";
-            colTipo.ReadOnly = true;
-            colTipo.Width = 107;
-            // 
-            // btnBorrar
-            // 
-            btnBorrar.Font = new Font("Segoe UI", 9.5F);
-            btnBorrar.Image = Properties.Resources.borrar;
-            btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBorrar.Location = new Point(292, 187);
-            btnBorrar.Margin = new Padding(5);
-            btnBorrar.Name = "btnBorrar";
-            btnBorrar.Padding = new Padding(14, 0, 0, 0);
-            btnBorrar.Size = new Size(254, 61);
-            btnBorrar.TabIndex = 120;
-            btnBorrar.Text = "    DEL Borrar Art.";
-            btnBorrar.UseVisualStyleBackColor = true;
-            btnBorrar.Click += btnBorrar_Click;
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Font = new Font("Segoe UI", 9.5F);
-            btnBuscar.Image = Properties.Resources.busqueda;
-            btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBuscar.Location = new Point(28, 187);
-            btnBuscar.Margin = new Padding(5);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Padding = new Padding(14, 0, 0, 0);
-            btnBuscar.Size = new Size(254, 61);
-            btnBuscar.TabIndex = 119;
-            btnBuscar.Text = "    F10 Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscar_Click;
-            // 
-            // txtTotal
-            // 
-            txtTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            txtTotal.BackColor = Color.White;
-            txtTotal.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            txtTotal.ForeColor = Color.FromArgb(46, 204, 113);
-            txtTotal.Location = new Point(1202, 644);
-            txtTotal.Margin = new Padding(5);
-            txtTotal.Name = "txtTotal";
-            txtTotal.ReadOnly = true;
-            txtTotal.Size = new Size(400, 82);
-            txtTotal.TabIndex = 124;
-            txtTotal.Text = "$0.00";
-            txtTotal.TextAlign = HorizontalAlignment.Right;
-            // 
-            // btnCobrar
-            // 
-            btnCobrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCobrar.BackColor = Color.FromArgb(46, 204, 113);
-            btnCobrar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnCobrar.ForeColor = Color.Black;
-            btnCobrar.Image = Properties.Resources.ingreso__1_;
-            btnCobrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCobrar.Location = new Point(824, 644);
-            btnCobrar.Margin = new Padding(5);
-            btnCobrar.Name = "btnCobrar";
-            btnCobrar.Padding = new Padding(18, 0, 0, 0);
-            btnCobrar.Size = new Size(368, 88);
-            btnCobrar.TabIndex = 123;
-            btnCobrar.Text = "    F12 Cobrar";
-            btnCobrar.UseVisualStyleBackColor = false;
-            btnCobrar.Click += btnCobrar_Click;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(240, 242, 245);
-            panel1.Controls.Add(label10);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1633, 61);
-            panel1.TabIndex = 125;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label10.ForeColor = Color.FromArgb(47, 53, 66);
-            label10.Location = new Point(21, 12);
-            label10.Margin = new Padding(5, 0, 5, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(224, 36);
-            label10.TabIndex = 0;
-            label10.Text = "Módulo de Venta";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label7.ForeColor = Color.FromArgb(47, 53, 66);
-            label7.Location = new Point(28, 107);
-            label7.Margin = new Padding(5, 0, 5, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(265, 32);
-            label7.TabIndex = 117;
-            label7.Text = "Código del producto :";
-            // 
-            // txtCodigoBusq
-            // 
-            txtCodigoBusq.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCodigoBusq.Font = new Font("Segoe UI", 13F);
-            txtCodigoBusq.Location = new Point(310, 96);
-            txtCodigoBusq.Margin = new Padding(5);
-            txtCodigoBusq.Name = "txtCodigoBusq";
-            txtCodigoBusq.Size = new Size(959, 48);
-            txtCodigoBusq.TabIndex = 118;
-            // 
-            // btnagregarproducto
-            // 
-            btnagregarproducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnagregarproducto.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnagregarproducto.Image = Properties.Resources.agregar_p16;
-            btnagregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
-            btnagregarproducto.Location = new Point(1290, 93);
-            btnagregarproducto.Margin = new Padding(5);
-            btnagregarproducto.Name = "btnagregarproducto";
-            btnagregarproducto.Padding = new Padding(14, 0, 0, 0);
-            btnagregarproducto.Size = new Size(315, 61);
-            btnagregarproducto.TabIndex = 122;
-            btnagregarproducto.Text = "  ENTER - Agregar";
-            btnagregarproducto.UseVisualStyleBackColor = true;
-            btnagregarproducto.Click += btnagregarproducto_Click;
-            // 
             // FrmVentas
             // 
-            AutoScaleDimensions = new SizeF(168F, 168F);
+            AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
-            ClientSize = new Size(1633, 752);
+            ClientSize = new Size(1400, 645);
             Controls.Add(panel1);
             Controls.Add(txtTotal);
             Controls.Add(btnCobrar);
@@ -323,7 +313,7 @@
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Margin = new Padding(5);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "FrmVentas";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmVentas";
@@ -349,15 +339,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCodigoBusq;
         private System.Windows.Forms.Button btnagregarproducto;
-
-        // Declaración de las 8 variables de columna
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTipoVenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPrecio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colImporte;
-        private System.Windows.Forms.DataGridViewImageColumn colImagen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTipo;
+        private DataGridViewTextBoxColumn colCodigo;
+        private DataGridViewTextBoxColumn colNombre;
+        private DataGridViewTextBoxColumn colTipoVenta;
+        private DataGridViewTextBoxColumn colCantidad;
+        private DataGridViewTextBoxColumn colPrecio;
+        private DataGridViewTextBoxColumn colImporte;
+        private DataGridViewImageColumn colImagen;
     }
 }

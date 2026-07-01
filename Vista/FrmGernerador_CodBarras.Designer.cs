@@ -142,7 +142,7 @@
             btnUsarcode.UseVisualStyleBackColor = true;
             btnUsarcode.Click += btnUsarcode_Click;
             // 
-            // FrmCodigodeBarras
+            // FrmGernerador_CodBarras
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -153,7 +153,7 @@
             Controls.Add(picCodigoBarras);
             Margin = new Padding(4, 5, 4, 5);
             MinimumSize = new Size(600, 400);
-            Name = "FrmCodigodeBarras";
+            Name = "FrmGernerador_CodBarras";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Módulo - Generador de Códigos de Barras";
             ((System.ComponentModel.ISupportInitialize)picCodigoBarras).EndInit();

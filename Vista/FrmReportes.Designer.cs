@@ -15,7 +15,7 @@
         private void InitializeComponent()
         {
             pnlHeader = new Panel();
-            lblTitulo = new Label();
+            label10 = new Label();
             pnlHerramientas = new Panel();
             btnCompras = new Button();
             btnVentas = new Button();
@@ -27,24 +27,25 @@
             // 
             // pnlHeader
             // 
-            pnlHeader.BackColor = Color.White;
-            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.BackColor = Color.FromArgb(240, 242, 245);
+            pnlHeader.Controls.Add(label10);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1153, 50);
+            pnlHeader.Size = new Size(1153, 57);
             pnlHeader.TabIndex = 0;
             // 
-            // lblTitulo
+            // label10
             // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitulo.ForeColor = Color.Black;
-            lblTitulo.Location = new Point(20, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(159, 45);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Reportes";
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(47, 53, 66);
+            label10.Location = new Point(20, 9);
+            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(123, 36);
+            label10.TabIndex = 1;
+            label10.Text = "Reportes";
             // 
             // pnlHerramientas
             // 
@@ -53,7 +54,7 @@
             pnlHerramientas.Controls.Add(btnVentas);
             pnlHerramientas.Controls.Add(btnCorte);
             pnlHerramientas.Dock = DockStyle.Top;
-            pnlHerramientas.Location = new Point(0, 50);
+            pnlHerramientas.Location = new Point(0, 57);
             pnlHerramientas.Name = "pnlHerramientas";
             pnlHerramientas.Padding = new Padding(10);
             pnlHerramientas.Size = new Size(1153, 70);
@@ -67,9 +68,9 @@
             btnCompras.FlatStyle = FlatStyle.Flat;
             btnCompras.Font = new Font("Segoe UI", 11F);
             btnCompras.ForeColor = Color.FromArgb(47, 53, 66);
-            btnCompras.Location = new Point(380, 13);
+            btnCompras.Location = new Point(450, 13);
             btnCompras.Name = "btnCompras";
-            btnCompras.Size = new Size(160, 45);
+            btnCompras.Size = new Size(178, 45);
             btnCompras.TabIndex = 2;
             btnCompras.Text = "\U0001f6d2 Compras";
             btnCompras.UseVisualStyleBackColor = false;
@@ -83,9 +84,9 @@
             btnVentas.FlatStyle = FlatStyle.Flat;
             btnVentas.Font = new Font("Segoe UI", 11F);
             btnVentas.ForeColor = Color.FromArgb(47, 53, 66);
-            btnVentas.Location = new Point(200, 13);
+            btnVentas.Location = new Point(258, 13);
             btnVentas.Name = "btnVentas";
-            btnVentas.Size = new Size(160, 45);
+            btnVentas.Size = new Size(174, 45);
             btnVentas.TabIndex = 1;
             btnVentas.Text = "📊 Historial Ventas";
             btnVentas.UseVisualStyleBackColor = false;
@@ -101,7 +102,7 @@
             btnCorte.ForeColor = Color.FromArgb(47, 53, 66);
             btnCorte.Location = new Point(20, 13);
             btnCorte.Name = "btnCorte";
-            btnCorte.Size = new Size(160, 45);
+            btnCorte.Size = new Size(217, 45);
             btnCorte.TabIndex = 0;
             btnCorte.Text = "💵 Corte Diario";
             btnCorte.UseVisualStyleBackColor = false;
@@ -111,9 +112,9 @@
             // 
             pnlContenedorPrincipal.BackColor = Color.White;
             pnlContenedorPrincipal.Dock = DockStyle.Fill;
-            pnlContenedorPrincipal.Location = new Point(0, 120);
+            pnlContenedorPrincipal.Location = new Point(0, 127);
             pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
-            pnlContenedorPrincipal.Size = new Size(1153, 491);
+            pnlContenedorPrincipal.Size = new Size(1153, 484);
             pnlContenedorPrincipal.TabIndex = 2;
             // 
             // FrmReportes
@@ -137,11 +138,11 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Panel pnlHerramientas;
         private System.Windows.Forms.Button btnCorte;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button btnCompras;
         private System.Windows.Forms.Panel pnlContenedorPrincipal;
+        private Label label10;
     }
 }

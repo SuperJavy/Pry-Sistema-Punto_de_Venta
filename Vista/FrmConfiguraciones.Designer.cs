@@ -74,12 +74,12 @@
             btnEditarTicket.ForeColor = Color.White;
             btnEditarTicket.Image = Properties.Resources.boton_editar;
             btnEditarTicket.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditarTicket.Location = new Point(-3, 240);
+            btnEditarTicket.Location = new Point(3, 235);
             btnEditarTicket.Name = "btnEditarTicket";
             btnEditarTicket.Padding = new Padding(20, 0, 0, 0);
-            btnEditarTicket.Size = new Size(260, 50);
+            btnEditarTicket.Size = new Size(233, 70);
             btnEditarTicket.TabIndex = 2;
-            btnEditarTicket.Text = "      Editar Ticket";
+            btnEditarTicket.Text = "  Editar Ticket";
             btnEditarTicket.TextAlign = ContentAlignment.MiddleLeft;
             btnEditarTicket.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarTicket.UseVisualStyleBackColor = true;
@@ -96,12 +96,12 @@
             btnAgregarUsuarios.ForeColor = Color.FromArgb(243, 244, 246);
             btnAgregarUsuarios.Image = Properties.Resources.agregar_usuario__1_;
             btnAgregarUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgregarUsuarios.Location = new Point(3, 121);
+            btnAgregarUsuarios.Location = new Point(12, 120);
             btnAgregarUsuarios.Name = "btnAgregarUsuarios";
             btnAgregarUsuarios.Padding = new Padding(20, 0, 0, 0);
-            btnAgregarUsuarios.Size = new Size(260, 50);
+            btnAgregarUsuarios.Size = new Size(232, 80);
             btnAgregarUsuarios.TabIndex = 1;
-            btnAgregarUsuarios.Text = "      Agregar Usuarios";
+            btnAgregarUsuarios.Text = "Agregar Usuarios";
             btnAgregarUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAgregarUsuarios.UseVisualStyleBackColor = true;
             btnAgregarUsuarios.Click += lblagregrausuarios_Click;
@@ -123,9 +123,9 @@
             lblMenuTitle.ForeColor = Color.Black;
             lblMenuTitle.Location = new Point(22, 22);
             lblMenuTitle.Name = "lblMenuTitle";
-            lblMenuTitle.Size = new Size(217, 32);
+            lblMenuTitle.Size = new Size(178, 32);
             lblMenuTitle.TabIndex = 0;
-            lblMenuTitle.Text = "SISTEMA CONFIG";
+            lblMenuTitle.Text = "Configuración";
             // 
             // pnlTopBar
             // 

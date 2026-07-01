@@ -73,7 +73,7 @@
             lblHasta.ForeColor = Color.Gray;
             lblHasta.Location = new Point(780, 10);
             lblHasta.Name = "lblHasta";
-            lblHasta.Size = new Size(85, 32);
+            lblHasta.Size = new Size(71, 28);
             lblHasta.TabIndex = 1;
             lblHasta.Text = "Hasta:";
             // 
@@ -82,9 +82,9 @@
             dtpHasta.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpHasta.Font = new Font("Segoe UI", 12F);
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(783, 32);
+            dtpHasta.Location = new Point(770, 32);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(160, 45);
+            dtpHasta.Size = new Size(177, 39);
             dtpHasta.TabIndex = 2;
             // 
             // lblDesde
@@ -93,9 +93,9 @@
             lblDesde.AutoSize = true;
             lblDesde.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblDesde.ForeColor = Color.Gray;
-            lblDesde.Location = new Point(600, 10);
+            lblDesde.Location = new Point(582, 10);
             lblDesde.Name = "lblDesde";
-            lblDesde.Size = new Size(91, 32);
+            lblDesde.Size = new Size(75, 28);
             lblDesde.TabIndex = 3;
             lblDesde.Text = "Desde:";
             // 
@@ -104,9 +104,9 @@
             dtpDesde.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpDesde.Font = new Font("Segoe UI", 12F);
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(603, 32);
+            dtpDesde.Location = new Point(569, 32);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(160, 45);
+            dtpDesde.Size = new Size(180, 39);
             dtpDesde.TabIndex = 4;
             // 
             // lblInstruccion
@@ -116,7 +116,7 @@
             lblInstruccion.ForeColor = Color.FromArgb(44, 62, 80);
             lblInstruccion.Location = new Point(20, 25);
             lblInstruccion.Name = "lblInstruccion";
-            lblInstruccion.Size = new Size(344, 45);
+            lblInstruccion.Size = new Size(291, 38);
             lblInstruccion.TabIndex = 5;
             lblInstruccion.Text = "Historial de Compras";
             // 
@@ -136,9 +136,9 @@
             lblTotalInvertido.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalInvertido.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             lblTotalInvertido.ForeColor = Color.FromArgb(230, 126, 34);
-            lblTotalInvertido.Location = new Point(702, 15);
+            lblTotalInvertido.Location = new Point(698, 15);
             lblTotalInvertido.Name = "lblTotalInvertido";
-            lblTotalInvertido.Size = new Size(436, 87);
+            lblTotalInvertido.Size = new Size(440, 87);
             lblTotalInvertido.TabIndex = 0;
             lblTotalInvertido.Text = "$ 0.00";
             lblTotalInvertido.TextAlign = ContentAlignment.MiddleRight;
@@ -151,7 +151,7 @@
             lblTituloInvertido.ForeColor = Color.White;
             lblTituloInvertido.Location = new Point(460, 35);
             lblTituloInvertido.Name = "lblTituloInvertido";
-            lblTituloInvertido.Size = new Size(247, 38);
+            lblTituloInvertido.Size = new Size(210, 32);
             lblTituloInvertido.TabIndex = 1;
             lblTituloInvertido.Text = "TOTAL INVERTIDO:";
             // 
@@ -190,7 +190,7 @@
             // 
             // FrmHistorialCompras
             // 
-            AutoScaleDimensions = new SizeF(168F, 168F);
+            AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
             ClientSize = new Size(1150, 500);
