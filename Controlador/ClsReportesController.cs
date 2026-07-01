@@ -64,5 +64,30 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 throw new Exception("Error al procesar el corte: " + e.Message);
             }
         }
+
+        // Añadir en ClsReportesController.cs
+        public DataTable obtenerDetalleVenta(int idVenta)
+        {
+            try
+            {
+                return modelo.consultarDetalleVenta(idVenta);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en el controlador de detalles: " + e.Message);
+            }
+        }
+
+        public DataTable obtenerDetalleCompra(int idCompra)
+        {
+            try
+            {
+                return modelo.consultarDetalleCompra(idCompra);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en el controlador de detalles de compra: " + e.Message);
+            }
+        }
     }
 }

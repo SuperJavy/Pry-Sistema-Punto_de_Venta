@@ -22,6 +22,9 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
 
             dtgResultados.CellFormatting += dtgResultados_CellFormatting;
+
+            // NUEVO: Conectamos el evento del doble clic
+            dtgResultados.CellDoubleClick += dtgResultados_CellDoubleClick;
         }
         ClsReportesController controller = new ClsReportesController();
         private void btnGenerar_Click(object sender, EventArgs e)
@@ -89,5 +92,21 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 }
             }
         }
+        private void dtgResultados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int idVenta = Convert.ToInt32(dtgResultados.Rows[e.RowIndex].Cells["Folio"].Value);
+
+                DataTable datosVenta = controller.obtenerDetalleVenta(idVenta);
+
+                FrmDetalle ventana = new FrmDetalle("Detalle del Ticket de Venta Folio: " + idVenta, datosVenta);
+                ventana.StartPosition = FormStartPosition.CenterParent;
+                ventana.ShowDialog();
+            }
+        }
+
+
+
     }
 }

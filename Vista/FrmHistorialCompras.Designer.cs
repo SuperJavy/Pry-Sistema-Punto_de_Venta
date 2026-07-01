@@ -170,6 +170,8 @@
             // 
             // dtgResultados
             // 
+            dtgResultados.AllowUserToAddRows = false;
+            dtgResultados.AllowUserToDeleteRows = false;
             dtgResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgResultados.BackgroundColor = Color.White;
             dtgResultados.BorderStyle = BorderStyle.None;
@@ -184,6 +186,7 @@
             dtgResultados.EnableHeadersVisualStyles = false;
             dtgResultados.Location = new Point(20, 20);
             dtgResultados.Name = "dtgResultados";
+            dtgResultados.ReadOnly = true;
             dtgResultados.RowHeadersWidth = 72;
             dtgResultados.RowTemplate.Height = 40;
             dtgResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
