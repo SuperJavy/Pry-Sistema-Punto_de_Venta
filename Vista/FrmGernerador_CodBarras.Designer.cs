@@ -109,7 +109,7 @@
             tableLayoutPanelControles.Controls.Add(txtCodigo, 0, 0);
             tableLayoutPanelControles.Controls.Add(btnGenerar, 1, 0);
             tableLayoutPanelControles.Location = new Point(68, 132);
-            tableLayoutPanelControles.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanelControles.Margin = new Padding(4);
             tableLayoutPanelControles.Name = "tableLayoutPanelControles";
             tableLayoutPanelControles.RowCount = 1;
             tableLayoutPanelControles.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -124,7 +124,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.Controls.Add(btnUsarcode, 1, 0);
             tableLayoutPanel1.Location = new Point(68, 508);
-            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
