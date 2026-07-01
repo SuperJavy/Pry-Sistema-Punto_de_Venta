@@ -14,7 +14,6 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistorialCompras));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlFiltros = new Panel();
             btnGenerar = new Button();
@@ -58,13 +57,13 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGenerar.ForeColor = Color.White;
-            btnGenerar.Image = (Image)resources.GetObject("btnGenerar.Image");
+            btnGenerar.Image = Properties.Resources.busqueda;
             btnGenerar.ImageAlign = ContentAlignment.MiddleLeft;
             btnGenerar.Location = new Point(970, 24);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(168, 52);
             btnGenerar.TabIndex = 0;
-            btnGenerar.Text = "    Buscar";
+            btnGenerar.Text = "Buscar";
             btnGenerar.UseVisualStyleBackColor = false;
             btnGenerar.Click += btnGenerar_Click;
             // 

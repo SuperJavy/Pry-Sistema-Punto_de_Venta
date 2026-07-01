@@ -14,6 +14,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReportes));
             pnlHeader = new Panel();
             label10 = new Label();
             pnlHerramientas = new Panel();
@@ -68,11 +69,13 @@
             btnCompras.FlatStyle = FlatStyle.Flat;
             btnCompras.Font = new Font("Segoe UI", 11F);
             btnCompras.ForeColor = Color.FromArgb(47, 53, 66);
-            btnCompras.Location = new Point(450, 13);
+            btnCompras.Image = (Image)resources.GetObject("btnCompras.Image");
+            btnCompras.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCompras.Location = new Point(585, 13);
             btnCompras.Name = "btnCompras";
-            btnCompras.Size = new Size(178, 45);
+            btnCompras.Size = new Size(343, 45);
             btnCompras.TabIndex = 2;
-            btnCompras.Text = "\U0001f6d2 Compras";
+            btnCompras.Text = "Historial de compras";
             btnCompras.UseVisualStyleBackColor = false;
             btnCompras.Click += btnCompras_Click_1;
             // 
@@ -82,13 +85,15 @@
             btnVentas.Cursor = Cursors.Hand;
             btnVentas.FlatAppearance.BorderColor = Color.Silver;
             btnVentas.FlatStyle = FlatStyle.Flat;
-            btnVentas.Font = new Font("Segoe UI", 11F);
+            btnVentas.Font = new Font("Segoe UI", 11.1428576F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnVentas.ForeColor = Color.FromArgb(47, 53, 66);
+            btnVentas.Image = (Image)resources.GetObject("btnVentas.Image");
+            btnVentas.ImageAlign = ContentAlignment.MiddleLeft;
             btnVentas.Location = new Point(258, 13);
             btnVentas.Name = "btnVentas";
-            btnVentas.Size = new Size(174, 45);
+            btnVentas.Size = new Size(298, 45);
             btnVentas.TabIndex = 1;
-            btnVentas.Text = "📊 Historial Ventas";
+            btnVentas.Text = "     Historial de ventas";
             btnVentas.UseVisualStyleBackColor = false;
             btnVentas.Click += btnVentas_Click_1;
             // 
@@ -98,7 +103,7 @@
             btnCorte.Cursor = Cursors.Hand;
             btnCorte.FlatAppearance.BorderColor = Color.Silver;
             btnCorte.FlatStyle = FlatStyle.Flat;
-            btnCorte.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnCorte.Font = new Font("Segoe UI", 11.1428576F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCorte.ForeColor = Color.FromArgb(47, 53, 66);
             btnCorte.Location = new Point(20, 13);
             btnCorte.Name = "btnCorte";
