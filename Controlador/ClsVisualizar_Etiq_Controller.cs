@@ -7,6 +7,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -51,5 +52,71 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             return dt;
         }
+
+
+        public void ProcesarImpresionUnica(DataGridViewCell celdaActual, FrmVisualizar_Etiquetas vista)
+        {
+            if (celdaActual == null)
+            {
+                vista.notificarUsuario("Por favor, selecciona un código de barras de la lista primero.", true);
+                return;
+            }
+
+            DataGridViewRow fila = celdaActual.OwningRow;
+
+            string codigo = fila.Cells["codigo_barras"].Value.ToString();
+            Image img = null;
+
+            // 🛠️ CONVERSIÓN SEGURA: De arreglo de bytes a objeto Image
+            var valorCelda = fila.Cells["img_codigoDeBarras"].Value;
+            if (valorCelda != DBNull.Value && valorCelda != null)
+            {
+                byte[] bytesImagen = (byte[])valorCelda;
+                using (MemoryStream ms = new MemoryStream(bytesImagen))
+                {
+                    img = Image.FromStream(ms);
+                }
+            }
+
+            // Enviamos los datos limpios a la simulación de la vista
+            vista.EjecutarImpresionDirecta(codigo, img);
+        }
+
+        public void ProcesarImpresionPorLote(DataGridViewRowCollection filas, FrmVisualizar_Etiquetas vista)
+        {
+            if (filas.Count == 0)
+            {
+                vista.notificarUsuario("No hay etiquetas cargadas para mandar a imprimir.", true);
+                return;
+            }
+
+            int totalEnviados = 0;
+
+            foreach (DataGridViewRow fila in filas)
+            {
+                if (fila.Cells["codigo_barras"].Value != null)
+                {
+                    string codigo = fila.Cells["codigo_barras"].Value.ToString();
+                    Image img = null;
+
+                    // 🛠️ CONVERSIÓN SEGURA EN LOTE
+                    var valorCelda = fila.Cells["img_codigoDeBarras"].Value;
+                    if (valorCelda != DBNull.Value && valorCelda != null)
+                    {
+                        byte[] bytesImagen = (byte[])valorCelda;
+                        using (MemoryStream ms = new MemoryStream(bytesImagen))
+                        {
+                            img = Image.FromStream(ms);
+                        }
+                    }
+
+                    vista.EjecutarImpresionDirecta(codigo, img);
+                    totalEnviados++;
+                }
+            }
+
+            vista.notificarUsuario($"Simulación completada: Se procesaron {totalEnviados} etiquetas en lote.", false);
+        }
     }
 }
+

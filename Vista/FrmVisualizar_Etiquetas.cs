@@ -82,5 +82,38 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 }
             }
         }
+
+        private void btnImprimirTodas_Click(object sender, EventArgs e)
+        {
+            controller.ProcesarImpresionPorLote(dgvEtiquetas.Rows, this);
+        }
+
+        private void btnImprimirSeleccionadas_Click(object sender, EventArgs e)
+        {
+            controller.ProcesarImpresionUnica(dgvEtiquetas.CurrentCell, this);
+        }
+        // MÉTODO DE ACCIÓN: Modo Simulación por MessageBox
+        public void EjecutarImpresionDirecta(string codigo, Image imagen)
+        {
+            // Muestra provisionalmente el mensaje simulando la salida
+            MessageBox.Show($"[IMPRESORA VIRTUAL]\n\nImprimiendo Etiqueta del código: {codigo}\nStatus: Enviado con éxito.",
+                            "Simulación de Impresión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+            /* 👉 NOTA PARA EL FUTURO: Cuando ya tengas la impresora física, 
+               solo borras el MessageBox de arriba y descomentas este código:
+
+            using (var doc = new System.Drawing.Printing.PrintDocument())
+            {
+                doc.PrintPage += (sender, e) =>
+                {
+                    if (imagen != null) e.Graphics.DrawImage(imagen, 20, 20, 250, 70);
+                    e.Graphics.DrawString(codigo, new Font("Arial", 10), Brushes.Black, 80, 95);
+                };
+                doc.Print();
+            }
+            */
+        }
     }
 }

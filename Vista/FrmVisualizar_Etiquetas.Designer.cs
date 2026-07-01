@@ -116,6 +116,7 @@
             btnImprimirTodas.TabIndex = 0;
             btnImprimirTodas.Text = "Imprimir Lote Completo (Sin Imprimir)";
             btnImprimirTodas.UseVisualStyleBackColor = true;
+            btnImprimirTodas.Click += btnImprimirTodas_Click;
             // 
             // btnImprimirSeleccionadas
             // 
@@ -128,6 +129,7 @@
             btnImprimirSeleccionadas.TabIndex = 1;
             btnImprimirSeleccionadas.Text = "Imprimir Seleccionados / Específico";
             btnImprimirSeleccionadas.UseVisualStyleBackColor = true;
+            btnImprimirSeleccionadas.Click += btnImprimirSeleccionadas_Click;
             // 
             // FrmVisualizar_Etiquetas
             // 
