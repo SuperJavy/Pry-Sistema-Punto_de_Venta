@@ -14,6 +14,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistorialCompras));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlFiltros = new Panel();
             btnGenerar = new Button();
@@ -57,11 +58,13 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGenerar.ForeColor = Color.White;
-            btnGenerar.Location = new Point(970, 20);
+            btnGenerar.Image = (Image)resources.GetObject("btnGenerar.Image");
+            btnGenerar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnGenerar.Location = new Point(970, 24);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(160, 45);
+            btnGenerar.Size = new Size(168, 52);
             btnGenerar.TabIndex = 0;
-            btnGenerar.Text = "🔍 Buscar";
+            btnGenerar.Text = "    Buscar";
             btnGenerar.UseVisualStyleBackColor = false;
             btnGenerar.Click += btnGenerar_Click;
             // 
@@ -73,7 +76,7 @@
             lblHasta.ForeColor = Color.Gray;
             lblHasta.Location = new Point(780, 10);
             lblHasta.Name = "lblHasta";
-            lblHasta.Size = new Size(71, 28);
+            lblHasta.Size = new Size(85, 32);
             lblHasta.TabIndex = 1;
             lblHasta.Text = "Hasta:";
             // 
@@ -82,9 +85,9 @@
             dtpHasta.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpHasta.Font = new Font("Segoe UI", 12F);
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(770, 32);
+            dtpHasta.Location = new Point(771, 32);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(177, 39);
+            dtpHasta.Size = new Size(177, 45);
             dtpHasta.TabIndex = 2;
             // 
             // lblDesde
@@ -95,7 +98,7 @@
             lblDesde.ForeColor = Color.Gray;
             lblDesde.Location = new Point(582, 10);
             lblDesde.Name = "lblDesde";
-            lblDesde.Size = new Size(75, 28);
+            lblDesde.Size = new Size(91, 32);
             lblDesde.TabIndex = 3;
             lblDesde.Text = "Desde:";
             // 
@@ -106,7 +109,7 @@
             dtpDesde.Format = DateTimePickerFormat.Short;
             dtpDesde.Location = new Point(569, 32);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(180, 39);
+            dtpDesde.Size = new Size(180, 45);
             dtpDesde.TabIndex = 4;
             // 
             // lblInstruccion
@@ -116,7 +119,7 @@
             lblInstruccion.ForeColor = Color.FromArgb(44, 62, 80);
             lblInstruccion.Location = new Point(20, 25);
             lblInstruccion.Name = "lblInstruccion";
-            lblInstruccion.Size = new Size(291, 38);
+            lblInstruccion.Size = new Size(344, 45);
             lblInstruccion.TabIndex = 5;
             lblInstruccion.Text = "Historial de Compras";
             // 
@@ -151,7 +154,7 @@
             lblTituloInvertido.ForeColor = Color.White;
             lblTituloInvertido.Location = new Point(460, 35);
             lblTituloInvertido.Name = "lblTituloInvertido";
-            lblTituloInvertido.Size = new Size(210, 32);
+            lblTituloInvertido.Size = new Size(247, 38);
             lblTituloInvertido.TabIndex = 1;
             lblTituloInvertido.Text = "TOTAL INVERTIDO:";
             // 
@@ -190,7 +193,7 @@
             // 
             // FrmHistorialCompras
             // 
-            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
             ClientSize = new Size(1150, 500);
