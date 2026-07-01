@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProductos));
             panel1 = new Panel();
             label2 = new Label();
             menuStrip1 = new MenuStrip();
@@ -117,8 +118,9 @@
             // gestorDeEtiquetasToolStripMenuItem
             // 
             gestorDeEtiquetasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            gestorDeEtiquetasToolStripMenuItem.Image = (Image)resources.GetObject("gestorDeEtiquetasToolStripMenuItem.Image");
             gestorDeEtiquetasToolStripMenuItem.Name = "gestorDeEtiquetasToolStripMenuItem";
-            gestorDeEtiquetasToolStripMenuItem.Size = new Size(257, 40);
+            gestorDeEtiquetasToolStripMenuItem.Size = new Size(281, 40);
             gestorDeEtiquetasToolStripMenuItem.Text = "Gestor de Etiquetas";
             gestorDeEtiquetasToolStripMenuItem.Click += gestorDeEtiquetasToolStripMenuItem_Click;
             // 

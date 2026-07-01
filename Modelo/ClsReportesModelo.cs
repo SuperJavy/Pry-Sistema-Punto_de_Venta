@@ -136,5 +136,84 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return totales;
         }
+
+        // Añadir en ClsReportesModelo.cs
+        public DataTable consultarDetalleVenta(int idVenta)
+        {
+            DataTable detalles = new DataTable();
+
+            string query = @"
+                            SELECT 
+                                p.nombre AS 'Producto',
+                                dv.cantidad AS 'Cantidad',
+                                dv.precio_unitario AS 'Precio Unit.',
+                                dv.subtotal AS 'Subtotal',
+                                e.estado AS 'Estado'
+                            FROM detalle_venta dv
+                            INNER JOIN productos p ON dv.id_producto = p.id
+                            LEFT JOIN estado e ON dv.id_estado = e.id
+                            WHERE dv.id_venta = @idVenta";
+
+            try
+            {
+                using (MySqlConnection conexion = abrirConexion())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@idVenta", idVenta);
+
+                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
+                        {
+                            adaptador.Fill(detalles);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los detalles de la venta: " + ex.Message);
+            }
+
+            return detalles;
+        }
+
+        public DataTable consultarDetalleCompra(int idCompra)
+        {
+            DataTable detalles = new DataTable();
+
+            // Consulta para cruzar el detalle_compra con los productos
+            string query = @"
+                            SELECT 
+                                p.nombre AS 'Producto',
+                                dc.cantidad AS 'Cantidad',
+                                dc.precio AS 'Precio Compra',
+                                dc.subtotal AS 'Subtotal',
+                                e.estado AS 'Estado'
+                            FROM detalle_compra dc
+                            INNER JOIN productos p ON dc.id_producto = p.id
+                            LEFT JOIN estado e ON dc.id_estado = e.id
+                            WHERE dc.id_compra = @idCompra";
+
+            try
+            {
+                using (MySqlConnection conexion = abrirConexion())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@idCompra", idCompra);
+
+                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
+                        {
+                            adaptador.Fill(detalles);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener detalles de la compra: " + ex.Message);
+            }
+            return detalles;
+        }
     }
 }
