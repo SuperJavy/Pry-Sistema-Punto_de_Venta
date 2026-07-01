@@ -35,14 +35,14 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             menuStrip1 = new MenuStrip();
-            ventaToolStripMenuItem = new ToolStripMenuItem();
             mnsVentas = new ToolStripMenuItem();
+            ventaToolStripMenuItem = new ToolStripMenuItem();
             mnsProductos = new ToolStripMenuItem();
             mnsCompra = new ToolStripMenuItem();
             mnsInventario = new ToolStripMenuItem();
             mnsReportes = new ToolStripMenuItem();
             mnsConfiguraciones = new ToolStripMenuItem();
-            ventasToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcbPerfil).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -53,10 +53,10 @@
             // 
             pnlcontenedor.BackColor = Color.White;
             pnlcontenedor.Dock = DockStyle.Fill;
-            pnlcontenedor.Location = new Point(0, 98);
+            pnlcontenedor.Location = new Point(0, 110);
             pnlcontenedor.Margin = new Padding(3, 2, 3, 2);
             pnlcontenedor.Name = "pnlcontenedor";
-            pnlcontenedor.Size = new Size(1301, 442);
+            pnlcontenedor.Size = new Size(1301, 430);
             pnlcontenedor.TabIndex = 1;
             // 
             // panel1
@@ -70,7 +70,7 @@
             panel1.ForeColor = Color.AliceBlue;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1301, 98);
+            panel1.Size = new Size(1301, 110);
             panel1.TabIndex = 2;
             // 
             // pcbPerfil
@@ -103,7 +103,7 @@
             label1.ForeColor = Color.Black;
             label1.Location = new Point(107, 18);
             label1.Name = "label1";
-            label1.Size = new Size(480, 40);
+            label1.Size = new Size(551, 48);
             label1.TabIndex = 3;
             label1.Text = "Sistema de Punto de Venta";
             // 
@@ -112,33 +112,32 @@
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, mnsVentas, mnsProductos, mnsCompra, mnsInventario, mnsReportes, mnsConfiguraciones });
-            menuStrip1.Location = new Point(0, 59);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { mnsVentas, ventaToolStripMenuItem, mnsProductos, mnsCompra, mnsInventario, mnsReportes, mnsConfiguraciones, toolStripMenuItem1 });
+            menuStrip1.Location = new Point(0, 66);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(4, 2, 0, 2);
-            menuStrip1.Size = new Size(1301, 39);
+            menuStrip1.Size = new Size(1301, 44);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
+            // 
+            // mnsVentas
+            // 
+            mnsVentas.Image = Properties.Resources.carrito_de_compras;
+            mnsVentas.Name = "mnsVentas";
+            mnsVentas.Size = new Size(143, 40);
+            mnsVentas.Text = "Ventas";
+            mnsVentas.Click += mnsVentas_Click;
             // 
             // ventaToolStripMenuItem
             // 
             ventaToolStripMenuItem.Name = "ventaToolStripMenuItem";
-            ventaToolStripMenuItem.Size = new Size(16, 35);
-            // 
-            // mnsVentas
-            // 
-            mnsVentas.DropDownItems.AddRange(new ToolStripItem[] { ventasToolStripMenuItem });
-            mnsVentas.Image = (Image)resources.GetObject("mnsVentas.Image");
-            mnsVentas.Name = "mnsVentas";
-            mnsVentas.Size = new Size(128, 35);
-            mnsVentas.Text = "Ventas";
-            mnsVentas.Click += mnsVentas_Click_1;
+            ventaToolStripMenuItem.Size = new Size(18, 40);
             // 
             // mnsProductos
             // 
             mnsProductos.Image = (Image)resources.GetObject("mnsProductos.Image");
             mnsProductos.Name = "mnsProductos";
-            mnsProductos.Size = new Size(166, 35);
+            mnsProductos.Size = new Size(189, 40);
             mnsProductos.Text = "Productos";
             mnsProductos.Click += mnsProductos_Click;
             // 
@@ -147,7 +146,7 @@
             mnsCompra.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             mnsCompra.Image = (Image)resources.GetObject("mnsCompra.Image");
             mnsCompra.Name = "mnsCompra";
-            mnsCompra.Size = new Size(151, 35);
+            mnsCompra.Size = new Size(173, 40);
             mnsCompra.Text = "Compras";
             mnsCompra.Click += mnsCompra_Click;
             // 
@@ -155,7 +154,7 @@
             // 
             mnsInventario.Image = (Image)resources.GetObject("mnsInventario.Image");
             mnsInventario.Name = "mnsInventario";
-            mnsInventario.Size = new Size(166, 35);
+            mnsInventario.Size = new Size(187, 40);
             mnsInventario.Text = "Inventario";
             mnsInventario.Click += mnsInventario_Click;
             // 
@@ -163,7 +162,7 @@
             // 
             mnsReportes.Image = (Image)resources.GetObject("mnsReportes.Image");
             mnsReportes.Name = "mnsReportes";
-            mnsReportes.Size = new Size(153, 35);
+            mnsReportes.Size = new Size(173, 40);
             mnsReportes.Text = "Reportes";
             mnsReportes.Click += mnsReportes_Click;
             // 
@@ -171,19 +170,18 @@
             // 
             mnsConfiguraciones.Image = Properties.Resources.configuraciones;
             mnsConfiguraciones.Name = "mnsConfiguraciones";
-            mnsConfiguraciones.Size = new Size(235, 35);
+            mnsConfiguraciones.Size = new Size(270, 40);
             mnsConfiguraciones.Text = "Configuraciones";
             mnsConfiguraciones.Click += mnsConfiguraciones_Click;
             // 
-            // ventasToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            ventasToolStripMenuItem.Size = new Size(196, 40);
-            ventasToolStripMenuItem.Text = "Ventas";
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(18, 40);
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(10F, 22F);
+            AutoScaleDimensions = new SizeF(12F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1301, 540);
@@ -219,11 +217,11 @@
         public System.Windows.Forms.ToolStripMenuItem mnsCompra;
         public System.Windows.Forms.ToolStripMenuItem mnsConfiguraciones;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.ToolStripMenuItem mnsVentas;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ToolStripMenuItem mnsReportes;
         private PictureBox pcbPerfil;
-        private ToolStripMenuItem ventasToolStripMenuItem;
+        private ToolStripMenuItem mnsVentas;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

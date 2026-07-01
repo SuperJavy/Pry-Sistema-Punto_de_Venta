@@ -30,11 +30,6 @@ namespace Pry_Sistema_Punto_de_Venta
             Application.Exit();
         }
 
-        public void mnsVentas_Click_1(object sender, EventArgs e)
-        {
-            principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmVentas(), pnlcontenedor);
-        }
 
         public void mnsProductos_Click(object sender, EventArgs e)
         {
@@ -97,6 +92,12 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             FrmPerfil perfil = new FrmPerfil(Usuario);
             perfil.ShowDialog();
+        }
+
+        private void mnsVentas_Click(object sender, EventArgs e)
+        {
+            principal = new ClsPrincipal();
+            principal.agregaralcontenedor(new FrmVentas(), pnlcontenedor);
         }
     }
 }

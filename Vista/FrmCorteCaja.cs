@@ -41,7 +41,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 decimal articulosVendidos = datosCorte["ArticulosVendidos"];
                 decimal articulosCancelados = datosCorte["ArticulosCancelados"];
 
-                MessageBox.Show(ventasEfectivo.ToString(), "El valor de las ventas es", MessageBoxButtons.OK, MessageBoxIcon.None);
 
                 decimal totalEnCajon = fondoInicial + ventasEfectivo - salidasCompras;
 
