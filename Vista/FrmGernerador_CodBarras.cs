@@ -15,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
     public partial class FrmGernerador_CodBarras : Form
     {
         ClsProductController controller = new ClsProductController();
-        private TextBox  _textBoxDestino;
+        private TextBox _textBoxDestino;
         public FrmGernerador_CodBarras()
         {
             InitializeComponent();
@@ -43,7 +43,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            
+
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
                 txtCodigo.Text = controller.generarcode(this);
@@ -63,14 +63,14 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     picCodigoBarras.Image = image;
                 }
             }
-            string c =txtCodigo.Text;
-            controller.Existentecode(c,this);
+            string c = txtCodigo.Text;
+            controller.Existentecode(c, this);
         }
-    
+
         private void btnUsarcode_Click(object sender, EventArgs e)
         {
             string c = txtCodigo.Text;
-           
+
             if (_textBoxDestino != null)
             {
                 _textBoxDestino.Text = this.txtCodigo.Text;
@@ -79,13 +79,18 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             this.Close();
 
-            
+
         }
 
         public void limpiarcaja()
         {
             txtCodigo.Clear();
-            picCodigoBarras.Image= null;
+            picCodigoBarras.Image = null;
+        }
+
+        private void txtCodigo_TextChanged(object sender, EventArgs e)
+        {
+            txtCodigo.Focus();
         }
     }
 }

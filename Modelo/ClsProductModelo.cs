@@ -78,53 +78,67 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al insertar en la Base de Datos "+e.Message);
             }
         }
-
-
-        public Boolean Insertarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje)
+        public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje)
         {
             try
             {
                 clsConexion ConexionBd = new clsConexion();
                 using (var Conexion = ConexionBd.abrirConexion())
                 {
-                    string query = @"INSERT INTO productos
-                                (codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje)
-                                VALUES
-                                (@Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, @Costo, @Venta, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, @Porcentaje)";
+                    int idEncontrado = 0;
+                    string queryBusqueda = "SELECT id FROM codigo_Barras WHERE Codigo_barras = @codigo";
+                    using (var cmdBusqueda = new MySqlCommand(queryBusqueda, Conexion))
+                    {
+                        cmdBusqueda.Parameters.AddWithValue("@codigo", CodigoIngresado);
+                        object resultado = cmdBusqueda.ExecuteScalar();
+                        if (resultado != null)
+                        {
+                            idEncontrado = Convert.ToInt32(resultado);
+                        }
+                    }
+
+                    // 2. INSERCIÓN: Usamos el ID encontrado (si es mayor a 0) o guardamos el código manualmente
+                    string query = @"INSERT INTO productos 
+                            (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
+                            VALUES 
+                            (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, @Costo, @Venta, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, @Porcentaje)";
+
                     using (var Consulta = new MySqlCommand(query, Conexion))
                     {
-                        Consulta.Parameters.AddWithValue("@Codigo_de_barras", Codigo);
+                        if (idEncontrado > 0)
+                        {
+                            Consulta.Parameters.AddWithValue("@Id_codigo_barras", idEncontrado);
+                            Consulta.Parameters.AddWithValue("@Codigo_de_barras", DBNull.Value);
+                        }
+                        else
+                        {
+                            Consulta.Parameters.AddWithValue("@Id_codigo_barras", DBNull.Value);
+                            Consulta.Parameters.AddWithValue("@Codigo_de_barras", CodigoIngresado);
+                        }
+
                         Consulta.Parameters.AddWithValue("@nombre", Nombre);
                         Consulta.Parameters.AddWithValue("@Descripcion", Descripciom);
                         Consulta.Parameters.AddWithValue("@Tipo_venta_id", int.Parse(TipVenta));
-                        Consulta.Parameters.AddWithValue("@Costo", float.Parse(Costo));//float
-                        Consulta.Parameters.AddWithValue("@Venta", float.Parse(Precioventa));//float
+                        Consulta.Parameters.AddWithValue("@Costo", float.Parse(Costo));
+                        Consulta.Parameters.AddWithValue("@Venta", float.Parse(Precioventa));
                         Consulta.Parameters.AddWithValue("@Categoria_id", int.Parse(Categoria));
                         Consulta.Parameters.AddWithValue("@Stock", int.Parse(Stockactuaal));
                         Consulta.Parameters.AddWithValue("@Stock_minimo", int.Parse(Stockminimo));
                         Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
                         Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
 
-                        using (var resultad = Consulta.ExecuteReader())
-                        {
-                            if (resultad.Read())
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-
+                        int filasAfectadas = Consulta.ExecuteNonQuery();
+                        return filasAfectadas > 0;
                     }
                 }
             }
             catch (Exception Ex)
             {
-                throw new Exception("Error al registrar productos" + Ex.Message);
+                throw new Exception("Error al registrar productos: " + Ex.Message);
             }
         }
+
+
         // Convertidores útiles (Imágenes <--> Bytes)
         private byte[] imagenABytes(Image img)
         {

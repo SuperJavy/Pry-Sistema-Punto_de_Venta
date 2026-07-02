@@ -266,6 +266,7 @@
             txtStockactual.Name = "txtStockactual";
             txtStockactual.Size = new Size(301, 37);
             txtStockactual.TabIndex = 17;
+            txtStockactual.Text = "0";
             txtStockactual.KeyPress += txtStockactual_KeyPress;
             // 
             // txtStockminimo
@@ -278,6 +279,7 @@
             txtStockminimo.Name = "txtStockminimo";
             txtStockminimo.Size = new Size(301, 37);
             txtStockminimo.TabIndex = 18;
+            txtStockminimo.Text = "0";
             txtStockminimo.KeyPress += txtStockminimo_KeyPress;
             // 
             // nudPorcentaje

@@ -148,7 +148,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         public void txtCodigo_TextChanged(object sender, EventArgs e)
         {
-
+            txtCodigo.Focus();
         }
     }
 }

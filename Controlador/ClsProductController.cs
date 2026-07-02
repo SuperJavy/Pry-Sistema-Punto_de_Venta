@@ -120,15 +120,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     vista.notificarUsuario("Los datos fueron guardados correctamente", false);
                 }
-                else
-                {
-                    vista.notificarUsuario("Eror al intentar guardar los datos", true);
-                }
 
             }
             catch (Exception E)
             {
-                vista.notificarUsuario("Error en la conexion o Insercion", true);
+
+                vista.notificarUsuario("Producto Duplicado ", true);
             }
         }
 
