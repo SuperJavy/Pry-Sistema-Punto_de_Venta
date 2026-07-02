@@ -14,6 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmVentas : Form
     {
+        public static bool ventaPendiente = false;
         public FrmVentas()
         {
             InitializeComponent();
@@ -57,6 +58,7 @@ namespace Pry_Sistema_Punto_de_Venta
            
             if (Vproduct.ShowDialog() == DialogResult.OK)
             {
+                ventaPendiente = false;
                 controler.LimpiarVenta(this);
             }
 
@@ -103,6 +105,7 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             string codigo = txtCodigoBusq.Text;
             controler.procesarBusqueda(codigo, this);
+            ventaPendiente = true;
 
         }
 
@@ -133,7 +136,13 @@ namespace Pry_Sistema_Punto_de_Venta
         }
         public void actualizarTabla(List<detalleVenta> detalleVenta)
         {
-            dtgVenta.Rows.Clear();
+            if (detalleVenta.Count > 0)
+                ventaPendiente = true;
+            else
+                ventaPendiente = false;
+
+
+                dtgVenta.Rows.Clear();
             foreach (var item in detalleVenta)
             {
 

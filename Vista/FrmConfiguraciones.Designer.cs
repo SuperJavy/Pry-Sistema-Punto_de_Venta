@@ -99,7 +99,7 @@
             btnAgregarUsuarios.Location = new Point(12, 120);
             btnAgregarUsuarios.Name = "btnAgregarUsuarios";
             btnAgregarUsuarios.Padding = new Padding(20, 0, 0, 0);
-            btnAgregarUsuarios.Size = new Size(232, 80);
+            btnAgregarUsuarios.Size = new Size(245, 80);
             btnAgregarUsuarios.TabIndex = 1;
             btnAgregarUsuarios.Text = "Agregar Usuarios";
             btnAgregarUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -123,7 +123,7 @@
             lblMenuTitle.ForeColor = Color.Black;
             lblMenuTitle.Location = new Point(22, 22);
             lblMenuTitle.Name = "lblMenuTitle";
-            lblMenuTitle.Size = new Size(215, 38);
+            lblMenuTitle.Size = new Size(178, 32);
             lblMenuTitle.TabIndex = 0;
             lblMenuTitle.Text = "Configuración";
             // 
@@ -144,7 +144,7 @@
             lblFormTitle.ForeColor = Color.FromArgb(17, 24, 39);
             lblFormTitle.Location = new Point(20, 18);
             lblFormTitle.Name = "lblFormTitle";
-            lblFormTitle.Size = new Size(313, 51);
+            lblFormTitle.Size = new Size(263, 45);
             lblFormTitle.TabIndex = 0;
             lblFormTitle.Text = "Configuraciones";
             // 
@@ -159,7 +159,7 @@
             // 
             // FrmConfiguraciones
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(243, 244, 246);
             ClientSize = new Size(1500, 1000);
