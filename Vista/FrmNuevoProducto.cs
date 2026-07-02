@@ -50,7 +50,7 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 MessageBox.Show("Por favor, Seleccione un tipo de venta");
             }
-            
+
 
 
             controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
@@ -146,7 +146,12 @@ namespace Pry_Sistema_Punto_de_Venta
             frmCodigoBarras.ShowDialog();
         }
 
-        public void txtCodigo_TextChanged(object sender, EventArgs e)
+        private void txtCodigo_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void FrmNuevoProducto_Shown(object sender, EventArgs e)
         {
             txtCodigo.Focus();
         }

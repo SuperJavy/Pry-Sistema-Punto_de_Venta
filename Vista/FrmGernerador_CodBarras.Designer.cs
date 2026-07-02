@@ -53,7 +53,7 @@
             txtCodigo.Size = new Size(573, 45);
             txtCodigo.TabIndex = 0;
             txtCodigo.TextAlign = HorizontalAlignment.Center;
-            txtCodigo.TextChanged += txtCodigo_TextChanged;
+            txtCodigo.Leave += txtCodigo_Leave;
             // 
             // btnGenerar
             // 
@@ -157,6 +157,7 @@
             Name = "FrmGernerador_CodBarras";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Módulo - Generador de Códigos de Barras";
+            Shown += FrmGernerador_CodBarras_Shown;
             ((System.ComponentModel.ISupportInitialize)picCodigoBarras).EndInit();
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();

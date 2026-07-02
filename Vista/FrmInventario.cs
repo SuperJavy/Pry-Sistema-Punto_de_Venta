@@ -67,5 +67,10 @@ namespace Pry_Sistema_Punto_de_Venta
         {
 
         }
+
+        private void pnlinventario_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

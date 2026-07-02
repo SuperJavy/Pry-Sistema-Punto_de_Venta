@@ -88,7 +88,15 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             picCodigoBarras.Image = null;
         }
 
-        private void txtCodigo_TextChanged(object sender, EventArgs e)
+        private void txtCodigo_Leave(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                txtCodigo.Focus();
+            });
+        }
+
+        private void FrmGernerador_CodBarras_Shown(object sender, EventArgs e)
         {
             txtCodigo.Focus();
         }

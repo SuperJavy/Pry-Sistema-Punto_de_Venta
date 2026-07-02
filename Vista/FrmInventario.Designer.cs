@@ -103,6 +103,7 @@
             pnlinventario.Name = "pnlinventario";
             pnlinventario.Size = new Size(1946, 1030);
             pnlinventario.TabIndex = 80;
+            pnlinventario.Paint += pnlinventario_Paint;
             // 
             // FrmInventario
             // 

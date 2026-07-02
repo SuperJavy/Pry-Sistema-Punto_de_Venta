@@ -86,14 +86,14 @@
             // 
             txtCodigo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCodigo.Font = new Font("Segoe UI", 11F);
-            txtCodigo.Location = new Point(267, 40);
+            txtCodigo.Location = new Point(280, 39);
             txtCodigo.Margin = new Padding(5, 6, 5, 6);
             txtCodigo.MaxLength = 13;
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(352, 37);
             txtCodigo.TabIndex = 1;
-            txtCodigo.TextChanged += txtCodigo_TextChanged;
             txtCodigo.KeyPress += txtCodigo_KeyPress;
+            txtCodigo.Leave += txtCodigo_Leave;
             // 
             // labelNombre
             // 
@@ -385,7 +385,7 @@
             // btnGenerar
             // 
             btnGenerar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnGenerar.Location = new Point(627, 40);
+            btnGenerar.Location = new Point(640, 41);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(96, 38);
             btnGenerar.TabIndex = 24;
@@ -512,6 +512,7 @@
             Name = "FrmNuevoProducto";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmNuevoProductio";
+            Shown += FrmNuevoProducto_Shown;
             ((System.ComponentModel.ISupportInitialize)nudPorcentaje).EndInit();
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
