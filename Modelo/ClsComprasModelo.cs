@@ -18,16 +18,17 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.id,
-                                   cb.Codigo_barras AS codigo_de_barras,
-                                   p.nombre,
-                                   p.costo AS Costo,
-                                   p.stock,
-                                   t.nombre AS Tipo
-                            FROM productos p
-                            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                            WHERE cb.Codigo_barras = @codigo";
+                string consulta = @"
+                                    SELECT p.id,
+                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                                           p.nombre,
+                                           p.costo AS Costo,
+                                           p.stock,
+                                           t.nombre AS Tipo
+                                    FROM productos p
+                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                                    WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
 
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
@@ -190,16 +191,19 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.id,
-                                   cb.Codigo_barras AS codigo_de_barras,
-                                   p.nombre,
-                                   p.costo AS Costo,
-                                   p.stock,                          
-                                   t.nombre AS Tipo         
-                            FROM productos p
-                            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                            WHERE p.nombre LIKE @filtro OR cb.Codigo_barras LIKE @filtro";
+                string consulta = @"
+                                    SELECT p.id,
+                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                                           p.nombre,
+                                           p.costo AS Costo,
+                                           p.stock,                          
+                                           t.nombre AS Tipo         
+                                    FROM productos p
+                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                                    WHERE p.nombre LIKE @filtro 
+                                       OR cb.Codigo_barras LIKE @filtro 
+                                       OR p.codigo_de_barras LIKE @filtro";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
 

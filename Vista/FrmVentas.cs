@@ -14,6 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmVentas : Form
     {
+        public static bool ventaPendiente = false;
         public FrmVentas()
         {
             InitializeComponent();
@@ -41,6 +42,9 @@ namespace Pry_Sistema_Punto_de_Venta
             this.colTipoVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             controler.recuperarVentaPendiente(this);
+
+            this.ActiveControl = txtCodigoBusq;
+
         }
 
         clsVentasController controler = new clsVentasController();
@@ -57,6 +61,7 @@ namespace Pry_Sistema_Punto_de_Venta
            
             if (Vproduct.ShowDialog() == DialogResult.OK)
             {
+                ventaPendiente = false;
                 controler.LimpiarVenta(this);
             }
 
@@ -102,7 +107,18 @@ namespace Pry_Sistema_Punto_de_Venta
         private void btnagregarproducto_Click(object sender, EventArgs e)
         {
             string codigo = txtCodigoBusq.Text;
+
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                txtCodigoBusq.Focus();
+                return;
+            }
+
             controler.procesarBusqueda(codigo, this);
+            ventaPendiente = true;
+
+            txtCodigoBusq.Clear();
+            txtCodigoBusq.Focus();
 
         }
 
@@ -118,6 +134,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     this);
                 }
             }
+            txtCodigoBusq.Focus();
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -129,11 +146,18 @@ namespace Pry_Sistema_Punto_de_Venta
             int indice = dtgVenta.CurrentRow.Index;
 
             controler.eliminarProducto(indice, this);
-            
+            txtCodigoBusq.Focus();
+
         }
         public void actualizarTabla(List<detalleVenta> detalleVenta)
         {
-            dtgVenta.Rows.Clear();
+            if (detalleVenta.Count > 0)
+                ventaPendiente = true;
+            else
+                ventaPendiente = false; 
+
+
+                dtgVenta.Rows.Clear();
             foreach (var item in detalleVenta)
             {
 

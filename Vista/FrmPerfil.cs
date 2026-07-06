@@ -41,7 +41,19 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            if (FrmVentas.ventaPendiente)
+            {
+                MessageBox.Show("No se puede cerrar session en este momento. \n\nDejaste una operación a la mitad. Por favor, regresa a la pantalla de Ventas o Compras y termina de cobrar, o cancela el ticket para poder salir",
+                    "Opereaciones Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            DialogResult confirmacion = MessageBox.Show("¿Estas seguro que deseas salir del sistema", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                Application.Restart();
+            }
+            
         }
 
         public void CargarPerfil()
