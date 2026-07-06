@@ -42,6 +42,9 @@ namespace Pry_Sistema_Punto_de_Venta
             this.colTipoVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             controler.recuperarVentaPendiente(this);
+
+            this.ActiveControl = txtCodigoBusq;
+
         }
 
         clsVentasController controler = new clsVentasController();
@@ -104,8 +107,18 @@ namespace Pry_Sistema_Punto_de_Venta
         private void btnagregarproducto_Click(object sender, EventArgs e)
         {
             string codigo = txtCodigoBusq.Text;
+
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                txtCodigoBusq.Focus();
+                return;
+            }
+
             controler.procesarBusqueda(codigo, this);
             ventaPendiente = true;
+
+            txtCodigoBusq.Clear();
+            txtCodigoBusq.Focus();
 
         }
 
@@ -121,6 +134,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     this);
                 }
             }
+            txtCodigoBusq.Focus();
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -132,14 +146,15 @@ namespace Pry_Sistema_Punto_de_Venta
             int indice = dtgVenta.CurrentRow.Index;
 
             controler.eliminarProducto(indice, this);
-            
+            txtCodigoBusq.Focus();
+
         }
         public void actualizarTabla(List<detalleVenta> detalleVenta)
         {
             if (detalleVenta.Count > 0)
                 ventaPendiente = true;
             else
-                ventaPendiente = false;
+                ventaPendiente = false; 
 
 
                 dtgVenta.Rows.Clear();

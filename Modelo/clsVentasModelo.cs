@@ -16,7 +16,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class clsVentasModelo : clsConexion
     {
-        
+
         public Producto buscarProducto(string codigo)
         {
             Producto producto = null;
@@ -24,24 +24,25 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.id,
-                     cb.Codigo_barras AS codigo_de_barras,
-                     p.nombre,
-                     p.precio_venta AS precio,
-                     p.stock,
-                     p.ruta_imagen AS imagen,
-                     t.nombre AS Tipo
-                     FROM productos p
-                     INNER JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                     INNER JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                     WHERE cb.Codigo_barras = @codigo";
 
+                // Consulta adaptada para buscar y devolver el código desde cualquiera de las dos tablas
+                string consulta = @"
+            SELECT p.id,
+                   IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                   p.nombre,
+                   p.precio_venta AS precio,
+                   p.stock,
+                   p.ruta_imagen AS imagen,
+                   t.nombre AS Tipo
+            FROM productos p
+            INNER JOIN tipo_venta t ON p.id_tipo_venta = t.id
+            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+            WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
-
                 cmd.Parameters.AddWithValue("@codigo", codigo);
 
-                MySqlDataReader dr = cmd.ExecuteReader();
+                using MySqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
@@ -54,6 +55,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         stock = Convert.ToDecimal(dr["stock"]),
                         tipoVenta = dr["Tipo"].ToString()
                     };
+
                     if (dr["imagen"] != DBNull.Value)
                     {
                         try
@@ -63,28 +65,26 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         }
                         catch
                         {
-
                             producto.imagen = null;
                         }
                     }
                     else
                     {
-                        producto.imagen = null; 
+                        producto.imagen = null;
                     }
                 }
-                
-
-
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al buscar el producto " + ex.Message);
+                throw new Exception("Error al buscar el producto: " + ex.Message);
             }
-            finally {cerrarConexion();}
+            finally
+            {
+                cerrarConexion();
+            }
 
             return producto;
         }
-
         private Image BytesAImagen(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0) return null;
@@ -103,27 +103,34 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.id,
-                                   cb.Codigo_barras AS codigo_de_barras,
-                                   p.nombre,
-                                   p.precio_venta AS Precio, 
-                                   p.stock,
-                                   p.ruta_imagen AS Imagen, 
-                                   t.nombre AS Tipo
-                            FROM productos p
-                            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                            WHERE p.nombre LIKE @filtro";
+
+                // 1. Agregamos IFNULL en el SELECT
+                // 2. Agregamos la búsqueda por código en el WHERE
+                string consulta = @"
+            SELECT p.id,
+                   IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                   p.nombre,
+                   p.precio_venta AS Precio, 
+                   p.stock,
+                   p.ruta_imagen AS Imagen, 
+                   t.nombre AS Tipo
+            FROM productos p
+            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+            WHERE p.nombre LIKE @filtro 
+               OR cb.Codigo_barras LIKE @filtro 
+               OR p.codigo_de_barras LIKE @filtro";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
 
-                cmd.Parameters.AddWithValue ( "@filtro", "%" + filtro + "%");
+                cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     Producto prodTemporal = new Producto
                     {
                         id_producto = Convert.ToInt32(dr["id"]),
+                        // Ahora dr["codigo_de_barras"] siempre tendrá valor, nunca estará vacío
                         codigo_de_barras = dr["codigo_de_barras"].ToString(),
                         nombre = dr["nombre"].ToString(),
                         precio = Convert.ToDecimal(dr["Precio"]),
@@ -157,8 +164,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al buscar el producto " + ex.Message);
             }
             finally { cerrarConexion(); }
+
             return producto;
-        }
+        }  
         public bool ProcesarVenta(ventas venta, List<detalleVenta> cancelados, int estado) {
 
             using (MySqlConnection con = abrirConexion())
