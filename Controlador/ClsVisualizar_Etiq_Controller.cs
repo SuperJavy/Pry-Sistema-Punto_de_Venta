@@ -1,9 +1,11 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Modelo;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 using Pry_Sistema_Punto_de_Venta.Vista;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,5 +53,47 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             return dt;
         }
+
+        //...................................
+
+        // Asegúrate de que el método en tu Controlador tenga exactamente estos 3 argumentos en el paréntesis:
+        // 1. IMPRIMIR UNA SOLA FILA SELECCIONADA
+        public void ProcesarImpresionUnica(DataGridViewCell celdaActual, int idEstadoActual, FrmVisualizar_Etiquetas vista)
+        {
+            DataGridViewRow fila = celdaActual.OwningRow;
+            // Asegúrate de que "Codigo_barras" coincida con el nombre de tu columna en el DataGridView
+            string codigo = fila.Cells["Codigo_barras"].Value.ToString();
+
+            // 1. Mandas a imprimir
+            vista.EjecutarImpresionDirecta(codigo, null);
+
+            // 2. Actualizas el estado a 1 (Completado) usando tu variable 'producto'
+            modelo.ActualizarEstadoEtiqueta(codigo, 1);
+
+            // 3. Refrescas la tabla con el método de tu vista
+            vista.CargarDGV(idEstadoActual);
+        }
+
+        // 2. IMPRIMIR TODAS LAS FILAS DE LA TABLA (POR LOTE)
+        public void ProcesarImpresionPorLote(DataGridViewRowCollection filas, int idEstadoActual, FrmVisualizar_Etiquetas vista)
+        {
+            foreach (DataGridViewRow fila in filas)
+            {
+                if (fila.Cells["Codigo_barras"].Value != null)
+                {
+                    string codigo = fila.Cells["Codigo_barras"].Value.ToString();
+
+                    // Imprime cada una
+                    vista.EjecutarImpresionDirecta(codigo, null);
+
+                    // Actualiza cada una a estado 1 (Completado) usando tu variable 'modelo'
+                    modelo.ActualizarEstadoEtiqueta(codigo, 1);
+                }
+            }
+
+            // Al terminar el bucle, refrescas la pantalla una sola vez
+            vista.CargarDGV(idEstadoActual);
+        }
     }
 }
+

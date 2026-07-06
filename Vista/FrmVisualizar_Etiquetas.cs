@@ -82,5 +82,50 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 }
             }
         }
+
+        private void btnImprimirTodas_Click(object sender, EventArgs e)
+        {
+            if (cmbEstados.SelectedValue != null && !(cmbEstados.SelectedValue is System.Data.DataRowView))
+            {
+                int idEstadoActual = Convert.ToInt32(cmbEstados.SelectedValue);
+
+                // Envío correcto del lote completo
+                controller.ProcesarImpresionPorLote(dgvEtiquetas.Rows, idEstadoActual, this);
+            }
+        }
+
+        private void btnImprimirSeleccionadas_Click(object sender, EventArgs e)
+        {
+            if(dgvEtiquetas.CurrentCell != null && cmbEstados.SelectedValue != null && !(cmbEstados.SelectedValue is System.Data.DataRowView))
+            {
+                int idEstadoActual = Convert.ToInt32(cmbEstados.SelectedValue);
+
+                // Mandamos la Celda Actual (.CurrentCell) al método ProcesarImpresionUnica
+                controller.ProcesarImpresionUnica(dgvEtiquetas.CurrentCell, idEstadoActual, this);
+            }
+        }
+        // MÉTODO DE ACCIÓN: Modo Simulación por MessageBox
+        public void EjecutarImpresionDirecta(string codigo, Image imagen)
+        {
+            MessageBox.Show($"[IMPRESORA VIRTUAL]\n\nCódigo de Barras: {codigo}\nStatus: Simulación de impresión exitosa.",
+                             "Cola de Impresión",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Information);
+
+
+            //👉 NOTA PARA EL FUTURO: Cuando ya tengas la impresora física, 
+            //solo borras el MessageBox de arriba y descomentas este código:
+
+          /*using (var doc = new System.Drawing.Printing.PrintDocument())
+            {
+                doc.PrintPage += (sender, e) =>
+                {
+                    if (imagen != null) e.Graphics.DrawImage(imagen, 20, 20, 250, 70);
+                    e.Graphics.DrawString(codigo, new Font("Arial", 10), Brushes.Black, 80, 95);
+                };
+                doc.Print();
+            }*/
+            
+        }
     }
 }

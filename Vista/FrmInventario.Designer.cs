@@ -90,6 +90,7 @@
             pnlinventario.Name = "pnlinventario";
             pnlinventario.Size = new Size(2270, 1162);
             pnlinventario.TabIndex = 80;
+            pnlinventario.Paint += pnlinventario_Paint;
             // 
             // label10
             // 

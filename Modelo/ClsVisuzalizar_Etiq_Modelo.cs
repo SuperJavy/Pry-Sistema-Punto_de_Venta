@@ -68,5 +68,32 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
           
         }
+
+        //empieza codigo de  eiquetas campos de estado
+        public void ActualizarEstadoEtiqueta(string codigo, int nuevoEstado)
+        {
+            // El QUERY directo y sin rodeos
+            string query = "UPDATE codigo_Barras SET id_estado = @nuevoEstado WHERE Codigo_barras = @codigo;";
+            clsConexion conexionBD = new clsConexion();
+            try
+            {
+                using (var conexion = conexionBD.abrirConexion())
+                {
+
+                    using (MySqlCommand consulta = new MySqlCommand(query, conexion))
+                    {
+                        consulta.Parameters.AddWithValue("@nuevoEstado", nuevoEstado);
+                        consulta.Parameters.AddWithValue("@codigo", codigo);
+
+                        consulta.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores simple en consola para no interrumpir el flujo
+                Console.WriteLine("Error al actualizar estado: " + ex.Message);
+            }
+        }
     }
 }
