@@ -52,7 +52,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 dtcategorias = categoria.Mostrarcategorias();
 
             }
-            catch (Exception e)
+            catch
             {
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }

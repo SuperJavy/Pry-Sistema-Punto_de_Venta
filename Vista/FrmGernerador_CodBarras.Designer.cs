@@ -46,11 +46,11 @@
             // 
             txtCodigo.Dock = DockStyle.Fill;
             txtCodigo.Font = new Font("Segoe UI", 14F);
-            txtCodigo.Location = new Point(3, 10);
-            txtCodigo.Margin = new Padding(3, 10, 15, 5);
+            txtCodigo.Location = new Point(4, 12);
+            txtCodigo.Margin = new Padding(4, 12, 18, 6);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.ReadOnly = true;
-            txtCodigo.Size = new Size(573, 45);
+            txtCodigo.Size = new Size(687, 51);
             txtCodigo.TabIndex = 0;
             txtCodigo.TextAlign = HorizontalAlignment.Center;
             // 
@@ -58,10 +58,10 @@
             // 
             btnGenerar.Dock = DockStyle.Fill;
             btnGenerar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnGenerar.Location = new Point(594, 5);
-            btnGenerar.Margin = new Padding(3, 5, 3, 5);
+            btnGenerar.Location = new Point(713, 6);
+            btnGenerar.Margin = new Padding(4, 6, 4, 6);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(191, 60);
+            btnGenerar.Size = new Size(229, 72);
             btnGenerar.TabIndex = 1;
             btnGenerar.Text = "Generar Código\r\n";
             btnGenerar.UseVisualStyleBackColor = true;
@@ -70,10 +70,10 @@
             // picCodigoBarras
             // 
             picCodigoBarras.BorderStyle = BorderStyle.FixedSingle;
-            picCodigoBarras.Location = new Point(57, 210);
-            picCodigoBarras.Margin = new Padding(4, 5, 4, 5);
+            picCodigoBarras.Location = new Point(68, 252);
+            picCodigoBarras.Margin = new Padding(5, 6, 5, 6);
             picCodigoBarras.Name = "picCodigoBarras";
-            picCodigoBarras.Size = new Size(788, 215);
+            picCodigoBarras.Size = new Size(945, 258);
             picCodigoBarras.SizeMode = PictureBoxSizeMode.CenterImage;
             picCodigoBarras.TabIndex = 2;
             picCodigoBarras.TabStop = false;
@@ -82,10 +82,10 @@
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTitulo.Location = new Point(29, 23);
-            lblTitulo.Margin = new Padding(4, 0, 4, 0);
+            lblTitulo.Location = new Point(35, 28);
+            lblTitulo.Margin = new Padding(5, 0, 5, 0);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(378, 32);
+            lblTitulo.Size = new Size(431, 38);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Código Numérico del Producto:";
             // 
@@ -95,9 +95,9 @@
             panelHeader.Controls.Add(lblTitulo);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
-            panelHeader.Margin = new Padding(5, 6, 5, 6);
+            panelHeader.Margin = new Padding(6, 7, 6, 7);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(891, 80);
+            panelHeader.Size = new Size(1069, 96);
             panelHeader.TabIndex = 0;
             // 
             // tableLayoutPanelControles
@@ -108,11 +108,12 @@
             tableLayoutPanelControles.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanelControles.Controls.Add(txtCodigo, 0, 0);
             tableLayoutPanelControles.Controls.Add(btnGenerar, 1, 0);
-            tableLayoutPanelControles.Location = new Point(57, 110);
+            tableLayoutPanelControles.Location = new Point(68, 132);
+            tableLayoutPanelControles.Margin = new Padding(4);
             tableLayoutPanelControles.Name = "tableLayoutPanelControles";
             tableLayoutPanelControles.RowCount = 1;
             tableLayoutPanelControles.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelControles.Size = new Size(788, 70);
+            tableLayoutPanelControles.Size = new Size(946, 84);
             tableLayoutPanelControles.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -122,21 +123,22 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.Controls.Add(btnUsarcode, 1, 0);
-            tableLayoutPanel1.Location = new Point(57, 423);
+            tableLayoutPanel1.Location = new Point(68, 508);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(788, 45);
+            tableLayoutPanel1.Size = new Size(946, 54);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // btnUsarcode
             // 
             btnUsarcode.Dock = DockStyle.Fill;
             btnUsarcode.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnUsarcode.Location = new Point(594, 5);
-            btnUsarcode.Margin = new Padding(3, 5, 3, 5);
+            btnUsarcode.Location = new Point(713, 6);
+            btnUsarcode.Margin = new Padding(4, 6, 4, 6);
             btnUsarcode.Name = "btnUsarcode";
-            btnUsarcode.Size = new Size(191, 35);
+            btnUsarcode.Size = new Size(229, 42);
             btnUsarcode.TabIndex = 1;
             btnUsarcode.Text = "Usar codigo";
             btnUsarcode.UseVisualStyleBackColor = true;
@@ -144,15 +146,15 @@
             // 
             // FrmGernerador_CodBarras
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(891, 480);
+            ClientSize = new Size(1069, 576);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panelHeader);
             Controls.Add(tableLayoutPanelControles);
             Controls.Add(picCodigoBarras);
-            Margin = new Padding(4, 5, 4, 5);
-            MinimumSize = new Size(600, 400);
+            Margin = new Padding(5, 6, 5, 6);
+            MinimumSize = new Size(715, 467);
             Name = "FrmGernerador_CodBarras";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Módulo - Generador de Códigos de Barras";

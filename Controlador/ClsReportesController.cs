@@ -1,6 +1,7 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Modelo;
 using Pry_Sistema_Punto_de_Venta.Vista;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,139 +12,81 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
     internal class ClsReportesController
     {
-
-        private ClsReportesModelo modeloReportes = new ClsReportesModelo();
-
-        public void GenerarReporteVentas(DateTime desde, DateTime hasta, FrmReportes vista, DataGridView tablaDestino)
+        ClsReportesModelo modelo = new ClsReportesModelo();
+        public DataTable obtenerHistorialVentas(string estado, DateTime fechaInicio, DateTime fechaCorte)
         {
-            if (desde > hasta)
-            {
-                MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha final.", "Error de Fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             try
             {
-                DataTable datosVentas = modeloReportes.ObtenerReporteVentas(desde, hasta);
+                if (estado == null)
+                {
+                    throw new Exception("El estado no puede estar vacio");
+                }
+                if (fechaInicio>fechaCorte)
+                {
+                    throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre del reporte");
+                }
 
-                if (datosVentas.Rows.Count > 0)
-                {
-                    tablaDestino.DataSource = datosVentas;
-                }
-                else
-                {
-                    tablaDestino.DataSource = null; 
-                    MessageBox.Show("No se encontraron ventas en el periodo seleccionado.", "Reporte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                return modelo.consultarReporteVentas(estado, fechaInicio, fechaCorte);
+
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show("Error al generar el reporte: " + ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Error de configuracion " + e.Message);
+            }
+
+        }
+
+        public DataTable obtenerHistorialCompras(DateTime fechaInicio, DateTime fechaCorte)
+        {
+            try
+            {
+                if (fechaInicio > fechaCorte)
+                {
+                    throw new Exception("La fecha de inicio no puede ser mayor a la fecha final.");
+                }
+
+                return modelo.consultarReporteCompras(fechaInicio, fechaCorte);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al procesar el reporte de compras: " + e.Message);
             }
         }
-        public void GenerarReporteCompras(DateTime desde, DateTime hasta, FrmReportes vista, DataGridView tablaDestino)
+        public Dictionary<string, decimal> obtenerCorteDiario(DateTime fechaCorte)
         {
-            if (desde > hasta)
-            {
-                MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha final.", "Error de Fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             try
-            {
-                DataTable datosCompras = modeloReportes.ObtenerReporteCompras(desde, hasta);
-
-                if (datosCompras.Rows.Count > 0)
-                {
-                    tablaDestino.DataSource = datosCompras;
-
-                    if (tablaDestino.Columns.Contains("Total Pagado"))
-                    {
-                        tablaDestino.Columns["Total Pagado"].DefaultCellStyle.Format = "C2";
-                    }
-                }
-                else
-                {
-                    tablaDestino.DataSource = null;
-                    MessageBox.Show("No se encontraron compras a proveedores en el periodo seleccionado.", "Reporte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+            {       
+                return modelo.consultarResumenCorte(fechaCorte);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show("Error al generar el reporte de compras: " + ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Error al procesar el corte: " + e.Message);
             }
         }
-        public void GenerarCorteCaja(DateTime fechaCorte, FrmReportes vista, DataGridView tablaDestino)
+
+        // Añadir en ClsReportesController.cs
+        public DataTable obtenerDetalleVenta(int idVenta)
         {
             try
             {
-                DataTable datosCorte = modeloReportes.ObtenerCorteCaja(fechaCorte);
-
-                if (datosCorte.Rows.Count > 0)
-                {
-                    tablaDestino.DataSource = datosCorte;
-
-                    if (tablaDestino.Columns.Contains("Monto Ingresado"))
-                    {
-                        tablaDestino.Columns["Monto Ingresado"].DefaultCellStyle.Format = "C2";
-                    }
-
-                    decimal totalCaja = 0;
-                    foreach (DataRow fila in datosCorte.Rows)
-                    {
-                        totalCaja += Convert.ToDecimal(fila["Monto Ingresado"]);
-                    }
-
-                    MessageBox.Show(
-                        $"El sistema ha calculado los ingresos para el día {fechaCorte.ToShortDateString()}:\n\n" +
-                        $"💰 TOTAL EN CAJA: {totalCaja.ToString("C2")}\n" +
-                        $"📝 Transacciones realizadas: {datosCorte.Rows.Count}",
-                        "Resumen de Corte de Caja",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                }
-                else
-                {
-                    tablaDestino.DataSource = null;
-                    MessageBox.Show("No se registraron ventas en el día seleccionado. La caja debería estar en ceros.", "Corte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                return modelo.consultarDetalleVenta(idVenta);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show("Error al generar el corte de caja: " + ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Error en el controlador de detalles: " + e.Message);
             }
         }
-        public void CargarDetalleEmergente(string tipoReporte, int idRegistro, DataGridView tablaDestino)
+
+        public DataTable obtenerDetalleCompra(int idCompra)
         {
             try
             {
-                DataTable dtDetalle = null;
-
-                if (tipoReporte == "Ventas")
-                {
-                    dtDetalle = modeloReportes.ObtenerDetalleVenta(idRegistro);
-                }
-                else if (tipoReporte == "Compras")
-                {
-                    dtDetalle = modeloReportes.ObtenerDetalleCompra(idRegistro);
-                }
-
-                if (dtDetalle != null)
-                {
-                    tablaDestino.DataSource = dtDetalle;
-
-                    if (tablaDestino.Columns.Contains("Precio Unitario"))
-                        tablaDestino.Columns["Precio Unitario"].DefaultCellStyle.Format = "C2";
-                    if (tablaDestino.Columns.Contains("Precio Costo"))
-                        tablaDestino.Columns["Precio Costo"].DefaultCellStyle.Format = "C2";
-                    if (tablaDestino.Columns.Contains("Importe"))
-                        tablaDestino.Columns["Importe"].DefaultCellStyle.Format = "C2";
-                }
+                return modelo.consultarDetalleCompra(idCompra);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show("Error al cargar los artículos del folio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Error en el controlador de detalles de compra: " + e.Message);
             }
         }
     }

@@ -20,6 +20,8 @@ namespace Pry_Sistema_Punto_de_Venta
         public FrmCompra()
         {
             InitializeComponent();
+            controller.recuperarCompraPendiente(this);
+            this.ActiveControl = txtCodigoProducto;
         }
         private void FrmCompra_KeyDown(object sender, KeyEventArgs e)
         {
@@ -68,6 +70,8 @@ namespace Pry_Sistema_Punto_de_Venta
                 txtCostoCompra.Text,
                 this
             );
+            txtCodigoProducto.Clear();
+            txtCodigoProducto.Focus();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -79,6 +83,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     prepararProductoEnPantalla(frmBuscar.productoSeleccionado);
                 }
             }
+            txtCodigoProducto.Focus();
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -91,6 +96,7 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 notificarUsuario("Por favor, seleccione una fila del listado para eliminar.", false);
             }
+            txtCodigoProducto.Focus();
         }
 
         private void btnComprar_Click(object sender, EventArgs e)

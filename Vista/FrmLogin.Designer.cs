@@ -63,9 +63,9 @@
             // pcbMostrar
             // 
             pcbMostrar.Image = Properties.Resources.ojo;
-            pcbMostrar.Location = new Point(415, 128);
+            pcbMostrar.Location = new Point(403, 128);
             pcbMostrar.Name = "pcbMostrar";
-            pcbMostrar.Size = new Size(42, 33);
+            pcbMostrar.Size = new Size(45, 29);
             pcbMostrar.SizeMode = PictureBoxSizeMode.Zoom;
             pcbMostrar.TabIndex = 12;
             pcbMostrar.TabStop = false;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProductos));
             panel1 = new Panel();
             label2 = new Label();
             menuStrip1 = new MenuStrip();
@@ -35,8 +36,8 @@
             eDITARToolStripMenuItem = new ToolStripMenuItem();
             eliminarToolStripMenuItem = new ToolStripMenuItem();
             categoriasToolStripMenuItem = new ToolStripMenuItem();
-            pnlproductos = new Panel();
             gestorDeEtiquetasToolStripMenuItem = new ToolStripMenuItem();
+            pnlproductos = new Panel();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -58,10 +59,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(47, 53, 66);
-            label2.Location = new Point(12, 9);
+            label2.Location = new Point(13, -2);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(131, 32);
+            label2.Size = new Size(149, 38);
             label2.TabIndex = 0;
             label2.Text = "Productos";
             // 
@@ -72,9 +73,9 @@
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(24, 24);
             menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem, eliminarToolStripMenuItem, categoriasToolStripMenuItem, gestorDeEtiquetasToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 42);
+            menuStrip1.Location = new Point(0, 36);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1428, 38);
+            menuStrip1.Size = new Size(1428, 44);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -83,7 +84,7 @@
             nuevoToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
             nuevoToolStripMenuItem.Image = Properties.Resources.agregar_producto;
             nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            nuevoToolStripMenuItem.Size = new Size(117, 34);
+            nuevoToolStripMenuItem.Size = new Size(132, 40);
             nuevoToolStripMenuItem.Text = "Nuevo";
             nuevoToolStripMenuItem.Click += nuevoToolStripMenuItem_Click;
             // 
@@ -92,7 +93,7 @@
             eDITARToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
             eDITARToolStripMenuItem.Image = Properties.Resources.editar;
             eDITARToolStripMenuItem.Name = "eDITARToolStripMenuItem";
-            eDITARToolStripMenuItem.Size = new Size(145, 34);
+            eDITARToolStripMenuItem.Size = new Size(164, 40);
             eDITARToolStripMenuItem.Text = "Modificar";
             eDITARToolStripMenuItem.Click += eDITARToolStripMenuItem_Click;
             // 
@@ -101,7 +102,7 @@
             eliminarToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
             eliminarToolStripMenuItem.Image = Properties.Resources.borrar;
             eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            eliminarToolStripMenuItem.Size = new Size(135, 34);
+            eliminarToolStripMenuItem.Size = new Size(154, 40);
             eliminarToolStripMenuItem.Text = "Eliminar ";
             eliminarToolStripMenuItem.Click += eliminarToolStripMenuItem_Click;
             // 
@@ -110,9 +111,18 @@
             categoriasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
             categoriasToolStripMenuItem.Image = Properties.Resources.opciones;
             categoriasToolStripMenuItem.Name = "categoriasToolStripMenuItem";
-            categoriasToolStripMenuItem.Size = new Size(156, 34);
+            categoriasToolStripMenuItem.Size = new Size(178, 40);
             categoriasToolStripMenuItem.Text = "Categorias";
             categoriasToolStripMenuItem.Click += categoriasToolStripMenuItem_Click;
+            // 
+            // gestorDeEtiquetasToolStripMenuItem
+            // 
+            gestorDeEtiquetasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
+            gestorDeEtiquetasToolStripMenuItem.Image = (Image)resources.GetObject("gestorDeEtiquetasToolStripMenuItem.Image");
+            gestorDeEtiquetasToolStripMenuItem.Name = "gestorDeEtiquetasToolStripMenuItem";
+            gestorDeEtiquetasToolStripMenuItem.Size = new Size(281, 40);
+            gestorDeEtiquetasToolStripMenuItem.Text = "Gestor de Etiquetas";
+            gestorDeEtiquetasToolStripMenuItem.Click += gestorDeEtiquetasToolStripMenuItem_Click;
             // 
             // pnlproductos
             // 
@@ -125,17 +135,9 @@
             pnlproductos.TabIndex = 75;
             pnlproductos.Paint += pnlproductos_Paint;
             // 
-            // gestorDeEtiquetasToolStripMenuItem
-            // 
-            gestorDeEtiquetasToolStripMenuItem.ForeColor = Color.FromArgb(47, 53, 66);
-            gestorDeEtiquetasToolStripMenuItem.Name = "gestorDeEtiquetasToolStripMenuItem";
-            gestorDeEtiquetasToolStripMenuItem.Size = new Size(217, 34);
-            gestorDeEtiquetasToolStripMenuItem.Text = "Gestor de Etiquetas";
-            gestorDeEtiquetasToolStripMenuItem.Click += gestorDeEtiquetasToolStripMenuItem_Click;
-            // 
             // FrmProductos
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1428, 740);

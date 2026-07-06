@@ -18,14 +18,17 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
-                string consulta = @"SELECT p.id,
-                        p.codigo_de_barras,
-                        p.nombre,
-                        p.costo AS Costo,
-                        p.stock,
-                        p.id_tipo_venta AS Tipo
-                    FROM productos p
-                    WHERE p.codigo_de_barras = @codigo";
+                string consulta = @"
+                                    SELECT p.id,
+                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                                           p.nombre,
+                                           p.costo AS Costo,
+                                           p.stock,
+                                           t.nombre AS Tipo
+                                    FROM productos p
+                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                                    WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
 
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
@@ -56,7 +59,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return producto;
         }
-        public bool procesarCompra(Compra compra)
+        public bool procesarCompra(Compra compra, List<DetalleCompra> cancelados, int estado)
         {
             using (MySqlConnection con = abrirConexion())
             {
@@ -64,10 +67,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     try
                     {
-                        int idCompra = insertarCompra(compra, con, trans);
+                        int idCompra = insertarCompra(compra, con, trans, estado);
                
-                        insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans);
-          
+                        insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
+                        insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
                         actualizarStockCompra(compra.detalleCompra, con, trans);
 
                         
@@ -85,7 +88,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         
         }
 
-        private int insertarCompra(Compra compra, MySqlConnection con, MySqlTransaction trans)
+        private int insertarCompra(Compra compra, MySqlConnection con, MySqlTransaction trans, int estado)
         {
             string query = @"
                 INSERT INTO compra     
@@ -93,7 +96,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     id_usuario,
                     id_proveedor,
                     fecha_de_compra,         
-                    total                  
+                    total,
+                    id_estado
                          
                 )     
                 VALUES     
@@ -101,7 +105,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     @id_usuario,
                     @id_proveedor,
                     @fecha,         
-                    @total                 
+                    @total,
+                    @id_estado
                          
                 );     
                 SELECT LAST_INSERT_ID();";
@@ -113,12 +118,13 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 cmd.Parameters.AddWithValue("@total", compra.total);
 
                 cmd.Parameters.AddWithValue("@id_proveedor", 1);
+                cmd.Parameters.AddWithValue("@id_estado", estado);
 
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
 
-        private void insertarDetalleCompra(int idCompra, List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans)
+        private void insertarDetalleCompra(int idCompra, List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans, int estado)
         {
             string query = @"
                 INSERT INTO detalle_compra     
@@ -127,7 +133,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     id_producto,
                     precio,
                     cantidad,                  
-                    subtotal     
+                    subtotal,
+                    id_estado
                 )     
                 VALUES     
                 (         
@@ -135,7 +142,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     @id_producto,
                     @costo_unitario,
                     @cantidad,                  
-                    @subtotal     
+                    @subtotal,
+                    @id_estado
                 )";
 
             foreach (var item in detalles)
@@ -147,6 +155,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue("@cantidad", item.cantidad);
                     cmd.Parameters.AddWithValue("@costo_unitario", item.precioCompra);
                     cmd.Parameters.AddWithValue("@subtotal", item.cantidad * item.subtotalCompra);
+                    cmd.Parameters.AddWithValue("@id_estado", estado);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -183,15 +192,18 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             {
                 abrirConexion();
                 string consulta = @"
-            SELECT 
-                p.id,             
-                p.codigo_de_barras,             
-                p.nombre,             
-                p.costo AS Costo,             
-                p.stock,                          
-                p.id_tipo_venta AS Tipo         
-            FROM productos p         
-            WHERE p.nombre LIKE @filtro OR p.codigo_de_barras LIKE @filtro";
+                                    SELECT p.id,
+                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                                           p.nombre,
+                                           p.costo AS Costo,
+                                           p.stock,                          
+                                           t.nombre AS Tipo         
+                                    FROM productos p
+                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                                    WHERE p.nombre LIKE @filtro 
+                                       OR cb.Codigo_barras LIKE @filtro 
+                                       OR p.codigo_de_barras LIKE @filtro";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
 
