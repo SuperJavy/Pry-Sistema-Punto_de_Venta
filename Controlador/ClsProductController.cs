@@ -20,9 +20,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             string code = "";
             try
             {
-               code= producto.codigodebarras();
+                code = producto.codigodebarras();
 
-                
+
             }
             catch (Exception ex)
             {
@@ -78,14 +78,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
 
-        public Image imgec(string c,FrmGernerador_CodBarras vista)
+        public Image imgec(string c, FrmGernerador_CodBarras vista)
         {
-            Image img= null ;
+            Image img = null;
             try
             {
-                 img = producto.imgcodeb(c);
+                img = producto.imgcodeb(c);
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 vista.notificarUsuario("", true);
 
@@ -194,7 +194,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
         }
 
-        public float Calcularprecioventa(string costo, string porcentaje,FrmModoficar vista)
+        public float Calcularprecioventa(string costo, string porcentaje, FrmModoficar vista)
         {
             return producto.Calpventa(costo, porcentaje);
         }
@@ -281,7 +281,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             if (string.IsNullOrWhiteSpace(codigodebarras))
             {
                 vista.notificarUsuario("El campo código de barras no puede estar vacío", true);
-                return; 
+                return;
             }
 
             try
@@ -314,14 +314,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 case 9: return Properties.Resources.cat_bebidas;
                 case 11: return Properties.Resources.cat_Limpieza;
                 case 15: return Properties.Resources.cat_Lacteos;
-                case 19: return Properties.Resources.cat_Dulces;               
+                case 19: return Properties.Resources.cat_Dulces;
                 case 20: return Properties.Resources.cat_higiene_Personal;
                 case 21: return Properties.Resources.cat_Cocina;
 
 
                 default:
                     Random rnd = new Random();
-                    int opcionAleatoria = rnd.Next(1,4);
+                    int opcionAleatoria = rnd.Next(1, 4);
 
                     switch (opcionAleatoria)
                     {
@@ -335,6 +335,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             }
         }
+        
 
     }
+
 }
+
