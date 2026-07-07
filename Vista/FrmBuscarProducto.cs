@@ -24,6 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         {
             InitializeComponent();
             this.funcionBusqueda = funcionBusqueda;
+            this.ActiveControl = txtBusqueda;
         }
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
