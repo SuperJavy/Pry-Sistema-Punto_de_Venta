@@ -107,16 +107,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         // MÉTODO DE ACCIÓN: Modo Simulación por MessageBox
         public void EjecutarImpresionDirecta(string codigo, Image imagen)
         {
-            MessageBox.Show($"[IMPRESORA VIRTUAL]\n\nCódigo de Barras: {codigo}\nStatus: Simulación de impresión exitosa.",
-                             "Cola de Impresión",
-                             MessageBoxButtons.OK,
-                             MessageBoxIcon.Information);
-
+            
 
             //👉 NOTA PARA EL FUTURO: Cuando ya tengas la impresora física, 
             //solo borras el MessageBox de arriba y descomentas este código:
 
-          /*using (var doc = new System.Drawing.Printing.PrintDocument())
+          using (var doc = new System.Drawing.Printing.PrintDocument())
             {
                 doc.PrintPage += (sender, e) =>
                 {
@@ -124,7 +120,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     e.Graphics.DrawString(codigo, new Font("Arial", 10), Brushes.Black, 80, 95);
                 };
                 doc.Print();
-            }*/
+            }
             
         }
     }

@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class ClsVisuzalizar_Etiq_Modelo
     {
+
+        ECodigodebarras codigob = new ECodigodebarras();
         public DataTable combobox()
         {
             try
@@ -94,6 +97,18 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 // Manejo de errores simple en consola para no interrumpir el flujo
                 Console.WriteLine("Error al actualizar estado: " + ex.Message);
             }
+        }
+        public Image imgcodeb(string c)
+        {
+            try
+            {
+                return codigob.imgcodeb(c);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al extraer la imagen" + e.Message);
+            }
+
         }
     }
 }

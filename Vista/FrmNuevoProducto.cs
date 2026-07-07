@@ -1,159 +1,180 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Pry_Sistema_Punto_de_Venta.Controlador;
-using Pry_Sistema_Punto_de_Venta.Vista;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using Pry_Sistema_Punto_de_Venta.Controlador;
+    using Pry_Sistema_Punto_de_Venta.Vista;
 
-namespace Pry_Sistema_Punto_de_Venta
-{
-    public partial class FrmNuevoProducto : Form
+    namespace Pry_Sistema_Punto_de_Venta
     {
-        ClsProductController controlador = new ClsProductController();
-        public FrmNuevoProducto()
+        public partial class FrmNuevoProducto : Form
         {
-            InitializeComponent();
-            DataTable dt = controlador.Cargarcategorias(this);
-            llenarComboRoles(dt);
-            txtStockactual.ReadOnly = true;
-            txtStockminimo.ReadOnly = true;
-        }
-        public void notificarUsuario(string mensaje, bool esError)
-        {
-            if (esError)
+            ClsProductController controlador = new ClsProductController();
+            public FrmNuevoProducto()
             {
-                MessageBox.Show(mensaje, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                InitializeComponent();
+                DataTable dt = controlador.Cargarcategorias(this);
+                llenarComboRoles(dt);
+                txtStockactual.ReadOnly = true;
+                txtStockminimo.ReadOnly = true;
             }
-            else
+            public void notificarUsuario(string mensaje, bool esError)
             {
-                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void btnGuardarproducto_Click(object sender, EventArgs e)
-        {
-            int tipoventa = 0;
-            if (chkUnidad.Checked)
-            {
-                tipoventa = 1;
-            }
-            else if (chkGranel.Checked)
-            {
-                tipoventa = 2;
-            }
-            else
-            {
-                MessageBox.Show("Por favor, Seleccione un tipo de venta");
+                if (esError)
+                {
+                    MessageBox.Show(mensaje, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
 
-
-
-            controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
-                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
-        }
-
-        private void nudGanancia_ValueChanged(object sender, EventArgs e)
-        {
-            float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
-            txtPrecioventa.Text = preciov.ToString();
-
-
-        }
-
-        private void btnSeleccionarImagen_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog buscador = new OpenFileDialog();
-            buscador.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.bmp";
-            buscador.Title = "Seleccionar Logo del Negocio";
-
-            if (buscador.ShowDialog() == DialogResult.OK)
+            private void btnGuardarproducto_Click(object sender, EventArgs e)
             {
-                pcbImagen.Image = Image.FromFile(buscador.FileName);
+                int tipoventa = 0;
+                if (chkUnidad.Checked)
+                {
+                    tipoventa = 1;
+                }
+                else if (chkGranel.Checked)
+                {
+                    tipoventa = 2;
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, Seleccione un tipo de venta");
+                }
+
+
+
+                controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
+                    tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
+
+                LimpiarCampos();
             }
-        }
-        public void llenarComboRoles(DataTable dtCategoria)
-        {
-            if (dtCategoria != null && dtCategoria.Rows.Count > 0)
+
+            private void nudGanancia_ValueChanged(object sender, EventArgs e)
             {
-                cbxCategoria.DataSource = null; // Limpia 
+                if (string.IsNullOrWhiteSpace(txtCosto.Text))
+                {
+                    txtPrecioventa.Text = "0";
+                    return;
+                }
 
-                // 2. Asignación de miembros 
-                cbxCategoria.DisplayMember = "Nombre";
-                cbxCategoria.ValueMember = "Id";
-                // 3. Asignación del origen de datos
-                cbxCategoria.DataSource = dtCategoria;
+                float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
+                txtPrecioventa.Text = preciov.ToString();
             }
-            else
+
+            private void btnSeleccionarImagen_Click(object sender, EventArgs e)
             {
-                // Opcional: Limpiar el combo si no hay datos
-                cbxCategoria.DataSource = null;
-            }
-        }
+                OpenFileDialog buscador = new OpenFileDialog();
+                buscador.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.bmp";
+                buscador.Title = "Seleccionar Logo del Negocio";
 
-        private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                if (buscador.ShowDialog() == DialogResult.OK)
+                {
+                    pcbImagen.Image = Image.FromFile(buscador.FileName);
+                }
+            }
+            public void llenarComboRoles(DataTable dtCategoria)
             {
-                e.Handled = true;
+                if (dtCategoria != null && dtCategoria.Rows.Count > 0)
+                {
+                    cbxCategoria.DataSource = null; // Limpia 
+
+                    // 2. Asignación de miembros 
+                    cbxCategoria.DisplayMember = "Nombre";
+                    cbxCategoria.ValueMember = "Id";
+                    // 3. Asignación del origen de datos
+                    cbxCategoria.DataSource = dtCategoria;
+                }
+                else
+                {
+                    // Opcional: Limpiar el combo si no hay datos
+                    cbxCategoria.DataSource = null;
+                }
             }
-        }
 
-        private void txtPrecioventa_TextChanged(object sender, EventArgs e)
-        {
-            txtPrecioventa.ReadOnly = true;
-        }
-
-        private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
             {
-                e.Handled = true; // Ignora la tecla presionada
+                if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
             }
-        }
 
-        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            private void txtPrecioventa_TextChanged(object sender, EventArgs e)
             {
-                e.Handled = true;
+                txtPrecioventa.ReadOnly = true;
             }
-        }
 
-        private void txtStockactual_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
             {
-                e.Handled = true;
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+                {
+                    e.Handled = true; // Ignora la tecla presionada
+                }
             }
-        }
 
-        private void txtStockminimo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
             {
-                e.Handled = true;
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
             }
-        }
 
-        private void btnGenerar_Click(object sender, EventArgs e)
-        {
-            var frmCodigoBarras = new Vista.FrmGernerador_CodBarras(this.txtCodigo);
-            frmCodigoBarras.ShowDialog();
-        }
+            private void txtStockactual_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
 
-        private void txtCodigo_Leave(object sender, EventArgs e)
-        {
+            private void txtStockminimo_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
+
+            private void btnGenerar_Click(object sender, EventArgs e)
+            {
+                var frmCodigoBarras = new Vista.FrmGernerador_CodBarras(this.txtCodigo);
+                frmCodigoBarras.ShowDialog();
+            }
+
+            private void txtCodigo_Leave(object sender, EventArgs e)
+            {
             
-        }
+            }
 
-        private void FrmNuevoProducto_Shown(object sender, EventArgs e)
-        {
-            txtCodigo.Focus();
+            private void FrmNuevoProducto_Shown(object sender, EventArgs e)
+            {
+                txtCodigo.Focus();
+            }
+
+            public void LimpiarCampos()
+            {
+                txtCodigo.Clear();
+                txtNombrep.Clear();
+                txtDescripcion.Clear();
+                txtPrecioventa.Clear();
+                txtStockactual.Clear();
+                txtStockminimo.Clear();
+                txtCosto.Clear();
+                pcbImagen.Image = null;
+                nudPorcentaje.Value = 0;
+                chkUnidad.Checked = false;
+                chkGranel.Checked = false;
+            }
         }
     }
-}
