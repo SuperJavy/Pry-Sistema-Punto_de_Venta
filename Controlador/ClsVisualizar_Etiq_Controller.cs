@@ -61,13 +61,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         public void ProcesarImpresionUnica(DataGridViewCell celdaActual, int idEstadoActual, FrmVisualizar_Etiquetas vista)
         {
             DataGridViewRow fila = celdaActual.OwningRow;
-            // Asegúrate de que "Codigo_barras" coincida con el nombre de tu columna en el DataGridView
+
+           
             string codigo = fila.Cells["Codigo_barras"].Value.ToString();
-
+            Image imagenCodigo = modelo.imgcodeb(codigo);
             // 1. Mandas a imprimir
-            vista.EjecutarImpresionDirecta(codigo, null);
+            vista.EjecutarImpresionDirecta(codigo, imagenCodigo);
 
-            // 2. Actualizas el estado a 1 (Completado) usando tu variable 'producto'
             modelo.ActualizarEstadoEtiqueta(codigo, 1);
 
             // 3. Refrescas la tabla con el método de tu vista
@@ -83,8 +83,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     string codigo = fila.Cells["Codigo_barras"].Value.ToString();
 
+                    Image imagenCodigo = modelo.imgcodeb(codigo);
                     // Imprime cada una
-                    vista.EjecutarImpresionDirecta(codigo, null);
+                    vista.EjecutarImpresionDirecta(codigo, imagenCodigo);
 
                     // Actualiza cada una a estado 1 (Completado) usando tu variable 'modelo'
                     modelo.ActualizarEstadoEtiqueta(codigo, 1);
