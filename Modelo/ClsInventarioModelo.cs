@@ -19,8 +19,16 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 using (var conexion = conexionBD.abrirConexion())
                 {
                     // Filtramos los productos con stock crítico
-                    string query = "SELECT p.codigo_de_barras,p.nombre,p.stock,p.stock_minimo,c.nombre AS categoria " +
-                        "FROM productos p INNER JOIN categoria c ON p.id_categoria = c.id WHERE p.stock <= p.stock_minimo;";
+                    string query = @"
+                SELECT IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                       p.nombre,
+                       p.stock,
+                       p.stock_minimo,
+                       c.nombre AS categoria 
+                FROM productos p 
+                INNER JOIN categoria c ON p.id_categoria = c.id 
+                LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                WHERE p.stock <= p.stock_minimo;";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         using (MySqlDataAdapter respuesta = new MySqlDataAdapter(consulta))
@@ -45,12 +53,14 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             DataTable dt = new DataTable();
             // La consulta se mantiene limpia y orientada a datos
             string filtro = (string.IsNullOrEmpty(categoriaId) || categoriaId == "0")
-                            ? "" : " WHERE id_categoria = @catId";
+                    ? "" : " WHERE p.id_categoria = @catId";
 
-            string query = $@"SELECT IFNULL(SUM(costo * stock), 0) AS TotalCosto, 
-                             IFNULL(SUM(stock), 0) AS TotalCantidad 
-                      FROM productos {filtro}";
-
+            // Contamos y sumamos directamente desde la tabla productos para no perder ninguno
+            string query = $@"
+        SELECT IFNULL(SUM(p.costo * p.stock), 0) AS TotalCosto, 
+               IFNULL(COUNT(p.id), 0) AS TotalCantidad 
+        FROM productos p 
+        {filtro}";
             using (var conexion = abrirConexion())
             using (var cmd = new MySqlCommand(query, conexion))
             {
@@ -94,15 +104,17 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public DataTable ObtenerDetalleProductos(string categoriaId)
         {
             DataTable dt = new DataTable();
-            string filtro = (categoriaId == "0") ? "" : " WHERE id_categoria = @catId";
+            string filtro = (categoriaId == "0") ? "" : " WHERE p.id_categoria = @catId";
 
-            // Usamos ALIAS para definir cómo se llamarán las columnas en el Grid
-            string query = $@"SELECT 
-                        codigo_de_barras AS 'Código de Barras', 
-                        nombre AS 'Producto', 
-                        stock AS 'Existencias', 
-                        costo AS 'Costo Unitario' 
-                      FROM productos {filtro}";
+            string query = $@"
+        SELECT 
+            IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS 'Código de Barras', 
+            p.nombre AS 'Producto', 
+            p.stock AS 'Existencias', 
+            p.costo AS 'Costo Unitario' 
+        FROM productos p 
+        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+        {filtro}";
 
             using (var conexion = abrirConexion())
             using (var cmd = new MySqlCommand(query, conexion))

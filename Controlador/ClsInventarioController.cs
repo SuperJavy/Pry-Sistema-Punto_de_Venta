@@ -79,8 +79,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         public void ActualizarVistaInventario(string catId, FrmReporteinventario vista)
         {
             try
-            {
-                DataTable dtTotales = producto.ObtenerEstadisticas(catId);
+            { 
 
                 DataTable dtLista = producto.ObtenerDetalleProductos(catId);
 

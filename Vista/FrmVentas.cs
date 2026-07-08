@@ -58,13 +58,13 @@ namespace Pry_Sistema_Punto_de_Venta
             }
 
             FrmVentaproductos Vproduct = new FrmVentaproductos(controler);
-           
+
             if (Vproduct.ShowDialog() == DialogResult.OK)
             {
                 ventaPendiente = false;
                 controler.LimpiarVenta(this);
             }
-
+            txtCodigoBusq.Focus();
         }
 
       

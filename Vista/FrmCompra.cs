@@ -45,6 +45,12 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnAgregarproducto_Click(object sender, EventArgs e)
         {
+            string codigoActual = txtCodigoProducto.Text.Trim();
+            if (productoEnEspera != null && productoEnEspera.codigo_de_barras != codigoActual)
+            {
+                productoEnEspera = null;
+            }
+
             if (productoEnEspera == null)
             {
                 string codigo = txtCodigoProducto.Text.Trim();
