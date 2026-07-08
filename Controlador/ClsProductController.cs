@@ -24,7 +24,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 vista.notificarUsuario("Error al generar el codigo de barras", true);
             }
@@ -72,7 +72,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                     vista.notificarUsuario("LOs datos se guardaron correctamente", true);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 vista.notificarUsuario("Error al guardar en BD o conexion", true);
             }
@@ -85,7 +85,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 img = producto.imgcodeb(c);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 vista.notificarUsuario("", true);
 
@@ -186,7 +186,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 dtcategorias = producto.Extraercategoria();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }

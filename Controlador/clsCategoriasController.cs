@@ -81,7 +81,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
 
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 vista.notificarUsuario("Error enla conexion o eliminacion", true);
             }

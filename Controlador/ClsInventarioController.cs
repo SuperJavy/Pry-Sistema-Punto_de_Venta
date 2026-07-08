@@ -67,7 +67,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 dtcategorias = producto.Extraercategoria();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }

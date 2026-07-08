@@ -29,26 +29,38 @@
         private void InitializeComponent()
         {
             panel2 = new Panel();
+            label10 = new Label();
             menuStrip1 = new MenuStrip();
             nuevoToolStripMenuItem = new ToolStripMenuItem();
             eDITARToolStripMenuItem = new ToolStripMenuItem();
             pnlinventario = new Panel();
-            label10 = new Label();
             panel2.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.ControlLight;
+            panel2.BackColor = Color.FromArgb(240, 242, 245);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(menuStrip1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(84, 41, 84, 41);
             panel2.Name = "panel2";
-            panel2.Size = new Size(2270, 128);
+            panel2.Size = new Size(2270, 121);
             panel2.TabIndex = 79;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(47, 53, 66);
+            label10.Location = new Point(14, 9);
+            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(140, 36);
+            label10.TabIndex = 1;
+            label10.Text = "Inventario";
             // 
             // menuStrip1
             // 
@@ -56,7 +68,7 @@
             menuStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(24, 24);
             menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 65);
+            menuStrip1.Location = new Point(0, 58);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(118, 14, 0, 14);
             menuStrip1.Size = new Size(2270, 63);
@@ -85,24 +97,12 @@
             // 
             pnlinventario.BackColor = Color.White;
             pnlinventario.Dock = DockStyle.Fill;
-            pnlinventario.Location = new Point(0, 128);
+            pnlinventario.Location = new Point(0, 121);
             pnlinventario.Margin = new Padding(84, 41, 84, 41);
             pnlinventario.Name = "pnlinventario";
-            pnlinventario.Size = new Size(2270, 1162);
+            pnlinventario.Size = new Size(2270, 1169);
             pnlinventario.TabIndex = 80;
             pnlinventario.Paint += pnlinventario_Paint;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label10.ForeColor = Color.FromArgb(47, 53, 66);
-            label10.Location = new Point(23, 18);
-            label10.Margin = new Padding(5, 0, 5, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(140, 36);
-            label10.TabIndex = 1;
-            label10.Text = "Inventario";
             // 
             // FrmInventario
             // 
