@@ -63,7 +63,7 @@
             lblTitulo.Location = new Point(20, 13);
             lblTitulo.Margin = new Padding(4, 0, 4, 0);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(293, 51);
+            lblTitulo.Size = new Size(251, 45);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Procesar Cobro";
             // 
@@ -74,7 +74,7 @@
             lblTotalTexto.ForeColor = Color.FromArgb(127, 140, 141);
             lblTotalTexto.Location = new Point(50, 87);
             lblTotalTexto.Name = "lblTotalTexto";
-            lblTotalTexto.Size = new Size(247, 45);
+            lblTotalTexto.Size = new Size(210, 38);
             lblTotalTexto.TabIndex = 1;
             lblTotalTexto.Text = "Total a Cobrar :";
             // 
@@ -86,7 +86,7 @@
             lblTotalMonto.Location = new Point(35, 132);
             lblTotalMonto.Margin = new Padding(4, 0, 4, 0);
             lblTotalMonto.Name = "lblTotalMonto";
-            lblTotalMonto.Size = new Size(262, 112);
+            lblTotalMonto.Size = new Size(224, 96);
             lblTotalMonto.TabIndex = 2;
             lblTotalMonto.Text = "$0.00";
             // 
@@ -98,7 +98,7 @@
             lblPagoCon.Location = new Point(20, 258);
             lblPagoCon.Margin = new Padding(4, 0, 4, 0);
             lblPagoCon.Name = "lblPagoCon";
-            lblPagoCon.Size = new Size(172, 42);
+            lblPagoCon.Size = new Size(143, 36);
             lblPagoCon.TabIndex = 3;
             lblPagoCon.Text = "Paga con : ";
             // 
@@ -110,7 +110,7 @@
             lblCambioTexto.Location = new Point(20, 331);
             lblCambioTexto.Margin = new Padding(4, 0, 4, 0);
             lblCambioTexto.Name = "lblCambioTexto";
-            lblCambioTexto.Size = new Size(182, 42);
+            lblCambioTexto.Size = new Size(152, 36);
             lblCambioTexto.TabIndex = 5;
             lblCambioTexto.Text = "Su cambio :";
             // 
@@ -120,7 +120,7 @@
             txtPagoCon.Location = new Point(182, 258);
             txtPagoCon.Margin = new Padding(4, 5, 4, 5);
             txtPagoCon.Name = "txtPagoCon";
-            txtPagoCon.Size = new Size(260, 57);
+            txtPagoCon.Size = new Size(260, 50);
             txtPagoCon.TabIndex = 4;
             txtPagoCon.Text = "0.00";
             txtPagoCon.TextAlign = HorizontalAlignment.Right;
@@ -134,7 +134,7 @@
             lblCambioMonto.Location = new Point(200, 320);
             lblCambioMonto.Margin = new Padding(4, 0, 4, 0);
             lblCambioMonto.Name = "lblCambioMonto";
-            lblCambioMonto.Size = new Size(175, 74);
+            lblCambioMonto.Size = new Size(153, 65);
             lblCambioMonto.TabIndex = 6;
             lblCambioMonto.Text = "$0.00";
             // 
@@ -182,6 +182,7 @@
             btnCobrarSolo.TabIndex = 1;
             btnCobrarSolo.Text = "F2 - Cobrar S/ Imprimir";
             btnCobrarSolo.UseVisualStyleBackColor = false;
+            btnCobrarSolo.Click += btnCobrarSolo_Click;
             // 
             // btnCobrarImprimir
             // 
@@ -202,7 +203,7 @@
             // 
             // FrmVentaproductos
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(850, 550);
