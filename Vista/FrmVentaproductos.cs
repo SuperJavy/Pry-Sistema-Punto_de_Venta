@@ -15,14 +15,14 @@ namespace Pry_Sistema_Punto_de_Venta
     public partial class FrmVentaproductos : Form
     {
         private clsVentasController controller;
-
-        public FrmVentaproductos(clsVentasController controller)
+        int idUsuario;
+        public FrmVentaproductos(clsVentasController controller, int idUsuario)
         {
             InitializeComponent();
             this.controller = controller;
 
             lblTotalMonto.Text = controller.obtenerTotal().ToString();
-
+            this.idUsuario = idUsuario;
         }
 
         private void FrmVentaproductos_KeyDown(object sender, KeyEventArgs e)
@@ -54,7 +54,7 @@ namespace Pry_Sistema_Punto_de_Venta
             }
 
             // 2. Guardar la venta en base de datos
-            bool exito = controller.guardarVenta(this);
+            bool exito = controller.guardarVenta(this, idUsuario);
 
             if (exito)
             {
@@ -120,7 +120,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 return;
             }
 
-            bool exito = controller.guardarVenta(this);
+            bool exito = controller.guardarVenta(this,idUsuario);
 
             if (exito)
             {

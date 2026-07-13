@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsComprasModelo : clsConexion
+    internal class ClsComprasModelo : ClsConexion
     {
 
         public Producto buscarProducto(string codigo)

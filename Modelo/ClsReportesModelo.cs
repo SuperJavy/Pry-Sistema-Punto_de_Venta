@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsReportesModelo : clsConexion
+    internal class ClsReportesModelo : ClsConexion
     {
         public DataTable consultarReporteVentas(string estado, DateTime fechaInicio, DateTime fechaCorte)
         {

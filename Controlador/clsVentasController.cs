@@ -19,6 +19,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     public class clsVentasController
     {
         clsVentasModelo modelo = new clsVentasModelo();
+        private ClsLoginModelo login = new ClsLoginModelo();
         private List<Producto> resultadosBusqueda = new();
         private ventas venta = new ventas();
         public List<detalleVenta> productoCancelados = new List<detalleVenta>();
@@ -88,11 +89,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             return venta.total;
         }
-        public bool guardarVenta(FrmVentaproductos vistaCobro)
+        public bool guardarVenta(FrmVentaproductos vistaCobro, int idUsuarioActual)
         {
-            venta.IdUsuario = ClsLoginModelo.UsuarioActual;
+            venta.IdUsuario = login.UsuarioActual;
             venta.fecha = DateTime.Now;
-            
+            venta.IdUsuario = idUsuarioActual;
+
             foreach (var item in venta.detalleVenta)
             {
                 if (item.Cantidad > item.Producto.stock)
@@ -251,7 +253,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 ventas ventaCancelada = new ventas
                                 {
-                                    IdUsuario = ClsLoginModelo.UsuarioActual,
+                                    IdUsuario = login.UsuarioActual,
                                     fecha = DateTime.Now,
                                     total = 0,
                                     efectivo = 0,

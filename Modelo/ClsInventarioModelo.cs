@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsInventarioModelo:clsConexion
+    internal class ClsInventarioModelo:ClsConexion
     {
         public DataTable ObtenerProductosBajos()
         {
             DataTable dt = new DataTable();
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
                     // Filtramos los productos con stock crítico
@@ -80,7 +80,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
 
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
                     string query = "SELECT id,nombre FROM categoria";

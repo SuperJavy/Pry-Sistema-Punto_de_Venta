@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsPerfilModelo : clsConexion
+    internal class ClsPerfilModelo : ClsConexion
     {
 
         encryptado encryptador = new encryptado();
@@ -13,7 +13,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             DataTable dtPerfil = new DataTable();
             try
             {
-                clsConexion ConexionBd = new clsConexion();
+                ClsConexion ConexionBd = new ClsConexion();
                 using (var conexion = ConexionBd.abrirConexion())
                 {
                     string Query = "SELECT nombre, apellido_paterno, nickname, correo, telefono FROM usuario WHERE BINARY nickname = @usuario;";
@@ -42,7 +42,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             try
             {
-                clsConexion ConexionBd = new clsConexion();
+                ClsConexion ConexionBd = new ClsConexion();
                 using (var conexion = ConexionBd.abrirConexion())
                 {
                     string pass= encryptador.EncryptPassword(nuevoPassword);

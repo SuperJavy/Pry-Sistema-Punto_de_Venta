@@ -1,4 +1,5 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,9 +49,54 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
             else
             {
-                FrmPrincipal principal = new FrmPrincipal(LOGIN.ROl, txtUsuario.Text);
-                principal.Show();
-                this.Hide();
+                int idUsr = LOGIN.usuario_id;
+                if (idUsr <= 0)
+                {
+                    MessageBox.Show("No se pudo identificar el ID del usuario en sesión.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // (Ajusta el nombre de la clase según donde hayas puesto el método anterior)
+                ClsCorteDiarioModelo modeloCorte = new ClsCorteDiarioModelo();
+
+                try
+                {
+                    if (modeloCorte.TieneTurnoAbierto(idUsr))
+                    {
+                     
+                        // El turno sigue abierto. Saltamos la apertura y vamos directo al menú.
+                        MessageBox.Show("Se detectó un turno abierto anterior. Retomando la sesión de caja...", "Turno Restaurado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        FrmPrincipal principal = new FrmPrincipal(LOGIN.ROl, txtUsuario.Text, idUsr);
+                        principal.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        
+                        // Lanzamos la ventana modal obligatoria de apertura de caja
+                        using (FrmAperturaCaja frmApertura = new FrmAperturaCaja(idUsr))
+                        {
+                            if (frmApertura.ShowDialog() == DialogResult.OK)
+                            {
+                                FrmPrincipal principal = new FrmPrincipal(LOGIN.ROl, txtUsuario.Text, idUsr);
+                                principal.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                // Si el usuario evade la apertura, limpiamos y cerramos sesión
+                                txtUsuario.Clear();
+                                txtpassword.Clear();
+                                txtUsuario.Focus();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

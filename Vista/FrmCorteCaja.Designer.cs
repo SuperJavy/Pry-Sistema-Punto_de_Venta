@@ -34,8 +34,11 @@
             lblCanceladosValor = new Label();
             lblTotalVentasTexto = new Label();
             lblTotalVentasValor = new Label();
+            pnlInferior = new Panel();
+            btnRealizarCorte = new Button();
             pnlCorteIzquierda.SuspendLayout();
             pnlCorteDerecha.SuspendLayout();
+            pnlInferior.SuspendLayout();
             SuspendLayout();
             // 
             // pnlCorteIzquierda
@@ -82,7 +85,7 @@
             lblFondoValor.Font = new Font("Segoe UI", 12F);
             lblFondoValor.Location = new Point(326, 110);
             lblFondoValor.Name = "lblFondoValor";
-            lblFondoValor.Size = new Size(100, 32);
+            lblFondoValor.Size = new Size(120, 32);
             lblFondoValor.TabIndex = 2;
             lblFondoValor.Text = "$ 0.00";
             lblFondoValor.TextAlign = ContentAlignment.MiddleRight;
@@ -103,7 +106,7 @@
             lblVentasEfectivoValor.ForeColor = Color.FromArgb(46, 204, 113);
             lblVentasEfectivoValor.Location = new Point(326, 150);
             lblVentasEfectivoValor.Name = "lblVentasEfectivoValor";
-            lblVentasEfectivoValor.Size = new Size(100, 32);
+            lblVentasEfectivoValor.Size = new Size(120, 32);
             lblVentasEfectivoValor.TabIndex = 4;
             lblVentasEfectivoValor.Text = "+ $ 0.00";
             lblVentasEfectivoValor.TextAlign = ContentAlignment.MiddleRight;
@@ -124,7 +127,7 @@
             lblSalidasValor.ForeColor = Color.FromArgb(231, 76, 60);
             lblSalidasValor.Location = new Point(326, 190);
             lblSalidasValor.Name = "lblSalidasValor";
-            lblSalidasValor.Size = new Size(100, 32);
+            lblSalidasValor.Size = new Size(120, 32);
             lblSalidasValor.TabIndex = 6;
             lblSalidasValor.Text = "- $ 0.00";
             lblSalidasValor.TextAlign = ContentAlignment.MiddleRight;
@@ -142,9 +145,9 @@
             // lblTotalCajonValor
             // 
             lblTotalCajonValor.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblTotalCajonValor.Location = new Point(304, 256);
+            lblTotalCajonValor.Location = new Point(296, 250);
             lblTotalCajonValor.Name = "lblTotalCajonValor";
-            lblTotalCajonValor.Size = new Size(149, 50);
+            lblTotalCajonValor.Size = new Size(150, 50);
             lblTotalCajonValor.TabIndex = 8;
             lblTotalCajonValor.Text = "$ 0.00";
             lblTotalCajonValor.TextAlign = ContentAlignment.MiddleRight;
@@ -253,21 +256,49 @@
             // 
             lblTotalVentasValor.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             lblTotalVentasValor.ForeColor = Color.FromArgb(41, 128, 185);
-            lblTotalVentasValor.Location = new Point(333, 256);
+            lblTotalVentasValor.Location = new Point(275, 250);
             lblTotalVentasValor.Name = "lblTotalVentasValor";
             lblTotalVentasValor.Size = new Size(175, 50);
             lblTotalVentasValor.TabIndex = 8;
             lblTotalVentasValor.Text = "$ 0.00";
             lblTotalVentasValor.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // pnlInferior
+            // 
+            pnlInferior.BackColor = Color.WhiteSmoke;
+            pnlInferior.Controls.Add(btnRealizarCorte);
+            pnlInferior.Dock = DockStyle.Bottom;
+            pnlInferior.Location = new Point(0, 500);
+            pnlInferior.Name = "pnlInferior";
+            pnlInferior.Size = new Size(1150, 80);
+            pnlInferior.TabIndex = 2;
+            // 
+            // btnRealizarCorte
+            // 
+            btnRealizarCorte.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnRealizarCorte.BackColor = Color.SeaGreen;
+            btnRealizarCorte.Cursor = Cursors.Hand;
+            btnRealizarCorte.FlatAppearance.BorderSize = 0;
+            btnRealizarCorte.FlatStyle = FlatStyle.Flat;
+            btnRealizarCorte.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnRealizarCorte.ForeColor = Color.White;
+            btnRealizarCorte.Location = new Point(762, 15);
+            btnRealizarCorte.Name = "btnRealizarCorte";
+            btnRealizarCorte.Size = new Size(358, 50);
+            btnRealizarCorte.TabIndex = 0;
+            btnRealizarCorte.Text = "🔒 Realizar Corte y Cerrar";
+            btnRealizarCorte.UseVisualStyleBackColor = false;
+            btnRealizarCorte.Click += btnRealizarCorte_Click;
+            // 
             // FrmCorteCaja
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
-            ClientSize = new Size(1150, 500);
+            ClientSize = new Size(1150, 580);
             Controls.Add(pnlCorteDerecha);
             Controls.Add(pnlCorteIzquierda);
+            Controls.Add(pnlInferior);
             Font = new Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmCorteCaja";
@@ -275,8 +306,10 @@
             pnlCorteIzquierda.PerformLayout();
             pnlCorteDerecha.ResumeLayout(false);
             pnlCorteDerecha.PerformLayout();
+            pnlInferior.ResumeLayout(false);
             ResumeLayout(false);
         }
+
         #endregion
 
         private System.Windows.Forms.Panel pnlCorteIzquierda;
@@ -299,5 +332,9 @@
         private System.Windows.Forms.Label lblCanceladosValor;
         private System.Windows.Forms.Label lblTotalVentasTexto;
         private System.Windows.Forms.Label lblTotalVentasValor;
+
+        // Nuevos componentes añadidos
+        private System.Windows.Forms.Panel pnlInferior;
+        private System.Windows.Forms.Button btnRealizarCorte;
     }
 }

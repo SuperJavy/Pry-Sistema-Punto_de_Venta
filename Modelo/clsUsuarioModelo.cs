@@ -8,7 +8,7 @@ using MySqlConnector;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsUsuarioModelo: clsConexion
+    internal class clsUsuarioModelo: ClsConexion
     {
         public bool registrarUsuario(string nombre, string apellidoP, string apellidoM, string nickname, string direcion, string telefono, string correo,string password, int id_rol)
         {

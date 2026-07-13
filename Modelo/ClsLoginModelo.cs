@@ -9,19 +9,19 @@ using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsLoginModelo:clsConexion
+    internal class ClsLoginModelo:ClsConexion
     {
         public string Nombre { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
-        public static int UsuarioActual { get; set; }
+        public  int UsuarioActual { get; set; }
         encryptado md5 = new encryptado();
 
         public Boolean validarusuario(string Nickname, string password)
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
 
                 using (var conexion = conexionBD.abrirConexion())
                 {

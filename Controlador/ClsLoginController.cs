@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Pry_Sistema_Punto_de_Venta.Modelo;
@@ -14,8 +15,11 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private ClsLoginModelo ModeloLogin = new ClsLoginModelo();
 
         public string ROl { get; set; }
+        public int usuario_id { get; set; } 
         public ClsLoginController()
-        {             ROl = ModeloLogin.Rol;
+        {   
+            ROl = ModeloLogin.Rol;
+            usuario_id = ModeloLogin.UsuarioActual;
         }
 
         public void validarcampos(string Nickname, string Password, FrmLogin vista)
@@ -29,6 +33,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     // AQUÍ ESTÁ EL CAMBIO: Asignamos el valor directamente del modelo
                     this.ROl = ModeloLogin.Rol;
+                    this.usuario_id = ModeloLogin.UsuarioActual;  
                     vista.notificarUsuario("Bienvenido, " + Nickname, false);
                 }
                 else
