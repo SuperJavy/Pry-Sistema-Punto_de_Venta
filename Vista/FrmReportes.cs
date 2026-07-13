@@ -8,16 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo;
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmReportes : Form
     {
         ClsPrincipal principal = new ClsPrincipal();
+        int usuarioActual;
 
-        public FrmReportes()
+        public FrmReportes(int idUsuario)
         {
             InitializeComponent();
+            usuarioActual = idUsuario;
         }
 
      
@@ -32,7 +35,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void btnCorte_Click_1(object sender, EventArgs e)
         {
-            principal.agregaralcontenedor(new FrmCorteCaja(), pnlContenedorPrincipal);
+            principal.agregaralcontenedor(new FrmCorteCaja(usuarioActual), pnlContenedorPrincipal);
             ResaltarBoton(btnCorte);
         }
 

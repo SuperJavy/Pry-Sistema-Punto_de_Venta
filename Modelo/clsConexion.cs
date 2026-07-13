@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MySqlConnector;
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsConexion
+    internal class ClsConexion
     {
         // private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=123456;";
         //private readonly string cadeConexion = "Server=localhost;Database=punto_de_venta;Uid=root;Pwd=;";

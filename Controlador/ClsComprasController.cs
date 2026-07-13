@@ -11,6 +11,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     internal class ClsComprasController
     {
         ClsComprasModelo modelo = new ClsComprasModelo();
+        private ClsLoginModelo login = new ClsLoginModelo();
         Compra compra = new Compra();
         public List<DetalleCompra> compraCancelada = new List<DetalleCompra>();
         public Producto buscarProducto(string codigo)
@@ -76,7 +77,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 vista.notificarUsuario("No se pueden guardar compras sin artículos en la lista.", true);
                 return false;
             }
-            compra.IdUsuario = ClsLoginModelo.UsuarioActual;
+            compra.IdUsuario = login.UsuarioActual;
             compra.fecha = DateTime.Now;
 
             bool exito = modelo.procesarCompra(compra, compraCancelada, 1);
@@ -190,7 +191,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 Compra compraCancelada = new Compra
                                 {
-                                    IdUsuario = ClsLoginModelo.UsuarioActual,
+                                    IdUsuario = login.UsuarioActual,
                                     fecha = DateTime.Now,
                                     detalleCompra = new List<DetalleCompra>()
                                 };

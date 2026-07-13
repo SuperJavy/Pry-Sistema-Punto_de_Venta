@@ -17,7 +17,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 DataTable dt = new DataTable();
 
                 using (var conexion = conexionBD.abrirConexion())
@@ -45,7 +45,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 DataTable dt = new DataTable();
 
                 using (var conexion = conexionBD.abrirConexion())
@@ -77,7 +77,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             // El QUERY directo y sin rodeos
             string query = "UPDATE codigo_Barras SET id_estado = @nuevoEstado WHERE Codigo_barras = @codigo;";
-            clsConexion conexionBD = new clsConexion();
+            ClsConexion conexionBD = new ClsConexion();
             try
             {
                 using (var conexion = conexionBD.abrirConexion())

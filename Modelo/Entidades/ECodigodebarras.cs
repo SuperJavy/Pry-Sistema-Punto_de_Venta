@@ -82,7 +82,7 @@
             }
             public bool insertarBD(string codigo, Image img)
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conex = conexionBD.abrirConexion())
                 {
                     string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras, id_estado) VALUES (@codigo, @img,@estado);";

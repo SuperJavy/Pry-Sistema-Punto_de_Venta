@@ -19,11 +19,13 @@ namespace Pry_Sistema_Punto_de_Venta
         private string Rolusuario;
         private string Usuario;
         ClsPrincipal principal = new ClsPrincipal();
-        public FrmPrincipal(string rolusuario, string usuario)
+        private int idUsuario;
+        public FrmPrincipal(string rolusuario, string usuario, int idUsuarioActual)
         {
             InitializeComponent();
             Rolusuario = rolusuario;
             Usuario = usuario;
+            idUsuario = idUsuarioActual;
         }
         public void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -85,7 +87,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void mnsReportes_Click(object sender, EventArgs e)
         {
-            IntentarAcceso(new FrmReportes());
+            IntentarAcceso(new FrmReportes(this.idUsuario));
         }
 
         private void pcbPerfil_Click(object sender, EventArgs e)
@@ -97,7 +99,7 @@ namespace Pry_Sistema_Punto_de_Venta
         private void mnsVentas_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();
-            principal.agregaralcontenedor(new FrmVentas(), pnlcontenedor);
+            principal.agregaralcontenedor(new FrmVentas(idUsuario), pnlcontenedor);
         }
     }
 }

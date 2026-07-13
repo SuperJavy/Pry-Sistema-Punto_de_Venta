@@ -15,7 +15,9 @@ namespace Pry_Sistema_Punto_de_Venta
     public partial class FrmVentas : Form
     {
         public static bool ventaPendiente = false;
-        public FrmVentas()
+
+        private int IdUsuario;
+        public FrmVentas(int usuario)
         {
             InitializeComponent();
 
@@ -44,6 +46,7 @@ namespace Pry_Sistema_Punto_de_Venta
             controler.recuperarVentaPendiente(this);
 
             this.ActiveControl = txtCodigoBusq;
+            IdUsuario = usuario;
 
         }
 
@@ -57,7 +60,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 return;
             }
 
-            FrmVentaproductos Vproduct = new FrmVentaproductos(controler);
+            FrmVentaproductos Vproduct = new FrmVentaproductos(controler, IdUsuario);
 
             if (Vproduct.ShowDialog() == DialogResult.OK)
             {

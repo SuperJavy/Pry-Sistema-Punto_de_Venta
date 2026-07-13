@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class ClsProductModelo : clsConexion
+    internal class ClsProductModelo : ClsConexion
     {
 
         ECodigodebarras codigob = new ECodigodebarras();
@@ -39,7 +39,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         }
         public bool Comsultarcode(string code)
         {
-            clsConexion conexionBD = new clsConexion();
+            ClsConexion conexionBD = new ClsConexion();
             string Query = "SELECT Codigo_barras FROM codigo_Barras WHERE Codigo_barras = @codigo LIMIT 1;";
 
             try
@@ -82,7 +82,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion ConexionBd = new clsConexion();
+                ClsConexion ConexionBd = new ClsConexion();
                 using (var Conexion = ConexionBd.abrirConexion())
                 {
                     int idEncontrado = 0;
@@ -174,7 +174,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
 
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
                     string query = "SELECT id,nombre FROM categoria";
@@ -203,7 +203,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             DataTable dt = new DataTable();
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
 
@@ -232,7 +232,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using(var conexion = conexionBD.abrirConexion())
                 {
                     string Query = "UPDATE productos SET nombre = @Nombre,Descripcion = @Descripcion,id_categoria = @Categoria_id," +
@@ -282,7 +282,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
                   

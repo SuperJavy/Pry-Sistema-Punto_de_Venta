@@ -5,7 +5,7 @@ using MySqlConnector;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsTicketModelo : clsConexion
+    internal class clsTicketModelo : ClsConexion
     {
         // Propiedades para mover los datos
         public Image Logo { get; set; }

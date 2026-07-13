@@ -9,7 +9,7 @@ using MySqlConnector;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsCategoriaModelo: clsConexion
+    internal class clsCategoriaModelo: ClsConexion
     {
         public Boolean insertarCategoria(string nombreCategoria) 
         {
@@ -41,7 +41,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             DataTable dt = new DataTable();
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
 
                 using (var conexion = conexionBD.abrirConexion())
                 {
@@ -66,7 +66,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-                clsConexion conexionBD = new clsConexion();
+                ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
                     string Query = "DELETE FROM categoria WHERE Nombre = @Nombre;";

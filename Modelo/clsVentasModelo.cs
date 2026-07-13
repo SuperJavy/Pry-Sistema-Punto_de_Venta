@@ -14,7 +14,7 @@ using static Pry_Sistema_Punto_de_Venta.Modelo.Entidades.Producto;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsVentasModelo : clsConexion
+    internal class clsVentasModelo :  ClsConexion
     {
 
         public Producto buscarProducto(string codigo)
