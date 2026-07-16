@@ -70,26 +70,38 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             agregarProducto(producto, cantidad, costoCompra, vista);
             vista.limpiarCamposEdicion();
         }
-        public bool guardarCompra(FrmCompra vista)
+        public bool guardarCompra(FrmCompra vista, int idUsuario)
         {
             if (compra.detalleCompra.Count == 0)
             {
                 vista.notificarUsuario("No se pueden guardar compras sin artículos en la lista.", true);
                 return false;
             }
-            compra.IdUsuario = login.UsuarioActual;
+            compra.IdUsuario = idUsuario;
             compra.fecha = DateTime.Now;
 
-            bool exito = modelo.procesarCompra(compra, compraCancelada, 1);
+            bool exito;
+            try
+            {
+                exito = modelo.procesarCompra(compra, compraCancelada, 1);
+            }
+            catch (Exception ex)
+            {
+                vista.notificarUsuario("Error al guardar la compra: " + ex.Message, true);
+                return false;
+            }
 
             if (exito)
             {
-                MessageBox.Show("Compra guardada correctamente", "Guardado correctamente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                vista.notificarUsuario("Compra guardada correctamente", false);
+
+                // Reiniciar carrito y respaldo para evitar duplicados en la siguiente compra
+                compra = new Compra();
+                compraCancelada = new List<DetalleCompra>();
+
+                vista.actualizarTabla(compra.detalleCompra);
+                vista.mostrarTotal(compra.total);
                 eliminarRespaldo();
-            }
-            else
-            {
-                throw new Exception("La compra no pudo ser gurdada correctamente");
             }
 
             return exito;

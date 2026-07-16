@@ -17,11 +17,13 @@ namespace Pry_Sistema_Punto_de_Venta
     {
         ClsComprasController controller = new ClsComprasController();
         private Producto productoEnEspera = null;
-        public FrmCompra()
+        int idUsuario;
+        public FrmCompra(int idUsuarioActual)
         {
             InitializeComponent();
             controller.recuperarCompraPendiente(this);
             this.ActiveControl = txtCodigoProducto;
+            this.idUsuario = idUsuarioActual;
         }
         private void FrmCompra_KeyDown(object sender, KeyEventArgs e)
         {
@@ -107,7 +109,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            controller.guardarCompra(this);
+            controller.guardarCompra(this, idUsuario);
         }
         public void actualizarTabla(List<DetalleCompra> listaCompra)
         {

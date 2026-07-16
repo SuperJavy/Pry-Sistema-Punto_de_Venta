@@ -61,31 +61,41 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         }
         public bool procesarCompra(Compra compra, List<DetalleCompra> cancelados, int estado)
         {
-            using (MySqlConnection con = abrirConexion())
+            // Quitamos el 'using' para no destruir la conexión global de la clase
+            MySqlConnection con = abrirConexion();
+            MySqlTransaction trans = con.BeginTransaction();
+
+            try
             {
-                using (MySqlTransaction trans = con.BeginTransaction())
+                int idCompra = insertarCompra(compra, con, trans, estado);
+
+                // Validamos que la lista no sea nula antes de intentar iterarla
+                if (compra.detalleCompra != null && compra.detalleCompra.Count > 0)
                 {
-                    try
-                    {
-                        int idCompra = insertarCompra(compra, con, trans, estado);
-               
-                        insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
-                        insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
-                        actualizarStockCompra(compra.detalleCompra, con, trans);
-
-                        
-                        trans.Commit();
-                        return true;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al guardar compra "+ex.Message);
-                    }
+                    insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
+                    actualizarStockCompra(compra.detalleCompra, con, trans);
                 }
-            
+
+                // Validamos que los cancelados existan para no romper la transacción
+                if (cancelados != null && cancelados.Count > 0)
+                {
+                    insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
+                }
+
+                trans.Commit();
+                return true;
             }
-        
+            catch (Exception ex)
+            {
+                // Forzamos el Rollback explícito si algo falla
+                trans.Rollback();
+                throw new Exception("Error al guardar compra: " + ex.Message);
+            }
+            finally
+            {
+                // Cerramos la conexión de forma segura como en tus otros métodos
+                cerrarConexion();
+            }
         }
 
         private int insertarCompra(Compra compra, MySqlConnection con, MySqlTransaction trans, int estado)
@@ -127,24 +137,24 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         private void insertarDetalleCompra(int idCompra, List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans, int estado)
         {
             string query = @"
-                INSERT INTO detalle_compra     
-                (         
-                    id_compra,         
-                    id_producto,
-                    precio,
-                    cantidad,                  
-                    subtotal,
-                    id_estado
-                )     
-                VALUES     
-                (         
-                    @id_compra,         
-                    @id_producto,
-                    @costo_unitario,
-                    @cantidad,                  
-                    @subtotal,
-                    @id_estado
-                )";
+        INSERT INTO detalle_compra     
+        (         
+            id_compra,         
+            id_producto,
+            precio,
+            cantidad,                  
+            subtotal,
+            id_estado
+        )     
+        VALUES     
+        (         
+            @id_compra,         
+            @id_producto,
+            @costo_unitario,
+            @cantidad,                  
+            @subtotal,
+            @id_estado
+        )";
 
             foreach (var item in detalles)
             {
@@ -154,7 +164,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     cmd.Parameters.AddWithValue("@id_producto", item.producto.id_producto);
                     cmd.Parameters.AddWithValue("@cantidad", item.cantidad);
                     cmd.Parameters.AddWithValue("@costo_unitario", item.precioCompra);
-                    cmd.Parameters.AddWithValue("@subtotal", item.cantidad * item.subtotalCompra);
+
+                    // CORRECCIÓN: Si subtotalCompra ya es el total calculado, pásalo directamente. 
+                    // Si no lo es, cambialo a: item.cantidad * item.precioCompra
+                    cmd.Parameters.AddWithValue("@subtotal", item.subtotalCompra);
+
                     cmd.Parameters.AddWithValue("@id_estado", estado);
 
                     cmd.ExecuteNonQuery();

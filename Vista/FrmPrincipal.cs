@@ -41,10 +41,10 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void mnsCompra_Click(object sender, EventArgs e)
         {
-            FrmCompra frmCompras = new FrmCompra();
+            FrmCompra frmCompras = new FrmCompra(this.idUsuario);
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
-            IntentarAcceso(new FrmCompra());
+            IntentarAcceso(new FrmCompra(this.idUsuario));
 
         }
 
