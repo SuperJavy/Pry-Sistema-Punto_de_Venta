@@ -5,9 +5,8 @@ using MySqlConnector;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
-    internal class clsTicketModelo : ClsConexion
+    public class clsTicketModelo : ClsConexion
     {
-        // Propiedades para mover los datos
         public Image Logo { get; set; }
         public string NombreNegocio { get; set; }
         public string Telefono { get; set; }
@@ -15,7 +14,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public string RFC { get; set; }
         public string MensajeFinal { get; set; }
 
-        // Método para INSERTAR o ACTUALIZAR en la Base de Datos
         public bool guardarConfiguracion(clsTicketModelo datosTicket)
         {
             string consulta = @"INSERT INTO configuracion_ticket (id, logo, nombre, telefono, direccion, rfc, mensaje_final) 
@@ -23,7 +21,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         ON DUPLICATE KEY UPDATE 
                         logo = @logo, nombre = @nombre, telefono = @telefono, 
                         direccion = @direccion, rfc = @rfc, mensaje_final = @mensaje";
-            ;
 
             try
             {
@@ -51,7 +48,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
         }
 
-        // Método para CONSULTAR los datos guardados
         public clsTicketModelo obtenerConfiguracion()
         {
             string consulta = "SELECT logo, nombre, telefono, direccion, rfc, mensaje_final FROM configuracion_ticket WHERE id = 1";
@@ -91,7 +87,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
         }
 
-        // Convertidores útiles (Imágenes <--> Bytes)
         private byte[] imagenABytes(Image img)
         {
             if (img == null) return null;

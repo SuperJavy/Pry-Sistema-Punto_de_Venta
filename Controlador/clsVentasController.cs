@@ -270,6 +270,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 catch { eliminarRespaldo();}
             }
         }
+        public ventas ObtenerVentaActual()
+        {
+            return venta;
+        }
     }
 
     
