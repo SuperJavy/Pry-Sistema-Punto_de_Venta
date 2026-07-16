@@ -155,7 +155,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             // Ajuste dinámico de dimensiones
             int margenIzquierdo = esTermica ? 10 : 50;
-            int anchoTicket = esTermica ? 270 : 700;
+            int anchoTicket =  315;
             int y = 20;
 
             StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };

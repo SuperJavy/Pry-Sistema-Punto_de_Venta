@@ -65,7 +65,7 @@ namespace Pry_Sistema_Punto_de_Venta
                     // Nota: Aquí puedes pasar el nombre de la impresora (ej. "EPSON TM-T20") 
                     // o dejarlo vacío "" para que use la impresora por defecto de Windows.
                     // 'true' indica que es impresora térmica, 'false' la vuelve tamaño carta/normal.
-                    ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), "Brother DCP-T310", false);
+                    ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), "Canon G4010 Series", false);
                 }
                 catch (Exception ex)
                 {
