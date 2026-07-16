@@ -168,8 +168,6 @@
                 txtNombrep.Clear();
                 txtDescripcion.Clear();
                 txtPrecioventa.Clear();
-                txtStockactual.Clear();
-                txtStockminimo.Clear();
                 txtCosto.Clear();
                 pcbImagen.Image = null;
                 nudPorcentaje.Value = 0;
