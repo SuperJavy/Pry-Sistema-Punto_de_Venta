@@ -87,7 +87,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void mnsReportes_Click(object sender, EventArgs e)
         {
-            IntentarAcceso(new FrmReportes(this.idUsuario));
+            IntentarAcceso(new FrmReportes(this.idUsuario, this.Rolusuario));
         }
 
         private void pcbPerfil_Click(object sender, EventArgs e)

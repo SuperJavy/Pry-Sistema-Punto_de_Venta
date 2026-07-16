@@ -16,11 +16,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
     {
         ClsPrincipal principal = new ClsPrincipal();
         int usuarioActual;
-
-        public FrmReportes(int idUsuario)
+        string rolUsuarioActual;
+        public FrmReportes(int idUsuario, string rol)
         {
             InitializeComponent();
             usuarioActual = idUsuario;
+            rolUsuarioActual = rol;
         }
 
      
@@ -35,7 +36,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void btnCorte_Click_1(object sender, EventArgs e)
         {
-            principal.agregaralcontenedor(new FrmCorteCaja(usuarioActual), pnlContenedorPrincipal);
+            principal.agregaralcontenedor(new FrmCorteCaja(usuarioActual, rolUsuarioActual), pnlContenedorPrincipal);
             ResaltarBoton(btnCorte);
         }
 

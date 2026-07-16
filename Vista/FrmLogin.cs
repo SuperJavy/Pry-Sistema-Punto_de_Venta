@@ -15,6 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
     public partial class FrmLogin : Form
     {
         ClsLoginController LOGIN = new ClsLoginController();
+        ClsCorteCajaController controllerCorte = new ClsCorteCajaController();
         public FrmLogin()
         {
             InitializeComponent();
@@ -56,14 +57,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     return;
                 }
 
-                // (Ajusta el nombre de la clase según donde hayas puesto el método anterior)
-                ClsCorteDiarioModelo modeloCorte = new ClsCorteDiarioModelo();
-
                 try
                 {
-                    if (modeloCorte.TieneTurnoAbierto(idUsr))
+                    // Preguntamos al Controlador (no al Modelo) si este usuario ya
+                    // tiene un corte con fecha_de_cierre = NULL.
+                    if (controllerCorte.TieneTurnoAbierto(idUsr))
                     {
-                     
                         // El turno sigue abierto. Saltamos la apertura y vamos directo al menú.
                         MessageBox.Show("Se detectó un turno abierto anterior. Retomando la sesión de caja...", "Turno Restaurado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -73,7 +72,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     }
                     else
                     {
-                        
+
                         // Lanzamos la ventana modal obligatoria de apertura de caja
                         using (FrmAperturaCaja frmApertura = new FrmAperturaCaja(idUsr))
                         {
