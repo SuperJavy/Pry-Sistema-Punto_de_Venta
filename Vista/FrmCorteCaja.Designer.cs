@@ -20,7 +20,6 @@
             pnlHeader = new Panel();
             lblTituloPrincipal = new Label();
             lblSubtitulo = new Label();
-            btnCerrarCaja = new Button();
             btnRealizarCorte = new Button();
             btnVerHistorial = new Button();
             pnlInferior = new Panel();
@@ -98,32 +97,18 @@
             lblSubtitulo.TabIndex = 1;
             lblSubtitulo.Text = "Módulo de cierre de turno y declaración de efectivo";
             // 
-            // btnCerrarCaja
-            // 
-            btnCerrarCaja.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCerrarCaja.BackColor = Color.FromArgb(39, 174, 96);
-            btnCerrarCaja.FlatAppearance.BorderSize = 0;
-            btnCerrarCaja.FlatStyle = FlatStyle.Flat;
-            btnCerrarCaja.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnCerrarCaja.ForeColor = Color.White;
-            btnCerrarCaja.Location = new Point(1187, 14);
-            btnCerrarCaja.Name = "btnCerrarCaja";
-            btnCerrarCaja.Size = new Size(170, 40);
-            btnCerrarCaja.TabIndex = 2;
-            btnCerrarCaja.Text = "Cerrar caja";
-            btnCerrarCaja.UseVisualStyleBackColor = false;
-            // 
             // btnRealizarCorte
             // 
             btnRealizarCorte.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnRealizarCorte.BackColor = Color.White;
             btnRealizarCorte.ForeColor = Color.FromArgb(41, 128, 185);
-            btnRealizarCorte.Location = new Point(947, 14);
+            btnRealizarCorte.Location = new Point(1078, 13);
             btnRealizarCorte.Name = "btnRealizarCorte";
-            btnRealizarCorte.Size = new Size(230, 40);
+            btnRealizarCorte.Size = new Size(279, 40);
             btnRealizarCorte.TabIndex = 1;
-            btnRealizarCorte.Text = "Guardar e Imprimir corte";
+            btnRealizarCorte.Text = "Guardar y cerrar turno";
             btnRealizarCorte.UseVisualStyleBackColor = false;
+            btnRealizarCorte.Click += btnRealizarCorte_Click;
             // 
             // btnVerHistorial
             // 
@@ -146,7 +131,6 @@
             pnlInferior.BackColor = Color.WhiteSmoke;
             pnlInferior.Controls.Add(btnVerHistorial);
             pnlInferior.Controls.Add(btnRealizarCorte);
-            pnlInferior.Controls.Add(btnCerrarCaja);
             pnlInferior.Dock = DockStyle.Bottom;
             pnlInferior.Location = new Point(0, 754);
             pnlInferior.Name = "pnlInferior";
@@ -423,7 +407,7 @@
             // 
             lblVentasTarjetaTexto.Location = new Point(15, 185);
             lblVentasTarjetaTexto.Name = "lblVentasTarjetaTexto";
-            lblVentasTarjetaTexto.Size = new Size(200, 30);
+            lblVentasTarjetaTexto.Size = new Size(230, 36);
             lblVentasTarjetaTexto.TabIndex = 7;
             lblVentasTarjetaTexto.Text = "Productos vendidos";
             // 
@@ -531,7 +515,6 @@
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblTituloPrincipal;
         private System.Windows.Forms.Label lblSubtitulo;
-        private System.Windows.Forms.Button btnCerrarCaja;
         private System.Windows.Forms.Button btnRealizarCorte;
         private System.Windows.Forms.Button btnVerHistorial;
         private System.Windows.Forms.Panel pnlInferior;

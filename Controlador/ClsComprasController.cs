@@ -177,7 +177,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    agregarProducto(prod, item.cantidad, 0, vista);
+                                    // CORRECCIÓN: Se envía prod.precio_compra en lugar de 0
+                                    agregarProducto(prod, item.cantidad, prod.precio_compra, vista);
                                 }
                             }
                         }
@@ -193,7 +194,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                     {
                                         producto = prod,
                                         cantidad = item.cantidad,
-                                        precioCompra = 0
+                                        // CORRECCIÓN: Se asigna el costo real para auditoría de cancelados
+                                        precioCompra = prod.precio_compra
                                     };
                                     listaAuditada.Add(detalle);
                                 }

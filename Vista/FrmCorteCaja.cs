@@ -97,7 +97,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 decimal articulosCancelados = datosCorte["ArticulosCancelados"];
 
                 // Cálculos matemáticos de caja
-                decimal totalEnCajon = fondoInicial + ventasEfectivo - salidasCompras;
+                decimal totalEnCajon = fondoInicial + ventasEfectivo;
 
                 // GUARDAMOS EL MONTO REAL EN LA VARIABLE INTERNA (Indispensable para el botón de cierre)
                 this.montoEsperadoInterno = totalEnCajon;
@@ -179,6 +179,34 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
         }
 
+        private void btnRealizarCorte_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+
+
+        private void btnVerHistorial_Click_1(object sender, EventArgs e)
+        {
+            ClsPrincipal principal = new ClsPrincipal();
+            // Se pasa la sesión activa para que el historial filtre por cajero
+            // según el rol (un cajero solo ve lo suyo; el admin ve a todos).
+            FrmHistorialCortes frmHistorial = new FrmHistorialCortes(idUsuarioSesion, rolUsuario);
+
+            // Obtenemos el panel contenedor que está un nivel arriba (en el formulario padre)
+            Panel contenedorPadre = this.Parent as Panel;
+
+            if (contenedorPadre != null)
+            {
+                principal.agregaralcontenedor(frmHistorial, contenedorPadre);
+            }
+        }
+
+        private void btnCerrarCaja_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnRealizarCorte_Click(object sender, EventArgs e)
         {
             try
@@ -255,27 +283,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnVerHistorial_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnVerHistorial_Click_1(object sender, EventArgs e)
-        {
-            ClsPrincipal principal = new ClsPrincipal();
-            // Se pasa la sesión activa para que el historial filtre por cajero
-            // según el rol (un cajero solo ve lo suyo; el admin ve a todos).
-            FrmHistorialCortes frmHistorial = new FrmHistorialCortes(idUsuarioSesion, rolUsuario);
-
-            // Obtenemos el panel contenedor que está un nivel arriba (en el formulario padre)
-            Panel contenedorPadre = this.Parent as Panel;
-
-            if (contenedorPadre != null)
-            {
-                principal.agregaralcontenedor(frmHistorial, contenedorPadre);
             }
         }
     }

@@ -44,7 +44,9 @@ namespace Pry_Sistema_Punto_de_Venta
             FrmCompra frmCompras = new FrmCompra(this.idUsuario);
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
-            IntentarAcceso(new FrmCompra(this.idUsuario));
+
+            // 2. Pasas la variable que ya creaste, sin usar la palabra "new" otra vez
+            IntentarAcceso(frmCompras);
 
         }
 
