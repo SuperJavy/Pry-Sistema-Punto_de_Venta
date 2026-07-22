@@ -125,6 +125,7 @@
             btnVerHistorial.TabIndex = 0;
             btnVerHistorial.Text = "📋 Ver Historial";
             btnVerHistorial.UseVisualStyleBackColor = false;
+            btnVerHistorial.Click += btnVerHistorial_Click;
             // 
             // pnlInferior
             // 

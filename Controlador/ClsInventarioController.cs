@@ -11,13 +11,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
     internal class ClsInventarioController
     {
-        ClsInventarioModelo producto = new ClsInventarioModelo();
+        ClsInventarioModelo modeloInventario = new ClsInventarioModelo();
+
         public DataTable CargarProductosBajos(FrmProductosbajos vista)
         {
             DataTable dt = null;
             try
             {
-                dt = producto.ObtenerProductosBajos();
+                dt = modeloInventario.ObtenerProductosBajos();
                 if (dt != null && dt.Rows.Count == 0)
                 {
                     vista.notificarUsuario("No hay productos con inventario bajo.", false);
@@ -30,14 +31,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             return dt;
         }
 
-
         public void ObtenerReporte(string catId, FrmReporteinventario vista)
         {
             try
             {
-                DataTable dt = producto.ObtenerEstadisticas(catId);
+                DataTable dt = modeloInventario.ObtenerEstadisticas(catId);
 
-                // Verificamos si la tabla tiene datos
                 if (dt.Rows.Count > 0 && dt.Rows[0]["TotalCosto"] != DBNull.Value)
                 {
                     decimal costo = Convert.ToDecimal(dt.Rows[0]["TotalCosto"]);
@@ -47,16 +46,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
                 else
                 {
-                    // Aquí usamos la función que pediste cuando no hay datos
-                    vista.notificarUsuario("No hay productos con inventario bajo.", false);
-                    vista.ActualizarUI(0, 0); // Limpiamos la pantalla
+                    vista.notificarUsuario("No hay productos en esta categoría.", false);
+                    vista.ActualizarUI(0, 0);
                 }
             }
             catch (Exception ex)
             {
                 vista.notificarUsuario("Error al obtener reporte: " + ex.Message, true);
             }
-
         }
 
         public DataTable Cargarcategorias(FrmReporteinventario vista)
@@ -64,24 +61,21 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             DataTable dtcategorias = null;
             try
             {
-                dtcategorias = producto.Extraercategoria();
-
+                dtcategorias = modeloInventario.Extraercategoria();
             }
             catch (Exception)
             {
                 vista.notificarUsuario("Error al cargar las categorias", true);
             }
             return dtcategorias;
-
         }
 
-
+        // Método actualizado que conecta la Vista con la nueva consulta de auditoría del Modelo
         public void ActualizarVistaInventario(string catId, FrmReporteinventario vista)
         {
             try
-            { 
-
-                DataTable dtLista = producto.ObtenerDetalleProductos(catId);
+            {
+                DataTable dtLista = modeloInventario.ObtenerDetalleProductosConAuditoria(catId);
 
                 if (dtLista.Rows.Count > 0)
                 {
