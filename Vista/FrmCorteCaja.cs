@@ -314,7 +314,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     diferencia,
                     idUsuarioSesion.ToString(),
                     "", // Impresora por defecto
-                    true); // true = térmica, false = impresora normal
+                    false); // true = térmica, false = impresora normal
 
                 MessageBox.Show("El ticket previo se ha enviado a la impresora.\n\nRecuerde que el turno aún NO ha sido cerrado.", "Impresión exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

@@ -83,10 +83,12 @@
             // 
             // Cajero
             // 
+            Cajero.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Cajero.AutoSize = true;
+            Cajero.Font = new Font("Segoe UI", 9.857143F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Cajero.Location = new Point(1047, 42);
             Cajero.Name = "Cajero";
-            Cajero.Size = new Size(82, 32);
+            Cajero.Size = new Size(87, 32);
             Cajero.TabIndex = 3;
             Cajero.Text = "Cajero";
             // 

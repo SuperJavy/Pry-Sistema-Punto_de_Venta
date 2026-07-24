@@ -112,7 +112,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     altoTicket += (ventaActual.detalleVenta.Count * 15);
                 }
-                documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, altoTicket);
+                documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 700);
                 documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
             }
             else
@@ -263,7 +263,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 if (esTermica)
                 {
                     // Tamaño de papel para ticket de corte (Alto fijo razonable)
-                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 480);
+                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 350);
                     documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
                 }
                 else
