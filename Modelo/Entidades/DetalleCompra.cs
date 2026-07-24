@@ -13,6 +13,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
         public decimal cantidad { get; set; }
         public decimal precioCompra { get; set; }
         public decimal subtotalCompra { get { return cantidad * precioCompra; } }
-
+        public decimal porcentajeGanancia { get; set; }
     }
 }

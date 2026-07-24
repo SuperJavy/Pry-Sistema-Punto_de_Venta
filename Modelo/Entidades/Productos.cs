@@ -18,9 +18,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
             public decimal importe { get; set; }
             public Image imagen { get; set; }
             public string tipoVenta { get; set; }
+            public decimal porcentaje { get; set; }
 
-
-        }
+    }
         
 
     

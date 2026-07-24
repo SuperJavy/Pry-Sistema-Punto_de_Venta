@@ -11,30 +11,28 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
     internal class ClsComprasModelo : ClsConexion
     {
 
-        public Producto buscarProducto(string codigo)
+          public Producto buscarProducto(string codigo)
         {
             Producto producto = null;
-
             try
             {
                 abrirConexion();
+                // Se agregó p.porcentaje a la consulta
                 string consulta = @"
-                                    SELECT p.id,
-                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
-                                           p.nombre,
-                                           p.costo AS Costo,
-                                           p.stock,
-                                           t.nombre AS Tipo
-                                    FROM productos p
-                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                                    WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
-
+            SELECT p.id,
+                   IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                   p.nombre,
+                   p.costo AS Costo,
+                   IFNULL(p.porcentaje, 0) AS Porcentaje,
+                   p.stock,
+                   t.nombre AS Tipo
+            FROM productos p
+            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+            WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
-
                 cmd.Parameters.AddWithValue("@codigo", codigo);
-
                 MySqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -45,10 +43,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         codigo_de_barras = dr["codigo_de_barras"].ToString(),
                         nombre = dr["nombre"].ToString(),
                         precio_compra = Convert.ToDecimal(dr["Costo"]),
+                        porcentaje = Convert.ToDecimal(dr["Porcentaje"]), // Recuperamos el margen
                         stock = Convert.ToDecimal(dr["stock"]),
                         tipoVenta = dr["Tipo"].ToString()
                     };
-
                 }
             }
             catch (Exception ex)
@@ -178,12 +176,14 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
         private void actualizarStockCompra(List<DetalleCompra> detalles, MySqlConnection con, MySqlTransaction trans)
         {
-   
+
             string query = @"
-                UPDATE productos         
-                SET stock = stock + @cantidad,
-                    costo = @nuevo_costo
-                WHERE ID = @id_producto";
+                            UPDATE productos         
+                            SET stock = stock + @cantidad,
+                                costo = @nuevo_costo,
+                                porcentaje = @porcentaje,
+                                precio_venta = @nuevo_costo + (@nuevo_costo * (@porcentaje / 100))
+                            WHERE ID = @id_producto";
 
             foreach (var item in detalles)
             {
@@ -191,6 +191,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     cmd.Parameters.AddWithValue("@cantidad", item.cantidad);
                     cmd.Parameters.AddWithValue("@nuevo_costo", item.precioCompra);
+                    cmd.Parameters.AddWithValue("@porcentaje", item.porcentajeGanancia);
                     cmd.Parameters.AddWithValue("@id_producto", item.producto.id_producto);
 
                     cmd.ExecuteNonQuery();
@@ -205,25 +206,25 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 abrirConexion();
+                // CORRECCIÓN: Se agregó IFNULL(p.porcentaje, 0) AS Porcentaje a la consulta SQL
                 string consulta = @"
-                                    SELECT p.id,
-                                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
-                                           p.nombre,
-                                           p.costo AS Costo,
-                                           p.stock,                          
-                                           t.nombre AS Tipo         
-                                    FROM productos p
-                                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-                                    WHERE p.nombre LIKE @filtro 
-                                       OR cb.Codigo_barras LIKE @filtro 
-                                       OR p.codigo_de_barras LIKE @filtro";
+            SELECT p.id,
+                   IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                   p.nombre,
+                   p.costo AS Costo,
+                   IFNULL(p.porcentaje, 0) AS Porcentaje,
+                   p.stock,                          
+                   t.nombre AS Tipo         
+            FROM productos p
+            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+            WHERE p.nombre LIKE @filtro 
+               OR cb.Codigo_barras LIKE @filtro 
+               OR p.codigo_de_barras LIKE @filtro";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
-
                 cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
 
-                // Es buena práctica poner el DataReader dentro de un using para liberar memoria
                 using MySqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -235,6 +236,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                             codigo_de_barras = dr["codigo_de_barras"].ToString(),
                             nombre = dr["nombre"].ToString(),
                             precio_compra = Convert.ToDecimal(dr["Costo"]),
+
+                            // CORRECCIÓN: Se lee el dato extraído de la base de datos y se asigna al objeto
+                            porcentaje = Convert.ToDecimal(dr["Porcentaje"]),
+
                             stock = Convert.ToDecimal(dr["stock"]),
                             tipoVenta = dr["Tipo"].ToString()
                         }

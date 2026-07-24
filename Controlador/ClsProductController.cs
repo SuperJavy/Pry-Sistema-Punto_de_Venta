@@ -77,7 +77,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 vista.notificarUsuario("Error al guardar en BD o conexion", true);
             }
         }
-
         public Image imgec(string c, FrmGernerador_CodBarras vista)
         {
             Image img = null;
@@ -92,12 +91,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             return img;
         }
-        public void Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmNuevoProducto vista)
+        public bool Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, FrmNuevoProducto vista)
         {
-            if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
+            if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo))
             {
                 vista.notificarUsuario("Los campos no pueden estar vacíos", true);
-                return;
+                return false;
             }
 
             if (Imagen == null)
@@ -112,32 +111,23 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
             }
 
-
             try
             {
-                bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, Imagen, porcentaje);
+                // Se llama al modelo sin los datos financieros
+                bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Categoria, Stockactuaal, Stockminimo, Imagen);
                 if (esvalido)
                 {
                     vista.notificarUsuario("Los datos fueron guardados correctamente", false);
+                    return true;
                 }
-
+                return false;
             }
             catch (Exception E)
             {
-
-                vista.notificarUsuario("Producto Duplicado ", true);
+                vista.notificarUsuario("Producto Duplicado o Error: " + E.Message, true);
+                return false;
             }
-        }
-
-
-
-        public float Calcularprecioventa(string costo, string porcentaje, FrmNuevoProducto vista)
-        {
-            return producto.Calpventa(costo, porcentaje);
-        }
-
-
-
+        }     
         public DataTable Cargarcategorias(FrmNuevoProducto vista)
         {
             DataTable dtcategorias = null;
@@ -193,12 +183,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             return dtcategorias;
 
         }
-
         public float Calcularprecioventa(string costo, string porcentaje, FrmModoficar vista)
         {
             return producto.Calpventa(costo, porcentaje);
         }
-
         public void Actualizarproduc(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmModoficar vista)
         {
 
@@ -230,7 +218,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
         }
         //termina codigo de actualizar
-
         //empeiza codigo de eliminar produto
         public DataTable BuscarProEliminar(string codigodebarras, FrmEliminarproductos vista)
         {
@@ -304,7 +291,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
 
         }
-
         private Image imagenPorCategoria(int idCategoria)
         {
             switch (idCategoria)

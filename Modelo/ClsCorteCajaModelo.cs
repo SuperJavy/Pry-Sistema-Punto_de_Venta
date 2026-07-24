@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -313,5 +314,33 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al registrar el cierre de caja: " + ex.Message);
             }
         }
+        public DataTable ObtenerCajerosConTurnoAbierto()
+        {
+            DataTable dt = new DataTable();
+            // CORRECCIÓN: Se agrega DISTINCT para evitar nombres duplicados
+            string query = @"
+        SELECT DISTINCT u.id, u.nombre
+        FROM usuario u
+        INNER JOIN corte c ON u.id = c.id_usuario
+        WHERE c.fecha_de_cierre IS NULL";
+
+            try
+            {
+                using (var conexion = abrirConexion())
+                using (var cmd = new MySqlCommand(query, conexion))
+                {
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener cajeros con turno abierto: " + ex.Message);
+            }
+            return dt;
+        }
     }
+
 }

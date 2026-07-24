@@ -155,7 +155,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             // Ajuste dinámico de dimensiones
             int margenIzquierdo = esTermica ? 10 : 50;
-            int anchoTicket =  315;
+            int anchoTicket = 315;
             int y = 20;
 
             StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
@@ -222,5 +222,159 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             e.HasMorePages = false;
         }
+    
+        // ====================================================================
+        // 3. MÉTODOS PARA LA IMPRESIÓN DEL TICKET DE CORTE DE CAJA
+        // ====================================================================
+
+        // Variables exclusivas para el ticket de corte
+            private Dictionary<string, decimal> corteActual;
+            private decimal corteMontoEsperado;
+            private decimal corteMontoReal;
+            private decimal corteDiferencia;
+            private string cajeroCorte;
+
+            public void ImprimirTicketCorte(Dictionary<string, decimal> datosCorte, decimal montoEsperado, decimal montoReal, decimal diferencia, string cajero, string nombreImpresora, bool impresoraTermica)
+            {
+                this.corteActual = datosCorte;
+                this.corteMontoEsperado = montoEsperado;
+                this.corteMontoReal = montoReal;
+                this.corteDiferencia = diferencia;
+                this.cajeroCorte = cajero;
+                this.esTermica = impresoraTermica;
+
+                // Traemos la configuración guardada (Logo, Nombre, etc.)
+                this.configActual = modeloTicket.obtenerConfiguracion();
+
+                if (this.configActual == null)
+                {
+                    MessageBox.Show("Aún no se ha configurado el formato del ticket. Vaya a configuración de ticket primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                PrintDocument documento = new PrintDocument();
+                documento.DocumentName = "Ticket_Corte_Caja";
+
+                if (!string.IsNullOrEmpty(nombreImpresora))
+                {
+                    documento.PrinterSettings.PrinterName = nombreImpresora;
+                }
+
+                if (esTermica)
+                {
+                    // Tamaño de papel para ticket de corte (Alto fijo razonable)
+                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 480);
+                    documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
+                }
+                else
+                {
+                    foreach (PaperSize paperSize in documento.PrinterSettings.PaperSizes)
+                    {
+                        if (paperSize.Kind == PaperKind.Letter)
+                        {
+                            documento.DefaultPageSettings.PaperSize = paperSize;
+                            break;
+                        }
+                    }
+                    documento.DefaultPageSettings.Margins = new Margins(50, 50, 50, 50);
+                }
+
+                documento.PrintPage += new PrintPageEventHandler(GenerarCuerpoTicketCorte);
+
+                try
+                {
+                    documento.Print();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de comunicación con la impresora: " + ex.Message, "Error de Hardware", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void GenerarCuerpoTicketCorte(object sender, PrintPageEventArgs e)
+            {
+                Graphics gfx = e.Graphics;
+                Font fuenteNormal = new Font("Arial", 9);
+                Font fuenteNegrita = new Font("Arial", 9, FontStyle.Bold);
+                Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
+                Brush brocha = Brushes.Black;
+
+                int margenIzquierdo = esTermica ? 10 : 50;
+                int anchoTicket = 315;
+                int y = 20;
+
+                StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
+                StringFormat formatoDerecha = new StringFormat { Alignment = StringAlignment.Far };
+
+                // --- CABECERA Y LOGO ---
+                if (configActual.Logo != null)
+                {
+                    int logoAncho = esTermica ? 100 : 150;
+                    int logoAlto = esTermica ? 100 : 150;
+                    int logoX = margenIzquierdo + ((anchoTicket - logoAncho) / 2);
+                    gfx.DrawImage(configActual.Logo, logoX, y, logoAncho, logoAlto);
+                    y += logoAlto + 10;
+                }
+
+                gfx.DrawString(configActual.NombreNegocio, fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+                y += 25;
+                gfx.DrawString("CORTE DE CAJA", fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+                y += 25;
+                gfx.DrawString("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"), fuenteNormal, brocha, margenIzquierdo, y);
+                y += 15;
+                gfx.DrawString("Cajero ID: " + cajeroCorte, fuenteNormal, brocha, margenIzquierdo, y);
+                y += 20;
+
+                gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
+                y += 20;
+
+                // --- DETALLES DEL CORTE ---
+                gfx.DrawString("Fondo Inicial:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString($"${corteActual["FondoInicial"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+
+                gfx.DrawString("Ventas Efectivo:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString($"+ ${corteActual["VentasEfectivo"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+
+                gfx.DrawString("Salidas:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString($"- ${corteActual["Salidas"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 20;
+
+                gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
+                y += 20;
+
+                // --- RESULTADOS FINALES ---
+                gfx.DrawString("TOTAL ESPERADO:", fuenteNegrita, brocha, margenIzquierdo, y);
+                gfx.DrawString($"${corteMontoEsperado:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 20;
+
+                gfx.DrawString("TOTAL CONTADO:", fuenteNegrita, brocha, margenIzquierdo, y);
+                gfx.DrawString($"${corteMontoReal:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 20;
+
+                string textoDiferencia = corteDiferencia < 0 ? "FALTANTE:" : (corteDiferencia > 0 ? "SOBRANTE:" : "DIFERENCIA:");
+                gfx.DrawString(textoDiferencia, fuenteNegrita, brocha, margenIzquierdo, y);
+                gfx.DrawString($"${corteDiferencia:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 30;
+
+                // --- ESTADÍSTICAS ---
+                gfx.DrawString("ESTADÍSTICAS DEL TURNO", fuenteNegrita, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+                y += 20;
+                gfx.DrawString("Tickets Generados:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(corteActual["TotalTickets"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+                gfx.DrawString("Artículos Vendidos:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(corteActual["ArticulosVendidos"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+                gfx.DrawString("Artículos Cancelados:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(corteActual["ArticulosCancelados"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 30;
+
+                Rectangle rectMensaje = new Rectangle(margenIzquierdo, y, anchoTicket, 60);
+                gfx.DrawString("Turno Cerrado Correctamente", fuenteNormal, brocha, rectMensaje, formatoCentro);
+
+                e.HasMorePages = false;
+            }
     }
 }

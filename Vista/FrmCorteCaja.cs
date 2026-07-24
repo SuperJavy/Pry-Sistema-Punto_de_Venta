@@ -14,20 +14,17 @@ using Pry_Sistema_Punto_de_Venta.Controlador.Pry_Sistema_Punto_de_Venta.Controla
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
-    // CAPA VISTA: solo dibuja datos y reacciona a clics. Nunca abre una conexión
-    // ni arma una consulta SQL directamente — todo pasa por ClsCorteCajaController.
+
     public partial class FrmCorteCaja : Form
     {
         private int idCorteInterno = 0;
-
-        // Antes: "ClsCorteDiarioController" — esa clase no existe en el proyecto;
-        // el controlador real que expone ObtenerCorteDinamico/RegistrarCierreCaja
-        // es ClsCorteCajaController (ver ClsCorteCajaController.cs).
         ClsCorteCajaController controllerCorte = new ClsCorteCajaController();
         private int idUsuarioSesion;
         private string rolUsuario; // Agregado para seguridad por rol
         private decimal montoEsperadoInterno = 0; // Guardará el monto total en memoria, no en el Label
-
+        private Dictionary<string, decimal> datosCorteActivo;
+        private int idCajeroSeleccionado = 0;
+        private bool cargandoCombo = false;
         // Actualizamos el constructor para recibir el ID y el Rol
         public FrmCorteCaja(int idUsuario, string rol)
         {
@@ -41,20 +38,26 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             txtTotalFisico.TextChanged += (s, e) => ActualizarResumen();
             txtTotalFisico.Enter += (s, e) => txtTotalFisico.SelectAll();
         }
-
         private void FrmCorteCaja_Load(object sender, EventArgs e)
         {
-            GenerarCorteDelDia();
-            AplicarSeguridadPorRol(); // Se ejecuta después de cargar los datos
-            ActualizarResumen();      // Pinta el panel Resumen con el estado inicial
-        }
+            cmbCajerosAbiertos.SelectedIndexChanged -= cmbCajerosAbiertos_SelectedIndexChanged_1;
+            cmbCajerosAbiertos.SelectedIndexChanged += cmbCajerosAbiertos_SelectedIndexChanged_1;
+            idCajeroSeleccionado = this.idUsuarioSesion;
 
-        // ÚNICO punto de verdad para saber si el usuario en sesión es administrador.
-        // La tabla `rol` define id 1 = Administrador, id 2 = Cajero, y el resto del
-        // sistema (ver FrmPrincipal.IntentarAcceso) usa el id_rol como texto ("1"),
-        // por eso "1" es la comparación principal. Se dejan "admin"/"administrador"
-        // como respaldo por si en algún punto de login se guarda el nombre del rol
-        // en vez del id.
+            AplicarSeguridadPorRol();
+
+            if (EsAdministrador())
+            {
+                CargarComboCajeros();
+            }
+            else
+            {
+
+                GenerarCorteDelDia();
+                AplicarSeguridadPorRol();
+                ActualizarResumen();
+            }
+        }
         private bool EsAdministrador()
         {
             if (string.IsNullOrWhiteSpace(this.rolUsuario)) return false;
@@ -62,13 +65,13 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             string rol = this.rolUsuario.Trim().ToLower();
             return rol == "1" || rol == "admin" || rol == "administrador";
         }
-
         private void GenerarCorteDelDia()
         {
+            
             try
             {
-                // Extraemos los datos reales del turno activo desde la base de datos
-                Dictionary<string, decimal> datosCorte = controllerCorte.ObtenerCorteDinamico(idUsuarioSesion);
+                Dictionary<string, decimal> datosCorte = controllerCorte.ObtenerCorteDinamico(idCajeroSeleccionado);
+                datosCorteActivo = datosCorte;
 
                 // Si no hay un turno abierto para este usuario, avisamos y no dejamos
                 // que se realice un corte "fantasma" de $0.00 (antes esto pasaba silenciosamente).
@@ -121,14 +124,14 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 MessageBox.Show(ex.Message, "Error al generar el Corte de Caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         // Método para aplicar el "Corte Ciego"
         private void AplicarSeguridadPorRol()
         {
-            // Ocultamos TODOS los componentes del cálculo si el usuario NO es administrador.
-            // Antes solo se ocultaba lblTotalCajonValor, pero el cajero podía ver
-            // fondo + ventas - salidas y sacar el total esperado a mano con calculadora,
-            // lo cual anulaba por completo el propósito del corte ciego.
+            bool esAdmin = EsAdministrador();
+
+            // Controles exclusivos del dueño
+            cmbCajerosAbiertos.Visible = esAdmin;
+            //lblAuditar.Visible = esAdmin;
             if (!EsAdministrador())
             {
                 lblFondoValor.Text = "$ ****.**";
@@ -137,7 +140,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 lblTotalCajonValor.Text = "$ ****.**";
             }
         }
-
         // Calcula y pinta el panel "Resumen" (Total esperado / Total declarado / Diferencia)
         // a partir de lo que el cajero va escribiendo en txtTotalFisico. Se llama al cargar
         // el formulario y cada vez que ese textbox cambia, así el cajero ve la diferencia
@@ -178,13 +180,10 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 pnlAlertaDiferencia.Visible = false;
             }
         }
-
         private void btnRealizarCorte_Click_1(object sender, EventArgs e)
         {
 
         }
-  
-
         private void btnRealizarCorte_Click(object sender, EventArgs e)
         {
             try
@@ -241,7 +240,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // Procedemos al cierre si el cajero aceptó
                 if (confirmacion == DialogResult.Yes)
                 {
-                    bool cerrado = controllerCorte.RegistrarCierreCaja(this.idCorteInterno, this.idUsuarioSesion, montoEsperado, montoReal);
+                    bool cerrado = controllerCorte.RegistrarCierreCaja(this.idCorteInterno, this.idCajeroSeleccionado, montoEsperado, montoReal);
 
                     if (cerrado)
                     {
@@ -263,7 +262,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnVerHistorial_Click(object sender, EventArgs e)
         {
             ClsPrincipal principal = new ClsPrincipal();
@@ -278,6 +276,112 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             {
                 principal.agregaralcontenedor(frmHistorial, contenedorPadre);
             }
+        }
+        private void btnImprimirCorte_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Validamos que exista información cargada del turno
+                if (datosCorteActivo == null || !datosCorteActivo.ContainsKey("TurnoEncontrado") || datosCorteActivo["TurnoEncontrado"] == 0)
+                {
+                    MessageBox.Show("No hay un turno activo cargado para imprimir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 2. Tomamos el monto esperado matemático
+                decimal montoEsperado = this.montoEsperadoInterno;
+
+                // 3. Validamos que el cajero haya escrito un número en su declaración de efectivo
+                if (!decimal.TryParse(txtTotalFisico.Text, out decimal montoReal) || montoReal < 0)
+                {
+                    MessageBox.Show(
+                        "Ingrese en 'Total físico' una cantidad válida antes de imprimir el ticket previo.",
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTotalFisico.Focus();
+                    return;
+                }
+
+                // 4. Calculamos la diferencia al vuelo
+                decimal diferencia = montoReal - montoEsperado;
+
+                // 5. Enviamos a imprimir SIN cerrar la base de datos
+                ClsTicketController ticketCtrl = new ClsTicketController();
+
+                ticketCtrl.ImprimirTicketCorte(
+                    datosCorteActivo,
+                    montoEsperado,
+                    montoReal,
+                    diferencia,
+                    idUsuarioSesion.ToString(),
+                    "", // Impresora por defecto
+                    true); // true = térmica, false = impresora normal
+
+                MessageBox.Show("El ticket previo se ha enviado a la impresora.\n\nRecuerde que el turno aún NO ha sido cerrado.", "Impresión exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al intentar imprimir el ticket: " + ex.Message, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CargarComboCajeros()
+        {
+            cargandoCombo = true;
+            try
+            {
+                DataTable dtCajeros = controllerCorte.ObtenerCajerosConTurnoAbierto();
+
+                if (dtCajeros.Rows.Count > 0)
+                {
+                    cmbCajerosAbiertos.DisplayMember = "nombre";
+                    cmbCajerosAbiertos.ValueMember = "id";
+                    cmbCajerosAbiertos.DataSource = dtCajeros;
+
+                    // Forzamos a cargar el primer cajero de la lista
+                    cmbCajerosAbiertos.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show("No hay turnos pendientes por auditar y cerrar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmbCajerosAbiertos.DataSource = null;
+                    btnRealizarCorte.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            cargandoCombo = false;
+
+            // Si hay datos, disparamos la carga de la pantalla manualmente la primera vez
+            if (cmbCajerosAbiertos.Items.Count > 0)
+            {
+                cmbCajerosAbiertos_SelectedIndexChanged_1(null, null);
+            }
+        }
+        // 2. Evento del ComboBox que actualiza toda la pantalla
+        private void cmbCajerosAbiertos_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cargandoCombo || cmbCajerosAbiertos.SelectedIndex < 0) return;
+
+            try
+            {
+                // MÉTODO INFALIBLE: Extraer el ID directamente de la fila de datos
+                if (cmbCajerosAbiertos.SelectedItem is DataRowView filaSeleccionada)
+                {
+                    this.idCajeroSeleccionado = Convert.ToInt32(filaSeleccionada["id"]);
+                }
+                else if (cmbCajerosAbiertos.SelectedValue != null)
+                {
+                    this.idCajeroSeleccionado = Convert.ToInt32(cmbCajerosAbiertos.SelectedValue);
+                }
+
+                txtTotalFisico.Clear();
+
+                // Recargamos los cálculos con el ID correcto
+                GenerarCorteDelDia();
+                ActualizarResumen();
+            }
+            catch { }
         }
     }
 }

@@ -18,11 +18,14 @@
         private void InitializeComponent()
         {
             pnlHeader = new Panel();
+            Cajero = new Label();
+            cmbCajerosAbiertos = new ComboBox();
             lblTituloPrincipal = new Label();
             lblSubtitulo = new Label();
             btnRealizarCorte = new Button();
             btnVerHistorial = new Button();
             pnlInferior = new Panel();
+            btnImprimirCorte = new Button();
             pnlConteo = new Panel();
             lblTituloConteo = new Label();
             lblInstruccionConteo = new Label();
@@ -68,6 +71,8 @@
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.White;
+            pnlHeader.Controls.Add(Cajero);
+            pnlHeader.Controls.Add(cmbCajerosAbiertos);
             pnlHeader.Controls.Add(lblTituloPrincipal);
             pnlHeader.Controls.Add(lblSubtitulo);
             pnlHeader.Dock = DockStyle.Top;
@@ -75,6 +80,25 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(1377, 108);
             pnlHeader.TabIndex = 1;
+            // 
+            // Cajero
+            // 
+            Cajero.AutoSize = true;
+            Cajero.Location = new Point(1047, 42);
+            Cajero.Name = "Cajero";
+            Cajero.Size = new Size(82, 32);
+            Cajero.TabIndex = 3;
+            Cajero.Text = "Cajero";
+            // 
+            // cmbCajerosAbiertos
+            // 
+            cmbCajerosAbiertos.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbCajerosAbiertos.FormattingEnabled = true;
+            cmbCajerosAbiertos.Location = new Point(1145, 39);
+            cmbCajerosAbiertos.Name = "cmbCajerosAbiertos";
+            cmbCajerosAbiertos.Size = new Size(212, 39);
+            cmbCajerosAbiertos.TabIndex = 2;
+            cmbCajerosAbiertos.SelectedIndexChanged += cmbCajerosAbiertos_SelectedIndexChanged_1;
             // 
             // lblTituloPrincipal
             // 
@@ -130,6 +154,7 @@
             // pnlInferior
             // 
             pnlInferior.BackColor = Color.WhiteSmoke;
+            pnlInferior.Controls.Add(btnImprimirCorte);
             pnlInferior.Controls.Add(btnVerHistorial);
             pnlInferior.Controls.Add(btnRealizarCorte);
             pnlInferior.Dock = DockStyle.Bottom;
@@ -137,6 +162,19 @@
             pnlInferior.Name = "pnlInferior";
             pnlInferior.Size = new Size(1377, 74);
             pnlInferior.TabIndex = 2;
+            // 
+            // btnImprimirCorte
+            // 
+            btnImprimirCorte.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnImprimirCorte.BackColor = Color.White;
+            btnImprimirCorte.ForeColor = Color.FromArgb(41, 128, 185);
+            btnImprimirCorte.Location = new Point(771, 13);
+            btnImprimirCorte.Name = "btnImprimirCorte";
+            btnImprimirCorte.Size = new Size(279, 40);
+            btnImprimirCorte.TabIndex = 2;
+            btnImprimirCorte.Text = "Imprimir corte";
+            btnImprimirCorte.UseVisualStyleBackColor = false;
+            btnImprimirCorte.Click += btnImprimirCorte_Click;
             // 
             // pnlConteo
             // 
@@ -551,5 +589,8 @@
         private System.Windows.Forms.Label lblCanceladosValor;
         private System.Windows.Forms.Label lblTotalEsperadoInfoTexto;
         private System.Windows.Forms.TableLayoutPanel tlpContenedor;
+        private Button btnImprimirCorte;
+        private ComboBox cmbCajerosAbiertos;
+        private Label Cajero;
     }
 }

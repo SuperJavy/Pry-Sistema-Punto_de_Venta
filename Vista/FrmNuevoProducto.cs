@@ -23,6 +23,11 @@
                 txtStockactual.ReadOnly = true;
                 txtStockminimo.ReadOnly = true;
             }
+        public FrmNuevoProducto(string codigoEscaneado) : this()
+        {
+            txtCodigo.Text = codigoEscaneado;
+
+        }
             public void notificarUsuario(string mensaje, bool esError)
             {
                 if (esError)
@@ -53,23 +58,26 @@
 
 
 
-                controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
-                    tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
+                bool guardadoExitoso = controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
+                    tipoventa.ToString(), cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, this);
 
-                LimpiarCampos();
-            }
-
-            private void nudGanancia_ValueChanged(object sender, EventArgs e)
+            if (guardadoExitoso)
             {
-                if (string.IsNullOrWhiteSpace(txtCosto.Text))
+                // Verifica si la ventana está flotando encima de otra
+                if (this.Modal)
                 {
-                    txtPrecioventa.Text = "0";
-                    return;
+                    this.DialogResult = DialogResult.OK; // Le indica a la ventana de compras que todo salió bien
+                    this.Close(); // Destruye la ventana flotante automáticamente
                 }
-
-                float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
-                txtPrecioventa.Text = preciov.ToString();
+                else
+                {
+                    // Si la ventana está incrustada en tu panel principal, solo limpiamos
+                    LimpiarCampos();
+                }
             }
+            }
+
+        
 
             private void btnSeleccionarImagen_Click(object sender, EventArgs e)
             {
@@ -109,11 +117,7 @@
                 }
             }
 
-            private void txtPrecioventa_TextChanged(object sender, EventArgs e)
-            {
-                txtPrecioventa.ReadOnly = true;
-            }
-
+          
             private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -167,10 +171,7 @@
                 txtCodigo.Clear();
                 txtNombrep.Clear();
                 txtDescripcion.Clear();
-                txtPrecioventa.Clear();
-                txtCosto.Clear();
                 pcbImagen.Image = null;
-                nudPorcentaje.Value = 0;
                 chkUnidad.Checked = false;
                 chkGranel.Checked = false;
             }
