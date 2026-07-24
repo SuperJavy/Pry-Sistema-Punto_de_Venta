@@ -65,7 +65,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return false; 
         }
-        
         public bool InsercodeB(string code, Image img)
         {
             try
@@ -78,7 +77,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al insertar en la Base de Datos "+e.Message);
             }
         }
-        public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje)
+        public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen)
         {
             try
             {
@@ -97,11 +96,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         }
                     }
 
-                    // 2. INSERCIÓN: Usamos el ID encontrado (si es mayor a 0) o guardamos el código manualmente
+                    // MODIFICACIÓN: Insertamos 0 directamente en costo, precio_venta y porcentaje.
                     string query = @"INSERT INTO productos 
-                            (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
-                            VALUES 
-                            (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, @Costo, @Venta, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, @Porcentaje)";
+                    (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
+                    VALUES 
+                    (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, 0, 0, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, 0)";
 
                     using (var Consulta = new MySqlCommand(query, Conexion))
                     {
@@ -119,13 +118,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         Consulta.Parameters.AddWithValue("@nombre", Nombre);
                         Consulta.Parameters.AddWithValue("@Descripcion", Descripciom);
                         Consulta.Parameters.AddWithValue("@Tipo_venta_id", int.Parse(TipVenta));
-                        Consulta.Parameters.AddWithValue("@Costo", float.Parse(Costo));
-                        Consulta.Parameters.AddWithValue("@Venta", float.Parse(Precioventa));
                         Consulta.Parameters.AddWithValue("@Categoria_id", int.Parse(Categoria));
                         Consulta.Parameters.AddWithValue("@Stock", int.Parse(Stockactuaal));
                         Consulta.Parameters.AddWithValue("@Stock_minimo", int.Parse(Stockminimo));
                         Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
-                        Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
 
                         int filasAfectadas = Consulta.ExecuteNonQuery();
                         return filasAfectadas > 0;
@@ -137,8 +133,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al registrar productos: " + Ex.Message);
             }
         }
-
-
         // Convertidores útiles (Imágenes <--> Bytes)
         private byte[] imagenABytes(Image img)
         {
@@ -149,7 +143,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 return ms.ToArray();
             }
         }
-
         private Image BytesAImagen(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0) return null;
@@ -158,8 +151,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 return Image.FromStream(ms);
             }
         }
-
-
         public float Calpventa(string costo, string porcentaje)
         {
             float c = float.Parse(costo);
@@ -167,7 +158,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return c + (c * p / 100);
         }
-
         public DataTable Extraercategoria()
         {
             DataTable dt = new DataTable();
@@ -197,7 +187,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         //termina codigo de resgitrar productos
 
         //comienza codigo de actualiza
-
         public DataTable Buscarproduct(string codigobarras)
         {
             DataTable dt = new DataTable();
@@ -275,8 +264,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
         }
         //termina codigo de actualizar 
-
-
         //empieza codigo de eliminar...
         public Boolean EliminarProducto(string codigobarras)
         {
@@ -310,7 +297,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al eliminar Producto: " + e.Message);
             }
         }
-
         //termina codigo de eliminar
         
     }

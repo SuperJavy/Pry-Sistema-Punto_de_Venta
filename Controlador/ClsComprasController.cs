@@ -22,54 +22,34 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
 
         }
-        public void agregarProducto(Producto productos, decimal nuevaCantidad, decimal precioCompra, FrmCompra vista)
+        public void agregarProducto(Producto productos, decimal nuevaCantidad, decimal precioCompra, decimal margen, FrmCompra vista)
         {
-
             var existe = compra.detalleCompra.FirstOrDefault(
-                x => x.producto.codigo_de_barras == productos.codigo_de_barras);
+                    x => x.producto.codigo_de_barras == productos.codigo_de_barras);
+
             if (existe != null)
             {
                 existe.cantidad += nuevaCantidad;
                 existe.precioCompra = precioCompra;
+                existe.porcentajeGanancia = margen; // Actualiza el margen en el carrito
             }
             else
             {
                 compra.detalleCompra.Add(
-
                     new DetalleCompra
                     {
                         producto = productos,
                         cantidad = nuevaCantidad,
-                        precioCompra = precioCompra
+                        precioCompra = precioCompra,
+                        porcentajeGanancia = margen // Guarda el margen nuevo
                     }
-                    );
+                );
             }
             vista.actualizarTabla(compra.detalleCompra);
             vista.mostrarTotal(compra.total);
             GuardarRespaldoJson();
         }
-        public void procesarEntradaCompra(Producto producto, string cantidadTexto, string costoTexto, FrmCompra vista)
-        {
-            if (producto == null)
-            {
-                vista.notificarUsuario("Primero busque o escanee un producto válido.", true);
-                return;
-            }
-
-            if (!decimal.TryParse(cantidadTexto, out decimal cantidad) || cantidad <= 0)
-            {
-                vista.notificarUsuario("Por favor, ingrese una cantidad válida mayor a cero.", true);
-                return;
-            }
-
-            if (!decimal.TryParse(costoTexto, out decimal costoCompra) || costoCompra < 0)
-            {
-                vista.notificarUsuario("Por favor, ingrese un costo de compra válido.", true);
-                return;
-            }
-            agregarProducto(producto, cantidad, costoCompra, vista);
-            vista.limpiarCamposEdicion();
-        }
+        
         public bool guardarCompra(FrmCompra vista, int idUsuario)
         {
             if (compra.detalleCompra.Count == 0)
@@ -177,8 +157,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    // CORRECCIÓN: Se envía prod.precio_compra en lugar de 0
-                                    agregarProducto(prod, item.cantidad, prod.precio_compra, vista);
+                                    // CORRECCIÓN: Ahora pasamos prod.porcentaje en lugar de un 0 manual
+                                    agregarProducto(prod, item.cantidad, prod.precio_compra, prod.porcentaje, vista);
                                 }
                             }
                         }
@@ -194,8 +174,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                     {
                                         producto = prod,
                                         cantidad = item.cantidad,
-                                        // CORRECCIÓN: Se asigna el costo real para auditoría de cancelados
-                                        precioCompra = prod.precio_compra
+                                        precioCompra = prod.precio_compra,
+                                        // CORRECCIÓN: Asignamos el porcentaje de la BD a la auditoría
+                                        porcentajeGanancia = prod.porcentaje
                                     };
                                     listaAuditada.Add(detalle);
                                 }
@@ -220,5 +201,44 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 catch { eliminarRespaldo(); }
             }
         }
+        public void VerificarYProcesarEntrada(string codigo, string cantidadTexto, string costoTexto, string margenTexto, FrmCompra vista)
+        {
+            if (string.IsNullOrEmpty(codigo)) return;
+
+            // 1. El controlador consulta al Modelo
+            Producto producto = modelo.buscarProducto(codigo);
+
+            // 2. Regla de negocio: Si el modelo devuelve nulo, le ordenamos a la Vista abrir el registro
+            if (producto == null)
+            {
+                vista.ConfirmarRegistroNuevoProducto();
+                return;
+            }
+
+            // 3. Validaciones matemáticas estrictas en el Controlador
+            if (!decimal.TryParse(cantidadTexto, out decimal cantidad) || cantidad <= 0)
+            {
+                vista.notificarUsuario("Por favor, ingrese una cantidad válida mayor a cero.", true);
+                return;
+            }
+
+            if (!decimal.TryParse(costoTexto, out decimal costoCompra) || costoCompra < 0)
+            {
+                vista.notificarUsuario("Por favor, ingrese un costo de compra válido.", true);
+                return;
+            }
+
+            if (!decimal.TryParse(margenTexto, out decimal margen) || margen < 0)
+            {
+                vista.notificarUsuario("Por favor, ingrese un margen de ganancia válido (Ej. 30).", true);
+                return;
+            }
+
+            // 4. Si pasa todos los filtros, delegamos al método interno de agregar al carrito
+            agregarProducto(producto, cantidad, costoCompra, margen, vista);
+            vista.limpiarCamposEdicion();
+        }
+
+      
     }
 }
