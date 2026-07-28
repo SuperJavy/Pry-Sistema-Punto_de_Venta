@@ -2,15 +2,8 @@
 {
     partial class FrmInventario
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             panel2 = new Panel();
@@ -41,55 +30,51 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(240, 242, 245);
-            panel2.Controls.Add(label10);
             panel2.Controls.Add(menuStrip1);
+            panel2.Controls.Add(label10);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(84, 41, 84, 41);
             panel2.Name = "panel2";
-            panel2.Size = new Size(2270, 121);
+            panel2.Size = new Size(1153, 90);
             panel2.TabIndex = 79;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.FromArgb(47, 53, 66);
-            label10.Location = new Point(14, 9);
-            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Location = new Point(12, 9);
             label10.Name = "label10";
-            label10.Size = new Size(140, 36);
+            label10.Size = new Size(89, 21);
             label10.TabIndex = 1;
             label10.Text = "Inventario";
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = Color.Transparent;
             menuStrip1.Dock = DockStyle.Bottom;
-            menuStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            menuStrip1.ImageScalingSize = new Size(24, 24);
+            menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.ImageScalingSize = new Size(28, 28);
             menuStrip1.Items.AddRange(new ToolStripItem[] { nuevoToolStripMenuItem, eDITARToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 58);
+            menuStrip1.Location = new Point(0, 45);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(118, 14, 0, 14);
-            menuStrip1.Size = new Size(2270, 63);
+            menuStrip1.Size = new Size(1153, 45);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // nuevoToolStripMenuItem
             // 
-            nuevoToolStripMenuItem.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nuevoToolStripMenuItem.Image = Properties.Resources.disminucion;
             nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            nuevoToolStripMenuItem.Size = new Size(359, 35);
+            nuevoToolStripMenuItem.Size = new Size(244, 41);
             nuevoToolStripMenuItem.Text = "Productos bajos en inventario";
             nuevoToolStripMenuItem.Click += nuevoToolStripMenuItem_Click;
             // 
             // eDITARToolStripMenuItem
             // 
-            eDITARToolStripMenuItem.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             eDITARToolStripMenuItem.Image = Properties.Resources.editar;
             eDITARToolStripMenuItem.Name = "eDITARToolStripMenuItem";
-            eDITARToolStripMenuItem.Size = new Size(276, 35);
+            eDITARToolStripMenuItem.Size = new Size(187, 41);
             eDITARToolStripMenuItem.Text = "Reporte de Inventario";
             eDITARToolStripMenuItem.Click += eDITARToolStripMenuItem_Click;
             // 
@@ -97,10 +82,9 @@
             // 
             pnlinventario.BackColor = Color.White;
             pnlinventario.Dock = DockStyle.Fill;
-            pnlinventario.Location = new Point(0, 121);
-            pnlinventario.Margin = new Padding(84, 41, 84, 41);
+            pnlinventario.Location = new Point(0, 90);
             pnlinventario.Name = "pnlinventario";
-            pnlinventario.Size = new Size(2270, 1169);
+            pnlinventario.Size = new Size(1153, 521);
             pnlinventario.TabIndex = 80;
             pnlinventario.Paint += pnlinventario_Paint;
             // 
@@ -108,12 +92,14 @@
             // 
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(2270, 1290);
+            BackColor = Color.White;
+            ClientSize = new Size(1153, 611);
             Controls.Add(pnlinventario);
             Controls.Add(panel2);
+            Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(84, 41, 84, 41);
             Name = "FrmInventario";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmInventario";
             Load += FrmInventario_Load;
             panel2.ResumeLayout(false);
@@ -130,6 +116,6 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eDITARToolStripMenuItem;
         private System.Windows.Forms.Panel pnlinventario;
-        private Label label10;
+        private System.Windows.Forms.Label label10;
     }
 }

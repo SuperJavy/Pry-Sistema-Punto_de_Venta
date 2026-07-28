@@ -54,9 +54,8 @@
             // 
             label3.AutoSize = true;
             label3.Location = new Point(2328, 158);
-            label3.Margin = new Padding(6, 0, 6, 0);
             label3.Name = "label3";
-            label3.Size = new Size(0, 30);
+            label3.Size = new Size(0, 36);
             label3.TabIndex = 101;
             // 
             // dtgCompras
@@ -71,7 +70,7 @@
             dtgCompras.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(44, 62, 80);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.White;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(44, 62, 80);
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -81,7 +80,7 @@
             dtgCompras.Columns.AddRange(new DataGridViewColumn[] { colCodigo, colNombre, colCantidad, colCostoUnitario, Porcentaje, Column1, colImporte });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(50, 50, 50);
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(253, 237, 237);
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(192, 57, 43);
@@ -91,7 +90,6 @@
             dtgCompras.EnableHeadersVisualStyles = false;
             dtgCompras.GridColor = Color.FromArgb(242, 243, 244);
             dtgCompras.Location = new Point(0, 0);
-            dtgCompras.Margin = new Padding(7);
             dtgCompras.MultiSelect = false;
             dtgCompras.Name = "dtgCompras";
             dtgCompras.ReadOnly = true;
@@ -110,7 +108,7 @@
             colCodigo.MinimumWidth = 9;
             colCodigo.Name = "colCodigo";
             colCodigo.ReadOnly = true;
-            colCodigo.Width = 253;
+            colCodigo.Width = 261;
             // 
             // colNombre
             // 
@@ -128,7 +126,7 @@
             colCantidad.MinimumWidth = 9;
             colCantidad.Name = "colCantidad";
             colCantidad.ReadOnly = true;
-            colCantidad.Width = 158;
+            colCantidad.Width = 163;
             // 
             // colCostoUnitario
             // 
@@ -137,11 +135,11 @@
             colCostoUnitario.MinimumWidth = 9;
             colCostoUnitario.Name = "colCostoUnitario";
             colCostoUnitario.ReadOnly = true;
-            colCostoUnitario.Width = 185;
+            colCostoUnitario.Width = 189;
             // 
             // Porcentaje
             // 
-            Porcentaje.HeaderText = "porcentaje de ganancia";
+            Porcentaje.HeaderText = "Porcentaje ganancia";
             Porcentaje.MinimumWidth = 9;
             Porcentaje.Name = "Porcentaje";
             Porcentaje.ReadOnly = true;
@@ -162,15 +160,14 @@
             colImporte.MinimumWidth = 9;
             colImporte.Name = "colImporte";
             colImporte.ReadOnly = true;
-            colImporte.Width = 216;
+            colImporte.Width = 220;
             // 
             // btnBorrar
             // 
-            btnBorrar.Font = new Font("Segoe UI", 9.5F);
+            btnBorrar.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBorrar.Image = Properties.Resources.borrar;
             btnBorrar.ImageAlign = ContentAlignment.MiddleLeft;
             btnBorrar.Location = new Point(307, 227);
-            btnBorrar.Margin = new Padding(7);
             btnBorrar.Name = "btnBorrar";
             btnBorrar.Padding = new Padding(20, 0, 0, 0);
             btnBorrar.Size = new Size(254, 61);
@@ -181,11 +178,10 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Font = new Font("Segoe UI", 9.5F);
+            btnBuscar.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBuscar.Image = Properties.Resources.busqueda;
             btnBuscar.ImageAlign = ContentAlignment.MiddleLeft;
             btnBuscar.Location = new Point(38, 227);
-            btnBuscar.Margin = new Padding(7);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Padding = new Padding(20, 0, 0, 0);
             btnBuscar.Size = new Size(254, 61);
@@ -201,7 +197,6 @@
             txtTotalCompra.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             txtTotalCompra.ForeColor = Color.FromArgb(46, 204, 113);
             txtTotalCompra.Location = new Point(1393, 614);
-            txtTotalCompra.Margin = new Padding(7);
             txtTotalCompra.Name = "txtTotalCompra";
             txtTotalCompra.ReadOnly = true;
             txtTotalCompra.Size = new Size(400, 82);
@@ -218,7 +213,6 @@
             btnComprar.Image = Properties.Resources.ingreso__1_;
             btnComprar.ImageAlign = ContentAlignment.MiddleLeft;
             btnComprar.Location = new Point(965, 622);
-            btnComprar.Margin = new Padding(7);
             btnComprar.Name = "btnComprar";
             btnComprar.Padding = new Padding(24, 0, 0, 0);
             btnComprar.Size = new Size(368, 88);
@@ -233,32 +227,29 @@
             panel1.Controls.Add(label10);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(7);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1832, 59);
+            panel1.Size = new Size(1832, 90);
             panel1.TabIndex = 125;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.FromArgb(47, 53, 66);
-            label10.Location = new Point(16, 9);
-            label10.Margin = new Padding(7, 0, 7, 0);
+            label10.Location = new Point(14, 9);
             label10.Name = "label10";
-            label10.Size = new Size(278, 36);
+            label10.Size = new Size(300, 38);
             label10.TabIndex = 0;
             label10.Text = "Compra de Productos";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label7.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(47, 53, 66);
             label7.Location = new Point(18, 145);
-            label7.Margin = new Padding(7, 0, 7, 0);
             label7.Name = "label7";
-            label7.Size = new Size(103, 32);
+            label7.Size = new Size(109, 36);
             label7.TabIndex = 117;
             label7.Text = "Código:";
             // 
@@ -266,7 +257,6 @@
             // 
             txtCodigoProducto.Font = new Font("Segoe UI", 13F);
             txtCodigoProducto.Location = new Point(128, 134);
-            txtCodigoProducto.Margin = new Padding(7);
             txtCodigoProducto.Name = "txtCodigoProducto";
             txtCodigoProducto.Size = new Size(342, 48);
             txtCodigoProducto.TabIndex = 118;
@@ -274,14 +264,13 @@
             // btnAgregarproducto
             // 
             btnAgregarproducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAgregarproducto.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnAgregarproducto.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAgregarproducto.Image = Properties.Resources.agregar_p16;
             btnAgregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgregarproducto.Location = new Point(1562, 131);
-            btnAgregarproducto.Margin = new Padding(7);
+            btnAgregarproducto.Location = new Point(1540, 131);
             btnAgregarproducto.Name = "btnAgregarproducto";
             btnAgregarproducto.Padding = new Padding(20, 0, 0, 0);
-            btnAgregarproducto.Size = new Size(254, 61);
+            btnAgregarproducto.Size = new Size(276, 61);
             btnAgregarproducto.TabIndex = 122;
             btnAgregarproducto.Text = "  ENTER - Agregar";
             btnAgregarproducto.UseVisualStyleBackColor = true;
@@ -290,12 +279,11 @@
             // lblCantidad
             // 
             lblCantidad.AutoSize = true;
-            lblCantidad.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblCantidad.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCantidad.ForeColor = Color.FromArgb(47, 53, 66);
             lblCantidad.Location = new Point(501, 145);
-            lblCantidad.Margin = new Padding(6, 0, 6, 0);
             lblCantidad.Name = "lblCantidad";
-            lblCantidad.Size = new Size(123, 32);
+            lblCantidad.Size = new Size(131, 36);
             lblCantidad.TabIndex = 126;
             lblCantidad.Text = "Cantidad:";
             // 
@@ -303,7 +291,6 @@
             // 
             txtCantidadCompra.Font = new Font("Segoe UI", 13F);
             txtCantidadCompra.Location = new Point(630, 134);
-            txtCantidadCompra.Margin = new Padding(6);
             txtCantidadCompra.Name = "txtCantidadCompra";
             txtCantidadCompra.Size = new Size(193, 48);
             txtCantidadCompra.TabIndex = 127;
@@ -311,12 +298,11 @@
             // lblCosto
             // 
             lblCosto.AutoSize = true;
-            lblCosto.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblCosto.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCosto.ForeColor = Color.FromArgb(47, 53, 66);
             lblCosto.Location = new Point(830, 145);
-            lblCosto.Margin = new Padding(6, 0, 6, 0);
             lblCosto.Name = "lblCosto";
-            lblCosto.Size = new Size(86, 32);
+            lblCosto.Size = new Size(91, 36);
             lblCosto.TabIndex = 128;
             lblCosto.Text = "Costo:";
             // 
@@ -324,7 +310,6 @@
             // 
             txtCostoCompra.Font = new Font("Segoe UI", 13F);
             txtCostoCompra.Location = new Point(923, 134);
-            txtCostoCompra.Margin = new Padding(6);
             txtCostoCompra.Name = "txtCostoCompra";
             txtCostoCompra.Size = new Size(291, 48);
             txtCostoCompra.TabIndex = 129;
@@ -334,7 +319,6 @@
             pnlGridContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlGridContainer.Controls.Add(dtgCompras);
             pnlGridContainer.Location = new Point(38, 340);
-            pnlGridContainer.Margin = new Padding(6);
             pnlGridContainer.Name = "pnlGridContainer";
             pnlGridContainer.Size = new Size(1755, 238);
             pnlGridContainer.TabIndex = 130;
@@ -343,7 +327,6 @@
             // 
             txtMargenCompra.Font = new Font("Segoe UI", 13F);
             txtMargenCompra.Location = new Point(1477, 134);
-            txtMargenCompra.Margin = new Padding(6);
             txtMargenCompra.Name = "txtMargenCompra";
             txtMargenCompra.Size = new Size(250, 48);
             txtMargenCompra.TabIndex = 131;
@@ -351,12 +334,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(47, 53, 66);
             label1.Location = new Point(1245, 145);
-            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(215, 32);
+            label1.Size = new Size(229, 36);
             label1.TabIndex = 132;
             label1.Text = "Margen de venta:";
             // 
@@ -382,9 +364,9 @@
             Controls.Add(btnBuscar);
             Controls.Add(label7);
             Controls.Add(label3);
+            Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Margin = new Padding(7);
             Name = "FrmCompra";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmCompra";
@@ -396,7 +378,6 @@
             pnlGridContainer.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion

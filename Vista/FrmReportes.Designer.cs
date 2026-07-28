@@ -14,140 +14,112 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReportes));
             pnlHeader = new Panel();
+            menuStrip1 = new MenuStrip();
+            corteDiarioToolStripMenuItem = new ToolStripMenuItem();
+            historialDeVentasToolStripMenuItem = new ToolStripMenuItem();
+            historialDeComprasToolStripMenuItem = new ToolStripMenuItem();
             label10 = new Label();
-            pnlHerramientas = new Panel();
-            btnCompras = new Button();
-            btnVentas = new Button();
-            btnCorte = new Button();
             pnlContenedorPrincipal = new Panel();
             pnlHeader.SuspendLayout();
-            pnlHerramientas.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(240, 242, 245);
+            pnlHeader.Controls.Add(menuStrip1);
             pnlHeader.Controls.Add(label10);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1153, 57);
+            pnlHeader.Size = new Size(1153, 90);
             pnlHeader.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Dock = DockStyle.Bottom;
+            menuStrip1.BackColor = Color.Transparent;
+            menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.ImageScalingSize = new Size(28, 28);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { corteDiarioToolStripMenuItem, historialDeVentasToolStripMenuItem, historialDeComprasToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 45);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1153, 45);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // corteDiarioToolStripMenuItem
+            // 
+            corteDiarioToolStripMenuItem.Image = Properties.Resources.disco_flexible;
+            corteDiarioToolStripMenuItem.Name = "corteDiarioToolStripMenuItem";
+            corteDiarioToolStripMenuItem.Size = new Size(130, 41);
+            corteDiarioToolStripMenuItem.Text = "Corte diario";
+            corteDiarioToolStripMenuItem.Click += corteDiarioToolStripMenuItem_Click_1;
+            // 
+            // historialDeVentasToolStripMenuItem
+            // 
+            historialDeVentasToolStripMenuItem.Image = Properties.Resources.icons8_ventas_totales_48;
+            historialDeVentasToolStripMenuItem.Name = "historialDeVentasToolStripMenuItem";
+            historialDeVentasToolStripMenuItem.Size = new Size(170, 41);
+            historialDeVentasToolStripMenuItem.Text = "Historial de ventas";
+            historialDeVentasToolStripMenuItem.Click += historialDeVentasToolStripMenuItem_Click_1;
+            // 
+            // historialDeComprasToolStripMenuItem
+            // 
+            historialDeComprasToolStripMenuItem.Image = Properties.Resources.ingreso__1_;
+            historialDeComprasToolStripMenuItem.Name = "historialDeComprasToolStripMenuItem";
+            historialDeComprasToolStripMenuItem.Size = new Size(180, 41);
+            historialDeComprasToolStripMenuItem.Text = "Historial de compras";
+            historialDeComprasToolStripMenuItem.Click += historialDeComprasToolStripMenuItem_Click_1;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.FromArgb(47, 53, 66);
-            label10.Location = new Point(20, 9);
-            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Location = new Point(12, 9);
             label10.Name = "label10";
-            label10.Size = new Size(123, 36);
+            label10.Size = new Size(78, 21);
             label10.TabIndex = 1;
             label10.Text = "Reportes";
-            // 
-            // pnlHerramientas
-            // 
-            pnlHerramientas.BackColor = Color.FromArgb(236, 240, 241);
-            pnlHerramientas.Controls.Add(btnCompras);
-            pnlHerramientas.Controls.Add(btnVentas);
-            pnlHerramientas.Controls.Add(btnCorte);
-            pnlHerramientas.Dock = DockStyle.Top;
-            pnlHerramientas.Location = new Point(0, 57);
-            pnlHerramientas.Name = "pnlHerramientas";
-            pnlHerramientas.Padding = new Padding(10);
-            pnlHerramientas.Size = new Size(1153, 70);
-            pnlHerramientas.TabIndex = 1;
-            // 
-            // btnCompras
-            // 
-            btnCompras.BackColor = Color.White;
-            btnCompras.Cursor = Cursors.Hand;
-            btnCompras.FlatAppearance.BorderColor = Color.Silver;
-            btnCompras.FlatStyle = FlatStyle.Flat;
-            btnCompras.Font = new Font("Segoe UI", 11F);
-            btnCompras.ForeColor = Color.FromArgb(47, 53, 66);
-            btnCompras.Image = (Image)resources.GetObject("btnCompras.Image");
-            btnCompras.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCompras.Location = new Point(585, 13);
-            btnCompras.Name = "btnCompras";
-            btnCompras.Size = new Size(343, 45);
-            btnCompras.TabIndex = 2;
-            btnCompras.Text = "Historial de compras";
-            btnCompras.UseVisualStyleBackColor = false;
-            btnCompras.Click += btnCompras_Click_1;
-            // 
-            // btnVentas
-            // 
-            btnVentas.BackColor = Color.White;
-            btnVentas.Cursor = Cursors.Hand;
-            btnVentas.FlatAppearance.BorderColor = Color.Silver;
-            btnVentas.FlatStyle = FlatStyle.Flat;
-            btnVentas.Font = new Font("Segoe UI", 11.1428576F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnVentas.ForeColor = Color.FromArgb(47, 53, 66);
-            btnVentas.Image = (Image)resources.GetObject("btnVentas.Image");
-            btnVentas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVentas.Location = new Point(258, 13);
-            btnVentas.Name = "btnVentas";
-            btnVentas.Size = new Size(298, 45);
-            btnVentas.TabIndex = 1;
-            btnVentas.Text = "     Historial de ventas";
-            btnVentas.UseVisualStyleBackColor = false;
-            btnVentas.Click += btnVentas_Click_1;
-            // 
-            // btnCorte
-            // 
-            btnCorte.BackColor = Color.White;
-            btnCorte.Cursor = Cursors.Hand;
-            btnCorte.FlatAppearance.BorderColor = Color.Silver;
-            btnCorte.FlatStyle = FlatStyle.Flat;
-            btnCorte.Font = new Font("Segoe UI", 11.1428576F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCorte.ForeColor = Color.FromArgb(47, 53, 66);
-            btnCorte.Location = new Point(20, 13);
-            btnCorte.Name = "btnCorte";
-            btnCorte.Size = new Size(217, 45);
-            btnCorte.TabIndex = 0;
-            btnCorte.Text = "💵 Corte Diario";
-            btnCorte.UseVisualStyleBackColor = false;
-            btnCorte.Click += btnCorte_Click_1;
             // 
             // pnlContenedorPrincipal
             // 
             pnlContenedorPrincipal.BackColor = Color.White;
             pnlContenedorPrincipal.Dock = DockStyle.Fill;
-            pnlContenedorPrincipal.Location = new Point(0, 127);
+            pnlContenedorPrincipal.Location = new Point(0, 90);
             pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
-            pnlContenedorPrincipal.Size = new Size(1153, 484);
+            pnlContenedorPrincipal.Size = new Size(1153, 521);
             pnlContenedorPrincipal.TabIndex = 2;
             // 
             // FrmReportes
             // 
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
+            BackColor = Color.White;
             ClientSize = new Size(1153, 611);
             Controls.Add(pnlContenedorPrincipal);
-            Controls.Add(pnlHerramientas);
             Controls.Add(pnlHeader);
-            Font = new Font("Segoe UI", 10F);
+            Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmReportes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Reportes";
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
-            pnlHerramientas.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
         }
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Panel pnlHerramientas;
-        private System.Windows.Forms.Button btnCorte;
-        private System.Windows.Forms.Button btnVentas;
-        private System.Windows.Forms.Button btnCompras;
         private System.Windows.Forms.Panel pnlContenedorPrincipal;
-        private Label label10;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem corteDiarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialDeVentasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialDeComprasToolStripMenuItem;
     }
 }

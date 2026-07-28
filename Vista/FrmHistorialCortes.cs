@@ -306,5 +306,10 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             public override string ToString() => Nombre;
         }
+
+        private void btnReimprimir_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
