@@ -52,7 +52,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 MessageBox.Show(ex.Message, "Error al generar reporte", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void CalcularTotalInvertido(DataTable datos)
         {
             decimal totalInvertido = 0;

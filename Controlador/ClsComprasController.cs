@@ -198,7 +198,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                         }
                     }
                 }
-                catch { eliminarRespaldo(); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("El archivo de respaldo de compras está corrupto. Detalle: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         public void VerificarYProcesarEntrada(string codigo, string cantidadTexto, string costoTexto, string margenTexto, FrmCompra vista)
@@ -238,7 +241,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             agregarProducto(producto, cantidad, costoCompra, margen, vista);
             vista.limpiarCamposEdicion();
         }
+        public decimal CalcularPrecioDeVenta(decimal costoCompra, decimal porcentajeGanancia)
+        {
+            return costoCompra + (costoCompra * (porcentajeGanancia / 100));
+        }
 
-      
     }
 }

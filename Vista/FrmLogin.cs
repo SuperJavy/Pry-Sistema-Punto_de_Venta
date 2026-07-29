@@ -59,7 +59,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
                 try
                 {
-                    // Preguntamos al Controlador (no al Modelo) si este usuario ya
+                    // Preguntamos al Controlador si este usuario ya
                     // tiene un corte con fecha_de_cierre = NULL.
                     if (controllerCorte.TieneTurnoAbierto(idUsr))
                     {

@@ -23,7 +23,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             dtgResultados.CellFormatting += dtgResultados_CellFormatting;
 
-            // NUEVO: Conectamos el evento del doble clic
+            //Conectamos el evento del doble clic
             dtgResultados.CellDoubleClick += dtgResultados_CellDoubleClick;
         }
         ClsReportesController controller = new ClsReportesController();

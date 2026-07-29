@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Pry_Sistema_Punto_de_Venta.Controlador;
+﻿using Pry_Sistema_Punto_de_Venta.Controlador;
 using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
+using System.Data;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
@@ -21,12 +13,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             InitializeComponent();
             usuario.cargarRoles(this);
         }
-
-        private void FrmAgregarUsuario_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public void llenarComboRoles(DataTable roles)
         {
             cmbRol.DataSource = roles;
@@ -57,7 +43,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 esError ? MessageBoxIcon.Warning : MessageBoxIcon.Information
             );
         }
-
         private void BtnAgregarUsuario_Click(object sender, EventArgs e)
         {
             if (cmbRol.SelectedValue == null)

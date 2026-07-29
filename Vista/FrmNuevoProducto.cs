@@ -23,7 +23,7 @@
                 txtStockactual.ReadOnly = true;
                 txtStockminimo.ReadOnly = true;
             }
-        public FrmNuevoProducto(string codigoEscaneado) : this()
+            public FrmNuevoProducto(string codigoEscaneado) : this()
         {
             txtCodigo.Text = codigoEscaneado;
 
@@ -39,7 +39,6 @@
                     MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
             private void btnGuardarproducto_Click(object sender, EventArgs e)
             {
                 int tipoventa = 0;
@@ -76,9 +75,6 @@
                 }
             }
             }
-
-        
-
             private void btnSeleccionarImagen_Click(object sender, EventArgs e)
             {
                 OpenFileDialog buscador = new OpenFileDialog();
@@ -108,16 +104,13 @@
                     cbxCategoria.DataSource = null;
                 }
             }
-
             private void txtNombrep_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 {
                     e.Handled = true;
                 }
-            }
-
-          
+            }   
             private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -125,7 +118,6 @@
                     e.Handled = true; // Ignora la tecla presionada
                 }
             }
-
             private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -133,7 +125,6 @@
                     e.Handled = true;
                 }
             }
-
             private void txtStockactual_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -141,7 +132,6 @@
                     e.Handled = true;
                 }
             }
-
             private void txtStockminimo_KeyPress(object sender, KeyPressEventArgs e)
             {
                 if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -149,23 +139,19 @@
                     e.Handled = true;
                 }
             }
-
             private void btnGenerar_Click(object sender, EventArgs e)
             {
                 var frmCodigoBarras = new Vista.FrmGernerador_CodBarras(this.txtCodigo);
                 frmCodigoBarras.ShowDialog();
             }
-
             private void txtCodigo_Leave(object sender, EventArgs e)
             {
             
             }
-
             private void FrmNuevoProducto_Shown(object sender, EventArgs e)
             {
                 txtCodigo.Focus();
             }
-
             public void LimpiarCampos()
             {
                 txtCodigo.Clear();

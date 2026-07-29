@@ -60,39 +60,39 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public bool procesarCompra(Compra compra, List<DetalleCompra> cancelados, int estado)
         {
             // Quitamos el 'using' para no destruir la conexión global de la clase
-            MySqlConnection con = abrirConexion();
-            MySqlTransaction trans = con.BeginTransaction();
-
-            try
+            using (MySqlConnection con = abrirConexion())
             {
-                int idCompra = insertarCompra(compra, con, trans, estado);
-
-                // Validamos que la lista no sea nula antes de intentar iterarla
-                if (compra.detalleCompra != null && compra.detalleCompra.Count > 0)
+                using (MySqlTransaction trans = con.BeginTransaction())
                 {
-                    insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
-                    actualizarStockCompra(compra.detalleCompra, con, trans);
-                }
 
-                // Validamos que los cancelados existan para no romper la transacción
-                if (cancelados != null && cancelados.Count > 0)
-                {
-                    insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
-                }
+                    try
+                    {
+                        int idCompra = insertarCompra(compra, con, trans, estado);
 
-                trans.Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Forzamos el Rollback explícito si algo falla
-                trans.Rollback();
-                throw new Exception("Error al guardar compra: " + ex.Message);
-            }
-            finally
-            {
-                // Cerramos la conexión de forma segura como en tus otros métodos
-                cerrarConexion();
+                        // Validamos que la lista no sea nula antes de intentar iterarla
+                        if (compra.detalleCompra != null && compra.detalleCompra.Count > 0)
+                        {
+                            insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
+                            actualizarStockCompra(compra.detalleCompra, con, trans);
+                        }
+
+                        // Validamos que los cancelados existan para no romper la transacción
+                        if (cancelados != null && cancelados.Count > 0)
+                        {
+                            insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
+                        }
+
+                        trans.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Forzamos el Rollback explícito si algo falla
+                        trans.Rollback();
+                        throw new Exception("Error al guardar compra: " + ex.Message);
+                    }              
+                }
+            
             }
         }
 

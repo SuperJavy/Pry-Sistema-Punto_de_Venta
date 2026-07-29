@@ -25,59 +25,27 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         public List<detalleVenta> productoCancelados = new List<detalleVenta>();
 
 
-        public void procesarBusqueda(string codigo, FrmVentas vista)
+        public Producto procesarBusqueda(string codigo)
         {
-            if (string.IsNullOrEmpty(codigo)) return;
-
-            Producto producto = modelo.buscarProducto(codigo);
-
-
-
-            if (producto != null)
-            {
-                agregarProducto(producto, vista);
-                
-            }
-            else { MessageBox.Show("El producto no existe en la base de datos."); }
+            if (string.IsNullOrEmpty(codigo)) return null;
+            return modelo.buscarProducto(codigo);
         }
-        public void agregarProducto(Producto producto, FrmVentas vista)
+        public void agregarProducto(Producto producto, decimal cantidadFinal)
         {
 
-            decimal cantidadFinal = 1;
-
-            if (producto.tipoVenta.ToLower() == "a granel")
-            {
-                FrmPedirPeso frmpeso = new FrmPedirPeso(producto.nombre);
-
-                if (frmpeso.ShowDialog() == DialogResult.OK)
-                {
-                    cantidadFinal = frmpeso.PesoIngresado;
-                }
-                else
-                { return; }
-            }
-
-
-            var existe = venta.detalleVenta
-          .FirstOrDefault(x =>
-              x.Producto.codigo_de_barras ==
-              producto.codigo_de_barras);
-
+            var existe = venta.detalleVenta.FirstOrDefault(x => x.Producto.codigo_de_barras == producto.codigo_de_barras);
             if (existe != null)
-                existe.Cantidad++;
-            else
-            {
+                existe.Cantidad *= cantidadFinal;
+            else {
                 venta.detalleVenta.Add(
                     new detalleVenta
-                    {
-                        Producto = producto,
+                    { 
+                        Producto= producto,
                         Cantidad = cantidadFinal,
-                        PrecioUnitario = producto.precio
-                    });
+                        PrecioUnitario=producto.precio
+                    }
+                    );
             }
-
-            vista.actualizarTabla(venta.detalleVenta);
-            vista.mostrarTotal(venta.total);
             GuardarRespaldoJson();
         }
         public decimal obtenerCambio(decimal pago)
@@ -223,10 +191,11 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = modelo.buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    agregarProducto(prod, vista);
-                                    ModificarCantidad(venta.detalleVenta.Count - 1, item.cantidad - 1, vista);
+                                    agregarProducto(prod, item.cantidad);
                                 }
                             }
+                            vista.actualizarTabla(venta.detalleVenta);
+                            vista.mostrarTotal(venta.total);
 
                         }
                         else
@@ -237,15 +206,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = modelo.buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    detalleVenta detalle = new detalleVenta
+                                    listaAuditada.Add(new detalleVenta 
                                     {
-
                                         Producto = prod,
                                         Cantidad = item.cantidad,
                                         PrecioUnitario = prod.precio,
                                         Importe = prod.importe
-                                    };
-                                    listaAuditada.Add(detalle);
+                                    });
                                 }
 
                             }
@@ -267,9 +234,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                         }
                     }
                 }
-                catch { eliminarRespaldo();}
+                catch (Exception ex)
+                {
+                    MessageBox.Show("El archivo de respaldo está corrupto. Consulte con soporte técnico. Detalle: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+        
         public ventas ObtenerVentaActual()
         {
             return venta;

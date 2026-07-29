@@ -13,23 +13,15 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
     public partial class FrmHistorialCortes : Form
     {
-        // La Vista solo conoce al Controlador. Nunca instancia ni llama al Modelo.
         private readonly ClsCorteCajaController controller = new ClsCorteCajaController();
-
         private readonly int idUsuarioSesion;
         private readonly string rolUsuario;
 
         // Copia en memoria del último resultado de búsqueda, para poder pintar
-        // el panel de detalle sin volver a consultar la base de datos al
-        // seleccionar una fila del grid.
+        // el panel de detalle sin volver a consultar la base de datos
         private List<Dictionary<string, object>> historialActual = new List<Dictionary<string, object>>();
 
-        // Constructor sin parámetros: lo exige el diseñador de Windows Forms.
-        // No debe usarse para abrir la ventana en producción.
-        public FrmHistorialCortes() : this(0, "Administrador") { }
-
-        // Constructor real: recibe la sesión activa (idUsuario y rol) que viene
-        // desde el login / FrmPrincipal, para saber qué puede ver cada quien.
+        // Constructor, recibe la sesión activa (idUsuario y rol) que viene
         public FrmHistorialCortes(int idUsuarioSesion, string rol)
         {
             InitializeComponent();
@@ -52,8 +44,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             BuscarHistorial();
         }
 
-        // Un cajero solo debe ver su propio historial; el filtro de cajero
-        // (combo) es exclusivo del Administrador.
         private void ConfigurarPermisosPorRol()
         {
             bool esAdmin = rolUsuario == "Administrador";
@@ -108,9 +98,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             BuscarHistorial();
         }
 
-        // Punto único que arma los filtros, pide el historial al Controlador
-        // y refresca grid + métricas + detalle. Toda la validación de UI
-        // (fechas, permisos) vive aquí; el SQL vive en el Modelo.
         private void BuscarHistorial()
         {
             try
@@ -204,9 +191,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
         }
 
-        // Las 3 tarjetas superiores (Cortes en periodo / Diferencia total / Con faltante)
-        // se calculan aquí, sobre el mismo resultado que ya llegó del Controlador,
-        // para no volver a pegarle a la base de datos.
         private void PintarMetricas(List<Dictionary<string, object>> historial)
         {
             lblM1Valor.Text = historial.Count.ToString();
@@ -238,7 +222,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 LimpiarDetalle();
                 return;
             }
-
             int idCorte = Convert.ToInt32(dgvHistorialCortes.SelectedRows[0].Cells["colId"].Value);
             var detalle = historialActual.FirstOrDefault(h => (int)h["IdCorte"] == idCorte);
 
@@ -267,7 +250,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             btnReimprimir.Enabled = true;
             btnReimprimir.Tag = idCorte;
         }
-
         private void LimpiarDetalle()
         {
             lblDetalleTitulo.Text = "Detalle — selecciona un corte";
@@ -278,32 +260,24 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             btnReimprimir.Enabled = false;
             btnReimprimir.Tag = null;
         }
-
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
             if (btnReimprimir.Tag is int idCorte)
             {
-                // TODO: conectar aquí con el módulo real de impresión de tickets
-                // cuando exista (por ejemplo, ClsImpresionController.ReimprimirCorte(idCorte)).
                 MessageBox.Show($"Reimprimiendo comprobante del corte #{idCorte}...",
                     "Reimprimir", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        // Item auxiliar solo de presentación para el combo de cajeros.
-        // Vive en la Vista porque es puro detalle de UI (qué se muestra en pantalla),
-        // no una entidad de negocio ni algo que viaje al Modelo.
         private class CajeroItem
         {
             public int Id { get; }
             public string Nombre { get; }
-
             public CajeroItem(int id, string nombre)
             {
                 Id = id;
                 Nombre = nombre;
             }
-
             public override string ToString() => Nombre;
         }
 

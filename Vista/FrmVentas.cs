@@ -14,7 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta
 {
     public partial class FrmVentas : Form
     {
-        public static bool ventaPendiente = false;
+        public  bool ventaPendiente = false;
 
         private int IdUsuario;
         public FrmVentas(int usuario)
@@ -69,9 +69,7 @@ namespace Pry_Sistema_Punto_de_Venta
             }
             txtCodigoBusq.Focus();
         }
-
-      
-
+    
         private void FrmVentas_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -117,8 +115,47 @@ namespace Pry_Sistema_Punto_de_Venta
                 return;
             }
 
-            controler.procesarBusqueda(codigo, this);
-            ventaPendiente = true;
+            Producto prod = controler.procesarBusqueda(codigo);
+
+            if (prod != null)
+            {
+                decimal cantidadFinal = 1;
+
+                // Si es a granel, la Vista es responsable de pedir el peso
+                if (prod.tipoVenta.ToLower() == "a granel")
+                {
+                    FrmPedirPeso frmpeso = new FrmPedirPeso(prod.nombre);
+                    if (frmpeso.ShowDialog() == DialogResult.OK)
+                    {
+                        // Validación de seguridad: no permitir 0 ni negativos
+                        if (frmpeso.PesoIngresado <= 0)
+                        {
+                            MessageBox.Show("El peso debe ser mayor a cero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtCodigoBusq.Clear();
+                            txtCodigoBusq.Focus();
+                            return;
+                        }
+                        cantidadFinal = frmpeso.PesoIngresado;
+                    }
+                    else
+                    {
+                        txtCodigoBusq.Clear();
+                        txtCodigoBusq.Focus();
+                        return; // Se canceló la ventana de peso
+                    }
+                }
+
+                // Ya con el peso validado, enviamos todo al controlador
+                controler.agregarProducto(prod, cantidadFinal);
+                ventaPendiente = true;
+
+                actualizarTabla(controler.ObtenerVentaActual().detalleVenta);
+                mostrarTotal(controler.obtenerTotal());
+            }
+            else
+            {
+                MessageBox.Show("El producto no existe en la base de datos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             txtCodigoBusq.Clear();
             txtCodigoBusq.Focus();
@@ -132,9 +169,11 @@ namespace Pry_Sistema_Punto_de_Venta
 
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    controler.agregarProducto(
-                    frm.productoSeleccionado,
-                    this);
+                    txtCodigoBusq.Text = frm.productoSeleccionado.codigo_de_barras;
+
+                    // 2. Disparamos el mismo evento de "Enter" que ya programaste, 
+                    // reutilizando toda la lógica del peso y la suma a la tabla
+                    btnagregarproducto_Click(null, null);
                 }
             }
             txtCodigoBusq.Focus();

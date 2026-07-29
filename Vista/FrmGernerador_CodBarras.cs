@@ -40,7 +40,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnGenerar_Click(object sender, EventArgs e)
         {
 
@@ -78,10 +77,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
 
             this.Close();
-
-
         }
-
         public void limpiarcaja()
         {
             txtCodigo.Clear();

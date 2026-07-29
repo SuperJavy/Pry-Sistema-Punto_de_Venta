@@ -22,7 +22,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void lblagregrausuarios_Click(object sender, EventArgs e)
         {
-            principal.agregaralcontenedor(new FrmAgregarUsuario(),pnlConfiguraciones);
+            principal.agregaralcontenedor(new FrmAgregarUsuario(), pnlConfiguraciones);
         }
 
         private void lblEditarticket_Click(object sender, EventArgs e)

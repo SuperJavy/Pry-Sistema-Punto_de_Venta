@@ -1,15 +1,5 @@
-﻿using Microsoft.VisualBasic.Logging;
-using Pry_Sistema_Punto_de_Venta.Controlador;
+﻿using Pry_Sistema_Punto_de_Venta.Controlador;
 using Pry_Sistema_Punto_de_Venta.Vista;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
@@ -32,34 +22,26 @@ namespace Pry_Sistema_Punto_de_Venta
             Application.Exit();
         }
 
-
         public void mnsProductos_Click(object sender, EventArgs e)
         {
-            IntentarAcceso(new FrmProductos())
-;
+            IntentarAcceso(new FrmProductos());
         }
-
         private void mnsCompra_Click(object sender, EventArgs e)
         {
             FrmCompra frmCompras = new FrmCompra(this.idUsuario);
             frmCompras.FormBorderStyle = FormBorderStyle.None;
             frmCompras.Dock = DockStyle.Fill;
-
             // 2. Pasas la variable que ya creaste, sin usar la palabra "new" otra vez
             IntentarAcceso(frmCompras);
-
         }
-
         private void mnsInventario_Click(object sender, EventArgs e)
         {
             IntentarAcceso(new FrmInventario());
         }
-
         private void mnsConfiguraciones_Click(object sender, EventArgs e)
         {
             IntentarAcceso(new FrmConfiguraciones());
         }
-
         private void IntentarAcceso(Form formulario)
         {
             // Si el usuario actual ya es Admin (rol "1"), accede directo
@@ -86,18 +68,15 @@ namespace Pry_Sistema_Punto_de_Venta
                 }
             }
         }
-
         private void mnsReportes_Click(object sender, EventArgs e)
         {
             IntentarAcceso(new FrmReportes(this.idUsuario, this.Rolusuario));
         }
-
         private void pcbPerfil_Click(object sender, EventArgs e)
         {
             FrmPerfil perfil = new FrmPerfil(Usuario);
             perfil.ShowDialog();
         }
-
         private void mnsVentas_Click(object sender, EventArgs e)
         {
             principal = new ClsPrincipal();

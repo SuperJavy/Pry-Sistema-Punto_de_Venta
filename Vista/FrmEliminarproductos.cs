@@ -28,8 +28,6 @@ namespace Pry_Sistema_Punto_de_Venta
             txtStockactual.ReadOnly = true;
             txtStockminimo.ReadOnly = true;
 
-            // OJO: Los ComboBox, CheckBox y NumericUpDown NO tienen ReadOnly. 
-            // Para que no los puedan mover, usamos Enabled = false.
             cbxCategoria.Enabled = false;
             chkUnidad.Enabled = false;
             chkGranel.Enabled = false;
@@ -38,8 +36,6 @@ namespace Pry_Sistema_Punto_de_Venta
 
         public void llenarCampos(DataTable dtproducto)
         {
-
-
             if (dtproducto != null && dtproducto.Rows.Count > 0)
             {
                 DataRow producto = dtproducto.Rows[0];

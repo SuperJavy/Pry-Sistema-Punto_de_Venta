@@ -1,14 +1,4 @@
-﻿using Pry_Sistema_Punto_de_Venta.Controlador;
-using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
@@ -53,7 +43,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     item.nombre,
                     item.stock,
                     item.precio
-                    
+
                 );
             }
 
@@ -85,7 +75,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                         e.SuppressKeyPress = true;
                     }
                     break;
-            
             }
         }
     }

@@ -1,15 +1,6 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
 using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
 using Pry_Sistema_Punto_de_Venta.Vista;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
@@ -18,6 +9,7 @@ namespace Pry_Sistema_Punto_de_Venta
         ClsComprasController controller = new ClsComprasController();
         private Producto productoEnEspera = null;
         int idUsuario;
+
         public FrmCompra(int idUsuarioActual)
         {
             InitializeComponent();
@@ -40,7 +32,8 @@ namespace Pry_Sistema_Punto_de_Venta
                 case Keys.Delete:
                     btnBorrar_Click(sender, e);
                     break;
-                case Keys.F12:btnComprar_Click(sender, e);
+                case Keys.F12:
+                    btnComprar_Click(sender, e);
                     break;
             }
         }
@@ -54,8 +47,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 productoEnEspera = null;
             }
 
-            // PASO 1: Primer "ENTER" (Disparado por el lector de barras). 
-            // Solo buscamos en la BD y llenamos las cajas de texto en pantalla.
+            // PASO 1: Primer "ENTER" 
             if (productoEnEspera == null)
             {
                 if (!string.IsNullOrEmpty(codigoActual))
@@ -78,7 +70,6 @@ namespace Pry_Sistema_Punto_de_Venta
             }
 
             // PASO 2: Segundo "ENTER" (Disparado por el cajero tras revisar cantidades y costos).
-            // Ahora sí, enviamos todo al controlador para hacer la matemática y meterlo a la tabla.
             controller.VerificarYProcesarEntrada(
                 codigoActual,
                 txtCantidadCompra.Text,
@@ -87,7 +78,6 @@ namespace Pry_Sistema_Punto_de_Venta
                 this
             );
         }
-        
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             using (FrmBuscarProducto frmBuscar = new FrmBuscarProducto(controller.busquedaAvanzada))
@@ -120,7 +110,7 @@ namespace Pry_Sistema_Punto_de_Venta
             dtgCompras.Rows.Clear();
             foreach (var item in listaCompra)
             {
-                decimal precioVentaCalculado = item.precioCompra + (item.precioCompra * (item.porcentajeGanancia / 100));
+                decimal precioVentaCalculado = controller.CalcularPrecioDeVenta(item.precioCompra, item.porcentajeGanancia);
                 dtgCompras.Rows.Add(
                     item.producto.codigo_de_barras,
                     item.producto.nombre,
@@ -132,11 +122,11 @@ namespace Pry_Sistema_Punto_de_Venta
 
                     );
             }
-        
+
         }
-        public void mostrarTotal(decimal totalCompta) 
+        public void mostrarTotal(decimal totalCompta)
         {
-            txtTotalCompra.Text ="$ " + totalCompta.ToString();
+            txtTotalCompra.Text = "$ " + totalCompta.ToString();
         }
         private void prepararProductoEnPantalla(Producto prod)
         {
@@ -170,10 +160,10 @@ namespace Pry_Sistema_Punto_de_Venta
             string codigoEscaneado = txtCodigoProducto.Text;
 
             var respuesta = MessageBox.Show(
-        "El código escaneado no coincide con ningún registro.\n\n¿Desea registrar este nuevo producto ahora?",
-        "Producto no encontrado",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question);
+            "El código escaneado no coincide con ningún registro.\n\n¿Desea registrar este nuevo producto ahora?",
+            "Producto no encontrado",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
 
             if (respuesta == DialogResult.Yes)
             {

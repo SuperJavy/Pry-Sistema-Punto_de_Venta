@@ -101,7 +101,6 @@
             Name = "FrmInventario";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmInventario";
-            Load += FrmInventario_Load;
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             menuStrip1.ResumeLayout(false);

@@ -1,13 +1,5 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
@@ -41,19 +33,30 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            if (FrmVentas.ventaPendiente)
+            bool hayVentaPendiente = false;
+            foreach (Form formularioAbierto in Application.OpenForms)
             {
-                MessageBox.Show("No se puede cerrar session en este momento. \n\nDejaste una operación a la mitad. Por favor, regresa a la pantalla de Ventas o Compras y termina de cobrar, o cancela el ticket para poder salir",
-                    "Opereaciones Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                if (formularioAbierto is FrmVentas ventanaVentas && ventanaVentas.ventaPendiente)
+                {
+                    hayVentaPendiente = true;
+                    break;
+                }
+            }
+
+            if (hayVentaPendiente)
+            {
+                MessageBox.Show("No se puede cerrar sesión en este momento.\n\nDejaste una operación a la mitad. Por favor, regresa a la pantalla de Ventas o Compras y termina de cobrar, o cancela el ticket para poder salir.",
+                    "Operaciones Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
-            DialogResult confirmacion = MessageBox.Show("¿Estas seguro que deseas salir del sistema", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            DialogResult confirmacion = MessageBox.Show("¿Estás seguro que deseas salir del sistema?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (confirmacion == DialogResult.Yes)
             {
                 Application.Restart();
             }
-            
+
         }
 
         public void CargarPerfil()

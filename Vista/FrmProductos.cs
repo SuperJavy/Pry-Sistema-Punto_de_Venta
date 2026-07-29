@@ -1,13 +1,4 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Vista;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
@@ -58,7 +49,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void gestorDeEtiquetasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           FrmVisualizar_Etiquetas V_Etiquetas = new FrmVisualizar_Etiquetas();
+            FrmVisualizar_Etiquetas V_Etiquetas = new FrmVisualizar_Etiquetas();
             principal.agregaralcontenedor(V_Etiquetas, pnlproductos);
         }
     }

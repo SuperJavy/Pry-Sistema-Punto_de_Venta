@@ -16,7 +16,6 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             InitializeComponent();
         }
-
         private void btnIniciar_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtpassword.Text))
@@ -25,33 +24,27 @@ namespace Pry_Sistema_Punto_de_Venta
                 this.Close();
             }
         }
-
         private void txtpassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 btnIniciar_Click(sender, e);
-                //ruido windows
                 e.SuppressKeyPress = true;
             }
         }
-
         private void txtpassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (char.IsWhiteSpace(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-
         private void pcbMostrar_MouseUp(object sender, MouseEventArgs e)
         {
             txtpassword.PasswordChar = '*';
             txtpassword.Invalidate();
             txtpassword.Update();
         }
-
         private void pcbMostrar_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -59,7 +52,6 @@ namespace Pry_Sistema_Punto_de_Venta
             txtpassword.Invalidate();
             txtpassword.Update();
         }
-
         public string PasswordIngresado
         {
             get { return txtpassword.Text; }

@@ -1,22 +1,12 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using Pry_Sistema_Punto_de_Venta.Controlador;
-using Pry_Sistema_Punto_de_Venta.Controlador.Pry_Sistema_Punto_de_Venta.Controlador;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
 
     public partial class FrmCorteCaja : Form
     {
+        //Variables de clase
         private int idCorteInterno = 0;
         ClsCorteCajaController controllerCorte = new ClsCorteCajaController();
         private int idUsuarioSesion;
@@ -25,7 +15,10 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         private Dictionary<string, decimal> datosCorteActivo;
         private int idCajeroSeleccionado = 0;
         private bool cargandoCombo = false;
-        // Actualizamos el constructor para recibir el ID y el Rol
+
+
+        //Constructores
+        // El contructor recibe el id y rol por seguridad
         public FrmCorteCaja(int idUsuario, string rol)
         {
             InitializeComponent();
@@ -38,6 +31,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             txtTotalFisico.TextChanged += (s, e) => ActualizarResumen();
             txtTotalFisico.Enter += (s, e) => txtTotalFisico.SelectAll();
         }
+
+        //Metodos
         private void FrmCorteCaja_Load(object sender, EventArgs e)
         {
             cmbCajerosAbiertos.SelectedIndexChanged -= cmbCajerosAbiertos_SelectedIndexChanged_1;
@@ -52,7 +47,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             }
             else
             {
-
                 GenerarCorteDelDia();
                 AplicarSeguridadPorRol();
                 ActualizarResumen();
@@ -67,14 +61,13 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private void GenerarCorteDelDia()
         {
-            
+
             try
             {
                 Dictionary<string, decimal> datosCorte = controllerCorte.ObtenerCorteDinamico(idCajeroSeleccionado);
                 datosCorteActivo = datosCorte;
 
                 // Si no hay un turno abierto para este usuario, avisamos y no dejamos
-                // que se realice un corte "fantasma" de $0.00 (antes esto pasaba silenciosamente).
                 if (datosCorte.ContainsKey("TurnoEncontrado") && datosCorte["TurnoEncontrado"] == 0)
                 {
                     MessageBox.Show(
@@ -91,7 +84,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // no solo "el que esté abierto para ese usuario").
                 this.idCorteInterno = Convert.ToInt32(datosCorte["IdCorte"]);
 
-                // Mapeamos las variables sin datos quemados
+                // Mapeamos las variables
                 decimal fondoInicial = datosCorte["FondoInicial"];
                 decimal ventasEfectivo = datosCorte["VentasEfectivo"];
                 decimal salidasCompras = datosCorte["Salidas"];
@@ -114,10 +107,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 lblArticulosValor.Text = articulosVendidos.ToString("N0");
                 lblCanceladosValor.Text = articulosCancelados.ToString("N0");
                 lblTotalEsperadoInfo.Text = totalEnCajon.ToString("C2");
-                // (Antes había aquí una segunda asignación a lblTotalCajonValor con
-                // "ventasEfectivo", que pisaba el valor correcto de totalEnCajon puesto
-                // arriba. Se quitó: ese label es el "Total esperado" y debe reflejar
-                // fondo + ventas - salidas, no solo las ventas en efectivo.)
             }
             catch (Exception ex)
             {
@@ -140,17 +129,11 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 lblTotalCajonValor.Text = "$ ****.**";
             }
         }
-        // Calcula y pinta el panel "Resumen" (Total esperado / Total declarado / Diferencia)
-        // a partir de lo que el cajero va escribiendo en txtTotalFisico. Se llama al cargar
-        // el formulario y cada vez que ese textbox cambia, así el cajero ve la diferencia
-        // en vivo antes de confirmar el corte.
         private void ActualizarResumen()
         {
             decimal.TryParse(txtTotalFisico.Text, out decimal montoDeclarado);
             decimal diferencia = montoDeclarado - montoEsperadoInterno;
 
-            // El total esperado en el Resumen respeta el mismo corte ciego que el
-            // panel de "Información del sistema": un cajero no debe poder leerlo aquí.
             lblResumenEsperado.Text = EsAdministrador()
                 ? montoEsperadoInterno.ToString("C2")
                 : "$ ****.**";
@@ -179,10 +162,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 lblResumenDiferencia.ForeColor = Color.FromArgb(44, 62, 80);
                 pnlAlertaDiferencia.Visible = false;
             }
-        }
-        private void btnRealizarCorte_Click_1(object sender, EventArgs e)
-        {
-
         }
         private void btnRealizarCorte_Click(object sender, EventArgs e)
         {
@@ -365,7 +344,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             try
             {
-                // MÉTODO INFALIBLE: Extraer el ID directamente de la fila de datos
+                //Extraer el ID directamente de la fila de datos
                 if (cmbCajerosAbiertos.SelectedItem is DataRowView filaSeleccionada)
                 {
                     this.idCajeroSeleccionado = Convert.ToInt32(filaSeleccionada["id"]);

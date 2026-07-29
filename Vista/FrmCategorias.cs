@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Pry_Sistema_Punto_de_Venta.Controlador;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Pry_Sistema_Punto_de_Venta.Controlador;
 
 namespace Pry_Sistema_Punto_de_Venta.Vista
 {
@@ -55,7 +47,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             {
                 dgvMostrarcategorias.DataSource = dt;
 
-                // Esto es vital para que al hacer clic en cualquier parte se dispare el evento
+                // Dispara el elevento en cualquier parte
                 dgvMostrarcategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
                 if (dgvMostrarcategorias.Columns.Contains("Id"))
@@ -73,7 +65,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 DataGridViewRow fila = dgvMostrarcategorias.Rows[e.RowIndex];
 
                 // Pasamos el valor de la celda al TextBox
-                // Asegúrate de usar el nombre correcto de tu columna (ej: "nombre")
+                // Asegúrate de usar el nombre correcto de tu columna.
                 txtNombreCategoria.Text = fila.Cells["nombre"].Value.ToString();
             }
         }
@@ -108,7 +100,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void dgvMostrarcategorias_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 DataGridViewRow fila = dgvMostrarcategorias.Rows[e.RowIndex];
                 txtNombreCategoria.Text = fila.Cells[1].Value.ToString();
