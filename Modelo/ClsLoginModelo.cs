@@ -70,5 +70,67 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 }
             }
         }
+
+        // Agrega esto dentro de ClsLoginModelo.cs
+        public bool ExisteCorreo(string correo)
+        {
+            string query = "SELECT COUNT(*) FROM usuario WHERE correo = @correo";
+            using (var conexion = abrirConexion())
+            {
+                using (var consulta = new MySqlCommand(query, conexion))
+                {
+                    consulta.Parameters.AddWithValue("@correo", correo);
+                    int count = Convert.ToInt32(consulta.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+        }
+
+        public void GuardarTokenRecuperacion(string correo, string token, DateTime expiracion)
+        {
+            string query = "UPDATE usuario SET token_recuperacion = @token, fecha_expiracion_token = @expiracion WHERE correo = @correo";
+            using (var conexion = abrirConexion())
+            {
+                using (var consulta = new MySqlCommand(query, conexion))
+                {
+                    consulta.Parameters.AddWithValue("@token", token);
+                    consulta.Parameters.AddWithValue("@expiracion", expiracion);
+                    consulta.Parameters.AddWithValue("@correo", correo);
+                    consulta.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool ValidarYActualizarPassword(string correo, string tokenIngresado, string nuevaPassword)
+        {
+            // CAMBIO: Reemplazamos NOW() de MySQL por el parámetro @fechaActual de C#
+            string queryValidacion = "SELECT COUNT(*) FROM usuario WHERE correo = @correo AND token_recuperacion = @token AND fecha_expiracion_token > @fechaActual";
+
+            using (var conexion = abrirConexion())
+            {
+                using (var consulta = new MySqlCommand(queryValidacion, conexion))
+                {
+                    consulta.Parameters.AddWithValue("@correo", correo);
+                    consulta.Parameters.AddWithValue("@token", tokenIngresado);
+                    // Pasamos la hora exacta en la que se está haciendo clic en el botón
+                    consulta.Parameters.AddWithValue("@fechaActual", DateTime.Now);
+
+                    int valido = Convert.ToInt32(consulta.ExecuteScalar());
+
+                    if (valido == 0) return false; // Token inválido o expirado
+                }
+
+                // Si es válido, actualizamos la contraseña y limpiamos el token
+                string queryUpdate = "UPDATE usuario SET password = @password, token_recuperacion = NULL, fecha_expiracion_token = NULL WHERE correo = @correo";
+                using (var updateCommand = new MySqlCommand(queryUpdate, conexion))
+                {
+                    string passEncriptada = md5.EncryptPassword(nuevaPassword);
+                    updateCommand.Parameters.AddWithValue("@password", passEncriptada);
+                    updateCommand.Parameters.AddWithValue("@correo", correo);
+                    updateCommand.ExecuteNonQuery();
+                }
+                return true;
+            }
+        }
     }
 }

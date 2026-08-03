@@ -19,7 +19,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         public FrmLogin()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnIniciar_Click(object sender, EventArgs e)
@@ -120,6 +120,11 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 e.SuppressKeyPress = true;
             }
         }
-        
+
+        private void lblOlvidaste_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmRecuperarPassword frmRecuperar = new FrmRecuperarPassword();
+            frmRecuperar.ShowDialog();
+        }
     }
 }

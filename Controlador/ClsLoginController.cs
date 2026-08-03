@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using Pry_Sistema_Punto_de_Venta.Modelo;
+﻿using Pry_Sistema_Punto_de_Venta.Modelo;
 using Pry_Sistema_Punto_de_Venta.Vista;
+using System.Net.Mail;
+using System.Net;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -15,9 +10,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private ClsLoginModelo ModeloLogin = new ClsLoginModelo();
 
         public string ROl { get; set; }
-        public int usuario_id { get; set; } 
+        public int usuario_id { get; set; }
         public ClsLoginController()
-        {   
+        {
             ROl = ModeloLogin.Rol;
             usuario_id = ModeloLogin.UsuarioActual;
         }
@@ -33,7 +28,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     // AQUÍ ESTÁ EL CAMBIO: Asignamos el valor directamente del modelo
                     this.ROl = ModeloLogin.Rol;
-                    this.usuario_id = ModeloLogin.UsuarioActual;  
+                    this.usuario_id = ModeloLogin.UsuarioActual;
                     vista.notificarUsuario("Bienvenido, " + Nickname, false);
                 }
                 else
@@ -62,6 +57,70 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             catch (Exception e)
             {
                 throw new Exception("" + e.Message);
+            }
+        }
+
+        // Agrega esto dentro de ClsLoginController.cs
+        public string SolicitarCodigo(string correo)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(correo)) return "Por favor, ingresa un correo.";
+
+                if (!ModeloLogin.ExisteCorreo(correo)) return "El correo no está registrado en el sistema.";
+
+                // Generar código de 6 dígitos (Sin usar StringBuilder)
+                Random rnd = new Random();
+                string codigo = rnd.Next(100000, 999999).ToString();
+                DateTime expiracion = DateTime.Now.AddMinutes(15);
+
+                // Guardar en BD
+                ModeloLogin.GuardarTokenRecuperacion(correo, codigo, expiracion);
+
+                // Enviar Correo (Configura tus credenciales reales aquí)
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("amauriciohernandez26@gmail.com");
+                mail.To.Add(correo);
+                mail.Subject = "Código de Recuperación de Cuenta";
+                mail.Body = "Tu código de recuperación es: " + codigo + "\nEste código expira en 15 minutos. Si no solicitaste esto, ignora este mensaje.";
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                smtp.Port = 587;
+                smtp.Credentials = new NetworkCredential("amauriciohernandez26@gmail.com", "riscpicxcieevgoh");
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+
+                return "OK"; // Indica éxito
+            }
+            catch (Exception ex)
+            {
+                return "Error al enviar el correo: " + ex.Message;
+            }
+        }
+
+        public string CambiarPassword(string correo, string codigo, string nuevaPass, string confPass)
+        {
+            if (string.IsNullOrWhiteSpace(codigo) || string.IsNullOrWhiteSpace(nuevaPass))
+                return "Todos los campos son obligatorios.";
+
+            if (nuevaPass != confPass)
+                return "Las contraseñas no coinciden.";
+
+            if (nuevaPass.Length < 6)
+                return "La contraseña debe tener al menos 6 caracteres.";
+
+            try
+            {
+                bool exito = ModeloLogin.ValidarYActualizarPassword(correo, codigo, nuevaPass);
+
+                if (exito)
+                    return "OK";
+                else
+                    return "El código es incorrecto o ha expirado.";
+            }
+            catch (Exception ex)
+            {
+                return "Error al actualizar: " + ex.Message;
             }
         }
     }
