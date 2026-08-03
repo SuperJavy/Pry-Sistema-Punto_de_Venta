@@ -38,7 +38,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void FrmHistorialCortes_Load(object sender, EventArgs e)
         {
-            lblRolAdmin.Text = rolUsuario;
             ConfigurarPermisosPorRol();
             CargarFiltrosIniciales();
             BuscarHistorial();

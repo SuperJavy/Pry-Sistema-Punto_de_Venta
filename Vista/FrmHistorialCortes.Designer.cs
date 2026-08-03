@@ -127,9 +127,9 @@
             // 
             lblDesde.Font = new Font("Segoe UI", 9F);
             lblDesde.ForeColor = Color.FromArgb(127, 140, 141);
-            lblDesde.Location = new Point(3, -2);
+            lblDesde.Location = new Point(12, -9);
             lblDesde.Name = "lblDesde";
-            lblDesde.Size = new Size(131, 23);
+            lblDesde.Size = new Size(131, 30);
             lblDesde.TabIndex = 0;
             lblDesde.Text = "Desde";
             // 
@@ -145,9 +145,9 @@
             // 
             lblHasta.Font = new Font("Segoe UI", 9F);
             lblHasta.ForeColor = Color.FromArgb(127, 140, 141);
-            lblHasta.Location = new Point(160, -2);
+            lblHasta.Location = new Point(170, -10);
             lblHasta.Name = "lblHasta";
-            lblHasta.Size = new Size(131, 23);
+            lblHasta.Size = new Size(131, 31);
             lblHasta.TabIndex = 2;
             lblHasta.Text = "Hasta";
             // 
@@ -163,9 +163,9 @@
             // 
             lblCajero.Font = new Font("Segoe UI", 9F);
             lblCajero.ForeColor = Color.FromArgb(127, 140, 141);
-            lblCajero.Location = new Point(334, 1);
+            lblCajero.Location = new Point(350, -9);
             lblCajero.Name = "lblCajero";
-            lblCajero.Size = new Size(100, 23);
+            lblCajero.Size = new Size(100, 32);
             lblCajero.TabIndex = 4;
             lblCajero.Text = "Cajero";
             // 
@@ -179,16 +179,18 @@
             // 
             // lblEstado
             // 
+            lblEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblEstado.Font = new Font("Segoe UI", 9F);
             lblEstado.ForeColor = Color.FromArgb(127, 140, 141);
-            lblEstado.Location = new Point(486, 0);
+            lblEstado.Location = new Point(496, -7);
             lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(100, 23);
+            lblEstado.Size = new Size(100, 30);
             lblEstado.TabIndex = 6;
             lblEstado.Text = "Estado";
             // 
             // cmbEstado
             // 
+            cmbEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbEstado.Location = new Point(486, 18);
             cmbEstado.Name = "cmbEstado";
             cmbEstado.Size = new Size(110, 39);
@@ -197,11 +199,12 @@
             // 
             // btnBuscar
             // 
+            btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscar.BackColor = Color.FromArgb(41, 128, 185);
             btnBuscar.FlatAppearance.BorderSize = 0;
             btnBuscar.FlatStyle = FlatStyle.Flat;
             btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(657, 5);
+            btnBuscar.Location = new Point(658, 16);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(151, 41);
             btnBuscar.TabIndex = 8;
@@ -210,13 +213,15 @@
             // 
             // lblLimpiar
             // 
+            lblLimpiar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblLimpiar.LinkColor = Color.FromArgb(41, 128, 185);
-            lblLimpiar.Location = new Point(831, 5);
+            lblLimpiar.Location = new Point(836, 21);
             lblLimpiar.Name = "lblLimpiar";
-            lblLimpiar.Size = new Size(151, 41);
+            lblLimpiar.Size = new Size(164, 41);
             lblLimpiar.TabIndex = 9;
             lblLimpiar.TabStop = true;
             lblLimpiar.Text = "Limpiar filtros";
+            lblLimpiar.TextAlign = ContentAlignment.TopCenter;
             // 
             // tlpMetricas
             // 

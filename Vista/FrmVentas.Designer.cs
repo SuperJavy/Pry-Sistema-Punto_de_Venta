@@ -263,9 +263,9 @@
             // 
             txtCodigoBusq.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCodigoBusq.Font = new Font("Segoe UI", 13F);
-            txtCodigoBusq.Location = new Point(220, 134);
+            txtCodigoBusq.Location = new Point(288, 134);
             txtCodigoBusq.Name = "txtCodigoBusq";
-            txtCodigoBusq.Size = new Size(823, 48);
+            txtCodigoBusq.Size = new Size(755, 48);
             txtCodigoBusq.TabIndex = 118;
             // 
             // btnagregarproducto
