@@ -43,10 +43,11 @@ namespace Pry_Sistema_Punto_de_Venta
             this.colTipoVenta.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             this.colTipoVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            controler.recuperarVentaPendiente(this);
+            IdUsuario = usuario;
+            controler.recuperarVentaPendiente(this,IdUsuario);
 
             this.ActiveControl = txtCodigoBusq;
-            IdUsuario = usuario;
+            
 
         }
 

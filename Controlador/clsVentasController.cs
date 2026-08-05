@@ -167,21 +167,21 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             ClsRespaldo.eliminarRespaldo(rutaRespaldo);
         }
-        public void recuperarVentaPendiente(FrmVentas vista)
+        public void recuperarVentaPendiente(FrmVentas vista,int idUsuario)
         {
             if (File.Exists(rutaRespaldo))
             {
                 try
                 {
-
                     List<Itemrespaldo> respaldo = ClsRespaldo.recuperar(rutaRespaldo);
 
                     if (respaldo != null && respaldo.Count > 0)
                     {
                         var respuesta = MessageBox.Show(
-                            "Se detecto una venta interrumpida por un cierre inesperado, ¿Desea recuperarla?",
+                            "Se detectó una venta interrumpida por un cierre inesperado, ¿Desea recuperarla?",
                             "Sistema de respaldo", MessageBoxButtons.YesNo, MessageBoxIcon.Information
                             );
+
                         if (respuesta == DialogResult.Yes)
                         {
                             foreach (var item in respaldo)
@@ -194,7 +194,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             }
                             vista.actualizarTabla(venta.detalleVenta);
                             vista.mostrarTotal(venta.total);
-
                         }
                         else
                         {
@@ -212,13 +211,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                         Importe = item.cantidad * prod.precio
                                     });
                                 }
-
                             }
                             if (listaAuditada.Count > 0)
                             {
                                 ventas ventaCancelada = new ventas
                                 {
-                                    IdUsuario = login.UsuarioActual,
+                                    // AQUÍ ESTABA EL ERROR. Reemplazamos login.UsuarioActual por el idUsuario real.
+                                    IdUsuario = idUsuario,
                                     fecha = DateTime.Now,
                                     efectivo = 0,
                                     detalleVenta = new List<detalleVenta>()
@@ -226,7 +225,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 modelo.ProcesarVenta(ventaCancelada, listaAuditada, 3);
                             }
                             eliminarRespaldo();
-                            MessageBox.Show("La venta interrumpida ha sido descartada con exito", "Venta descartada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("La venta interrumpida ha sido descartada con éxito", "Venta descartada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
