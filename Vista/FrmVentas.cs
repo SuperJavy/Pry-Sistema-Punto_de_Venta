@@ -146,12 +146,21 @@ namespace Pry_Sistema_Punto_de_Venta
                     }
                 }
 
-                // Ya con el peso validado, enviamos todo al controlador
-                controler.agregarProducto(prod, cantidadFinal);
-                ventaPendiente = true;
+                string msjError;
+                bool agregado = controler.agregarProducto(prod, cantidadFinal, out msjError);
 
-                actualizarTabla(controler.ObtenerVentaActual().detalleVenta);
-                mostrarTotal(controler.obtenerTotal());
+                if (agregado)
+                {
+                    // Si se agregó correctamente, actualizamos la interfaz
+                    ventaPendiente = true;
+                    actualizarTabla(controler.ObtenerVentaActual().detalleVenta);
+                    mostrarTotal(controler.obtenerTotal());
+                }
+                else
+                {
+                    // Ayudamos al cajero avisándole exactamente por qué no se agregó
+                    MessageBox.Show(msjError, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
@@ -160,7 +169,6 @@ namespace Pry_Sistema_Punto_de_Venta
 
             txtCodigoBusq.Clear();
             txtCodigoBusq.Focus();
-
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

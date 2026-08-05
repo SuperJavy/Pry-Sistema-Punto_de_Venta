@@ -22,10 +22,20 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             if (string.IsNullOrEmpty(codigo)) return null;
             return modelo.buscarProducto(codigo);
         }
-        public void agregarProducto(Producto producto, decimal cantidadFinal)
+        public bool agregarProducto(Producto producto, decimal cantidadFinal, out string mensajeError)
         {
+            mensajeError = "";
             var existe = venta.detalleVenta.FirstOrDefault(x => x.Producto.codigo_de_barras == producto.codigo_de_barras);
 
+            decimal cantidadAcumulada = (existe != null ? existe.Cantidad : 0) + cantidadFinal;
+
+            if (cantidadAcumulada > producto.stock)
+            {
+                mensajeError = $"Stock insuficiente. Solo hay {producto.stock} disponibles en inventario.";
+                return false; 
+            }
+
+         
             if (existe != null)
             {
                 existe.Cantidad += cantidadFinal;
@@ -44,6 +54,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 );
             }
             GuardarRespaldoJson();
+            return true; 
         }
         public decimal obtenerCambio(decimal pago)
         {
@@ -134,15 +145,23 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             if (indice >= 0 && indice < venta.detalleVenta.Count)
             {
-                venta.detalleVenta[indice].Cantidad += cantidadExtra;
+                var item = venta.detalleVenta[indice];
 
-                if (venta.detalleVenta[indice].Cantidad <= 0)
+                if (cantidadExtra > 0 && (item.Cantidad + cantidadExtra) > item.Producto.stock)
+                {
+                    MessageBox.Show($"Stock insuficiente. Solo hay {item.Producto.stock} disponibles en inventario.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; 
+                }
+
+                item.Cantidad += cantidadExtra;
+
+                if (item.Cantidad <= 0)
                 {
                     eliminarProducto(indice, vista);
                     return;
                 }
 
-                venta.detalleVenta[indice].Importe = venta.detalleVenta[indice].Cantidad * venta.detalleVenta[indice].PrecioUnitario;
+                item.Importe = item.Cantidad * item.PrecioUnitario;
 
                 vista.actualizarTabla(venta.detalleVenta);
                 vista.mostrarTotal(venta.total);
@@ -167,7 +186,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             ClsRespaldo.eliminarRespaldo(rutaRespaldo);
         }
-        public void recuperarVentaPendiente(FrmVentas vista,int idUsuario)
+        public void recuperarVentaPendiente(FrmVentas vista, int idUsuario)
         {
             if (File.Exists(rutaRespaldo))
             {
@@ -188,8 +207,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 Producto prod = modelo.buscarProducto(item.codigoBarras);
                                 if (prod != null)
-                                {
-                                    agregarProducto(prod, item.cantidad);
+                                {                                 
+                                    string msjError;
+                                    bool agregado = agregarProducto(prod, item.cantidad, out msjError);
+
+                                    if (!agregado)
+                                    {
+                                        MessageBox.Show($"No se pudo recuperar completamente '{prod.nombre}': {msjError}", "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                             }
                             vista.actualizarTabla(venta.detalleVenta);
@@ -216,7 +241,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 ventas ventaCancelada = new ventas
                                 {
-                                    // AQUÍ ESTABA EL ERROR. Reemplazamos login.UsuarioActual por el idUsuario real.
                                     IdUsuario = idUsuario,
                                     fecha = DateTime.Now,
                                     efectivo = 0,
