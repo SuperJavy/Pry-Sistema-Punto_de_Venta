@@ -66,10 +66,6 @@ namespace Pry_Sistema_Punto_de_Venta
             }
         }
 
-        private void dgvInventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dgvInventario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
 
         // Agrega esto en tu formulario
         public object FuenteDatosGrid

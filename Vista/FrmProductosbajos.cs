@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
-    public partial class FrmProductosbajos : Form
+    public partial class  FrmProductosbajos : Form
     {
         ClsInventarioController ProductB = new ClsInventarioController();
         public FrmProductosbajos()
@@ -34,34 +34,33 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             DataTable dt = ProductB.CargarProductosBajos(this);
 
-            // Después de cargar los datos
-            dgvProductosBajos.DataSource = dt;
+            // Si CargarProductosBajos falló (excepción) o no hay filas, no hay nada más que hacer.
+            // El controlador ya notificó al usuario en ambos casos.
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                dgvProductosBajos.DataSource = null;
+                return;
+            }
 
-            // Renombrar columnas
+            dgvProductosBajos.DataSource = dt;
+            dgvProductosBajos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Renombrar columnas (ahora es seguro: ya sabemos que dt tiene filas y columnas)
             dgvProductosBajos.Columns["codigo_de_barras"].HeaderText = "Código de Barras";
             dgvProductosBajos.Columns["nombre"].HeaderText = "Producto";
             dgvProductosBajos.Columns["stock"].HeaderText = "Existencias";
             dgvProductosBajos.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
 
-
-
-
-
-            if (dt != null)
+            // Lógica para resaltar filas críticas
+            foreach (DataGridViewRow fila in dgvProductosBajos.Rows)
             {
-                dgvProductosBajos.DataSource = dt;
-                dgvProductosBajos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                // Lógica para resaltar filas críticas
-                foreach (DataGridViewRow fila in dgvProductosBajos.Rows)
+                int stock = Convert.ToInt32(fila.Cells["stock"].Value);
+                if (stock <= 0)
                 {
-                    int stock = Convert.ToInt32(fila.Cells["stock"].Value);
-                    if (stock <= 0)
-                    {
-                        fila.DefaultCellStyle.BackColor = Color.Salmon; // Color de alerta
-                    }
+                    fila.DefaultCellStyle.BackColor = Color.Salmon; // Color de alerta
                 }
             }
         }
+        
     }
 }

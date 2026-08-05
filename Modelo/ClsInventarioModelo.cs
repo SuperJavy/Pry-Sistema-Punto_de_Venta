@@ -10,6 +10,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class ClsInventarioModelo : ClsConexion
     {
+        private static bool EsFiltroVacio(string categoriaId)
+        {
+            return string.IsNullOrEmpty(categoriaId) || categoriaId == "0";
+        }
         public DataTable ObtenerProductosBajos()
         {
             DataTable dt = new DataTable();
@@ -98,37 +102,38 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public DataTable ObtenerDetalleProductosConAuditoria(string categoriaId)
         {
             DataTable dt = new DataTable();
-            string filtro = (categoriaId == "0") ? "" : " WHERE p.id_categoria = @catId";
+            bool sinFiltro = EsFiltroVacio(categoriaId);
+            string filtro = sinFiltro ? "" : " WHERE p.id_categoria = @catId";
+
 
             string query = $@"
                 SELECT 
                     IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS 'Código de Barras', 
                     p.nombre AS 'Producto', 
                     p.stock AS 'Stock Registrado', 
-                    
-                    -- Stock Teórico (Historial de Compras menos Ventas)
-                    (
-                        COALESCE((SELECT SUM(dc.cantidad) FROM detalle_compra dc WHERE dc.id_producto = p.id AND IFNULL(dc.id_estado, 1) = 1), 0) 
-                        - 
-                        COALESCE((SELECT SUM(dv.cantidad) FROM detalle_venta dv WHERE dv.id_producto = p.id AND IFNULL(dv.id_estado, 1) = 1), 0)
-                    ) AS 'Stock Teórico',
-                    
-                    -- Desfase (Diferencia entre lo registrado en BD y el cálculo matemático)
-                    p.stock - (
-                        COALESCE((SELECT SUM(dc.cantidad) FROM detalle_compra dc WHERE dc.id_producto = p.id AND IFNULL(dc.id_estado, 1) = 1), 0) 
-                        - 
-                        COALESCE((SELECT SUM(dv.cantidad) FROM detalle_venta dv WHERE dv.id_producto = p.id AND IFNULL(dv.id_estado, 1) = 1), 0)
-                    ) AS 'Desfase',
-                    
+                    (IFNULL(compras.total, 0) - IFNULL(ventas.total, 0)) AS 'Stock Teórico',
+                    (p.stock - (IFNULL(compras.total, 0) - IFNULL(ventas.total, 0))) AS 'Desfase',
                     p.costo AS 'Costo Unitario' 
                 FROM productos p 
                 LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                LEFT JOIN (
+                    SELECT id_producto, SUM(cantidad) AS total
+                    FROM detalle_compra
+                    WHERE IFNULL(id_estado, 1) = 1
+                    GROUP BY id_producto
+                ) compras ON compras.id_producto = p.id
+                LEFT JOIN (
+                    SELECT id_producto, SUM(cantidad) AS total
+                    FROM detalle_venta
+                    WHERE IFNULL(id_estado, 1) = 1
+                    GROUP BY id_producto
+                ) ventas ON ventas.id_producto = p.id
                 {filtro}";
 
             using (var conexion = abrirConexion())
             using (var cmd = new MySqlCommand(query, conexion))
             {
-                if (categoriaId != "0") cmd.Parameters.AddWithValue("@catId", categoriaId);
+                if (!sinFiltro) cmd.Parameters.AddWithValue("@catId", categoriaId);
                 using (var adapter = new MySqlDataAdapter(cmd))
                 {
                     adapter.Fill(dt);

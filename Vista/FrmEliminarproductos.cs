@@ -43,9 +43,9 @@ namespace Pry_Sistema_Punto_de_Venta
                 txtNombrep.Text = producto["nombre"].ToString();
                 txtDescripcion.Text = producto["Descripcion"].ToString();
 
-                if (dtproducto.Columns.Contains("Categoria_id"))
+                if (dtproducto.Columns.Contains("id_categoria"))
                 {
-                    cbxCategoria.SelectedValue = producto["Categoria_id"];
+                    cbxCategoria.SelectedValue = producto["id_categoria"];
                 }
 
                 string tipoVenta = producto["id_tipo_venta"].ToString();
@@ -167,7 +167,15 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            controlador.Eliminarproduct(txtCodigobarras.Text, this);
+            string codigo = txtCodigobarras.Text.Trim();
+            bool teniaProducto = !string.IsNullOrWhiteSpace(txtNombrep.Text);
+
+            controlador.Eliminarproduct(codigo, this);
+            if (teniaProducto)
+            {
+                LimpiarFormulario();
+                txtCodigobarras.Clear();
+            }
         }
     
     }

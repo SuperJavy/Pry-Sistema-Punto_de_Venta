@@ -37,17 +37,20 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 DataTable dt = modeloInventario.ObtenerEstadisticas(catId);
 
-                if (dt.Rows.Count > 0 && dt.Rows[0]["TotalCosto"] != DBNull.Value)
-                {
-                    decimal costo = Convert.ToDecimal(dt.Rows[0]["TotalCosto"]);
-                    int cantidad = Convert.ToInt32(dt.Rows[0]["TotalCantidad"]);
+                decimal costo = 0;
+                int cantidad = 0;
 
-                    vista.ActualizarUI(costo, cantidad);
+                if (dt.Rows.Count > 0)
+                {
+                    costo = Convert.ToDecimal(dt.Rows[0]["TotalCosto"]);
+                    cantidad = Convert.ToInt32(dt.Rows[0]["TotalCantidad"]);
                 }
-                else
+
+                vista.ActualizarUI(costo, cantidad);
+
+                if (cantidad == 0)
                 {
                     vista.notificarUsuario("No hay productos en esta categoría.", false);
-                    vista.ActualizarUI(0, 0);
                 }
             }
             catch (Exception ex)

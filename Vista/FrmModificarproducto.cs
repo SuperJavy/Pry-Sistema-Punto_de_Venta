@@ -14,6 +14,8 @@ namespace Pry_Sistema_Punto_de_Venta
     public partial class FrmModoficar : Form
     {
         ClsProductController controlador = new ClsProductController();
+        private string _codigoCargado = null;
+        private bool _cargandoDatos = false;
         public FrmModoficar()
         {
             InitializeComponent();
@@ -99,6 +101,8 @@ namespace Pry_Sistema_Punto_de_Venta
                 {
                     pcbImagen.Image = null;
                 }
+                _codigoCargado = producto["codigo_de_barras"].ToString().Trim();
+                _cargandoDatos = false;
             }
             else
             {
@@ -108,6 +112,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void LimpiarFormulario()
         {
+            _codigoCargado = null;
             txtNombrep.Clear();
             txtDescripcion.Clear();
             cbxCategoria.SelectedIndex = -1;
@@ -195,13 +200,42 @@ namespace Pry_Sistema_Punto_de_Venta
             else
             {
                 MessageBox.Show("Por favor, Seleccione un tipo de venta");
+                return;
             }
-            controlador.Actualizarproduc(txtCodigodebarras.Text, txtNombrep.Text, txtDescripcion.Text,
+            string codigoActual = txtCodigodebarras.Text.Trim();
+
+            if (_codigoCargado == null || !string.Equals(codigoActual, _codigoCargado, StringComparison.OrdinalIgnoreCase))
+            {
+                notificarUsuario("Debe buscar el producto (presione Enter en el código de barras) antes de actualizarlo.", true);
+                return;
+            }
+
+            if (cbxCategoria.SelectedValue == null)
+            {
+                notificarUsuario("Debe seleccionar una categoría", true);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show(
+                $"¿Está seguro de que desea actualizar el producto \"{txtNombrep.Text}\" (código {codigoActual})?",
+                "Confirmar actualización",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
+
+            if (confirmacion != DialogResult.Yes)
+            {
+                return;
+            }
+
+            controlador.Actualizarproduc(codigoActual, txtNombrep.Text, txtDescripcion.Text,
                 tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
         }
 
         private void nudPorcentaje_ValueChanged(object sender, EventArgs e)
         {
+            if (_cargandoDatos) return;
+
             float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
             txtPrecioventa.Text = preciov.ToString();
         }

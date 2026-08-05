@@ -18,20 +18,20 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             try
             {
-               return codigob.ObtenerNumeroUnicoEInexistente();
+                return codigob.ObtenerNumeroUnicoEInexistente();
             }
             catch (Exception e)
             {
                 throw new Exception("Error al extraer el código de barras: " + e.Message);
             }
         }
-        public Image imgcodeb (string c)
+        public Image imgcodeb(string c)
         {
             try
             {
                 return codigob.imgcodeb(c);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Error al extraer la imagen" + e.Message);
             }
@@ -63,18 +63,18 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al consultar el código en la Base de Datos: " + e.Message);
             }
 
-            return false; 
+            return false;
         }
         public bool InsercodeB(string code, Image img)
         {
             try
             {
                 return codigob.insertarBD(code, img);
-               
+
             }
             catch (Exception e)
             {
-                throw new Exception("Error al insertar en la Base de Datos "+e.Message);
+                throw new Exception("Error al insertar en la Base de Datos " + e.Message);
             }
         }
         public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen)
@@ -127,6 +127,10 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         return filasAfectadas > 0;
                     }
                 }
+            }
+            catch (FormatException)
+            {
+                throw new Exception("Uno o más campos numéricos (tipo de venta, categoría, stock) tiene un formato inválido.");
             }
             catch (Exception Ex)
             {
@@ -195,10 +199,26 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-
-                    string Query = "SELECT  codigo_de_barras, nombre, descripcion," +
-                        " id_categoria, id_tipo_venta, costo, porcentaje," +
-                        " precio_venta, stock,stock_minimo,Ruta_imagen FROM productos WHERE codigo_de_barras = @Codigobarras";
+                    // Antes se filtraba solo por p.codigo_de_barras, que queda NULL cuando
+                    // el producto se insertó apuntando a un código ya existente en la tabla
+                    // codigo_Barras (ver Insertarproductos: guarda id_codigoBarras y deja
+                    // codigo_de_barras en NULL). Eso hacía que estos productos nunca se
+                    // pudieran encontrar desde Buscar/Actualizar/Eliminar. Se soluciona
+                    // buscando por el código "efectivo" con el mismo patrón IFNULL usado
+                    // en ClsInventarioModelo.
+                    // codigo_Barras.Codigo_barras y productos.codigo_de_barras tienen
+                    // collations distintas en la BD (utf8mb4_bin vs utf8mb4_uca1400_ai_ci).
+                    // MySQL no permite combinarlas/compararlas sin unificarlas
+                    // explícitamente (error "Illegal mix of collations"), por eso se
+                    // fuerza COLLATE utf8mb4_general_ci en ambos lados del IFNULL.
+                    string Query = @"
+                        SELECT p.codigo_de_barras, p.nombre, p.descripcion,
+                               p.id_categoria, p.id_tipo_venta, p.costo, p.porcentaje,
+                               p.precio_venta, p.stock, p.stock_minimo, p.Ruta_imagen,
+                               IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_efectivo
+                        FROM productos p
+                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci";
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Codigobarras", codigobarras);
@@ -222,15 +242,25 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 ClsConexion conexionBD = new ClsConexion();
-                using(var conexion = conexionBD.abrirConexion())
+                using (var conexion = conexionBD.abrirConexion())
                 {
-                    string Query = "UPDATE productos SET nombre = @Nombre,Descripcion = @Descripcion,id_categoria = @Categoria_id," +
-                        "id_tipo_venta = @Tipo_venta_id,costo = @Costo,porcentaje = @Porcentaje," +
-                        "precio_venta = @Venta,stock = @Stock,stock_minimo = @Stock_minimo,ruta_imagen = @Ruta_imagen WHERE codigo_de_barras = @Codigo_de_barras";
-                    using (var Consulta = new MySqlCommand(Query,conexion))
+                    // MySQL soporta UPDATE multi-tabla con JOIN. Igual que en Buscarproduct,
+                    // el WHERE ahora busca por el código "efectivo" (IFNULL entre
+                    // codigo_Barras.Codigo_barras y productos.codigo_de_barras), porque
+                    // filtrar solo por productos.codigo_de_barras dejaba fuera a los
+                    // productos cuyo código vive en la tabla codigo_Barras (queda NULL
+                    // en productos.codigo_de_barras).
+                    string Query = @"UPDATE productos p
+                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                        SET p.nombre = @Nombre, p.Descripcion = @Descripcion, p.id_categoria = @Categoria_id,
+                            p.id_tipo_venta = @Tipo_venta_id, p.costo = @Costo, p.porcentaje = @Porcentaje,
+                            p.precio_venta = @Venta, p.stock = @Stock, p.stock_minimo = @Stock_minimo,
+                            p.ruta_imagen = @Ruta_imagen
+                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigo_de_barras COLLATE utf8mb4_general_ci";
+                    using (var Consulta = new MySqlCommand(Query, conexion))
                     {
                         Consulta.Parameters.AddWithValue("@Codigo_de_barras", Codigo);
-                        Consulta.Parameters.AddWithValue("@nombre", Nombre);
+                        Consulta.Parameters.AddWithValue("@Nombre", Nombre);
                         Consulta.Parameters.AddWithValue("@Descripcion", Descripciom);
                         Consulta.Parameters.AddWithValue("@Tipo_venta_id", int.Parse(TipVenta));
                         Consulta.Parameters.AddWithValue("@Costo", float.Parse(Costo));//float
@@ -241,23 +271,22 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
                         Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
 
-                        using (var resultad = Consulta.ExecuteReader())
-                        {
-                            if (resultad.Read())
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-
+                        // Antes: ExecuteReader() sobre un UPDATE. Un UPDATE no devuelve
+                        // filas, así que resultad.Read() era SIEMPRE false y el método
+                        // SIEMPRE retornaba true, sin importar si algo se actualizó de
+                        // verdad. Ahora se usa ExecuteNonQuery y se valida el número real
+                        // de filas afectadas.
+                        int filasAfectadas = Consulta.ExecuteNonQuery();
+                        return filasAfectadas > 0;
                     }
                 }
 
             }
-            catch(Exception e)
+            catch (FormatException)
+            {
+                throw new Exception("Uno o más campos numéricos (costo, precio, porcentaje, stock) tiene un formato inválido.");
+            }
+            catch (Exception e)
             {
                 throw new Exception("Error al Actualizar productos" + e.Message);
             }
@@ -272,8 +301,12 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                  
-                    string Query = "DELETE FROM productos WHERE codigo_de_barras = @Codigobarras";
+                    // Mismo ajuste que en Buscarproduct/Actualizarproductos: DELETE
+                    // multi-tabla con JOIN para localizar el producto por su código
+                    // "efectivo", ya que productos.codigo_de_barras puede estar en NULL.
+                    string Query = @"DELETE p FROM productos p
+                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci";
 
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
@@ -292,13 +325,20 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     }
                 }
             }
+            catch (MySqlException e) when (e.Number == 1451)
+            {
+                // Error 1451 = "Cannot delete or update a parent row: a foreign key
+                // constraint fails". Antes esto llegaba al usuario como el texto crudo
+                // del motor de MySQL; ahora se traduce a un mensaje entendible.
+                throw new Exception("No se puede eliminar: el producto tiene compras o ventas registradas asociadas.");
+            }
             catch (Exception e)
             {
                 throw new Exception("Error al eliminar Producto: " + e.Message);
             }
         }
         //termina codigo de eliminar
-        
+
     }
 
 }

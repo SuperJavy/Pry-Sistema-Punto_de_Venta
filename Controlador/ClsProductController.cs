@@ -59,17 +59,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void InsertCodeBD(string code, Image img, FrmGernerador_CodBarras vista)
         {
-            if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }
-            bool esvalido = producto.InsercodeB(code, img);
+            if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }           
             try
             {
+                bool esvalido = producto.InsercodeB(code, img);
                 if (esvalido)
                 {
                     vista.notificarUsuario("Los datos se guardaron correctamente", false);
                 }
                 else
                 {
-                    vista.notificarUsuario("LOs datos se guardaron correctamente", true);
+                    vista.notificarUsuario("No se pudieron guardar los datos", true);
                 }
             }
             catch (Exception)
@@ -84,9 +84,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
                 img = producto.imgcodeb(c);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                vista.notificarUsuario("", true);
+                vista.notificarUsuario("Error al generar la imagen del código de barras: " + e.Message, true);
 
             }
             return img;
@@ -307,7 +307,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 default:
                     Random rnd = new Random();
-                    int opcionAleatoria = rnd.Next(1, 4);
+                    int opcionAleatoria = rnd.Next(1, 6);
 
                     switch (opcionAleatoria)
                     {

@@ -263,9 +263,9 @@
             tableLayoutPanelPrincipal.Controls.Add(panelDerecho, 1, 0);
             tableLayoutPanelPrincipal.Dock = DockStyle.Fill;
             tableLayoutPanelPrincipal.Location = new Point(0, 96);
-            tableLayoutPanelPrincipal.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanelPrincipal.Margin = new Padding(4);
             tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
-            tableLayoutPanelPrincipal.Padding = new Padding(24, 24, 24, 24);
+            tableLayoutPanelPrincipal.Padding = new Padding(24);
             tableLayoutPanelPrincipal.RowCount = 1;
             tableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanelPrincipal.Size = new Size(1734, 1014);
@@ -301,7 +301,7 @@
             // 
             btnGenerar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnGenerar.Location = new Point(768, 49);
-            btnGenerar.Margin = new Padding(4, 4, 4, 4);
+            btnGenerar.Margin = new Padding(4);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(115, 46);
             btnGenerar.TabIndex = 24;
@@ -314,7 +314,7 @@
             cbxCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxCategoria.FormattingEnabled = true;
             cbxCategoria.Location = new Point(320, 386);
-            cbxCategoria.Margin = new Padding(4, 4, 4, 4);
+            cbxCategoria.Margin = new Padding(4);
             cbxCategoria.Name = "cbxCategoria";
             cbxCategoria.Size = new Size(546, 39);
             cbxCategoria.TabIndex = 23;
@@ -349,7 +349,7 @@
             panelDerecho.Controls.Add(btnGuardarproducto);
             panelDerecho.Dock = DockStyle.Fill;
             panelDerecho.Location = new Point(955, 28);
-            panelDerecho.Margin = new Padding(4, 4, 4, 4);
+            panelDerecho.Margin = new Padding(4);
             panelDerecho.Name = "panelDerecho";
             panelDerecho.Size = new Size(751, 958);
             panelDerecho.TabIndex = 105;
@@ -394,7 +394,7 @@
             pcbImagen.BackColor = Color.FromArgb(245, 246, 250);
             pcbImagen.BorderStyle = BorderStyle.Fixed3D;
             pcbImagen.Location = new Point(40, 48);
-            pcbImagen.Margin = new Padding(4, 4, 4, 4);
+            pcbImagen.Margin = new Padding(4);
             pcbImagen.Name = "pcbImagen";
             pcbImagen.Size = new Size(664, 406);
             pcbImagen.SizeMode = PictureBoxSizeMode.Zoom;
@@ -411,7 +411,7 @@
             btnSeleccionarImagen.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSeleccionarImagen.ForeColor = Color.White;
             btnSeleccionarImagen.Location = new Point(40, 473);
-            btnSeleccionarImagen.Margin = new Padding(4, 4, 4, 4);
+            btnSeleccionarImagen.Margin = new Padding(4);
             btnSeleccionarImagen.Name = "btnSeleccionarImagen";
             btnSeleccionarImagen.Size = new Size(665, 60);
             btnSeleccionarImagen.TabIndex = 1;
