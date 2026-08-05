@@ -228,11 +228,12 @@ namespace Pry_Sistema_Punto_de_Venta
             if (dtgVenta.CurrentRow == null) return;
 
             int indice = dtgVenta.CurrentRow.Index;
-            controler.ModificarCantidad(indice, 1, this); 
+            controler.ModificarCantidad(indice, 1, this);
 
             if (dtgVenta.Rows.Count > indice)
             {
-                dtgVenta.Rows[indice].Selected = true;
+
+                dtgVenta.CurrentCell = dtgVenta.Rows[indice].Cells[0];
             }
         }
 
@@ -241,11 +242,11 @@ namespace Pry_Sistema_Punto_de_Venta
             if (dtgVenta.CurrentRow == null) return;
 
             int indice = dtgVenta.CurrentRow.Index;
-            controler.ModificarCantidad(indice, -1, this); 
+            controler.ModificarCantidad(indice, -1, this);
 
             if (dtgVenta.Rows.Count > indice)
             {
-                dtgVenta.Rows[indice].Selected = true;
+                dtgVenta.CurrentCell = dtgVenta.Rows[indice].Cells[0];
             }
         }
 
