@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Pry_Sistema_Punto_de_Venta.Modelo;
+﻿using Pry_Sistema_Punto_de_Venta.Modelo;
 using Pry_Sistema_Punto_de_Venta.Modelo.Entidades;
-using Pry_Sistema_Punto_de_Venta.vista;
-using Pry_Sistema_Punto_de_Venta.Vista;
-using System.IO;
-using System.Text.Json;
+using System.Data;
+using System.IO; // CRÍTICO: Para usar File.Exists()
+using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
@@ -32,26 +24,31 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void agregarProducto(Producto producto, decimal cantidadFinal)
         {
-
             var existe = venta.detalleVenta.FirstOrDefault(x => x.Producto.codigo_de_barras == producto.codigo_de_barras);
+
             if (existe != null)
-                existe.Cantidad *= cantidadFinal;
-            else {
+            {
+                existe.Cantidad += cantidadFinal;
+                existe.Importe = existe.Cantidad * existe.PrecioUnitario;
+            }
+            else
+            {
                 venta.detalleVenta.Add(
                     new detalleVenta
-                    { 
-                        Producto= producto,
+                    {
+                        Producto = producto,
                         Cantidad = cantidadFinal,
-                        PrecioUnitario=producto.precio
+                        PrecioUnitario = producto.precio,
+                        Importe = cantidadFinal * producto.precio
                     }
-                    );
+                );
             }
             GuardarRespaldoJson();
         }
         public decimal obtenerCambio(decimal pago)
         {
             venta.efectivo = pago;
-            return venta.cambio;        
+            return venta.cambio;
         }
         public decimal obtenerTotal()
         {
@@ -72,16 +69,16 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
             }
 
-            
+
             bool exito = modelo.ProcesarVenta(venta, productoCancelados, 1);
-            
+
             if (exito)
             {
                 vistaCobro.NotificarUsuario("¡El ticket se cobró y guardó correctamente!", false);
                 vistaCobro.cerrarVentana();
                 eliminarRespaldo();
 
-              
+
             }
             else
             {
@@ -90,7 +87,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             return exito;
         }
-        public void eliminarProducto(int indice, FrmVentas vista) {
+        public void eliminarProducto(int indice, FrmVentas vista)
+        {
 
             if (indice >= 0 && indice < venta.detalleVenta.Count)
             {
@@ -105,7 +103,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 GuardarRespaldoJson();
             }
         }
-        public List<Producto>busquedaAvanzada(string filtro)
+        public List<Producto> busquedaAvanzada(string filtro)
         {
             if (string.IsNullOrWhiteSpace(filtro))
             {
@@ -134,17 +132,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void ModificarCantidad(int indice, decimal cantidadExtra, FrmVentas vista)
         {
-            if (indice >= 0 && indice <venta.detalleVenta.Count)
+            if (indice >= 0 && indice < venta.detalleVenta.Count)
             {
                 venta.detalleVenta[indice].Cantidad += cantidadExtra;
 
                 if (venta.detalleVenta[indice].Cantidad <= 0)
                 {
-                    eliminarProducto(indice, vista); 
+                    eliminarProducto(indice, vista);
                     return;
                 }
 
-
+                venta.detalleVenta[indice].Importe = venta.detalleVenta[indice].Cantidad * venta.detalleVenta[indice].PrecioUnitario;
 
                 vista.actualizarTabla(venta.detalleVenta);
                 vista.mostrarTotal(venta.total);
@@ -152,7 +150,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
         private readonly string rutaRespaldo = "venta_respaldo.json";
-        public void GuardarRespaldoJson() 
+        public void GuardarRespaldoJson()
         {
             if (venta.detalleVenta == null) return;
 
@@ -165,7 +163,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             ClsRespaldo.guardarRespaldo(rutaRespaldo, datos);
         }
-        public void eliminarRespaldo() 
+        public void eliminarRespaldo()
         {
             ClsRespaldo.eliminarRespaldo(rutaRespaldo);
         }
@@ -178,7 +176,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                     List<Itemrespaldo> respaldo = ClsRespaldo.recuperar(rutaRespaldo);
 
-                    if (respaldo!=null && respaldo.Count>0)
+                    if (respaldo != null && respaldo.Count > 0)
                     {
                         var respuesta = MessageBox.Show(
                             "Se detecto una venta interrumpida por un cierre inesperado, ¿Desea recuperarla?",
@@ -206,12 +204,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = modelo.buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    listaAuditada.Add(new detalleVenta 
+                                    listaAuditada.Add(new detalleVenta
                                     {
                                         Producto = prod,
                                         Cantidad = item.cantidad,
                                         PrecioUnitario = prod.precio,
-                                        Importe = prod.importe
+                                        Importe = item.cantidad * prod.precio
                                     });
                                 }
 
@@ -222,9 +220,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 {
                                     IdUsuario = login.UsuarioActual,
                                     fecha = DateTime.Now,
-                                    total = 0,
                                     efectivo = 0,
-                                    cambio = 0,
                                     detalleVenta = new List<detalleVenta>()
                                 };
                                 modelo.ProcesarVenta(ventaCancelada, listaAuditada, 3);
@@ -240,12 +236,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
             }
         }
-        
+
         public ventas ObtenerVentaActual()
         {
             return venta;
         }
     }
 
-    
+
 }

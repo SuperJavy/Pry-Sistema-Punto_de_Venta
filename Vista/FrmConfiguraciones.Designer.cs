@@ -37,6 +37,7 @@
             pnlTopBar = new Panel();
             lblFormTitle = new Label();
             pnlConfiguraciones = new Panel();
+            btnConexion = new Button();
             pnlSidebar.SuspendLayout();
             pnlMenuHeader.SuspendLayout();
             pnlTopBar.SuspendLayout();
@@ -45,6 +46,7 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = SystemColors.ActiveCaption;
+            pnlSidebar.Controls.Add(btnConexion);
             pnlSidebar.Controls.Add(pnlNavIndicator);
             pnlSidebar.Controls.Add(btnEditarTicket);
             pnlSidebar.Controls.Add(btnAgregarUsuarios);
@@ -123,7 +125,7 @@
             lblMenuTitle.ForeColor = Color.Black;
             lblMenuTitle.Location = new Point(22, 22);
             lblMenuTitle.Name = "lblMenuTitle";
-            lblMenuTitle.Size = new Size(178, 32);
+            lblMenuTitle.Size = new Size(215, 38);
             lblMenuTitle.TabIndex = 0;
             lblMenuTitle.Text = "Configuración";
             // 
@@ -144,7 +146,7 @@
             lblFormTitle.ForeColor = Color.FromArgb(17, 24, 39);
             lblFormTitle.Location = new Point(20, 18);
             lblFormTitle.Name = "lblFormTitle";
-            lblFormTitle.Size = new Size(263, 45);
+            lblFormTitle.Size = new Size(313, 51);
             lblFormTitle.TabIndex = 0;
             lblFormTitle.Text = "Configuraciones";
             // 
@@ -157,9 +159,31 @@
             pnlConfiguraciones.Size = new Size(1190, 880);
             pnlConfiguraciones.TabIndex = 2;
             // 
+            // btnConexion
+            // 
+            btnConexion.Cursor = Cursors.Hand;
+            btnConexion.FlatAppearance.BorderSize = 0;
+            btnConexion.FlatAppearance.MouseDownBackColor = Color.FromArgb(55, 65, 81);
+            btnConexion.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 72);
+            btnConexion.FlatStyle = FlatStyle.Flat;
+            btnConexion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnConexion.ForeColor = Color.White;
+            btnConexion.Image = Properties.Resources.boton_editar;
+            btnConexion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConexion.Location = new Point(0, 367);
+            btnConexion.Name = "btnConexion";
+            btnConexion.Padding = new Padding(20, 0, 0, 0);
+            btnConexion.Size = new Size(257, 103);
+            btnConexion.TabIndex = 4;
+            btnConexion.Text = "Modificar Conexion";
+            btnConexion.TextAlign = ContentAlignment.MiddleLeft;
+            btnConexion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnConexion.UseVisualStyleBackColor = true;
+            btnConexion.Click += btnConexion_Click;
+            // 
             // FrmConfiguraciones
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(243, 244, 246);
             ClientSize = new Size(1500, 1000);
@@ -191,5 +215,6 @@
         private System.Windows.Forms.Label lblFormTitle;
         private System.Windows.Forms.Panel pnlConfiguraciones; // Este reemplaza a tu pnlConfiguraciones original de forma fluida
         private System.Windows.Forms.Panel pnlNavIndicator;
+        private Button btnConexion;
     }
 }

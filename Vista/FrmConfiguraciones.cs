@@ -29,5 +29,10 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             principal.agregaralcontenedor(new Frmticket(), pnlConfiguraciones);
         }
+
+        private void btnConexion_Click(object sender, EventArgs e)
+        {
+            principal.agregaralcontenedor(new FrmDatosConexion(), pnlConfiguraciones);
+        }
     }
 }

@@ -21,9 +21,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
             {
                 return detalleVenta.Sum(x => x.Importe);
             }
-            set { }
         }
-        public decimal cambio { get { return efectivo - total; }  set { } }
+        public decimal cambio { get { return efectivo - total; } }
         public int id_estado { get; set; }
     }
 }
