@@ -34,5 +34,10 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             principal.agregaralcontenedor(new FrmDatosConexion(), pnlConfiguraciones);
         }
+
+        private void btnConfImpresora_Click(object sender, EventArgs e)
+        {
+            principal.agregaralcontenedor(new FrmConfiguracionImpresora(), pnlConfiguraciones);
+        }
     }
 }

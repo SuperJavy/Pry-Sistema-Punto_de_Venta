@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlSidebar = new Panel();
+            btnConexion = new Button();
             pnlNavIndicator = new Panel();
             btnEditarTicket = new Button();
             btnAgregarUsuarios = new Button();
@@ -37,7 +38,7 @@
             pnlTopBar = new Panel();
             lblFormTitle = new Label();
             pnlConfiguraciones = new Panel();
-            btnConexion = new Button();
+            btnConfImpresora = new Button();
             pnlSidebar.SuspendLayout();
             pnlMenuHeader.SuspendLayout();
             pnlTopBar.SuspendLayout();
@@ -46,6 +47,7 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = SystemColors.ActiveCaption;
+            pnlSidebar.Controls.Add(btnConfImpresora);
             pnlSidebar.Controls.Add(btnConexion);
             pnlSidebar.Controls.Add(pnlNavIndicator);
             pnlSidebar.Controls.Add(btnEditarTicket);
@@ -56,6 +58,28 @@
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(260, 1000);
             pnlSidebar.TabIndex = 0;
+            // 
+            // btnConexion
+            // 
+            btnConexion.Cursor = Cursors.Hand;
+            btnConexion.FlatAppearance.BorderSize = 0;
+            btnConexion.FlatAppearance.MouseDownBackColor = Color.FromArgb(55, 65, 81);
+            btnConexion.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 72);
+            btnConexion.FlatStyle = FlatStyle.Flat;
+            btnConexion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnConexion.ForeColor = Color.White;
+            btnConexion.Image = Properties.Resources.boton_editar;
+            btnConexion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConexion.Location = new Point(0, 367);
+            btnConexion.Name = "btnConexion";
+            btnConexion.Padding = new Padding(20, 0, 0, 0);
+            btnConexion.Size = new Size(257, 103);
+            btnConexion.TabIndex = 4;
+            btnConexion.Text = "Modificar Conexion";
+            btnConexion.TextAlign = ContentAlignment.MiddleLeft;
+            btnConexion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnConexion.UseVisualStyleBackColor = true;
+            btnConexion.Click += btnConexion_Click;
             // 
             // pnlNavIndicator
             // 
@@ -159,27 +183,27 @@
             pnlConfiguraciones.Size = new Size(1190, 880);
             pnlConfiguraciones.TabIndex = 2;
             // 
-            // btnConexion
+            // btnConfImpresora
             // 
-            btnConexion.Cursor = Cursors.Hand;
-            btnConexion.FlatAppearance.BorderSize = 0;
-            btnConexion.FlatAppearance.MouseDownBackColor = Color.FromArgb(55, 65, 81);
-            btnConexion.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 72);
-            btnConexion.FlatStyle = FlatStyle.Flat;
-            btnConexion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            btnConexion.ForeColor = Color.White;
-            btnConexion.Image = Properties.Resources.boton_editar;
-            btnConexion.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConexion.Location = new Point(0, 367);
-            btnConexion.Name = "btnConexion";
-            btnConexion.Padding = new Padding(20, 0, 0, 0);
-            btnConexion.Size = new Size(257, 103);
-            btnConexion.TabIndex = 4;
-            btnConexion.Text = "Modificar Conexion";
-            btnConexion.TextAlign = ContentAlignment.MiddleLeft;
-            btnConexion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnConexion.UseVisualStyleBackColor = true;
-            btnConexion.Click += btnConexion_Click;
+            btnConfImpresora.Cursor = Cursors.Hand;
+            btnConfImpresora.FlatAppearance.BorderSize = 0;
+            btnConfImpresora.FlatAppearance.MouseDownBackColor = Color.FromArgb(55, 65, 81);
+            btnConfImpresora.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 72);
+            btnConfImpresora.FlatStyle = FlatStyle.Flat;
+            btnConfImpresora.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnConfImpresora.ForeColor = Color.White;
+            btnConfImpresora.Image = Properties.Resources.boton_editar;
+            btnConfImpresora.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfImpresora.Location = new Point(0, 494);
+            btnConfImpresora.Name = "btnConfImpresora";
+            btnConfImpresora.Padding = new Padding(20, 0, 0, 0);
+            btnConfImpresora.Size = new Size(257, 103);
+            btnConfImpresora.TabIndex = 5;
+            btnConfImpresora.Text = "Configuracion de impresora";
+            btnConfImpresora.TextAlign = ContentAlignment.MiddleLeft;
+            btnConfImpresora.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnConfImpresora.UseVisualStyleBackColor = true;
+            btnConfImpresora.Click += btnConfImpresora_Click;
             // 
             // FrmConfiguraciones
             // 
@@ -216,5 +240,6 @@
         private System.Windows.Forms.Panel pnlConfiguraciones; // Este reemplaza a tu pnlConfiguraciones original de forma fluida
         private System.Windows.Forms.Panel pnlNavIndicator;
         private Button btnConexion;
+        private Button btnConfImpresora;
     }
 }

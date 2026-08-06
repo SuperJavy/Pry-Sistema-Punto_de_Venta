@@ -62,10 +62,13 @@ namespace Pry_Sistema_Punto_de_Venta
                 {
                     ClsTicketController ticketController = new ClsTicketController();
 
-                    // Nota: Aquí puedes pasar el nombre de la impresora (ej. "EPSON TM-T20") 
-                    // o dejarlo vacío "" para que use la impresora por defecto de Windows.
-                    // 'true' indica que es impresora térmica, 'false' la vuelve tamaño carta/normal.
+                    string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
+                    bool esTermica = Properties.Settings.Default.EsTermica;
                     ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), "Canon G4010 Series", false);
+                    if (esTermica)
+                    {
+                        ClsCajonDinero.AbrirCajon(nombreImpresora);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -122,6 +125,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void btnCobrarSolo_Click(object sender, EventArgs e)
         {
+            string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
             decimal pago = 0;
             decimal.TryParse(txtPagoCon.Text, out pago);
 
@@ -133,9 +137,10 @@ namespace Pry_Sistema_Punto_de_Venta
 
             // Aquí guardamos la venta, pero no instanciamos el ClsTicketController, por lo que no se imprime.
             bool exito = controller.guardarVenta(this, idUsuario);
-
+            
             if (exito)
             {
+                ClsCajonDinero.AbrirCajon(nombreImpresora);
                 DialogResult = DialogResult.OK;
                 Close();
             }
