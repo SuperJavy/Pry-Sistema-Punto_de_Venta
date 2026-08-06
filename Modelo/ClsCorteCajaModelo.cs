@@ -12,12 +12,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
     // No conoce Labels, Forms ni MessageBox — solo datos.
     internal class ClsCorteCajaModelo : ClsConexion
     {
-        // Antes: "public static int IdCorteActual { get; private set; }"
-        // Se quitó porque un valor static compartido entre TODAS las sesiones
-        // puede pisarse si en algún momento hay más de un turno abriéndose
-        // (varios cajeros, varias ventanas). Ahora el id se retorna directo
-        // desde AbrirCaja y cada llamador decide dónde guardarlo (por ejemplo,
-        // junto al idUsuarioSesion del formulario correspondiente).
+
         public int AbrirCaja(int idUsuario, decimal montoInicial)
         {
             string query = @"INSERT INTO corte (id_usuario, fecha_inicial, monto_inicial, monto_esperado) 

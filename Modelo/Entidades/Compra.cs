@@ -8,7 +8,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
 {
     internal class Compra
     {
-        public int IdVenta { get; set; }
+        public int IdCompra { get; set; }
         public int IdUsuario { get; set; }
 
         public DateTime fecha { get; set; }

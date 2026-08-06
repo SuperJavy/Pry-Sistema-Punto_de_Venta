@@ -24,17 +24,24 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 INNER JOIN usuario u ON v.id_usuario = u.id
                 INNER JOIN estado e ON v.id_estado = e.id
                 WHERE DATE(v.fecha) BETWEEN DATE(@fechaInicio) AND DATE(@fechaCorte)";
-            if (estado == "Solo Completadas")
+
+            // NOTA: este filtro sigue acoplado al texto exacto que use el combo en la
+            // Vista (FrmHistorialVentas). Se hace tolerante a mayúsculas/espacios para
+            // que un cambio menor en el texto del combo no rompa el filtro en silencio,
+            // pero lo ideal a futuro sería que el Controlador mande un id_estado en vez
+            // de comparar el texto de la UI aquí en el Modelo.
+            string estadoNormalizado = (estado ?? string.Empty).Trim().ToLowerInvariant();
+            if (estadoNormalizado == "solo completadas")
             {
-                query += " AND v.id_estado = 1"; 
+                query += " AND v.id_estado = 1";
             }
-            else if (estado == "Solo Canceladas")
+            else if (estadoNormalizado == "solo canceladas")
             {
-                query += " AND v.id_estado = 3"; 
+                query += " AND v.id_estado = 3";
             }
             query += " ORDER BY v.fecha DESC";
 
-            try 
+            try
             {
                 using (MySqlConnection conexion = abrirConexion())
                 {
@@ -45,7 +52,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                         using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
                         {
-                            
+
                             adaptador.Fill(historialVentas);
                         }
                     }
@@ -53,7 +60,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al buscar el historial de ventas "+ex.Message);
+                throw new Exception("Error al buscar el historial de ventas " + ex.Message);
             }
             return historialVentas;
         }
@@ -96,9 +103,22 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             return historialCompras;
         }
         public Dictionary<string, decimal> consultarResumenCorte(DateTime fechaCorte)
-        {      
+        {
             Dictionary<string, decimal> totales = new Dictionary<string, decimal>();
 
+            // ADVERTENCIA DE ARQUITECTURA: este método calcula ventas/salidas/artículos
+            // filtrando por DÍA CALENDARIO (DATE(fecha) = DATE(@fechaCorte)). El módulo
+            // de Corte de Caja (ClsCorteCajaModelo.ObtenerCorteDinamico) calcula lo mismo
+            // pero filtrando por el INICIO DEL TURNO (fecha_inicial del corte abierto),
+            // no por día calendario. Son dos lógicas distintas para un concepto que
+            // suena igual ("las ventas del corte"): si un turno cruza medianoche, o hay
+            // más de un turno en el mismo día, este método y ObtenerCorteDinamico van a
+            // reportar números diferentes para lo que parece ser "lo mismo". No se
+            // unificó aquí porque no se tiene visibilidad de qué otra pantalla consume
+            // obtenerCorteDiario/consultarResumenCorte; antes de tocar la lógica,
+            // confirmar si debe alinearse con la lógica por turno o si de verdad se
+            // necesita un corte por día calendario natural (p. ej. un reporte gerencial
+            // distinto al corte de caja del cajero).
             string query = @"
         SELECT 
             (SELECT IFNULL(SUM(total), 0) FROM venta WHERE DATE(fecha) = DATE(@fechaCorte) AND id_estado = 1) AS VentasEfectivo,

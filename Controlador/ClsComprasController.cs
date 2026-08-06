@@ -11,7 +11,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
     internal class ClsComprasController
     {
         ClsComprasModelo modelo = new ClsComprasModelo();
-        private ClsLoginModelo login = new ClsLoginModelo();
         Compra compra = new Compra();
         public List<DetalleCompra> compraCancelada = new List<DetalleCompra>();
         public Producto buscarProducto(string codigo)
@@ -29,6 +28,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             if (existe != null)
             {
+                decimal cantidadTotal = existe.cantidad + nuevaCantidad;
+                decimal costoPonderado = ((existe.cantidad * existe.precioCompra) + (nuevaCantidad * precioCompra)) / cantidadTotal;
                 existe.cantidad += nuevaCantidad;
                 existe.precioCompra = precioCompra;
                 existe.porcentajeGanancia = margen; // Actualiza el margen en el carrito
@@ -73,7 +74,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             if (exito)
             {
-                vista.notificarUsuario("Compra guardada correctamente", false);
+                int folio = compra.IdCompra;
+                vista.notificarUsuario("Compra guardada correctamente (Folio #" + folio + ")", false);
 
                 // Reiniciar carrito y respaldo para evitar duplicados en la siguiente compra
                 compra = new Compra();
@@ -83,7 +85,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 vista.mostrarTotal(compra.total);
                 eliminarRespaldo();
             }
-
             return exito;
         }
         public void limpiarCarrito(FrmCompra vista)
@@ -135,7 +136,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             ClsRespaldo.eliminarRespaldo(rutaRespaldo);
         }
-        public void recuperarCompraPendiente(FrmCompra vista)
+        public void recuperarCompraPendiente(FrmCompra vista, int idUsuarioActual)
         {
             if (File.Exists(rutaRespaldo))
             {
@@ -145,13 +146,13 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                     if (respaldo != null && respaldo.Count > 0)
                     {
-                        var respuesta = MessageBox.Show(
+                        bool deseaRecuperar = vista.confirmarPregunta(
                             "Se detectó una captura de compra interrumpida por un cierre inesperado, ¿Desea recuperarla?",
-                            "Sistema de respaldo", MessageBoxButtons.YesNo, MessageBoxIcon.Information
-                        );
+                            "Sistema de respaldo");
 
-                        if (respuesta == DialogResult.Yes)
+                        if (deseaRecuperar)
                         {
+                            List<string> noEncontrados = new List<string>();
                             foreach (var item in respaldo)
                             {
                                 Producto prod = buscarProducto(item.codigoBarras);
@@ -159,6 +160,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 {
                                     // CORRECCIÓN: Ahora pasamos prod.porcentaje en lugar de un 0 manual
                                     agregarProducto(prod, item.cantidad, prod.precio_compra, prod.porcentaje, vista);
+                                }
+                                else
+                                {
+                                    noEncontrados.Add(item.codigoBarras);
+                                }
+                                if (noEncontrados.Count > 0)
+                                {
+                                    vista.notificarUsuario(
+                                        "No se pudieron recuperar " + noEncontrados.Count +
+                                        " artículo(s) porque ya no existen en el catálogo: " +
+                                        string.Join(", ", noEncontrados), true);
                                 }
                             }
                         }
@@ -186,7 +198,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 Compra compraCancelada = new Compra
                                 {
-                                    IdUsuario = login.UsuarioActual,
+                                    IdUsuario =idUsuarioActual,
                                     fecha = DateTime.Now,
                                     detalleCompra = new List<DetalleCompra>()
                                 };
@@ -194,7 +206,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             }
 
                             eliminarRespaldo();
-                            MessageBox.Show("La captura de mercancía interrumpida ha sido descartada con éxito", "Compra descartada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            vista.notificarUsuario("La captura de mercancía interrumpida ha sido descartada con éxito", false);
                         }
                     }
                 }

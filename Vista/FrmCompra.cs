@@ -13,9 +13,11 @@ namespace Pry_Sistema_Punto_de_Venta
         public FrmCompra(int idUsuarioActual)
         {
             InitializeComponent();
-            controller.recuperarCompraPendiente(this);
-            this.ActiveControl = txtCodigoProducto;
             this.idUsuario = idUsuarioActual;
+            controller.recuperarCompraPendiente(this, idUsuario);
+
+            this.ActiveControl = txtCodigoProducto;
+
         }
         private void FrmCompra_KeyDown(object sender, KeyEventArgs e)
         {
@@ -30,7 +32,11 @@ namespace Pry_Sistema_Punto_de_Venta
                     break;
 
                 case Keys.Delete:
-                    btnBorrar_Click(sender, e);
+                    if (dtgCompras.Focused)
+                    {
+                        e.SuppressKeyPress = true;
+                        btnBorrar_Click(sender, e);
+                    }
                     break;
                 case Keys.F12:
                     btnComprar_Click(sender, e);
@@ -82,7 +88,7 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             using (FrmBuscarProducto frmBuscar = new FrmBuscarProducto(controller.busquedaAvanzada))
             {
-                if (frmBuscar.ShowDialog() == DialogResult.OK)
+                if (frmBuscar.ShowDialog() == DialogResult.OK && frmBuscar.productoSeleccionado != null)
                 {
                     prepararProductoEnPantalla(frmBuscar.productoSeleccionado);
                 }
@@ -124,12 +130,13 @@ namespace Pry_Sistema_Punto_de_Venta
             }
 
         }
-        public void mostrarTotal(decimal totalCompta)
+        public void mostrarTotal(decimal totalCompra)
         {
-            txtTotalCompra.Text = "$ " + totalCompta.ToString();
+            txtTotalCompra.Text = "$ " + totalCompra.ToString("N2");
         }
         private void prepararProductoEnPantalla(Producto prod)
         {
+            if (prod == null) return;
             productoEnEspera = prod;
             txtCodigoProducto.Text = prod.codigo_de_barras;
             txtCostoCompra.Text = prod.precio_compra.ToString();
@@ -155,6 +162,11 @@ namespace Pry_Sistema_Punto_de_Venta
             string titulo = esError ? "Error en Operación" : "Notificación del Sistema";
             MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
         }
+        public bool confirmarPregunta(string mensaje, string titulo)
+        {
+            return MessageBox.Show(mensaje, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+        }
+
         public void ConfirmarRegistroNuevoProducto()
         {
             string codigoEscaneado = txtCodigoProducto.Text;
@@ -177,21 +189,26 @@ namespace Pry_Sistema_Punto_de_Venta
                 fondoOscuro.ShowInTaskbar = false;
                 fondoOscuro.Show();
 
-                // 2. Instanciamos el formulario de Nuevo Producto
-                FrmNuevoProducto frmNuevo = new FrmNuevoProducto(codigoEscaneado);
+                try
+                {
+                    // 2. Instanciamos el formulario de Nuevo Producto
+                    FrmNuevoProducto frmNuevo = new FrmNuevoProducto(codigoEscaneado);
 
-                // 3. Lo forzamos a comportarse como una ventana de diálogo centrada
-                frmNuevo.FormBorderStyle = FormBorderStyle.FixedDialog;
-                frmNuevo.StartPosition = FormStartPosition.CenterScreen;
-                frmNuevo.MaximizeBox = false;
-                frmNuevo.MinimizeBox = false;
-                frmNuevo.Text = "Registro Rápido de Producto"; // Título de la ventana flotante
+                    // 3. Lo forzamos a comportarse como una ventana de diálogo centrada
+                    frmNuevo.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    frmNuevo.StartPosition = FormStartPosition.CenterScreen;
+                    frmNuevo.MaximizeBox = false;
+                    frmNuevo.MinimizeBox = false;
+                    frmNuevo.Text = "Registro Rápido de Producto"; // Título de la ventana flotante
 
-                // 4. Mostramos el formulario flotante atado al fondo oscuro
-                frmNuevo.ShowDialog(fondoOscuro);
+                    // 4. Mostramos el formulario flotante atado al fondo oscuro
+                    frmNuevo.ShowDialog(fondoOscuro);
+                }
+                finally { 
 
-                // 5. Al cerrar el registro, destruimos el efecto oscuro para regresar a la compra
-                fondoOscuro.Dispose();
+                    // 5. Al cerrar el registro, destruimos el efecto oscuro para regresar a la compra
+                    fondoOscuro.Dispose();
+                }
             }
             txtCodigoProducto.Focus();
             txtCodigoProducto.SelectAll();

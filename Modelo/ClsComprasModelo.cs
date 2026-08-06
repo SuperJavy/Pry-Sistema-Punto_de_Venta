@@ -10,8 +10,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 {
     internal class ClsComprasModelo : ClsConexion
     {
-
-          public Producto buscarProducto(string codigo)
+        private const int ID_PROVEEDOR_TEMPORAL = 1;
+        public Producto buscarProducto(string codigo)
         {
             Producto producto = null;
             try
@@ -33,7 +33,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
                 cmd.Parameters.AddWithValue("@codigo", codigo);
-                MySqlDataReader dr = cmd.ExecuteReader();
+                using MySqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
@@ -51,7 +51,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al buscar el producto " + ex.Message);
+                throw new Exception("Error al buscar el producto " + ex.Message, ex);
             }
             finally { cerrarConexion(); }
 
@@ -60,26 +60,27 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public bool procesarCompra(Compra compra, List<DetalleCompra> cancelados, int estado)
         {
             // Quitamos el 'using' para no destruir la conexión global de la clase
-            using (MySqlConnection con = abrirConexion())
+            abrirConexion();
+            try
             {
-                using (MySqlTransaction trans = con.BeginTransaction())
+                using (MySqlTransaction trans = conexion.BeginTransaction())
                 {
 
                     try
                     {
-                        int idCompra = insertarCompra(compra, con, trans, estado);
-
+                        int idCompra = insertarCompra(compra, conexion, trans, estado);
+                        compra.IdCompra = idCompra;
                         // Validamos que la lista no sea nula antes de intentar iterarla
                         if (compra.detalleCompra != null && compra.detalleCompra.Count > 0)
                         {
-                            insertarDetalleCompra(idCompra, compra.detalleCompra, con, trans, 1);
-                            actualizarStockCompra(compra.detalleCompra, con, trans);
+                            insertarDetalleCompra(idCompra, compra.detalleCompra, conexion, trans, 1);
+                            actualizarStockCompra(compra.detalleCompra, conexion, trans);
                         }
 
                         // Validamos que los cancelados existan para no romper la transacción
                         if (cancelados != null && cancelados.Count > 0)
                         {
-                            insertarDetalleCompra(idCompra, cancelados, con, trans, 3);
+                            insertarDetalleCompra(idCompra, cancelados, conexion, trans, 3);
                         }
 
                         trans.Commit();
@@ -88,11 +89,24 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     catch (Exception ex)
                     {
                         // Forzamos el Rollback explícito si algo falla
-                        trans.Rollback();
-                        throw new Exception("Error al guardar compra: " + ex.Message);
-                    }              
+                        try
+                        {
+                            trans.Rollback();
+                        }
+                        catch
+                        {
+                            // Si el propio Rollback falla, priorizamos reportar la
+                            // excepción original en vez de ocultarla con esta.
+                        }
+                        throw new Exception("Error al guardar compra: " + ex.Message, ex);
+                    }
                 }
-            
+
+
+            }
+            finally
+            {
+                cerrarConexion();
             }
         }
 

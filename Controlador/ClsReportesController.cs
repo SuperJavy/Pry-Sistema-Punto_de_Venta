@@ -18,11 +18,11 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             try
             {
-                if (estado == null)
+                if (string.IsNullOrWhiteSpace(estado))
                 {
                     throw new Exception("El estado no puede estar vacio");
                 }
-                if (fechaInicio>fechaCorte)
+                if (fechaInicio > fechaCorte)
                 {
                     throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre del reporte");
                 }
@@ -32,7 +32,11 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                throw new Exception("Error de configuracion " + e.Message);
+                // CORRECCIÓN: se envolvía la excepción sin pasar "e" como InnerException,
+                // perdiendo el stack trace original (dificulta depurar errores reales de
+                // BD/conexión). También el texto "Error de configuracion" era engañoso
+                // para cualquier tipo de error, no solo de configuración.
+                throw new Exception("Error al obtener el historial de ventas: " + e.Message, e);
             }
 
         }
@@ -50,18 +54,18 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                throw new Exception("Error al procesar el reporte de compras: " + e.Message);
+                throw new Exception("Error al procesar el reporte de compras: " + e.Message, e);
             }
         }
         public Dictionary<string, decimal> obtenerCorteDiario(DateTime fechaCorte)
         {
             try
-            {       
+            {
                 return modelo.consultarResumenCorte(fechaCorte);
             }
             catch (Exception e)
             {
-                throw new Exception("Error al procesar el corte: " + e.Message);
+                throw new Exception("Error al procesar el corte: " + e.Message, e);
             }
         }
 
@@ -74,7 +78,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                throw new Exception("Error en el controlador de detalles: " + e.Message);
+                throw new Exception("Error en el controlador de detalles: " + e.Message, e);
             }
         }
 
@@ -86,7 +90,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                throw new Exception("Error en el controlador de detalles de compra: " + e.Message);
+                throw new Exception("Error en el controlador de detalles de compra: " + e.Message, e);
             }
         }
     }

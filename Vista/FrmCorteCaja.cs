@@ -5,8 +5,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 {
 
     public partial class FrmCorteCaja : Form
-    {
-        //Variables de clase
+    {//Variables de clase
         private int idCorteInterno = 0;
         ClsCorteCajaController controllerCorte = new ClsCorteCajaController();
         private int idUsuarioSesion;
@@ -48,7 +47,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             else
             {
                 GenerarCorteDelDia();
-                AplicarSeguridadPorRol();
                 ActualizarResumen();
             }
         }
@@ -93,7 +91,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 decimal articulosCancelados = datosCorte["ArticulosCancelados"];
 
                 // Cálculos matemáticos de caja
-                decimal totalEnCajon = fondoInicial + ventasEfectivo;
+                // CORRECCIÓN: las Salidas (pagos a proveedores hechos en efectivo durante
+                // el turno) SÍ salen físicamente del cajón, así que deben restarse del
+                // total esperado. Antes se leían de la BD pero nunca se aplicaban al
+                // cálculo, lo que generaba "faltantes" falsos cada vez que se pagaba
+                // algo en efectivo desde la caja.
+                decimal totalEnCajon = fondoInicial + ventasEfectivo - salidasCompras;
 
                 // GUARDAMOS EL MONTO REAL EN LA VARIABLE INTERNA (Indispensable para el botón de cierre)
                 this.montoEsperadoInterno = totalEnCajon;
@@ -101,6 +104,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // Reflejamos los valores exactos en los componentes visuales
                 lblFondoValor.Text = fondoInicial.ToString("C2");
                 lblVentasEfectivoValor.Text = "+ " + ventasEfectivo.ToString("C2");
+                // lblSalidasValor.Text = "- " + salidasCompras.ToString("C2"); // Descomentar si el control existe en el diseñador
                 lblTotalCajonValor.Text = totalEnCajon.ToString("C2");
 
                 lblTicketsValor.Text = totalTickets.ToString("N0");
@@ -191,7 +195,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 {
                     // FALTANTE
                     string alerta = EsAdministrador() ?
-                        $"¡Atención! Hay un FALTANTE de {diferencia:C2} en la caja.\n\nEsperado: {montoEsperado:C2}\nDeclarado: {montoReal:C2}\n\n¿Está seguro de que desea registrar el corte con este faltante? La aplicación se cerrará." :
+                        $"¡Atención! Hay un FALTANTE de {diferencia:C2} en la caja.\n\nEsperado: {montoEsperado:C2}\nDeclarado: {montoReal:C2}\n\n¿Está seguro de que desea registrar el corte con este faltante?" :
                         $"¡Atención! Se ha detectado una diferencia negativa en la caja.\n\n¿Está seguro de que su conteo de {montoReal:C2} es correcto? La aplicación se cerrará y guardará el reporte.";
 
                     confirmacion = MessageBox.Show(alerta, "Diferencia Detectada", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -224,7 +228,22 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     if (cerrado)
                     {
                         MessageBox.Show("Corte realizado exitosamente. El turno se ha cerrado.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Application.Exit();
+
+                        // CORRECCIÓN: antes se llamaba Application.Exit() sin importar el rol.
+                        // Eso rompía la auditoría en lote del admin: cerraba TODA la aplicación
+                        // apenas cerraba el primer turno del combo, impidiéndole seguir con los
+                        // demás cajeros pendientes. Un cajero normal cierra su propio turno y
+                        // termina su sesión (comportamiento original); el admin, en cambio,
+                        // se queda en la pantalla y recarga la lista de turnos aún abiertos.
+                        if (EsAdministrador())
+                        {
+                            txtTotalFisico.Clear();
+                            CargarComboCajeros();
+                        }
+                        else
+                        {
+                            Application.Exit();
+                        }
                     }
                     else
                     {
@@ -254,6 +273,14 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             if (contenedorPadre != null)
             {
                 principal.agregaralcontenedor(frmHistorial, contenedorPadre);
+            }
+            else
+            {
+                // CORRECCIÓN: antes, si no se encontraba el contenedor padre, el clic
+                // simplemente no hacía nada y el usuario se quedaba sin saber por qué.
+                MessageBox.Show(
+                    "No se pudo abrir el historial de cortes (no se encontró el contenedor de navegación).",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void btnImprimirCorte_Click(object sender, EventArgs e)

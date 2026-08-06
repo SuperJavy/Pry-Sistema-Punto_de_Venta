@@ -24,6 +24,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             try
             {
+                // CORRECCIÓN: antes se confiaba en que quien llamara (login) ya había
+                // verificado que el usuario no tuviera un turno abierto. AbrirCaja no
+                // validaba nada por su cuenta, así que una segunda llamada accidental
+                // creaba un segundo corte abierto para el mismo usuario. Como
+                // ObtenerCorteDinamico solo toma el más reciente (ORDER BY ... LIMIT 1),
+                // el primero quedaba "huérfano": abierto para siempre y nunca contabilizado.
+                // Ahora el Controlador valida aquí también, sin depender de que la Vista
+                // lo haya hecho antes.
+                if (modelo.TieneTurnoAbierto(idUsuario))
+                    return (false, 0, "Este usuario ya tiene un turno de caja abierto. Ciérrelo antes de abrir uno nuevo.");
+
                 int idCorte = modelo.AbrirCaja(idUsuario, monto);
                 bool exito = idCorte > 0;
                 return (exito, idCorte, exito ? "" : "No se pudo registrar la apertura de caja.");

@@ -37,9 +37,13 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 DateTime fechaCorte = dtpHasta.Value.Date.AddDays(1).AddTicks(-1);
 
                 DataTable datos = controller.obtenerHistorialVentas(estado, fechaInicio, fechaCorte);
-                if (datos.Rows.Count == null)
+                // CORRECCIÓN: Rows.Count es int (tipo por valor, no-nullable). Comparar
+                // "== null" es un error de compilación (CS0019); lo que se quería
+                // preguntar era si la tabla vino vacía.
+                if (datos.Rows.Count == 0)
                 {
-                    MessageBox.Show("Los datos estan vacios", "Holi", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    MessageBox.Show("No se encontraron ventas en este rango de fechas con el filtro seleccionado.",
+                                     "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 dtgResultados.DataSource = datos;
@@ -49,7 +53,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     dtgResultados.Columns["Total"].DefaultCellStyle.Format = "C2";
                 }
                 calcularEfectivo(datos);
-           
+
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error al generar el reporte", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
 
@@ -61,14 +65,19 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
             foreach (DataRow fila in datos.Rows)
             {
-                string estadoVenta = fila["Estado"].ToString().ToLower();
+                string estadoVenta = fila["Estado"].ToString().Trim().ToLower();
 
-                if (estadoVenta == "completa" || estadoVenta == "Completada")
+                // CORRECCIÓN: como estadoVenta siempre está en minúsculas (ToLower arriba),
+                // la comparación contra "Completada" (con mayúscula) nunca podía ser
+                // verdadera, y "completa" (sin "da") probablemente tampoco coincidía con
+                // el valor real de la tabla `estado`. Resultado: esta suma casi siempre
+                // daba $0.00. Se deja una sola comparación, ya en minúsculas.
+                if (estadoVenta == "completada")
                 {
                     totalEfectivo += Convert.ToDecimal(fila["Total"]);
                 }
             }
-            
+
             lblTotalEfectivo.Text = totalEfectivo.ToString("C2");
         }
         private void dtgResultados_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -105,8 +114,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 ventana.ShowDialog();
             }
         }
-
-
 
     }
 }
