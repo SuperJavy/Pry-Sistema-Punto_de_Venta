@@ -45,7 +45,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
 
         private void ConfigurarPermisosPorRol()
         {
-            bool esAdmin = rolUsuario == "Administrador";
+            bool esAdmin = (rolUsuario == "Administrador" || rolUsuario == "1");
             lblCajero.Visible = esAdmin;
             cmbCajero.Visible = esAdmin;
         }
@@ -65,7 +65,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             cmbCajero.Items.Clear();
             cmbCajero.Items.Add(new CajeroItem(0, "Todos"));
 
-            if (rolUsuario == "Administrador")
+            if (rolUsuario == "Administrador" || rolUsuario == "1")
             {
                 try
                 {
@@ -112,7 +112,9 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 }
 
                 int idCajero = 0;
-                if (rolUsuario == "Administrador")
+
+                // CORRECCIÓN: Aplicamos la misma regla de rol aquí
+                if (rolUsuario == "Administrador" || rolUsuario == "1")
                 {
                     if (cmbCajero.SelectedItem is CajeroItem cajeroSeleccionado)
                         idCajero = cajeroSeleccionado.Id;
@@ -137,7 +139,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void PintarGrid(List<Dictionary<string, object>> historial)
         {
             dgvHistorialCortes.Columns.Clear();

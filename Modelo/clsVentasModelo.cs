@@ -37,7 +37,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             FROM productos p
             INNER JOIN tipo_venta t ON p.id_tipo_venta = t.id
             LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-            WHERE p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo";
+            WHERE (p.codigo_de_barras = @codigo OR cb.Codigo_barras = @codigo) AND (p.id_estado != 3 OR p.id_estado IS NULL)";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
                 cmd.Parameters.AddWithValue("@codigo", codigo);
@@ -107,19 +107,18 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 // 1. Agregamos IFNULL en el SELECT
                 // 2. Agregamos la búsqueda por código en el WHERE
                 string consulta = @"
-            SELECT p.id,
-                   IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
-                   p.nombre,
-                   p.precio_venta AS Precio, 
-                   p.stock,
-                   p.ruta_imagen AS Imagen, 
-                   t.nombre AS Tipo
-            FROM productos p
-            LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-            LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
-            WHERE p.nombre LIKE @filtro 
-               OR cb.Codigo_barras LIKE @filtro 
-               OR p.codigo_de_barras LIKE @filtro";
+                                SELECT p.id,
+                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_de_barras,
+                           p.nombre,
+                           p.precio_venta AS Precio, 
+                           p.stock,
+                           p.ruta_imagen AS Imagen, 
+                           t.nombre AS Tipo
+                    FROM productos p
+                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                    LEFT JOIN tipo_venta t ON p.id_tipo_venta = t.id
+                    WHERE (p.nombre LIKE @filtro OR cb.Codigo_barras LIKE @filtro OR p.codigo_de_barras LIKE @filtro)
+                      AND (p.id_estado != 3 OR p.id_estado IS NULL)";
 
                 using MySqlCommand cmd = new MySqlCommand(consulta, conexion);
 

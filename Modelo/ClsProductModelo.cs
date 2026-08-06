@@ -218,7 +218,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                                IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_efectivo
                         FROM productos p
                         LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci";
+                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci AND (p.id_estado != 3 OR p.id_estado IS NULL)";
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Codigobarras", codigobarras);
@@ -301,11 +301,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    // Mismo ajuste que en Buscarproduct/Actualizarproductos: DELETE
-                    // multi-tabla con JOIN para localizar el producto por su código
-                    // "efectivo", ya que productos.codigo_de_barras puede estar en NULL.
-                    string Query = @"DELETE p FROM productos p
+                    string Query = @"UPDATE productos p
                         LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                        SET p.id_estado = 3
                         WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci";
 
                     using (var consulta = new MySqlCommand(Query, conexion))
@@ -325,19 +323,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     }
                 }
             }
-            catch (MySqlException e) when (e.Number == 1451)
-            {
-                // Error 1451 = "Cannot delete or update a parent row: a foreign key
-                // constraint fails". Antes esto llegaba al usuario como el texto crudo
-                // del motor de MySQL; ahora se traduce a un mensaje entendible.
-                throw new Exception("No se puede eliminar: el producto tiene compras o ventas registradas asociadas.");
-            }
             catch (Exception e)
             {
-                throw new Exception("Error al eliminar Producto: " + e.Message);
+                throw new Exception("Error al cambiar el estado del Producto: " + e.Message);
             }
         }
-        //termina codigo de eliminar
 
     }
 
