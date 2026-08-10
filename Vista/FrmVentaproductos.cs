@@ -64,7 +64,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
                     string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
                     bool esTermica = Properties.Settings.Default.EsTermica;
-                    ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), "Canon G4010 Series", false);
+                    ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), nombreImpresora, esTermica);
                     if (esTermica)
                     {
                         ClsCajonDinero.AbrirCajon(nombreImpresora);
