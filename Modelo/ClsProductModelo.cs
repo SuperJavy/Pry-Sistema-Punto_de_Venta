@@ -207,7 +207,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     // buscando por el código "efectivo" con el mismo patrón IFNULL usado
                     // en ClsInventarioModelo.
                     // codigo_Barras.Codigo_barras y productos.codigo_de_barras tienen
-                    // collations distintas en la BD (utf8mb4_bin vs utf8mb4_uca1400_ai_ci).
+                    // collations distintas en la BD (utf8mb4_bin vs utf8mb4_general_ci).
                     // MySQL no permite combinarlas/compararlas sin unificarlas
                     // explícitamente (error "Illegal mix of collations"), por eso se
                     // fuerza COLLATE utf8mb4_general_ci en ambos lados del IFNULL.

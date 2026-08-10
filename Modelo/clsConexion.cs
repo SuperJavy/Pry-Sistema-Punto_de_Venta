@@ -182,11 +182,19 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     var builder = new MySqlConnectionStringBuilder(cadenaConexion);
                     builder.Database = ""; // Dejamos la BD en blanco para poder inyectarla
                     builder.AllowUserVariables = true;
+
                     using (var conCruda = new MySqlConnection(builder.ConnectionString))
                     {
                         conCruda.Open();
-                        // 4. Ejecutamos el archivo Proyecto.sql
+
+                        // 4. Leemos todo el texto del archivo Proyecto.sql
                         string scriptSQL = File.ReadAllText(rutaScript);
+
+                        // 5. Ejecutamos TODO el script de golpe usando un comando normal
+                        using (MySqlCommand cmd = new MySqlCommand(scriptSQL, conCruda))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
                 else
