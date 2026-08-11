@@ -92,6 +92,26 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion ConexionBd = new ClsConexion();
                 using (var Conexion = ConexionBd.abrirConexion())
                 {
+                    // 1. NUEVA BARRERA DE SEGURIDAD: Verificar si el código YA le pertenece a un producto existente
+                    string queryValidacion = @"
+                SELECT COUNT(*) FROM productos p
+                LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @codigoValidacion";
+
+                    using (var cmdVal = new MySqlCommand(queryValidacion, Conexion))
+                    {
+                        cmdVal.Parameters.AddWithValue("@codigoValidacion", CodigoIngresado);
+                        int enUso = Convert.ToInt32(cmdVal.ExecuteScalar());
+
+                        if (enUso > 0)
+                        {
+                            // Si el código ya tiene dueño, forzamos un error.
+                            // Esto enviará la señal al Controlador para que muestre el mensaje de "Producto Duplicado".
+                            throw new Exception("El código de barras ya está asignado a otro producto.");
+                        }
+                    }
+
+                    // 2. Lógica original: Buscar si el código viene del generador de Códigos de Barras
                     int idEncontrado = 0;
                     string queryBusqueda = "SELECT id FROM codigo_Barras WHERE Codigo_barras = @codigo";
                     using (var cmdBusqueda = new MySqlCommand(queryBusqueda, Conexion))
@@ -104,11 +124,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         }
                     }
 
-                    // MODIFICACIÓN: Insertamos 0 directamente en costo, precio_venta y porcentaje.
+                    // 3. Inserción del producto
                     string query = @"INSERT INTO productos 
-                    (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
-                    VALUES 
-                    (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, 0, 0, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, 0)";
+            (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
+            VALUES 
+            (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, 0, 0, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, 0)";
 
                     using (var Consulta = new MySqlCommand(query, Conexion))
                     {
