@@ -68,20 +68,27 @@ namespace Pry_Sistema_Punto_de_Venta
 
 
         // Agrega esto en tu formulario
+        // Agrega esto en tu formulario
         public object FuenteDatosGrid
         {
             set
             {
                 dgvInventario.DataSource = value;
 
-                // Verificamos si las columnas existen y les aplicamos el formato sin ceros
-                if (dgvInventario.Columns.Contains("stock"))
+                // Aplicamos el formato buscando los nombres EXACTOS de tu consulta SQL
+                if (dgvInventario.Columns.Contains("Stock Registrado"))
                 {
-                    dgvInventario.Columns["stock"].DefaultCellStyle.Format = "0.###";
+                    dgvInventario.Columns["Stock Registrado"].DefaultCellStyle.Format = "0.###";
                 }
-                if (dgvInventario.Columns.Contains("stock_minimo"))
+
+                if (dgvInventario.Columns.Contains("Stock Teórico"))
                 {
-                    dgvInventario.Columns["stock_minimo"].DefaultCellStyle.Format = "0.###";
+                    dgvInventario.Columns["Stock Teórico"].DefaultCellStyle.Format = "0.###";
+                }
+
+                if (dgvInventario.Columns.Contains("Desfase"))
+                {
+                    dgvInventario.Columns["Desfase"].DefaultCellStyle.Format = "0.###";
                 }
             }
         }
