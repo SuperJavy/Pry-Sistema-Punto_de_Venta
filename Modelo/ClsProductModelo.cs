@@ -92,11 +92,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion ConexionBd = new ClsConexion();
                 using (var Conexion = ConexionBd.abrirConexion())
                 {
-                    // 1. NUEVA BARRERA DE SEGURIDAD: Verificar si el código YA le pertenece a un producto existente
+                    // 1. NUEVA BARRERA DE SEGURIDAD: Verificar si el código YA le pertenece a un producto existentee
                     string queryValidacion = @"
-                SELECT COUNT(*) FROM productos p
-                LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @codigoValidacion";
+                    SELECT COUNT(*) FROM productos p
+                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                    WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @codigoValidacion COLLATE utf8mb4_general_ci";
 
                     using (var cmdVal = new MySqlCommand(queryValidacion, Conexion))
                     {
