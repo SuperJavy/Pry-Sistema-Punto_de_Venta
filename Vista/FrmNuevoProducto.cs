@@ -21,7 +21,6 @@ namespace Pry_Sistema_Punto_de_Venta
             DataTable dt = controlador.Cargarcategorias(this);
             llenarComboRoles(dt);
             txtStockactual.ReadOnly = true;
-            txtStockminimo.ReadOnly = true;
             chkUnidad.CheckedChanged += ChkUnidad_CheckedChanged;
             chkGranel.CheckedChanged += ChkGranel_CheckedChanged;
         }
@@ -176,6 +175,7 @@ namespace Pry_Sistema_Punto_de_Venta
             pcbImagen.Image = null;
             chkUnidad.Checked = false;
             chkGranel.Checked = false;
+            txtStockminimo.Clear();
         }
     }
 }
