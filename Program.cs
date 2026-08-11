@@ -13,23 +13,47 @@ namespace Pry_Sistema_Punto_de_Venta
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            try
+            bool arrancarLogin = false;
+
+            // Este ciclo intentará conectar. Si falla, abre la configuración. 
+            // Si el usuario guarda nuevos datos, el ciclo vuelve a intentar conectar.
+            while (true)
             {
-                ClsConexion conexionBase = new ClsConexion();
+                try
+                {
+                    ClsConexion conexionBase = new ClsConexion();
 
-                // Obligas al sistema a verificar si necesita construir las tablas
-                conexionBase.VerificarYCrearBaseDeDatos();
+                    // Intentamos verificar y construir las tablas
+                    conexionBase.VerificarYCrearBaseDeDatos();
 
-                // Si todo sale bien, arranca el login
-                Application.Run(new FrmLogin());
+                    // Si la línea de arriba no lanzó error, ¡la conexión fue un éxito!
+                    arrancarLogin = true;
+                    break; // Rompemos el ciclo infinito
+                }
+                catch (Exception ex)
+                {
+                    // Ocurrió un error. Le avisamos al usuario.
+                    MessageBox.Show("No se pudo conectar a la base de datos o el archivo de configuración es inválido.\n\nDetalle: " + ex.Message,
+                                    "Fallo de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    // Abrimos tu nueva ventana de configuración (que crearemos en el Paso 2)
+                    using (FrmDatosConexion frmConfig = new FrmDatosConexion())
+                    {
+                        // Si el usuario da clic en la X roja para cerrar o cancelar, salimos del ciclo y el programa muere.
+                        if (frmConfig.ShowDialog() != DialogResult.OK)
+                        {
+                            break;
+                        }
+                        // Si el usuario dio clic en "Guardar" (DialogResult.OK), 
+                        // el ciclo 'while' volverá a empezar automáticamente para probar los nuevos datos.
+                    }
+                }
             }
-            catch (Exception ex)
+
+            // Si salimos del ciclo y la conexión fue exitosa, abrimos el Login.
+            if (arrancarLogin)
             {
-                // Si algo falla, el programa no se cerrará de golpe, sino que te mostrará el error exacto
-                MessageBox.Show("Error crítico al inicializar el sistema:\n\n" + ex.Message,
-                                "Fallo de Arranque",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                Application.Run(new FrmLogin());
             }
         }
     }

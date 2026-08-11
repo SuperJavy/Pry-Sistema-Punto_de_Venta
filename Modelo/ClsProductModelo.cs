@@ -40,7 +40,15 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         public bool Comsultarcode(string code)
         {
             ClsConexion conexionBD = new ClsConexion();
-            string Query = "SELECT Codigo_barras FROM codigo_Barras WHERE Codigo_barras = @codigo LIMIT 1;";
+
+            // Buscamos en AMBAS tablas para asegurar que el código no exista ni como generado ni como manual
+            string Query = @"
+            SELECT codigo FROM (
+                SELECT Codigo_barras AS codigo FROM codigo_Barras
+                UNION
+                SELECT codigo_de_barras AS codigo FROM productos WHERE codigo_de_barras IS NOT NULL
+            ) AS codigos_totales 
+            WHERE codigo = @codigo LIMIT 1;";
 
             try
             {
@@ -53,7 +61,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     {
                         if (result.Read())
                         {
-                            return true;
+                            return true; // El código YA EXISTE en alguna de las dos tablas
                         }
                     }
                 }
@@ -63,7 +71,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al consultar el código en la Base de Datos: " + e.Message);
             }
 
-            return false;
+            return false; // El código está completamente libre
         }
         public bool InsercodeB(string code, Image img)
         {
