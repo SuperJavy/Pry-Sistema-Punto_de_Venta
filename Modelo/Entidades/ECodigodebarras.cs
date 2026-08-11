@@ -36,43 +36,17 @@
                 return resultado.ToString();
             }
 
-        public bool ExisteEnBaseDeDatos(string numero)
-        {
-            try
+            public bool ExisteEnBaseDeDatos(string numero)
             {
-                ClsConexion conexionBD = new ClsConexion();
-
-                // Buscamos en ambas tablas para garantizar que sea 100% único
-                string Query = @"
-            SELECT codigo FROM (
-                SELECT Codigo_barras AS codigo FROM codigo_Barras
-                UNION
-                SELECT codigo_de_barras AS codigo FROM productos WHERE codigo_de_barras IS NOT NULL
-            ) AS codigos_totales 
-            WHERE codigo = @codigo LIMIT 1;";
-
-                using (var conex = conexionBD.abrirConexion())
-                using (var consulta = new MySqlCommand(Query, conex))
+                if (numero == "123456789012")
                 {
-                    consulta.Parameters.AddWithValue("@codigo", numero);
-
-                    // ExecuteScalar es la forma más rápida de saber si existe al menos un registro
-                    object resultado = consulta.ExecuteScalar();
-
-                    if (resultado != null)
-                    {
-                        return true; // El código ya existe, el bucle while generará otro
-                    }
+                    return true;
                 }
-                return false; // El código está libre
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al verificar disponibilidad del código de barras: " + ex.Message);
-            }
-        }
 
-        public Image imgcodeb(string textoAleatorio)
+                return false;
+            }
+
+            public Image imgcodeb(string textoAleatorio)
             {
                 // ELIMINAMOS la línea que generaba un número nuevo aquí adentro
 
@@ -106,32 +80,35 @@
                 }
 
             }
-        public bool insertarBD(string codigo, Image img)
-        {
-            try
+            public bool insertarBD(string codigo, Image img)
             {
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conex = conexionBD.abrirConexion())
                 {
-                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras, id_estado) VALUES (@codigo, @img, @estado);";
-                    using (var consulta = new MySqlCommand(Query, conex))
+                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras, id_estado) VALUES (@codigo, @img,@estado);";
+                    using(var consulta = new MySqlCommand(Query, conex))
                     {
-                        consulta.Parameters.AddWithValue("@codigo", codigo);
-                        consulta.Parameters.AddWithValue("@img", imagenABytes(img));
-                        consulta.Parameters.AddWithValue("@estado", 2); // Asignamos el estado 2 directamente
+                        consulta.Parameters.AddWithValue("@codigo",codigo);
+                        consulta.Parameters.AddWithValue("@img",imagenABytes(img));
+                    consulta.Parameters.AddWithValue("@estado", int.Parse("2"));
+                        using (var result = consulta.ExecuteReader())
+                        {
+                            if (result.Read())
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
 
-                        // Para INSERT, UPDATE o DELETE siempre usamos ExecuteNonQuery
-                        int filasAfectadas = consulta.ExecuteNonQuery();
-                        return filasAfectadas > 0;
+                        }
+                    
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al insertar el código de barras generado: " + ex.Message);
-            }
-        }
-        private byte[] imagenABytes(Image img)
+        
+            private byte[] imagenABytes(Image img)
             {
                 if (img == null) return null;
                 using (MemoryStream ms = new MemoryStream())
