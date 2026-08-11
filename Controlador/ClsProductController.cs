@@ -122,9 +122,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
                 return false;
             }
-            catch (Exception E)
+            catch (Exception e)
             {
-                vista.notificarUsuario("Producto Duplicado o Error: " + E.Message, true);
+                vista.notificarUsuario("Producto Duplicado o ya registrado ", true);
                 return false;
             }
         }     
