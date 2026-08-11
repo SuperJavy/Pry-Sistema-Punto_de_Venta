@@ -34,8 +34,6 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             DataTable dt = ProductB.CargarProductosBajos(this);
 
-            // Si CargarProductosBajos falló (excepción) o no hay filas, no hay nada más que hacer.
-            // El controlador ya notificó al usuario en ambos casos.
             if (dt == null || dt.Rows.Count == 0)
             {
                 dgvProductosBajos.DataSource = null;
@@ -45,16 +43,20 @@ namespace Pry_Sistema_Punto_de_Venta
             dgvProductosBajos.DataSource = dt;
             dgvProductosBajos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Renombrar columnas (ahora es seguro: ya sabemos que dt tiene filas y columnas)
             dgvProductosBajos.Columns["codigo_de_barras"].HeaderText = "Código de Barras";
             dgvProductosBajos.Columns["nombre"].HeaderText = "Producto";
             dgvProductosBajos.Columns["stock"].HeaderText = "Existencias";
             dgvProductosBajos.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
 
-            // Lógica para resaltar filas críticas
+            // 1. APLICAMOS EL FORMATO INTELIGENTE A LAS COLUMNAS
+            dgvProductosBajos.Columns["stock"].DefaultCellStyle.Format = "0.###";
+            dgvProductosBajos.Columns["stock_minimo"].DefaultCellStyle.Format = "0.###";
+
+            // 2. CORREGIMOS LA CONVERSIÓN PARA QUE ACEPTE KILOS/GRANEL
             foreach (DataGridViewRow fila in dgvProductosBajos.Rows)
             {
-                int stock = Convert.ToInt32(fila.Cells["stock"].Value);
+                // Cambiamos ToInt32 por ToDecimal para evitar caídas con productos a granel
+                decimal stock = Convert.ToDecimal(fila.Cells["stock"].Value);
                 if (stock <= 0)
                 {
                     fila.DefaultCellStyle.BackColor = Color.Salmon; // Color de alerta

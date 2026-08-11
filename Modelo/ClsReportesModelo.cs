@@ -163,16 +163,16 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             DataTable detalles = new DataTable();
 
             string query = @"
-                            SELECT 
-                                p.nombre AS 'Producto',
-                                dv.cantidad AS 'Cantidad',
-                                dv.precio_unitario AS 'Precio Unit.',
-                                dv.subtotal AS 'Subtotal',
-                                e.estado AS 'Estado'
-                            FROM detalle_venta dv
-                            INNER JOIN productos p ON dv.id_producto = p.id
-                            LEFT JOIN estado e ON dv.id_estado = e.id
-                            WHERE dv.id_venta = @idVenta";
+                SELECT 
+                    p.nombre AS 'Producto',
+                    (dv.cantidad + 0) AS 'Cantidad',
+                    dv.precio_unitario AS 'Precio Unit.',
+                    dv.subtotal AS 'Subtotal',
+                    e.estado AS 'Estado'
+                FROM detalle_venta dv
+                INNER JOIN productos p ON dv.id_producto = p.id
+                LEFT JOIN estado e ON dv.id_estado = e.id
+                WHERE dv.id_venta = @idVenta";
 
             try
             {
@@ -203,16 +203,16 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             // Consulta para cruzar el detalle_compra con los productos
             string query = @"
-                            SELECT 
-                                p.nombre AS 'Producto',
-                                dc.cantidad AS 'Cantidad',
-                                dc.precio AS 'Precio Compra',
-                                dc.subtotal AS 'Subtotal',
-                                e.estado AS 'Estado'
-                            FROM detalle_compra dc
-                            INNER JOIN productos p ON dc.id_producto = p.id
-                            LEFT JOIN estado e ON dc.id_estado = e.id
-                            WHERE dc.id_compra = @idCompra";
+                SELECT 
+                    p.nombre AS 'Producto',
+                    (dc.cantidad + 0) AS 'Cantidad',
+                    dc.precio AS 'Precio Compra',
+                    dc.subtotal AS 'Subtotal',
+                    e.estado AS 'Estado'
+                FROM detalle_compra dc
+                INNER JOIN productos p ON dc.id_producto = p.id
+                LEFT JOIN estado e ON dc.id_estado = e.id
+                WHERE dc.id_compra = @idCompra";
 
             try
             {
