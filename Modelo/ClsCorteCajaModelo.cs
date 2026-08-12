@@ -86,13 +86,13 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                                WHERE v3.id_usuario = c.id_usuario
                                  AND v3.fecha >= c.fecha_inicial
                                  AND dv.id_estado = 1), 0) AS ArticulosVendidos,
-                    COALESCE((SELECT COUNT(*)
+                   COALESCE((SELECT SUM(dv2.cantidad)
                                 FROM detalle_venta dv2
                                 INNER JOIN venta v4 ON v4.id = dv2.id_venta
                                WHERE v4.id_usuario = c.id_usuario
                                  AND v4.fecha >= c.fecha_inicial
                                  AND dv2.id_estado = 3), 0) AS ArticulosCancelados
-                FROM corte c
+                                    FROM corte c
                 WHERE c.id_usuario = @id_usuario
                   AND c.fecha_de_cierre IS NULL
                 ORDER BY c.fecha_inicial DESC

@@ -179,7 +179,6 @@
             // 
             // lblEstado
             // 
-            lblEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblEstado.Font = new Font("Segoe UI", 9F);
             lblEstado.ForeColor = Color.FromArgb(127, 140, 141);
             lblEstado.Location = new Point(496, -7);
@@ -190,7 +189,6 @@
             // 
             // cmbEstado
             // 
-            cmbEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbEstado.Location = new Point(486, 18);
             cmbEstado.Name = "cmbEstado";
             cmbEstado.Size = new Size(110, 39);
@@ -199,12 +197,11 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscar.BackColor = Color.FromArgb(41, 128, 185);
             btnBuscar.FlatAppearance.BorderSize = 0;
             btnBuscar.FlatStyle = FlatStyle.Flat;
             btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(658, 16);
+            btnBuscar.Location = new Point(626, 15);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(151, 41);
             btnBuscar.TabIndex = 8;
@@ -213,9 +210,8 @@
             // 
             // lblLimpiar
             // 
-            lblLimpiar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblLimpiar.LinkColor = Color.FromArgb(41, 128, 185);
-            lblLimpiar.Location = new Point(836, 21);
+            lblLimpiar.Location = new Point(783, 18);
             lblLimpiar.Name = "lblLimpiar";
             lblLimpiar.Size = new Size(164, 41);
             lblLimpiar.TabIndex = 9;
@@ -354,9 +350,10 @@
             // 
             // btnReimprimir
             // 
-            btnReimprimir.Location = new Point(861, 70);
+            btnReimprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnReimprimir.Location = new Point(842, 50);
             btnReimprimir.Name = "btnReimprimir";
-            btnReimprimir.Size = new Size(168, 40);
+            btnReimprimir.Size = new Size(188, 50);
             btnReimprimir.TabIndex = 7;
             btnReimprimir.Text = "Reimprimir";
             btnReimprimir.UseVisualStyleBackColor = true;

@@ -96,7 +96,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // total esperado. Antes se leían de la BD pero nunca se aplicaban al
                 // cálculo, lo que generaba "faltantes" falsos cada vez que se pagaba
                 // algo en efectivo desde la caja.
-                decimal totalEnCajon = fondoInicial + ventasEfectivo - salidasCompras;
+                // Se elimina la resta de salidasCompras para no causar saldos negativos
+                decimal totalEnCajon = fondoInicial + ventasEfectivo;
 
                 // GUARDAMOS EL MONTO REAL EN LA VARIABLE INTERNA (Indispensable para el botón de cierre)
                 this.montoEsperadoInterno = totalEnCajon;

@@ -112,7 +112,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     altoTicket += (ventaActual.detalleVenta.Count * 15);
                 }
-                documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 700);
+                documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 228, 700);
                 documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
             }
             else
@@ -154,8 +154,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             Brush brocha = Brushes.Black;
 
             // Ajuste dinámico de dimensiones
-            int margenIzquierdo = esTermica ? 10 : 50;
-            int anchoTicket = 315;
+            int margenIzquierdo = esTermica ? 5 : 50;
+            int anchoTicket = esTermica ? 190 : 315;
             int y = 20;
 
             StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
@@ -164,8 +164,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             // --- CABECERA Y LOGO ---
             if (configActual.Logo != null)
             {
-                int logoAncho = esTermica ? 100 : 150;
-                int logoAlto = esTermica ? 100 : 150;
+                // Reduce un poco el tamaño del logo para la térmica
+                int logoAncho = esTermica ? 80 : 150;
+                int logoAlto = esTermica ? 80 : 150;
                 int logoX = margenIzquierdo + ((anchoTicket - logoAncho) / 2);
                 gfx.DrawImage(configActual.Logo, logoX, y, logoAncho, logoAlto);
                 y += logoAlto + 10;
@@ -262,8 +263,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 if (esTermica)
                 {
-                    // Tamaño de papel para ticket de corte (Alto fijo razonable)
-                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 270, 350);
+                        // Tamaño de papel para ticket de corte (Alto fijo razonable)
+                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 228, 450); // Aumenté el alto un poco por si acaso
                     documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
                 }
                 else
@@ -299,24 +300,25 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
                 Brush brocha = Brushes.Black;
 
-                int margenIzquierdo = esTermica ? 10 : 50;
-                int anchoTicket = 315;
+                int margenIzquierdo = esTermica ? 5 : 50;
+                int anchoTicket = esTermica ? 190 : 315;
                 int y = 20;
 
-                StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
+            StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
                 StringFormat formatoDerecha = new StringFormat { Alignment = StringAlignment.Far };
 
                 // --- CABECERA Y LOGO ---
                 if (configActual.Logo != null)
                 {
-                    int logoAncho = esTermica ? 100 : 150;
-                    int logoAlto = esTermica ? 100 : 150;
+                    // Reduce un poco el tamaño del logo para la térmica
+                    int logoAncho = esTermica ? 80 : 150;
+                    int logoAlto = esTermica ? 80 : 150;
                     int logoX = margenIzquierdo + ((anchoTicket - logoAncho) / 2);
                     gfx.DrawImage(configActual.Logo, logoX, y, logoAncho, logoAlto);
                     y += logoAlto + 10;
                 }
 
-                gfx.DrawString(configActual.NombreNegocio, fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+            gfx.DrawString(configActual.NombreNegocio, fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
                 y += 25;
                 gfx.DrawString("CORTE DE CAJA", fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
                 y += 25;
