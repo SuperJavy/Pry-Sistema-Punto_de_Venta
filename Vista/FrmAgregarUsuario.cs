@@ -61,8 +61,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 txtApellidoMaterno.Text,
                 txtNombreUsuario.Text,
                 txtDireccion.Text,
-                txtCorreo.Text,
                 txtTelefono.Text,
+                txtCorreo.Text,
                 passSegura,
                 idRolSeleccionado,
                 this
