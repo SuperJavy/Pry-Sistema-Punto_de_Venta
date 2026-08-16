@@ -79,14 +79,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 // Enviar Correo (Configura tus credenciales reales aquí)
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("amauriciohernandez26@gmail.com");
+                mail.From = new MailAddress("notificaciones.puntodeventafcm@gmail.com");
                 mail.To.Add(correo);
                 mail.Subject = "Código de Recuperación de Cuenta";
                 mail.Body = "Tu código de recuperación es: " + codigo + "\nEste código expira en 15 minutos. Si no solicitaste esto, ignora este mensaje.";
 
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com");
                 smtp.Port = 587;
-                smtp.Credentials = new NetworkCredential("amauriciohernandez26@gmail.com", "riscpicxcieevgoh");
+                smtp.Credentials = new NetworkCredential("notificaciones.puntodeventafcm@gmail.com", "gekq aons sczg sobc");
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
 

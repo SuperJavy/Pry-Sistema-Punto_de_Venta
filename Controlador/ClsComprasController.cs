@@ -126,7 +126,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             var datos = compra.detalleCompra.Select(d => new Itemrespaldo
             {
                 codigoBarras = d.producto.codigo_de_barras,
-                cantidad = d.cantidad
+                cantidad = d.cantidad,
+                costo = d.precioCompra,
+                porcentaje = d.porcentajeGanancia
 
             }).ToList();
 
@@ -158,20 +160,21 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 Producto prod = buscarProducto(item.codigoBarras);
                                 if (prod != null)
                                 {
-                                    // CORRECCIÓN: Ahora pasamos prod.porcentaje en lugar de un 0 manual
-                                    agregarProducto(prod, item.cantidad, prod.precio_compra, prod.porcentaje, vista);
+                                    // CORRECCIÓN: Inyectamos item.costo e item.porcentaje (del JSON) 
+                                    // en lugar de prod.precio_compra y prod.porcentaje (de la BD)
+                                    agregarProducto(prod, item.cantidad, item.costo, item.porcentaje, vista);
                                 }
                                 else
                                 {
                                     noEncontrados.Add(item.codigoBarras);
                                 }
-                                if (noEncontrados.Count > 0)
-                                {
-                                    vista.notificarUsuario(
-                                        "No se pudieron recuperar " + noEncontrados.Count +
-                                        " artículo(s) porque ya no existen en el catálogo: " +
-                                        string.Join(", ", noEncontrados), true);
-                                }
+                            }
+                            if (noEncontrados.Count > 0)
+                            {
+                                vista.notificarUsuario(
+                                    "No se pudieron recuperar " + noEncontrados.Count +
+                                    " artículo(s) porque ya no existen en el catálogo: " +
+                                    string.Join(", ", noEncontrados), true);
                             }
                         }
                         else
@@ -186,9 +189,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                     {
                                         producto = prod,
                                         cantidad = item.cantidad,
-                                        precioCompra = prod.precio_compra,
-                                        // CORRECCIÓN: Asignamos el porcentaje de la BD a la auditoría
-                                        porcentajeGanancia = prod.porcentaje
+                                        // CORRECCIÓN TAMBIÉN EN LA AUDITORÍA:
+                                        precioCompra = item.costo,
+                                        porcentajeGanancia = item.porcentaje
                                     };
                                     listaAuditada.Add(detalle);
                                 }
@@ -198,7 +201,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                             {
                                 Compra compraCancelada = new Compra
                                 {
-                                    IdUsuario =idUsuarioActual,
+                                    IdUsuario = idUsuarioActual,
                                     fecha = DateTime.Now,
                                     detalleCompra = new List<DetalleCompra>()
                                 };
@@ -216,6 +219,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 }
             }
         }
+        
         public void VerificarYProcesarEntrada(string codigo, string cantidadTexto, string costoTexto, string margenTexto, FrmCompra vista)
         {
             if (string.IsNullOrEmpty(codigo)) return;

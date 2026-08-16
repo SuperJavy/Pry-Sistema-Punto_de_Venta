@@ -94,13 +94,13 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 {
                     // 1. NUEVA BARRERA DE SEGURIDAD: Verificar si el código YA le pertenece a un producto existentee
                     string queryValidacion = @"
-                    SELECT COUNT(*) FROM productos p
-                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                    WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @codigoValidacion COLLATE utf8mb4_general_ci";
+                        SELECT COUNT(*) FROM productos p
+                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                        WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @codigoValidacion";
 
                     using (var cmdVal = new MySqlCommand(queryValidacion, Conexion))
                     {
-                        cmdVal.Parameters.AddWithValue("@codigoValidacion", CodigoIngresado);
+                        cmdVal.Parameters.AddWithValue("@codigoValidacion", CodigoIngresado);   
                         int enUso = Convert.ToInt32(cmdVal.ExecuteScalar());
 
                         if (enUso > 0)
@@ -126,9 +126,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
                     // 3. Inserción del producto
                     string query = @"INSERT INTO productos 
-            (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
-            VALUES 
-            (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, 0, 0, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, 0)";
+                    (id_codigoBarras, codigo_de_barras, nombre, descripcion, id_tipo_venta, costo, precio_venta, id_categoria, stock, stock_minimo, ruta_imagen, porcentaje) 
+                    VALUES 
+                    (@Id_codigo_barras, @Codigo_de_barras, @nombre, @Descripcion, @Tipo_venta_id, 0, 0, @Categoria_id, @Stock, @Stock_minimo, @Ruta_imagen, 0)";
 
                     using (var Consulta = new MySqlCommand(query, Conexion))
                     {
@@ -227,26 +227,15 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    // Antes se filtraba solo por p.codigo_de_barras, que queda NULL cuando
-                    // el producto se insertó apuntando a un código ya existente en la tabla
-                    // codigo_Barras (ver Insertarproductos: guarda id_codigoBarras y deja
-                    // codigo_de_barras en NULL). Eso hacía que estos productos nunca se
-                    // pudieran encontrar desde Buscar/Actualizar/Eliminar. Se soluciona
-                    // buscando por el código "efectivo" con el mismo patrón IFNULL usado
-                    // en ClsInventarioModelo.
-                    // codigo_Barras.Codigo_barras y productos.codigo_de_barras tienen
-                    // collations distintas en la BD (utf8mb4_bin vs utf8mb4_general_ci).
-                    // MySQL no permite combinarlas/compararlas sin unificarlas
-                    // explícitamente (error "Illegal mix of collations"), por eso se
-                    // fuerza COLLATE utf8mb4_general_ci en ambos lados del IFNULL.
+                 
                     string Query = @"
-                        SELECT p.codigo_de_barras, p.nombre, p.descripcion,
-                               p.id_categoria, p.id_tipo_venta, p.costo, p.porcentaje,
-                               p.precio_venta, p.stock, p.stock_minimo, p.Ruta_imagen,
-                               IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_efectivo
-                        FROM productos p
-                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci AND (p.id_estado != 3 OR p.id_estado IS NULL)";
+                    SELECT p.codigo_de_barras, p.nombre, p.descripcion,
+                           p.id_categoria, p.id_tipo_venta, p.costo, p.porcentaje,
+                           p.precio_venta, p.stock, p.stock_minimo, p.Ruta_imagen,
+                           IFNULL(cb.Codigo_barras, p.codigo_de_barras) AS codigo_efectivo
+                    FROM productos p
+                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                    WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @Codigobarras AND (p.id_estado != 3 OR p.id_estado IS NULL)";
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
                         consulta.Parameters.AddWithValue("@Codigobarras", codigobarras);
@@ -272,19 +261,14 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    // MySQL soporta UPDATE multi-tabla con JOIN. Igual que en Buscarproduct,
-                    // el WHERE ahora busca por el código "efectivo" (IFNULL entre
-                    // codigo_Barras.Codigo_barras y productos.codigo_de_barras), porque
-                    // filtrar solo por productos.codigo_de_barras dejaba fuera a los
-                    // productos cuyo código vive en la tabla codigo_Barras (queda NULL
-                    // en productos.codigo_de_barras).
+                   
                     string Query = @"UPDATE productos p
-                        LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                        SET p.nombre = @Nombre, p.Descripcion = @Descripcion, p.id_categoria = @Categoria_id,
-                            p.id_tipo_venta = @Tipo_venta_id, p.costo = @Costo, p.porcentaje = @Porcentaje,
-                            p.precio_venta = @Venta, p.stock = @Stock, p.stock_minimo = @Stock_minimo,
-                            p.ruta_imagen = @Ruta_imagen
-                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigo_de_barras COLLATE utf8mb4_general_ci";
+                    LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
+                    SET p.nombre = @Nombre, p.Descripcion = @Descripcion, p.id_categoria = @Categoria_id,
+                        p.id_tipo_venta = @Tipo_venta_id, p.costo = @Costo, p.porcentaje = @Porcentaje,
+                        p.precio_venta = @Venta, p.stock = @Stock, p.stock_minimo = @Stock_minimo,
+                        p.ruta_imagen = @Ruta_imagen
+                    WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @Codigo_de_barras";
                     using (var Consulta = new MySqlCommand(Query, conexion))
                     {
                         Consulta.Parameters.AddWithValue("@Codigo_de_barras", Codigo);
@@ -299,11 +283,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
                         Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
 
-                        // Antes: ExecuteReader() sobre un UPDATE. Un UPDATE no devuelve
-                        // filas, así que resultad.Read() era SIEMPRE false y el método
-                        // SIEMPRE retornaba true, sin importar si algo se actualizó de
-                        // verdad. Ahora se usa ExecuteNonQuery y se valida el número real
-                        // de filas afectadas.
+                       
                         int filasAfectadas = Consulta.ExecuteNonQuery();
                         return filasAfectadas > 0;
                     }
@@ -332,7 +312,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                     string Query = @"UPDATE productos p
                         LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
                         SET p.id_estado = 3
-                        WHERE IFNULL(cb.Codigo_barras COLLATE utf8mb4_general_ci, p.codigo_de_barras COLLATE utf8mb4_general_ci) = @Codigobarras COLLATE utf8mb4_general_ci";
+                        WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @Codigobarras";
 
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {

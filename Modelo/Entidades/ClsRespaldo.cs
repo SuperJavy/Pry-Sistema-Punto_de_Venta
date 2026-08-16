@@ -56,6 +56,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
         public decimal cantidad { get; set; }
 
         public decimal precioCompra { get; set; }
+        public decimal costo { get; set; }       
+        public decimal porcentaje { get; set; }
     }
 
 }

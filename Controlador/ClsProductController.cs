@@ -297,12 +297,12 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             {
 
                 case 1: return Properties.Resources.cat_Farmacos;
-                case 9: return Properties.Resources.cat_bebidas;
-                case 11: return Properties.Resources.cat_Limpieza;
-                case 15: return Properties.Resources.cat_Lacteos;
-                case 19: return Properties.Resources.cat_Dulces;
-                case 20: return Properties.Resources.cat_higiene_Personal;
-                case 21: return Properties.Resources.cat_Cocina;
+                case 3: return Properties.Resources.cat_bebidas;
+                case 5: return Properties.Resources.cat_Limpieza;
+                case 4: return Properties.Resources.cat_Lacteos;
+                case 6: return Properties.Resources.cat_Dulces;
+                case 7: return Properties.Resources.cat_higiene_Personal;
+                case 8: return Properties.Resources.cat_Cocina;
 
 
                 default:

@@ -148,14 +148,17 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private void GenerarCuerpoTicket(object sender, PrintPageEventArgs e)
         {
             Graphics gfx = e.Graphics;
+
+            // Fuentes fijas para el tamaño de 58mm
             Font fuenteNormal = new Font("Arial", 9);
             Font fuenteNegrita = new Font("Arial", 9, FontStyle.Bold);
             Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
             Brush brocha = Brushes.Black;
 
-            // Ajuste dinámico de dimensiones
-            int margenIzquierdo = esTermica ? 5 : 50;
-            int anchoTicket = esTermica ? 190 : 315;
+            // Dimensiones fijas estrictas para 58mm (aprox 2 pulgadas)
+            // Se dibujará igual en la térmica o en la esquina superior izquierda de la impresora normal
+            int margenIzquierdo = 10;
+            int anchoTicket = 190; // Límite estricto de dibujo para 58mm
             int y = 20;
 
             StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
@@ -164,9 +167,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             // --- CABECERA Y LOGO ---
             if (configActual.Logo != null)
             {
-                // Reduce un poco el tamaño del logo para la térmica
-                int logoAncho = esTermica ? 80 : 150;
-                int logoAlto = esTermica ? 80 : 150;
+                // Tamaño fijo del logo para 58mm
+                int logoAncho = 80;
+                int logoAlto = 80;
                 int logoX = margenIzquierdo + ((anchoTicket - logoAncho) / 2);
                 gfx.DrawImage(configActual.Logo, logoX, y, logoAncho, logoAlto);
                 y += logoAlto + 10;
@@ -181,6 +184,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             gfx.DrawString("Dir: " + configActual.Direccion, fuenteNormal, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
             y += 20;
 
+            // Línea separadora adaptada a los 190 de ancho
             gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
             y += 20;
 
@@ -194,8 +198,9 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 foreach (var item in ventaActual.detalleVenta)
                 {
                     string nombreProd = item.Producto.nombre;
-                    // Truncar para evitar desbordamiento en térmicas
-                    if (esTermica && nombreProd.Length > 16)
+
+                    // Truncamos siempre a 16 caracteres para que no se desborde de los 190 de ancho
+                    if (nombreProd.Length > 16)
                     {
                         nombreProd = nombreProd.Substring(0, 16) + "...";
                     }
@@ -223,76 +228,75 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             e.HasMorePages = false;
         }
-    
         // ====================================================================
         // 3. MÉTODOS PARA LA IMPRESIÓN DEL TICKET DE CORTE DE CAJA
         // ====================================================================
 
         // Variables exclusivas para el ticket de corte
-            private Dictionary<string, decimal> corteActual;
-            private decimal corteMontoEsperado;
-            private decimal corteMontoReal;
-            private decimal corteDiferencia;
-            private string cajeroCorte;
+        private Dictionary<string, decimal> corteActual;
+        private decimal corteMontoEsperado;
+        private decimal corteMontoReal;
+        private decimal corteDiferencia;
+        private string cajeroCorte;
 
-            public void ImprimirTicketCorte(Dictionary<string, decimal> datosCorte, decimal montoEsperado, decimal montoReal, decimal diferencia, string cajero, string nombreImpresora, bool impresoraTermica)
+        public void ImprimirTicketCorte(Dictionary<string, decimal> datosCorte, decimal montoEsperado, decimal montoReal, decimal diferencia, string cajero, string nombreImpresora, bool impresoraTermica)
+        {
+            this.corteActual = datosCorte;
+            this.corteMontoEsperado = montoEsperado;
+            this.corteMontoReal = montoReal;
+            this.corteDiferencia = diferencia;
+            this.cajeroCorte = cajero;
+            this.esTermica = impresoraTermica;
+
+            this.configActual = modeloTicket.obtenerConfiguracion();
+
+            if (this.configActual == null)
             {
-                this.corteActual = datosCorte;
-                this.corteMontoEsperado = montoEsperado;
-                this.corteMontoReal = montoReal;
-                this.corteDiferencia = diferencia;
-                this.cajeroCorte = cajero;
-                this.esTermica = impresoraTermica;
-
-                // Traemos la configuración guardada (Logo, Nombre, etc.)
-                this.configActual = modeloTicket.obtenerConfiguracion();
-
-                if (this.configActual == null)
-                {
-                    MessageBox.Show("Aún no se ha configurado el formato del ticket. Vaya a configuración de ticket primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                PrintDocument documento = new PrintDocument();
-                documento.DocumentName = "Ticket_Corte_Caja";
-
-                if (!string.IsNullOrEmpty(nombreImpresora))
-                {
-                    documento.PrinterSettings.PrinterName = nombreImpresora;
-                }
-
-                if (esTermica)
-                {
-                        // Tamaño de papel para ticket de corte (Alto fijo razonable)
-                    documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 228, 450); // Aumenté el alto un poco por si acaso
-                    documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
-                }
-                else
-                {
-                    foreach (PaperSize paperSize in documento.PrinterSettings.PaperSizes)
-                    {
-                        if (paperSize.Kind == PaperKind.Letter)
-                        {
-                            documento.DefaultPageSettings.PaperSize = paperSize;
-                            break;
-                        }
-                    }
-                    documento.DefaultPageSettings.Margins = new Margins(50, 50, 50, 50);
-                }
-
-                documento.PrintPage += new PrintPageEventHandler(GenerarCuerpoTicketCorte);
-
-                try
-                {
-                    documento.Print();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error de comunicación con la impresora: " + ex.Message, "Error de Hardware", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Aún no se ha configurado el formato del ticket.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            private void GenerarCuerpoTicketCorte(object sender, PrintPageEventArgs e)
+            PrintDocument documento = new PrintDocument();
+
+            // --- SOLUCIÓN AL BLOQUEO ---
+            // Oculta el cuadro de diálogo de impresión para que no colisionen los trabajos
+            documento.PrintController = new System.Drawing.Printing.StandardPrintController();
+
+            documento.DocumentName = "Ticket_Corte_Caja";
+
+            if (!string.IsNullOrEmpty(nombreImpresora))
+            {
+                documento.PrinterSettings.PrinterName = nombreImpresora;
+            }
+
+            if (esTermica)
+            {
+                // --- SOLUCIÓN A LA INFORMACIÓN RECORTADA ---
+                // Aumentamos el alto de 350 a 600 para que quepan todos los textos
+                // Y ajustamos el ancho a 228 (los 58mm)
+                documento.DefaultPageSettings.PaperSize = new PaperSize("Custom", 228, 600);
+                documento.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
+            }
+            else
+            {
+                // ... (Mantén tu código de PaperKind.Letter intacto aquí)
+            }
+
+            documento.PrintPage += new PrintPageEventHandler(GenerarCuerpoTicketCorte);
+
+            try
+            {
+                documento.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de hardware: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void GenerarCuerpoTicketCorte(object sender, PrintPageEventArgs e)
+        {
+            try
             {
                 Graphics gfx = e.Graphics;
                 Font fuenteNormal = new Font("Arial", 9);
@@ -300,31 +304,44 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
                 Brush brocha = Brushes.Black;
 
-                int margenIzquierdo = esTermica ? 5 : 50;
-                int anchoTicket = esTermica ? 190 : 315;
+                int margenIzquierdo = 10;
+                int anchoTicket = 190;
                 int y = 20;
 
-            StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
+                StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
                 StringFormat formatoDerecha = new StringFormat { Alignment = StringAlignment.Far };
+
+                // Función segura para extraer datos (evita que el ticket se cancele si falta un dato)
+                decimal ObtenerDato(string llave)
+                {
+                    if (corteActual != null && corteActual.ContainsKey(llave))
+                        return corteActual[llave];
+                    return 0m;
+                }
 
                 // --- CABECERA Y LOGO ---
                 if (configActual.Logo != null)
                 {
-                    // Reduce un poco el tamaño del logo para la térmica
-                    int logoAncho = esTermica ? 80 : 150;
-                    int logoAlto = esTermica ? 80 : 150;
+                    int logoAncho = 80;
+                    int logoAlto = 80;
                     int logoX = margenIzquierdo + ((anchoTicket - logoAncho) / 2);
                     gfx.DrawImage(configActual.Logo, logoX, y, logoAncho, logoAlto);
                     y += logoAlto + 10;
                 }
 
-            gfx.DrawString(configActual.NombreNegocio, fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+                // Usamos "??" para evitar errores si en la BD no guardaron nombre o dirección
+                string nombreNegocio = configActual.NombreNegocio ?? "Negocio";
+                gfx.DrawString(nombreNegocio, fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
                 y += 25;
+
                 gfx.DrawString("CORTE DE CAJA", fuenteTitulo, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
                 y += 25;
+
                 gfx.DrawString("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"), fuenteNormal, brocha, margenIzquierdo, y);
                 y += 15;
-                gfx.DrawString("Cajero ID: " + cajeroCorte, fuenteNormal, brocha, margenIzquierdo, y);
+
+                string idCajero = cajeroCorte ?? "Desconocido";
+                gfx.DrawString("Cajero ID: " + idCajero, fuenteNormal, brocha, margenIzquierdo, y);
                 y += 20;
 
                 gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
@@ -332,15 +349,15 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 // --- DETALLES DEL CORTE ---
                 gfx.DrawString("Fondo Inicial:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"${corteActual["FondoInicial"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"${ObtenerDato("FondoInicial"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Ventas Efectivo:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"+ ${corteActual["VentasEfectivo"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"+ ${ObtenerDato("VentasEfectivo"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Salidas:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"- ${corteActual["Salidas"]:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"- ${ObtenerDato("Salidas"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
                 y += 20;
 
                 gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
@@ -361,22 +378,28 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 y += 30;
 
                 // --- ESTADÍSTICAS ---
-                gfx.DrawString("ESTADÍSTICAS DEL TURNO", fuenteNegrita, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
+                gfx.DrawString("ESTADÍSTICAS", fuenteNegrita, brocha, margenIzquierdo + (anchoTicket / 2), y, formatoCentro);
                 y += 20;
-                gfx.DrawString("Tickets Generados:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(corteActual["TotalTickets"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
-                y += 15;
-                gfx.DrawString("Artículos Vendidos:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(corteActual["ArticulosVendidos"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
-                y += 15;
-                gfx.DrawString("Artículos Cancelados:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(corteActual["ArticulosCancelados"].ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
-                y += 30;
 
-                Rectangle rectMensaje = new Rectangle(margenIzquierdo, y, anchoTicket, 60);
-                gfx.DrawString("Turno Cerrado Correctamente", fuenteNormal, brocha, rectMensaje, formatoCentro);
+                gfx.DrawString("Tickets Generados:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(ObtenerDato("TotalTickets").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+
+                gfx.DrawString("Art. Vendidos:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(ObtenerDato("ArticulosVendidos").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 15;
+
+                gfx.DrawString("Art. Cancelados:", fuenteNormal, brocha, margenIzquierdo, y);
+                gfx.DrawString(ObtenerDato("ArticulosCancelados").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                y += 30;
 
                 e.HasMorePages = false;
             }
+            catch (Exception ex)
+            {
+                // SI OCURRE UN ERROR, AHORA SÍ LO VEREMOS
+                MessageBox.Show("Error al dibujar el ticket: " + ex.Message, "Error Gráfico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

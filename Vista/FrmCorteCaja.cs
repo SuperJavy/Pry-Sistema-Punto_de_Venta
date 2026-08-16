@@ -298,14 +298,12 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // 2. Tomamos el monto esperado matemático
                 decimal montoEsperado = this.montoEsperadoInterno;
 
-                // 3. Validamos que el cajero haya escrito un número en su declaración de efectivo
-                if (!decimal.TryParse(txtTotalFisico.Text, out decimal montoReal) || montoReal < 0)
+                // 3. CORRECCIÓN: Leemos la declaración, pero no bloqueamos si está vacía.
+                // Si está en blanco o tiene letras, asume 0m. 
+                decimal montoReal = 0m;
+                if (!string.IsNullOrWhiteSpace(txtTotalFisico.Text))
                 {
-                    MessageBox.Show(
-                        "Ingrese en 'Total físico' una cantidad válida antes de imprimir el ticket previo.",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtTotalFisico.Focus();
-                    return;
+                    decimal.TryParse(txtTotalFisico.Text, out montoReal);
                 }
 
                 // 4. Calculamos la diferencia al vuelo
@@ -314,6 +312,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // 5. Enviamos a imprimir SIN cerrar la base de datos
                 ClsTicketController ticketCtrl = new ClsTicketController();
 
+                // Ojo: Asegúrate de tener implementada tu variable nombreImpresora y esTermica
                 ticketCtrl.ImprimirTicketCorte(
                     datosCorteActivo,
                     montoEsperado,
@@ -321,7 +320,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     diferencia,
                     idUsuarioSesion.ToString(),
                     "", // Impresora por defecto
-                    false); // true = térmica, false = impresora normal
+                    true); // Asumo true = térmica para el ejemplo, ajústalo según tu configuración
 
                 MessageBox.Show("El ticket previo se ha enviado a la impresora.\n\nRecuerde que el turno aún NO ha sido cerrado.", "Impresión exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

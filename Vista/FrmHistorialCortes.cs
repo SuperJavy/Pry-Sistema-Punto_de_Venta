@@ -262,12 +262,61 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
-            if (btnReimprimir.Tag is int idCorte)
+            if (btnReimprimir.Tag != null)
             {
-                MessageBox.Show($"Reimprimiendo comprobante del corte #{idCorte}...",
-                    "Reimprimir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    // Usamos un nombre de variable único para evitar conflictos (CS0136)
+                    int idCorteSeleccionado = Convert.ToInt32(btnReimprimir.Tag);
+
+                    // 1. Buscamos los datos completos del corte seleccionado en la memoria local
+                    var detalle = historialActual.FirstOrDefault(h => (int)h["IdCorte"] == idCorteSeleccionado);
+
+                    if (detalle == null)
+                    {
+                        MessageBox.Show("No se encontraron los datos del corte seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // 2. Extraemos los valores clave que requiere el controlador
+                    decimal montoEsperado = (decimal)detalle["MontoEsperado"];
+                    decimal montoReal = detalle["MontoReal"] is decimal dReal ? dReal : 0m;
+                    decimal diferencia = detalle["Diferencia"] is decimal dDif ? dDif : 0m;
+                    string cajero = detalle["Cajero"]?.ToString() ?? "Desconocido";
+
+                    // 3. Reconstruimos el diccionario con la estructura que espera ClsTicketController
+                    Dictionary<string, decimal> datosCorte = new Dictionary<string, decimal>
+            {
+                { "FondoInicial", (decimal)detalle["MontoInicial"] },
+                { "VentasEfectivo", 0m },
+                { "Salidas", 0m },
+                { "TotalTickets", 0m },
+                { "ArticulosVendidos", 0m },
+                { "ArticulosCancelados", 0m }
+            };
+
+                    // 4. Instanciamos el controlador y enviamos a imprimir
+                    ClsTicketController ticketCtrl = new ClsTicketController();
+
+                    ticketCtrl.ImprimirTicketCorte(
+                        datosCorte,
+                        montoEsperado,
+                        montoReal,
+                        diferencia,
+                        cajero,
+                        "", // Impresora por defecto
+                        true // True para térmica de 58mm
+                    );
+
+                    MessageBox.Show($"Se ha enviado a la impresora el comprobante del corte #{idCorteSeleccionado}.", "Impresión Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al reimprimir: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+       
 
         private class CajeroItem
         {
