@@ -98,7 +98,7 @@
             dtgCompras.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dtgCompras.RowTemplate.Height = 70;
             dtgCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgCompras.Size = new Size(1755, 238);
+            dtgCompras.Size = new Size(1953, 238);
             dtgCompras.TabIndex = 116;
             // 
             // colCodigo
@@ -151,7 +151,7 @@
             Column1.MinimumWidth = 9;
             Column1.Name = "Column1";
             Column1.ReadOnly = true;
-            Column1.Width = 175;
+            Column1.Width = 250;
             // 
             // colImporte
             // 
@@ -196,7 +196,7 @@
             txtTotalCompra.BackColor = Color.White;
             txtTotalCompra.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             txtTotalCompra.ForeColor = Color.FromArgb(46, 204, 113);
-            txtTotalCompra.Location = new Point(1393, 614);
+            txtTotalCompra.Location = new Point(1591, 614);
             txtTotalCompra.Name = "txtTotalCompra";
             txtTotalCompra.ReadOnly = true;
             txtTotalCompra.Size = new Size(400, 82);
@@ -212,7 +212,7 @@
             btnComprar.ForeColor = Color.Black;
             btnComprar.Image = Properties.Resources.ingreso__1_;
             btnComprar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnComprar.Location = new Point(965, 622);
+            btnComprar.Location = new Point(1163, 622);
             btnComprar.Name = "btnComprar";
             btnComprar.Padding = new Padding(24, 0, 0, 0);
             btnComprar.Size = new Size(368, 88);
@@ -228,7 +228,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1832, 90);
+            panel1.Size = new Size(2030, 90);
             panel1.TabIndex = 125;
             // 
             // label10
@@ -267,7 +267,7 @@
             btnAgregarproducto.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAgregarproducto.Image = Properties.Resources.agregar_p16;
             btnAgregarproducto.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgregarproducto.Location = new Point(1540, 131);
+            btnAgregarproducto.Location = new Point(1738, 131);
             btnAgregarproducto.Name = "btnAgregarproducto";
             btnAgregarproducto.Padding = new Padding(20, 0, 0, 0);
             btnAgregarproducto.Size = new Size(276, 61);
@@ -320,7 +320,7 @@
             pnlGridContainer.Controls.Add(dtgCompras);
             pnlGridContainer.Location = new Point(38, 340);
             pnlGridContainer.Name = "pnlGridContainer";
-            pnlGridContainer.Size = new Size(1755, 238);
+            pnlGridContainer.Size = new Size(1953, 238);
             pnlGridContainer.TabIndex = 130;
             // 
             // txtMargenCompra
@@ -347,7 +347,7 @@
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
-            ClientSize = new Size(1832, 752);
+            ClientSize = new Size(2030, 752);
             Controls.Add(label1);
             Controls.Add(txtMargenCompra);
             Controls.Add(pnlGridContainer);
@@ -399,14 +399,14 @@
         private System.Windows.Forms.Label lblCosto;
         private System.Windows.Forms.TextBox txtCostoCompra;
         private System.Windows.Forms.Panel pnlGridContainer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCostoUnitario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colImporte;
         private TextBox txtMargenCompra;
         private Label label1;
+        private DataGridViewTextBoxColumn colCodigo;
+        private DataGridViewTextBoxColumn colNombre;
+        private DataGridViewTextBoxColumn colCantidad;
+        private DataGridViewTextBoxColumn colCostoUnitario;
         private DataGridViewTextBoxColumn Porcentaje;
         private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn colImporte;
     }
 }

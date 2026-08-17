@@ -14,6 +14,7 @@ namespace Pry_Sistema_Punto_de_Venta
     public partial class FrmEliminarproductos : Form
     {
         ClsProductController controlador = new ClsProductController();
+        private bool _cargandoDatos = false;
         public FrmEliminarproductos()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace Pry_Sistema_Punto_de_Venta
 
         public void llenarCampos(DataTable dtproducto)
         {
+            _cargandoDatos = true;
             if (dtproducto != null && dtproducto.Rows.Count > 0)
             {
                 DataRow producto = dtproducto.Rows[0];
@@ -99,6 +101,7 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 LimpiarFormulario();
             }
+            _cargandoDatos = false;
         }
         public void llenarComboRoles(DataTable dtCategoria)
         {
@@ -161,6 +164,9 @@ namespace Pry_Sistema_Punto_de_Venta
 
         private void nudPorcentaje_ValueChanged_1(object sender, EventArgs e)
         {
+            if (_cargandoDatos) return; 
+            if (string.IsNullOrWhiteSpace(txtCosto.Text)) return; 
+
             float preciov = controlador.Calcularpreciov(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
             txtPrecioventa.Text = preciov.ToString();
         }

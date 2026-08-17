@@ -185,10 +185,20 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         }
         public float Calpventa(string costo, string porcentaje)
         {
-            float c = float.Parse(costo);
-            float p = int.Parse(porcentaje);
+            if (!float.TryParse(costo, out float c))
+            {
+                c = 0;
+            }
+
+            // Hacemos lo mismo con el porcentaje.
+            if (!float.TryParse(porcentaje, out float p))
+            {
+                p = 0;
+            }
 
             return c + (c * p / 100);
+
+
         }
         public DataTable Extraercategoria()
         {
@@ -275,15 +285,17 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         Consulta.Parameters.AddWithValue("@Nombre", Nombre);
                         Consulta.Parameters.AddWithValue("@Descripcion", Descripciom);
                         Consulta.Parameters.AddWithValue("@Tipo_venta_id", int.Parse(TipVenta));
-                        Consulta.Parameters.AddWithValue("@Costo", float.Parse(Costo));//float
-                        Consulta.Parameters.AddWithValue("@Venta", float.Parse(Precioventa));//float
+
+                        // CORRECCIÓN: Usar Convert.ToDecimal para soportar números como "16.00" o "3.000"
+                        Consulta.Parameters.AddWithValue("@Costo", Convert.ToDecimal(Costo));
+                        Consulta.Parameters.AddWithValue("@Venta", Convert.ToDecimal(Precioventa));
                         Consulta.Parameters.AddWithValue("@Categoria_id", int.Parse(Categoria));
-                        Consulta.Parameters.AddWithValue("@Stock", int.Parse(Stockactuaal));
-                        Consulta.Parameters.AddWithValue("@Stock_minimo", int.Parse(Stockminimo));
+                        Consulta.Parameters.AddWithValue("@Stock", Convert.ToDecimal(Stockactuaal));
+                        Consulta.Parameters.AddWithValue("@Stock_minimo", Convert.ToDecimal(Stockminimo));
+
                         Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
                         Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
 
-                       
                         int filasAfectadas = Consulta.ExecuteNonQuery();
                         return filasAfectadas > 0;
                     }

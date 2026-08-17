@@ -101,7 +101,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 {
                     pcbImagen.Image = null;
                 }
-                _codigoCargado = producto["codigo_de_barras"].ToString().Trim();
+                _codigoCargado = producto["codigo_efectivo"].ToString().Trim();
                 _cargandoDatos = false;
             }
             else
@@ -235,6 +235,9 @@ namespace Pry_Sistema_Punto_de_Venta
         private void nudPorcentaje_ValueChanged(object sender, EventArgs e)
         {
             if (_cargandoDatos) return;
+
+            // NUEVO ESCUDO: Si la caja de costo está vacía, no intentes calcular nada.
+            if (string.IsNullOrWhiteSpace(txtCosto.Text)) return;
 
             float preciov = controlador.Calcularprecioventa(txtCosto.Text, nudPorcentaje.Value.ToString(), this);
             txtPrecioventa.Text = preciov.ToString();

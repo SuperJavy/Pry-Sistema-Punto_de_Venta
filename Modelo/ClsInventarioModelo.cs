@@ -31,7 +31,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         FROM productos p 
                         INNER JOIN categoria c ON p.id_categoria = c.id 
                         LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
-                        WHERE p.stock <= p.stock_minimo;";
+                        WHERE p.stock <= p.stock_minimo 
+                        AND (p.id_estado != 3 OR p.id_estado IS NULL);";
                     using (var consulta = new MySqlCommand(query, conexion))
                     {
                         using (MySqlDataAdapter respuesta = new MySqlDataAdapter(consulta))
@@ -52,7 +53,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             DataTable dt = new DataTable();
             string filtro = (string.IsNullOrEmpty(categoriaId) || categoriaId == "0")
-                    ? "" : " WHERE p.id_categoria = @catId";
+                    ? "WHERE (p.id_estado != 3 OR p.id_estado IS NULL)"
+                    : "WHERE p.id_categoria = @catId AND (p.id_estado != 3 OR p.id_estado IS NULL)";
 
             string query = $@"
                 SELECT IFNULL(SUM(p.costo * p.stock), 0) AS TotalCosto, 
@@ -62,7 +64,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             using (var conexion = abrirConexion())
             using (var cmd = new MySqlCommand(query, conexion))
             {
-                if (!string.IsNullOrEmpty(filtro))
+                if (!string.IsNullOrEmpty(categoriaId) && categoriaId != "0")
                     cmd.Parameters.AddWithValue("@catId", categoriaId);
 
                 using (var adapter = new MySqlDataAdapter(cmd))
@@ -103,7 +105,9 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
         {
             DataTable dt = new DataTable();
             bool sinFiltro = EsFiltroVacio(categoriaId);
-            string filtro = sinFiltro ? "" : " WHERE p.id_categoria = @catId";
+            string filtro = sinFiltro
+            ? " WHERE (p.id_estado != 3 OR p.id_estado IS NULL)"
+            : " WHERE p.id_categoria = @catId AND (p.id_estado != 3 OR p.id_estado IS NULL)";
 
 
             string query = $@"
