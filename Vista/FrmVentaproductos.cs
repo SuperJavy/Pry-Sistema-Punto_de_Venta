@@ -126,6 +126,8 @@ namespace Pry_Sistema_Punto_de_Venta
         private void btnCobrarSolo_Click(object sender, EventArgs e)
         {
             string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
+            bool esTermica = Properties.Settings.Default.EsTermica; // Agregamos la validación del hardware
+
             decimal pago = 0;
             decimal.TryParse(txtPagoCon.Text, out pago);
 
@@ -137,15 +139,27 @@ namespace Pry_Sistema_Punto_de_Venta
 
             // Aquí guardamos la venta, pero no instanciamos el ClsTicketController, por lo que no se imprime.
             bool exito = controller.guardarVenta(this, idUsuario);
-            
+
             if (exito)
             {
-                ClsCajonDinero.AbrirCajon(nombreImpresora);
+                // Protegemos el disparo del RJ11 con un try-catch
+                try
+                {
+                    if (esTermica)
+                    {
+                        ClsCajonDinero.AbrirCajon(nombreImpresora);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    NotificarUsuario("Venta guardada, pero no se pudo abrir el cajón: " + ex.Message, true);
+                }
+
                 DialogResult = DialogResult.OK;
                 Close();
             }
         }
-       
-        
+
+
     }
 }

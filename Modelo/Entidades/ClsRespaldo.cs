@@ -1,45 +1,44 @@
-﻿using Pry_Sistema_Punto_de_Venta.Controlador;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
 {
     public static class ClsRespaldo
-    {   
-        public static void guardarRespaldo(string ruta, List<Itemrespaldo> datos) 
+    {
+        public static void guardarRespaldo(string ruta, RespaldoTransaccion datos)
         {
             try
             {
-                if (datos == null || datos.Count == 0)
+                //Validamos la lista interna de artículos ('datos.Articulos')
+                if (datos == null || datos.Articulos == null || datos.Articulos.Count == 0)
                 {
                     eliminarRespaldo(ruta);
                     return;
                 }
-                string jsonSting = JsonSerializer.Serialize(datos);
-                File.WriteAllText(ruta, jsonSting);
+                string jsonString = JsonSerializer.Serialize(datos);
+                File.WriteAllText(ruta, jsonString);
             }
             catch { }
         }
-        public static List<Itemrespaldo> recuperar(string ruta)
+
+        //retorna el objeto contenedor 'RespaldoTransaccion'
+        public static RespaldoTransaccion recuperar(string ruta)
         {
             if (!File.Exists(ruta)) return null;
 
             try
             {
                 string jsonString = File.ReadAllText(ruta);
-                return JsonSerializer.Deserialize<List<Itemrespaldo>>(jsonString);
+
+                // CORRECCIÓN 4: Deserializa el JSON al nuevo formato completo
+                return JsonSerializer.Deserialize<RespaldoTransaccion>(jsonString);
             }
             catch
             {
                 eliminarRespaldo(ruta);
                 return null;
             }
-
         }
+
         public static void eliminarRespaldo(string ruta)
         {
             if (File.Exists(ruta))
@@ -54,9 +53,8 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo.Entidades
     {
         public string codigoBarras { get; set; }
         public decimal cantidad { get; set; }
-
         public decimal precioCompra { get; set; }
-        public decimal costo { get; set; }       
+        public decimal costo { get; set; }
         public decimal porcentaje { get; set; }
     }
 

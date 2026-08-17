@@ -1,20 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pry_Sistema_Punto_de_Venta.Controlador
 {
     internal class ClsCajonDinero
     {
-        // Importamos las librerías nativas de Windows para comunicarnos directo con el puerto
+        // 1. Estructura obligatoria para decirle a Windows cómo tratar los bytes
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public class DOCINFOA
+        {
+            [MarshalAs(UnmanagedType.LPStr)] public string pDocName;
+            [MarshalAs(UnmanagedType.LPStr)] public string pOutputFile;
+            [MarshalAs(UnmanagedType.LPStr)] public string pDataType;
+        }
+        
+
+        // 2. Importaciones de la API de Windows
         [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, IntPtr pd);
 
         [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool ClosePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool EndDocPrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool StartPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool EndPagePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
@@ -23,30 +41,41 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             IntPtr hPrinter = new IntPtr(0);
 
-            // Este es el código universal (ESC/POS) que entienden las impresoras térmicas
-            // para mandar el pulso eléctrico y botar el cajón de dinero.
+            // Código universal (ESC/POS) para mandar el pulso eléctrico
             byte[] codigoApertura = new byte[] { 27, 112, 0, 25, 250 };
 
             try
             {
                 if (OpenPrinter(nombreImpresora.Normalize(), out hPrinter, IntPtr.Zero))
                 {
-                    int bytesEscritos = 0;
-                    IntPtr punteroBytes = Marshal.AllocCoTaskMem(codigoApertura.Length);
-                    Marshal.Copy(codigoApertura, 0, punteroBytes, codigoApertura.Length);
+                    // Preparamos el "Documento" en blanco
+                    DOCINFOA di = new DOCINFOA();
+                    di.pDocName = "Apertura de Cajon"; // Nombre que verás si abres la cola de impresión
+                    di.pDataType = "RAW"; // CRÍTICO: Indica que enviaremos comandos directos
 
-                    // Enviamos la orden de bytes crudos a la impresora
-                    WritePrinter(hPrinter, punteroBytes, codigoApertura.Length, out bytesEscritos);
+                    // Iniciamos el flujo correcto de Windows
+                    if (StartDocPrinter(hPrinter, 1, di))
+                    {
+                        if (StartPagePrinter(hPrinter))
+                        {
+                            int bytesEscritos = 0;
+                            IntPtr punteroBytes = Marshal.AllocCoTaskMem(codigoApertura.Length);
+                            Marshal.Copy(codigoApertura, 0, punteroBytes, codigoApertura.Length);
 
-                    // Liberamos la memoria y cerramos la conexión
-                    Marshal.FreeCoTaskMem(punteroBytes);
-                    ClosePrinter(hPrinter);
+                            // Ahora sí, escribimos los bytes
+                            WritePrinter(hPrinter, punteroBytes, codigoApertura.Length, out bytesEscritos);
+
+                            Marshal.FreeCoTaskMem(punteroBytes);
+                            EndPagePrinter(hPrinter); // Cerramos página
+                        }
+                        EndDocPrinter(hPrinter); // Cerramos documento
+                    }
+                    ClosePrinter(hPrinter); // Cerramos puerto
                 }
             }
             catch (Exception)
             {
-                // Se atrapa en silencio para no interrumpir el flujo de venta del cajero
-                // en caso de que haya problemas físicos con la impresora o el cable.
+                // Silencioso para no romper la venta
             }
         }
     }

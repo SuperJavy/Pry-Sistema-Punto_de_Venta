@@ -13,6 +13,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         ClsComprasModelo modelo = new ClsComprasModelo();
         Compra compra = new Compra();
         public List<DetalleCompra> compraCancelada = new List<DetalleCompra>();
+        public int idUsuarioActualGlobal { get; set; }
         public Producto buscarProducto(string codigo)
         {
             if (string.IsNullOrEmpty(codigo)) return null;
@@ -121,18 +122,28 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private readonly string rutaRespaldo = "compra_respaldo.json";
         public void GuardarRespaldoJson()
         {
-            if (compra.detalleCompra == null) return;
+            if (compra.detalleCompra == null || compra.detalleCompra.Count == 0)
+            {
+                eliminarRespaldo();
+                return;
+            }
 
-            var datos = compra.detalleCompra.Select(d => new Itemrespaldo
+            var listaArticulos = compra.detalleCompra.Select(d => new Itemrespaldo
             {
                 codigoBarras = d.producto.codigo_de_barras,
                 cantidad = d.cantidad,
                 costo = d.precioCompra,
                 porcentaje = d.porcentajeGanancia
-
             }).ToList();
 
-            ClsRespaldo.guardarRespaldo(rutaRespaldo, datos);
+            // CREAMOS EL CONTENEDOR CON EL DUEÑO Y LOS ARTÍCULOS
+            RespaldoTransaccion respaldoCompleto = new RespaldoTransaccion
+            {
+                IdUsuarioDuenio = this.idUsuarioActualGlobal,
+                Articulos = listaArticulos
+            };
+
+            ClsRespaldo.guardarRespaldo(rutaRespaldo, respaldoCompleto);
         }
         public void eliminarRespaldo()
         {
@@ -140,86 +151,102 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void recuperarCompraPendiente(FrmCompra vista, int idUsuarioActual)
         {
+            // Guardamos el id del usuario que entró en la variable global
+            this.idUsuarioActualGlobal = idUsuarioActual;
+
             if (File.Exists(rutaRespaldo))
             {
                 try
                 {
-                    List<Itemrespaldo> respaldo = ClsRespaldo.recuperar(rutaRespaldo);
+                    // RECUPERAMOS EL OBJETO CONTENEDOR
+                    RespaldoTransaccion respaldoBD = ClsRespaldo.recuperar(rutaRespaldo);
 
-                    if (respaldo != null && respaldo.Count > 0)
+                    if (respaldoBD != null && respaldoBD.Articulos != null && respaldoBD.Articulos.Count > 0)
                     {
-                        bool deseaRecuperar = vista.confirmarPregunta(
-                            "Se detectó una captura de compra interrumpida por un cierre inesperado, ¿Desea recuperarla?",
-                            "Sistema de respaldo");
-
-                        if (deseaRecuperar)
+                        // 1. ¿ES EL MISMO USUARIO QUE LA DEJÓ A MEDIAS?
+                        if (respaldoBD.IdUsuarioDuenio == idUsuarioActual)
                         {
-                            List<string> noEncontrados = new List<string>();
-                            foreach (var item in respaldo)
+                            bool deseaRecuperar = vista.confirmarPregunta(
+                                "Se detectó una captura de compra interrumpida por un cierre inesperado, ¿Desea recuperarla?",
+                                "Sistema de respaldo");
+
+                            if (deseaRecuperar)
                             {
-                                Producto prod = buscarProducto(item.codigoBarras);
-                                if (prod != null)
+                                List<string> noEncontrados = new List<string>();
+                                foreach (var item in respaldoBD.Articulos)
                                 {
-                                    // CORRECCIÓN: Inyectamos item.costo e item.porcentaje (del JSON) 
-                                    // en lugar de prod.precio_compra y prod.porcentaje (de la BD)
-                                    agregarProducto(prod, item.cantidad, item.costo, item.porcentaje, vista);
+                                    Producto prod = buscarProducto(item.codigoBarras);
+                                    if (prod != null)
+                                    {
+                                        agregarProducto(prod, item.cantidad, item.costo, item.porcentaje, vista);
+                                    }
+                                    else
+                                    {
+                                        noEncontrados.Add(item.codigoBarras);
+                                    }
                                 }
-                                else
+                                if (noEncontrados.Count > 0)
                                 {
-                                    noEncontrados.Add(item.codigoBarras);
+                                    vista.notificarUsuario(
+                                        "No se pudieron recuperar " + noEncontrados.Count +
+                                        " artículo(s) porque ya no existen en el catálogo: " +
+                                        string.Join(", ", noEncontrados), true);
                                 }
                             }
-                            if (noEncontrados.Count > 0)
+                            else
                             {
-                                vista.notificarUsuario(
-                                    "No se pudieron recuperar " + noEncontrados.Count +
-                                    " artículo(s) porque ya no existen en el catálogo: " +
-                                    string.Join(", ", noEncontrados), true);
+                                // El mismo dueño decidió NO recuperarla, se le audita a él.
+                                cancelarRespaldoSilencioso(respaldoBD.Articulos, idUsuarioActual);
+                                vista.notificarUsuario("La captura de mercancía interrumpida ha sido descartada con éxito", false);
                             }
                         }
+                        // 2. ¡ES OTRO USUARIO! (Alguien más entró a la caja)
                         else
                         {
-                            List<DetalleCompra> listaAuditada = new List<DetalleCompra>();
-                            foreach (var item in respaldo)
-                            {
-                                Producto prod = buscarProducto(item.codigoBarras);
-                                if (prod != null)
-                                {
-                                    DetalleCompra detalle = new DetalleCompra
-                                    {
-                                        producto = prod,
-                                        cantidad = item.cantidad,
-                                        // CORRECCIÓN TAMBIÉN EN LA AUDITORÍA:
-                                        precioCompra = item.costo,
-                                        porcentajeGanancia = item.porcentaje
-                                    };
-                                    listaAuditada.Add(detalle);
-                                }
-                            }
-
-                            if (listaAuditada.Count > 0)
-                            {
-                                Compra compraCancelada = new Compra
-                                {
-                                    IdUsuario = idUsuarioActual,
-                                    fecha = DateTime.Now,
-                                    detalleCompra = new List<DetalleCompra>()
-                                };
-                                modelo.procesarCompra(compraCancelada, listaAuditada, 3);
-                            }
-
-                            eliminarRespaldo();
-                            vista.notificarUsuario("La captura de mercancía interrumpida ha sido descartada con éxito", false);
+                            // Cancelamos la compra silenciosamente, pero A NOMBRE DEL DUEÑO ORIGINAL
+                            cancelarRespaldoSilencioso(respaldoBD.Articulos, respaldoBD.IdUsuarioDuenio);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("El archivo de respaldo de compras está corrupto. Detalle: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    eliminarRespaldo();
                 }
             }
         }
-        
+        private void cancelarRespaldoSilencioso(List<Itemrespaldo> articulos, int idDuenioAuditoria)
+        {
+            List<DetalleCompra> listaAuditada = new List<DetalleCompra>();
+            foreach (var item in articulos)
+            {
+                Producto prod = buscarProducto(item.codigoBarras);
+                if (prod != null)
+                {
+                    listaAuditada.Add(new DetalleCompra
+                    {
+                        producto = prod,
+                        cantidad = item.cantidad,
+                        precioCompra = item.costo,
+                        porcentajeGanancia = item.porcentaje
+                    });
+                }
+            }
+
+            if (listaAuditada.Count > 0)
+            {
+                Compra compraCancelada = new Compra
+                {
+                    IdUsuario = idDuenioAuditoria, // ID DEL DUEÑO REAL
+                    fecha = DateTime.Now,
+                    detalleCompra = new List<DetalleCompra>()
+                };
+                modelo.procesarCompra(compraCancelada, listaAuditada, 3); // Estado 3 = Cancelada
+            }
+
+            eliminarRespaldo();
+        }
+
         public void VerificarYProcesarEntrada(string codigo, string cantidadTexto, string costoTexto, string margenTexto, FrmCompra vista)
         {
             if (string.IsNullOrEmpty(codigo)) return;

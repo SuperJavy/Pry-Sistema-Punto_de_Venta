@@ -15,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private List<Producto> resultadosBusqueda = new();
         private ventas venta = new ventas();
         public List<detalleVenta> productoCancelados = new List<detalleVenta>();
-
+        public int idUsuarioActualGlobal { get; set; }
 
         public Producto procesarBusqueda(string codigo)
         {
@@ -171,16 +171,25 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private readonly string rutaRespaldo = "venta_respaldo.json";
         public void GuardarRespaldoJson()
         {
-            if (venta.detalleVenta == null) return;
+            if (venta.detalleVenta == null || venta.detalleVenta.Count == 0)
+            {
+                eliminarRespaldo();
+                return;
+            }
 
-            var datos = venta.detalleVenta.Select(d => new Itemrespaldo
+            var listaArticulos = venta.detalleVenta.Select(d => new Itemrespaldo
             {
                 codigoBarras = d.Producto.codigo_de_barras,
                 cantidad = d.Cantidad
-
             }).ToList();
 
-            ClsRespaldo.guardarRespaldo(rutaRespaldo, datos);
+            RespaldoTransaccion respaldoCompleto = new RespaldoTransaccion
+            {
+                IdUsuarioDuenio = this.idUsuarioActualGlobal,
+                Articulos = listaArticulos
+            };
+
+            ClsRespaldo.guardarRespaldo(rutaRespaldo, respaldoCompleto);
         }
         public void eliminarRespaldo()
         {
@@ -188,78 +197,98 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void recuperarVentaPendiente(FrmVentas vista, int idUsuario)
         {
+            // Guardamos el ID del cajero en la variable global inmediatamente
+            this.idUsuarioActualGlobal = idUsuario;
+
             if (File.Exists(rutaRespaldo))
             {
                 try
                 {
-                    List<Itemrespaldo> respaldo = ClsRespaldo.recuperar(rutaRespaldo);
+                    // Recuperamos el objeto contenedor
+                    RespaldoTransaccion respaldoBD = ClsRespaldo.recuperar(rutaRespaldo);
 
-                    if (respaldo != null && respaldo.Count > 0)
+                    if (respaldoBD != null && respaldoBD.Articulos != null && respaldoBD.Articulos.Count > 0)
                     {
-                        var respuesta = MessageBox.Show(
-                            "Se detectó una venta interrumpida por un cierre inesperado, ¿Desea recuperarla?",
-                            "Sistema de respaldo", MessageBoxButtons.YesNo, MessageBoxIcon.Information
+                        // 1. ¿ES EL MISMO USUARIO?
+                        if (respaldoBD.IdUsuarioDuenio == idUsuario)
+                        {
+                            var respuesta = MessageBox.Show(
+                                "Se detectó una venta interrumpida por un cierre inesperado, ¿Desea recuperarla?",
+                                "Sistema de respaldo", MessageBoxButtons.YesNo, MessageBoxIcon.Information
                             );
 
-                        if (respuesta == DialogResult.Yes)
-                        {
-                            foreach (var item in respaldo)
+                            if (respuesta == DialogResult.Yes)
                             {
-                                Producto prod = modelo.buscarProducto(item.codigoBarras);
-                                if (prod != null)
-                                {                                 
-                                    string msjError;
-                                    bool agregado = agregarProducto(prod, item.cantidad, out msjError);
-
-                                    if (!agregado)
+                                foreach (var item in respaldoBD.Articulos)
+                                {
+                                    Producto prod = modelo.buscarProducto(item.codigoBarras);
+                                    if (prod != null)
                                     {
-                                        MessageBox.Show($"No se pudo recuperar completamente '{prod.nombre}': {msjError}", "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        string msjError;
+                                        bool agregado = agregarProducto(prod, item.cantidad, out msjError);
+
+                                        if (!agregado)
+                                        {
+                                            MessageBox.Show($"No se pudo recuperar completamente '{prod.nombre}': {msjError}", "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
                                     }
                                 }
+                                vista.actualizarTabla(venta.detalleVenta);
+                                vista.mostrarTotal(venta.total);
                             }
-                            vista.actualizarTabla(venta.detalleVenta);
-                            vista.mostrarTotal(venta.total);
+                            else
+                            {
+                                // El mismo usuario decidió cancelarla
+                                cancelarRespaldoSilencioso(respaldoBD.Articulos, idUsuario);
+                                MessageBox.Show("La venta interrumpida ha sido descartada con éxito", "Venta descartada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
+                        // 2. ES OTRO USUARIO (Alguien más entró a la caja)
                         else
                         {
-                            List<detalleVenta> listaAuditada = new List<detalleVenta>();
-                            foreach (var item in respaldo)
-                            {
-                                Producto prod = modelo.buscarProducto(item.codigoBarras);
-                                if (prod != null)
-                                {
-                                    listaAuditada.Add(new detalleVenta
-                                    {
-                                        Producto = prod,
-                                        Cantidad = item.cantidad,
-                                        PrecioUnitario = prod.precio,
-                                        Importe = item.cantidad * prod.precio
-                                    });
-                                }
-                            }
-                            if (listaAuditada.Count > 0)
-                            {
-                                ventas ventaCancelada = new ventas
-                                {
-                                    IdUsuario = idUsuario,
-                                    fecha = DateTime.Now,
-                                    efectivo = 0,
-                                    detalleVenta = new List<detalleVenta>()
-                                };
-                                modelo.ProcesarVenta(ventaCancelada, listaAuditada, 3);
-                            }
-                            eliminarRespaldo();
-                            MessageBox.Show("La venta interrumpida ha sido descartada con éxito", "Venta descartada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Cancelamos la venta y se la asignamos al dueño original
+                            cancelarRespaldoSilencioso(respaldoBD.Articulos, respaldoBD.IdUsuarioDuenio);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("El archivo de respaldo está corrupto. Consulte con soporte técnico. Detalle: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    eliminarRespaldo();
                 }
             }
         }
 
+        private void cancelarRespaldoSilencioso(List<Itemrespaldo> articulos, int idDuenioAuditoria)
+        {
+            List<detalleVenta> listaAuditada = new List<detalleVenta>();
+            foreach (var item in articulos)
+            {
+                Producto prod = modelo.buscarProducto(item.codigoBarras);
+                if (prod != null)
+                {
+                    listaAuditada.Add(new detalleVenta
+                    {
+                        Producto = prod,
+                        Cantidad = item.cantidad,
+                        PrecioUnitario = prod.precio,
+                        Importe = item.cantidad * prod.precio
+                    });
+                }
+            }
+            if (listaAuditada.Count > 0)
+            {
+                ventas ventaCancelada = new ventas
+                {
+                    IdUsuario = idDuenioAuditoria, // ID DEL DUEÑO REAL
+                    fecha = DateTime.Now,
+                    efectivo = 0,
+                    detalleVenta = new List<detalleVenta>()
+                };
+                modelo.ProcesarVenta(ventaCancelada, listaAuditada, 3); // Estado 3 = Cancelada
+            }
+            eliminarRespaldo();
+        }
         public ventas ObtenerVentaActual()
         {
             return venta;
