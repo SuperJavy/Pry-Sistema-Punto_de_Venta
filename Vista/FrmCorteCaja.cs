@@ -298,8 +298,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // 2. Tomamos el monto esperado matemático
                 decimal montoEsperado = this.montoEsperadoInterno;
 
-                // 3. CORRECCIÓN: Leemos la declaración, pero no bloqueamos si está vacía.
-                // Si está en blanco o tiene letras, asume 0m. 
+                // 3. Leemos la declaración
                 decimal montoReal = 0m;
                 if (!string.IsNullOrWhiteSpace(txtTotalFisico.Text))
                 {
@@ -312,15 +311,19 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 // 5. Enviamos a imprimir SIN cerrar la base de datos
                 ClsTicketController ticketCtrl = new ClsTicketController();
 
-                // Ojo: Asegúrate de tener implementada tu variable nombreImpresora y esTermica
+                // CORRECCIÓN: Extraemos la configuración real de hardware que guardaste en el sistema
+                string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
+                bool esTermica = Properties.Settings.Default.EsTermica;
+
+                // Pasamos las variables reales al controlador en lugar de los textos vacíos
                 ticketCtrl.ImprimirTicketCorte(
                     datosCorteActivo,
                     montoEsperado,
                     montoReal,
                     diferencia,
                     idUsuarioSesion.ToString(),
-                    "", // Impresora por defecto
-                    true); // Asumo true = térmica para el ejemplo, ajústalo según tu configuración
+                    nombreImpresora, // <-- Ahora sí busca la térmica real
+                    esTermica);      // <-- Ahora sí respeta el tamaño del papel
 
                 MessageBox.Show("El ticket previo se ha enviado a la impresora.\n\nRecuerde que el turno aún NO ha sido cerrado.", "Impresión exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -342,6 +345,11 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     cmbCajerosAbiertos.ValueMember = "id";
                     cmbCajerosAbiertos.DataSource = dtCajeros;
 
+                    // Habilitamos los controles por si venían bloqueados de un vacío anterior
+                    txtTotalFisico.Enabled = true;
+                    btnRealizarCorte.Enabled = true;
+                    btnImprimirCorte.Enabled = true;
+
                     // Forzamos a cargar el primer cajero de la lista
                     cmbCajerosAbiertos.SelectedIndex = 0;
                 }
@@ -349,7 +357,9 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 {
                     MessageBox.Show("No hay turnos pendientes por auditar y cerrar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     cmbCajerosAbiertos.DataSource = null;
-                    btnRealizarCorte.Enabled = false;
+
+                    // APLICAMOS LA LIMPIEZA TOTAL
+                    LimpiarInterfazCorte();
                 }
             }
             catch (Exception ex)
@@ -388,6 +398,31 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 ActualizarResumen();
             }
             catch { }
+        }
+        private void LimpiarInterfazCorte()
+        {
+            // 1. Regresar la información del sistema a cero
+            lblFondoValor.Text = "$0.00";
+            lblVentasEfectivoValor.Text = "$0.00";
+            lblTotalCajonValor.Text = "$0.00";
+            lblTicketsValor.Text = "0";
+            lblArticulosValor.Text = "0";
+            lblCanceladosValor.Text = "0";
+            lblTotalEsperadoInfo.Text = "$0.00";
+
+            // 2. Regresar el resumen a cero
+            lblResumenEsperado.Text = "$0.00";
+            lblTotalContadoResumen.Text = "$0.00";
+            lblResumenDiferencia.Text = "$0.00";
+            pnlAlertaDiferencia.Visible = false;
+
+            // 3. Bloquear controles y limpiar variables internas
+            txtTotalFisico.Clear();
+            txtTotalFisico.Enabled = false;
+            btnRealizarCorte.Enabled = false;
+            btnImprimirCorte.Enabled = false;
+            montoEsperadoInterno = 0;
+            datosCorteActivo = null;
         }
     }
 }

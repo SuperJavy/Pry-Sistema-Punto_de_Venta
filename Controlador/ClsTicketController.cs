@@ -150,15 +150,16 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             Graphics gfx = e.Graphics;
 
             // Fuentes fijas para el tamaño de 58mm
-            Font fuenteNormal = new Font("Arial", 9);
-            Font fuenteNegrita = new Font("Arial", 9, FontStyle.Bold);
-            Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
+            Font fuenteNormal = new Font("Arial", 8);
+            Font fuenteNegrita = new Font("Arial", 8, FontStyle.Bold);
+            Font fuenteTitulo = new Font("Arial", 11, FontStyle.Bold);
             Brush brocha = Brushes.Black;
 
             // Dimensiones fijas estrictas para 58mm (aprox 2 pulgadas)
             // Se dibujará igual en la térmica o en la esquina superior izquierda de la impresora normal
-            int margenIzquierdo = 10;
-            int anchoTicket = 190; // Límite estricto de dibujo para 58mm
+            int margenIzquierdo = 5;
+            int anchoTicket = 175; // Límite estricto de dibujo para 58mm
+            int limiteDerecho = margenIzquierdo + anchoTicket - 15;
             int y = 20;
 
             StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
@@ -190,7 +191,8 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
             // --- DETALLE DE PRODUCTOS ---
             gfx.DrawString("Cant.   Producto", fuenteNegrita, brocha, margenIzquierdo, y);
-            gfx.DrawString("Importe", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+            // CORREGIDO: Usamos limiteDerecho
+            gfx.DrawString("Importe", fuenteNegrita, brocha, limiteDerecho, y, formatoDerecha);
             y += 20;
 
             if (ventaActual.detalleVenta != null)
@@ -199,14 +201,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 {
                     string nombreProd = item.Producto.nombre;
 
-                    // Truncamos siempre a 16 caracteres para que no se desborde de los 190 de ancho
-                    if (nombreProd.Length > 16)
+                    if (nombreProd.Length > 12) // Truncamos a 12 caracteres
                     {
-                        nombreProd = nombreProd.Substring(0, 16) + "...";
+                        nombreProd = nombreProd.Substring(0, 12) + "...";
                     }
 
                     gfx.DrawString($"{item.Cantidad}x   {nombreProd}", fuenteNormal, brocha, margenIzquierdo, y);
-                    gfx.DrawString($"${item.Importe:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                    // CORREGIDO: Usamos limiteDerecho
+                    gfx.DrawString($"${item.Importe:F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                     y += 15;
                 }
             }
@@ -215,12 +217,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             y += 20;
 
             // --- TOTALES ---
-            gfx.DrawString($"TOTAL: ${ventaActual.total:F2}", fuenteTitulo, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+            // CORREGIDO: Usamos limiteDerecho en todos los totales
+            gfx.DrawString($"TOTAL: ${ventaActual.total:F2}", fuenteTitulo, brocha, limiteDerecho, y, formatoDerecha);
             y += 25;
-            gfx.DrawString($"Efectivo: ${ventaActual.efectivo:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+            gfx.DrawString($"Efectivo: ${ventaActual.efectivo:F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
             y += 15;
-            gfx.DrawString($"Cambio: ${ventaActual.cambio:F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+            gfx.DrawString($"Cambio: ${ventaActual.cambio:F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
             y += 30;
+
 
             // --- MENSAJE FINAL ---
             Rectangle rectMensaje = new Rectangle(margenIzquierdo, y, anchoTicket, 60);
@@ -299,13 +303,14 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             try
             {
                 Graphics gfx = e.Graphics;
-                Font fuenteNormal = new Font("Arial", 9);
-                Font fuenteNegrita = new Font("Arial", 9, FontStyle.Bold);
-                Font fuenteTitulo = new Font("Arial", 12, FontStyle.Bold);
+                Font fuenteNormal = new Font("Arial", 8);
+                Font fuenteNegrita = new Font("Arial", 8, FontStyle.Bold);
+                Font fuenteTitulo = new Font("Arial", 11, FontStyle.Bold);
                 Brush brocha = Brushes.Black;
 
-                int margenIzquierdo = 10;
-                int anchoTicket = 190;
+                int margenIzquierdo = 5;
+                int anchoTicket = 175;
+                int limiteDerecho = margenIzquierdo + anchoTicket - 15;
                 int y = 20;
 
                 StringFormat formatoCentro = new StringFormat { Alignment = StringAlignment.Center };
@@ -349,15 +354,15 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 // --- DETALLES DEL CORTE ---
                 gfx.DrawString("Fondo Inicial:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"${ObtenerDato("FondoInicial"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"${ObtenerDato("FondoInicial"):F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Ventas Efectivo:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"+ ${ObtenerDato("VentasEfectivo"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"+ ${ObtenerDato("VentasEfectivo"):F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Salidas:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString($"- ${ObtenerDato("Salidas"):F2}", fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"- ${ObtenerDato("Salidas"):F2}", fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 20;
 
                 gfx.DrawString(new string('-', anchoTicket / 5), fuenteNormal, brocha, margenIzquierdo, y);
@@ -365,16 +370,16 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
 
                 // --- RESULTADOS FINALES ---
                 gfx.DrawString("TOTAL ESPERADO:", fuenteNegrita, brocha, margenIzquierdo, y);
-                gfx.DrawString($"${corteMontoEsperado:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"${corteMontoEsperado:F2}", fuenteNegrita, brocha, limiteDerecho, y, formatoDerecha);
                 y += 20;
 
                 gfx.DrawString("TOTAL CONTADO:", fuenteNegrita, brocha, margenIzquierdo, y);
-                gfx.DrawString($"${corteMontoReal:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"${corteMontoReal:F2}", fuenteNegrita, brocha, limiteDerecho, y, formatoDerecha);
                 y += 20;
 
                 string textoDiferencia = corteDiferencia < 0 ? "FALTANTE:" : (corteDiferencia > 0 ? "SOBRANTE:" : "DIFERENCIA:");
                 gfx.DrawString(textoDiferencia, fuenteNegrita, brocha, margenIzquierdo, y);
-                gfx.DrawString($"${corteDiferencia:F2}", fuenteNegrita, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString($"${corteDiferencia:F2}", fuenteNegrita, brocha, limiteDerecho, y, formatoDerecha);
                 y += 30;
 
                 // --- ESTADÍSTICAS ---
@@ -382,15 +387,15 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 y += 20;
 
                 gfx.DrawString("Tickets Generados:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(ObtenerDato("TotalTickets").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString(ObtenerDato("TotalTickets").ToString(), fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Art. Vendidos:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(ObtenerDato("ArticulosVendidos").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString(ObtenerDato("ArticulosVendidos").ToString(), fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 15;
 
                 gfx.DrawString("Art. Cancelados:", fuenteNormal, brocha, margenIzquierdo, y);
-                gfx.DrawString(ObtenerDato("ArticulosCancelados").ToString(), fuenteNormal, brocha, margenIzquierdo + anchoTicket, y, formatoDerecha);
+                gfx.DrawString(ObtenerDato("ArticulosCancelados").ToString(), fuenteNormal, brocha, limiteDerecho, y, formatoDerecha);
                 y += 30;
 
                 e.HasMorePages = false;

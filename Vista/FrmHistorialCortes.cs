@@ -17,11 +17,9 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         private readonly int idUsuarioSesion;
         private readonly string rolUsuario;
 
-        // Copia en memoria del último resultado de búsqueda, para poder pintar
-        // el panel de detalle sin volver a consultar la base de datos
+
         private List<Dictionary<string, object>> historialActual = new List<Dictionary<string, object>>();
 
-        // Constructor, recibe la sesión activa (idUsuario y rol) que viene
         public FrmHistorialCortes(int idUsuarioSesion, string rol)
         {
             InitializeComponent();
@@ -33,7 +31,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             btnBuscar.Click += btnBuscar_Click;
             lblLimpiar.LinkClicked += lblLimpiar_LinkClicked;
             dgvHistorialCortes.SelectionChanged += dgvHistorialCortes_SelectionChanged;
-            btnReimprimir.Click += btnReimprimir_Click;
+
         }
 
         private void FrmHistorialCortes_Load(object sender, EventArgs e)
@@ -145,19 +143,30 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             dgvHistorialCortes.Rows.Clear();
             dgvHistorialCortes.AutoGenerateColumns = false;
 
+
+            dgvHistorialCortes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
             dgvHistorialCortes.Columns.Add("colId", "ID");
-            dgvHistorialCortes.Columns.Add("colFecha", "Fecha");
+            dgvHistorialCortes.Columns.Add("colFecha", "Inicio"); 
+            dgvHistorialCortes.Columns.Add("colFechaCierre", "Cierre"); 
             dgvHistorialCortes.Columns.Add("colCajero", "Cajero");
             dgvHistorialCortes.Columns.Add("colFondo", "Fondo inicial");
             dgvHistorialCortes.Columns.Add("colEsperado", "Total esperado");
             dgvHistorialCortes.Columns.Add("colReal", "Total real");
             dgvHistorialCortes.Columns.Add("colDiferencia", "Diferencia");
             dgvHistorialCortes.Columns.Add("colEstado", "Estado");
+
             dgvHistorialCortes.Columns["colId"].Visible = false;
 
             foreach (var fila in historial)
             {
                 DateTime fechaInicial = (DateTime)fila["FechaInicial"];
+
+
+                object fechaCierreObj = fila["FechaCierre"];
+                string fechaCierreTxt = fechaCierreObj == null ? "En curso" : ((DateTime)fechaCierreObj).ToString("dd/MM/yyyy HH:mm");
+
                 string estado = fila["Estado"]?.ToString() ?? "";
                 decimal fondo = (decimal)fila["MontoInicial"];
                 decimal esperado = (decimal)fila["MontoEsperado"];
@@ -168,9 +177,11 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 object difObj = fila["Diferencia"];
                 string difTxt = difObj == null ? "—" : ((decimal)difObj).ToString("C2");
 
+          
                 int idxFila = dgvHistorialCortes.Rows.Add(
                     fila["IdCorte"],
                     fechaInicial.ToString("dd/MM/yyyy HH:mm"),
+                    fechaCierreTxt, 
                     fila["Cajero"],
                     fondo.ToString("C2"),
                     esperado.ToString("C2"),
@@ -247,8 +258,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                     ? Color.FromArgb(39, 174, 96)
                     : Color.FromArgb(44, 62, 80);
 
-            btnReimprimir.Enabled = true;
-            btnReimprimir.Tag = idCorte;
         }
         private void LimpiarDetalle()
         {
@@ -257,67 +266,8 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
             lblDetalleEsperadoVal.Text = "—";
             lblDetalleDiferenciaVal.Text = "—";
             lblDetalleDiferenciaVal.ForeColor = Color.FromArgb(44, 62, 80);
-            btnReimprimir.Enabled = false;
-            btnReimprimir.Tag = null;
-        }
-        private void btnReimprimir_Click(object sender, EventArgs e)
-        {
-            if (btnReimprimir.Tag != null)
-            {
-                try
-                {
-                    // Usamos un nombre de variable único para evitar conflictos (CS0136)
-                    int idCorteSeleccionado = Convert.ToInt32(btnReimprimir.Tag);
-
-                    // 1. Buscamos los datos completos del corte seleccionado en la memoria local
-                    var detalle = historialActual.FirstOrDefault(h => (int)h["IdCorte"] == idCorteSeleccionado);
-
-                    if (detalle == null)
-                    {
-                        MessageBox.Show("No se encontraron los datos del corte seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    // 2. Extraemos los valores clave que requiere el controlador
-                    decimal montoEsperado = (decimal)detalle["MontoEsperado"];
-                    decimal montoReal = detalle["MontoReal"] is decimal dReal ? dReal : 0m;
-                    decimal diferencia = detalle["Diferencia"] is decimal dDif ? dDif : 0m;
-                    string cajero = detalle["Cajero"]?.ToString() ?? "Desconocido";
-
-                    // 3. Reconstruimos el diccionario con la estructura que espera ClsTicketController
-                    Dictionary<string, decimal> datosCorte = new Dictionary<string, decimal>
-            {
-                { "FondoInicial", (decimal)detalle["MontoInicial"] },
-                { "VentasEfectivo", 0m },
-                { "Salidas", 0m },
-                { "TotalTickets", 0m },
-                { "ArticulosVendidos", 0m },
-                { "ArticulosCancelados", 0m }
-            };
-
-                    // 4. Instanciamos el controlador y enviamos a imprimir
-                    ClsTicketController ticketCtrl = new ClsTicketController();
-
-                    ticketCtrl.ImprimirTicketCorte(
-                        datosCorte,
-                        montoEsperado,
-                        montoReal,
-                        diferencia,
-                        cajero,
-                        "", // Impresora por defecto
-                        true // True para térmica de 58mm
-                    );
-
-                    MessageBox.Show($"Se ha enviado a la impresora el comprobante del corte #{idCorteSeleccionado}.", "Impresión Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ocurrió un error al reimprimir: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
        
-
         private class CajeroItem
         {
             public int Id { get; }
@@ -334,5 +284,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         {
 
         }
+
     }
 }

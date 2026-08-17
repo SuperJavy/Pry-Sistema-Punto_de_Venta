@@ -42,7 +42,6 @@
             lblM3Titulo = new Label();
             lblM3Valor = new Label();
             pnlDetalle = new Panel();
-            btnReimprimir = new Button();
             lblDetalleTitulo = new Label();
             lblDetalleFondoLabel = new Label();
             lblDetalleFondoVal = new Label();
@@ -333,7 +332,6 @@
             // pnlDetalle
             // 
             pnlDetalle.BackColor = Color.FromArgb(245, 246, 250);
-            pnlDetalle.Controls.Add(btnReimprimir);
             pnlDetalle.Controls.Add(lblDetalleTitulo);
             pnlDetalle.Controls.Add(lblDetalleFondoLabel);
             pnlDetalle.Controls.Add(lblDetalleFondoVal);
@@ -347,17 +345,6 @@
             pnlDetalle.Name = "pnlDetalle";
             pnlDetalle.Size = new Size(1084, 160);
             pnlDetalle.TabIndex = 3;
-            // 
-            // btnReimprimir
-            // 
-            btnReimprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnReimprimir.Location = new Point(842, 50);
-            btnReimprimir.Name = "btnReimprimir";
-            btnReimprimir.Size = new Size(188, 50);
-            btnReimprimir.TabIndex = 7;
-            btnReimprimir.Text = "Reimprimir";
-            btnReimprimir.UseVisualStyleBackColor = true;
-            btnReimprimir.Click += btnReimprimir_Click_1;
             // 
             // lblDetalleTitulo
             // 
@@ -436,6 +423,7 @@
             dgvHistorialCortes.Location = new Point(20, 145);
             dgvHistorialCortes.Margin = new Padding(0, 0, 0, 15);
             dgvHistorialCortes.Name = "dgvHistorialCortes";
+            dgvHistorialCortes.ReadOnly = true;
             dgvHistorialCortes.RowHeadersVisible = false;
             dgvHistorialCortes.RowHeadersWidth = 72;
             dgvHistorialCortes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -509,6 +497,5 @@
         private System.Windows.Forms.Label lblDetalleEsperadoVal;
         private System.Windows.Forms.Label lblDetalleDiferenciaLabel;
         private System.Windows.Forms.Label lblDetalleDiferenciaVal;
-        private Button btnReimprimir;
     }
 }
