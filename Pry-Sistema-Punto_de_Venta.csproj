@@ -17,7 +17,7 @@
   <ItemGroup>
     <Content Include="MiLogo.ico" />
     <Content Include="Proyecto.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

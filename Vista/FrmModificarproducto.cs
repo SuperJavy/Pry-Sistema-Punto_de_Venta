@@ -24,8 +24,18 @@ namespace Pry_Sistema_Punto_de_Venta
             llenarComboRoles(roles);
             txtStockactual.ReadOnly = true;
             txtStockminimo.ReadOnly = true;
+            chkUnidad.CheckedChanged += ChkUnidad_CheckedChanged;
+            chkGranel.CheckedChanged += ChkGranel_CheckedChanged;
+        }
+        private void ChkUnidad_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUnidad.Checked) chkGranel.Checked = false;
         }
 
+        private void ChkGranel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkGranel.Checked) chkUnidad.Checked = false;
+        }
 
         public void notificarUsuario(string mensaje, bool esError)
         {

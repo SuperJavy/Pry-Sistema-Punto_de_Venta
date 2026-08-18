@@ -52,19 +52,25 @@ namespace Pry_Sistema_Punto_de_Venta
                 return;
             }
 
-            // 1. Se guarda la venta en Base de Datos vía Controlador
+            ClsTicketController ticketController = new ClsTicketController();
+
+            if (ticketController.cargarConfiguracion() == null)
+            {
+                MessageBox.Show("Aún no se ha configurado el formato del ticket. Vaya a 'Configuraciones > Ticket' en el menú principal antes de realizar cobros con impresión.", "Configuración faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Detenemos el proceso aquí, la venta no se guarda.
+            }
+            
             bool exito = controller.guardarVenta(this, idUsuario);
 
             if (exito)
             {
-                // 2. Si se guardó, se delega la impresión al Controlador de Tickets
                 try
                 {
-                    ClsTicketController ticketController = new ClsTicketController();
-
                     string nombreImpresora = Properties.Settings.Default.ImpresoraCaja;
                     bool esTermica = Properties.Settings.Default.EsTermica;
+
                     ticketController.ImprimirTicketVenta(controller.ObtenerVentaActual(), nombreImpresora, esTermica);
+
                     if (esTermica)
                     {
                         ClsCajonDinero.AbrirCajon(nombreImpresora);
@@ -78,9 +84,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 DialogResult = DialogResult.OK;
                 Close();
             }
-
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
