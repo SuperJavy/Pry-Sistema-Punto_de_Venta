@@ -63,7 +63,6 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 if (dgvEtiquetas.Columns.Contains("codigo_barras"))
                     dgvEtiquetas.Columns["codigo_barras"].HeaderText = "Código de Barras";
 
-                // Se eliminó la validación obsoleta de 'img_codigoDeBarras'
 
                 dgvEtiquetas.ReadOnly = true;
                 dgvEtiquetas.SelectionMode = DataGridViewSelectionMode.CellSelect;
