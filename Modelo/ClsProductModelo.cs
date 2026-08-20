@@ -73,11 +73,11 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return false; // El código está completamente libre
         }
-        public bool InsercodeB(string code, Image img)
+        public bool InsercodeB(string code)
         {
             try
             {
-                return codigob.insertarBD(code, img);
+                return codigob.insertarBD(code);
 
             }
             catch (Exception e)
@@ -85,7 +85,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error al insertar en la Base de Datos " + e.Message);
             }
         }
-        public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen)
+        public Boolean Insertarproductos(string CodigoIngresado, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, string NombreImagen)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         Consulta.Parameters.AddWithValue("@Categoria_id", int.Parse(Categoria));
                         Consulta.Parameters.AddWithValue("@Stock", int.Parse(Stockactuaal));
                         Consulta.Parameters.AddWithValue("@Stock_minimo", int.Parse(Stockminimo));
-                        Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
+                        Consulta.Parameters.AddWithValue("@Ruta_imagen", NombreImagen);
 
                         int filasAfectadas = Consulta.ExecuteNonQuery();
                         return filasAfectadas > 0;
@@ -166,23 +166,6 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             }
         }
         // Convertidores útiles (Imágenes <--> Bytes)
-        private byte[] imagenABytes(Image img)
-        {
-            if (img == null) return null;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                return ms.ToArray();
-            }
-        }
-        private Image BytesAImagen(byte[] bytes)
-        {
-            if (bytes == null || bytes.Length == 0) return null;
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                return Image.FromStream(ms);
-            }
-        }
         public float Calpventa(string costo, string porcentaje)
         {
             if (!float.TryParse(costo, out float c))
@@ -264,53 +247,58 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                 throw new Exception("Error extraer Producto" + e.Message);
             }
         }
-        public Boolean Actualizarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje)
+        public Boolean Actualizarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, string NombreImagen, string porcentaje)
         {
             try
             {
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                   
+                    // TRUCO SQL: Usamos COALESCE. Si le mandamos un NULL, conservará la ruta_imagen que ya tenía.
                     string Query = @"UPDATE productos p
                     LEFT JOIN codigo_Barras cb ON p.id_codigoBarras = cb.id
                     SET p.nombre = @Nombre, p.Descripcion = @Descripcion, p.id_categoria = @Categoria_id,
                         p.id_tipo_venta = @Tipo_venta_id, p.costo = @Costo, p.porcentaje = @Porcentaje,
                         p.precio_venta = @Venta, p.stock = @Stock, p.stock_minimo = @Stock_minimo,
-                        p.ruta_imagen = @Ruta_imagen
+                        p.ruta_imagen = COALESCE(@Ruta_imagen, p.ruta_imagen)
                     WHERE IFNULL(cb.Codigo_barras, p.codigo_de_barras) = @Codigo_de_barras";
+
                     using (var Consulta = new MySqlCommand(Query, conexion))
                     {
                         Consulta.Parameters.AddWithValue("@Codigo_de_barras", Codigo);
                         Consulta.Parameters.AddWithValue("@Nombre", Nombre);
                         Consulta.Parameters.AddWithValue("@Descripcion", Descripciom);
                         Consulta.Parameters.AddWithValue("@Tipo_venta_id", int.Parse(TipVenta));
-
-                        // CORRECCIÓN: Usar Convert.ToDecimal para soportar números como "16.00" o "3.000"
                         Consulta.Parameters.AddWithValue("@Costo", Convert.ToDecimal(Costo));
                         Consulta.Parameters.AddWithValue("@Venta", Convert.ToDecimal(Precioventa));
                         Consulta.Parameters.AddWithValue("@Categoria_id", int.Parse(Categoria));
                         Consulta.Parameters.AddWithValue("@Stock", Convert.ToDecimal(Stockactuaal));
                         Consulta.Parameters.AddWithValue("@Stock_minimo", Convert.ToDecimal(Stockminimo));
-
-                        Consulta.Parameters.AddWithValue("@Ruta_imagen", imagenABytes(Imagen));
                         Consulta.Parameters.AddWithValue("@Porcentaje", int.Parse(porcentaje));
+
+                        // Si el controlador nos manda un nombre, lo guardamos. Si manda vacío, pasamos NULL para que SQL no borre la foto anterior.
+                        if (string.IsNullOrEmpty(NombreImagen))
+                        {
+                            Consulta.Parameters.AddWithValue("@Ruta_imagen", DBNull.Value);
+                        }
+                        else
+                        {
+                            Consulta.Parameters.AddWithValue("@Ruta_imagen", NombreImagen);
+                        }
 
                         int filasAfectadas = Consulta.ExecuteNonQuery();
                         return filasAfectadas > 0;
                     }
                 }
-
             }
             catch (FormatException)
             {
-                throw new Exception("Uno o más campos numéricos (costo, precio, porcentaje, stock) tiene un formato inválido.");
+                throw new Exception("Uno o más campos numéricos tiene un formato inválido.");
             }
             catch (Exception e)
             {
-                throw new Exception("Error al Actualizar productos" + e.Message);
+                throw new Exception("Error al Actualizar productos: " + e.Message);
             }
-
         }
         //termina codigo de actualizar 
         //empieza codigo de eliminar...

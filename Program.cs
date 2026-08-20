@@ -13,6 +13,7 @@ namespace Pry_Sistema_Punto_de_Venta
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            Pry_Sistema_Punto_de_Venta.Modelo.ClsConfiguracion.CargarConfiguracion();
             bool arrancarLogin = false;
 
             // Este ciclo intentará conectar. Si falla, abre la configuración. 

@@ -59,22 +59,19 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         }
         public void InsertCodeBD(string code, Image img, FrmGernerador_CodBarras vista)
         {
-            if (string.IsNullOrEmpty(code) || img == null) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }           
+            if (string.IsNullOrEmpty(code)) { vista.notificarUsuario("Campo no puede ir vacio", true); return; }
+
             try
             {
-                bool esvalido = producto.InsercodeB(code, img);
-                if (esvalido)
-                {
-                    vista.notificarUsuario("Los datos se guardaron correctamente", false);
-                }
-                else
-                {
-                    vista.notificarUsuario("No se pudieron guardar los datos", true);
-                }
+                // Ya no pasamos ningún archivo, solo le mandamos el texto del código al modelo
+                // (Nota: Tendrás que quitar el segundo parámetro en tu modelo y tu comando SQL)
+                bool esvalido = producto.InsercodeB(code);
+                if (esvalido) vista.notificarUsuario("Los datos se guardaron correctamente", false);
+                else vista.notificarUsuario("No se pudieron guardar los datos", true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                vista.notificarUsuario("Error al guardar en BD o conexion", true);
+                vista.notificarUsuario("Error al guardar en BD o conexion: " + ex.Message, true);
             }
         }
         public Image imgec(string c, FrmGernerador_CodBarras vista)
@@ -91,7 +88,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             return img;
         }
-        public bool Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, FrmNuevoProducto vista)
+        public bool Registrarproductos(string Codigo, string Nombre, string Descripciom, string TipVenta, string Categoria, string Stockactuaal, string Stockminimo, string RutaImagenOrigen, FrmNuevoProducto vista)
         {
             if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo))
             {
@@ -99,22 +96,39 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                 return false;
             }
 
-            if (Imagen == null)
+            string nombreArchivoFinal = "default.png";
+
+            if (!string.IsNullOrWhiteSpace(RutaImagenOrigen))
             {
-                if (int.TryParse(Categoria, out int idCategoria))
+                string extImagen = System.IO.Path.GetExtension(RutaImagenOrigen);
+                nombreArchivoFinal = Codigo + extImagen;
+
+                // MAGIA: El Gestor hace el trabajo
+                bool fotoGuardada = ClsGestorArchivos.GuardarImagen(RutaImagenOrigen, @"Productos\", nombreArchivoFinal);
+                if (!fotoGuardada)
                 {
-                    Imagen = imagenPorCategoria(idCategoria);
+                    vista.notificarUsuario("Aviso: El producto se guardará, pero hubo un error de red al subir la imagen.", true);
+                    nombreArchivoFinal = "default.png";
                 }
-                else
-                {
-                    Imagen = imagenPorCategoria(0);
-                }
+            }
+            else
+            {
+                nombreArchivoFinal = Codigo + "_default.png";
+                int.TryParse(Categoria, out int idCategoria);
+                Image imgDefault = imagenPorCategoria(idCategoria);
+
+                // Truco: Guardamos el recurso en un archivo temporal para que el Gestor lo pueda procesar
+                string rutaTemp = System.IO.Path.Combine(System.IO.Path.GetTempPath(), nombreArchivoFinal);
+                imgDefault.Save(rutaTemp, System.Drawing.Imaging.ImageFormat.Png);
+
+                ClsGestorArchivos.GuardarImagen(rutaTemp, @"Productos\", nombreArchivoFinal);
+
+                if (System.IO.File.Exists(rutaTemp)) System.IO.File.Delete(rutaTemp); // Limpiamos la basura
             }
 
             try
             {
-                // Se llama al modelo sin los datos financieros
-                bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Categoria, Stockactuaal, Stockminimo, Imagen);
+                bool esvalido = producto.Insertarproductos(Codigo, Nombre, Descripciom, TipVenta, Categoria, Stockactuaal, Stockminimo, nombreArchivoFinal);
                 if (esvalido)
                 {
                     vista.notificarUsuario("Los datos fueron guardados correctamente", false);
@@ -124,10 +138,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
             catch (Exception e)
             {
-                vista.notificarUsuario("Producto Duplicado o ya registrado ", true);
+                vista.notificarUsuario(e.Message, true);
                 return false;
             }
-        }     
+        }
         public DataTable Cargarcategorias(FrmNuevoProducto vista)
         {
             DataTable dtcategorias = null;
@@ -187,35 +201,49 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         {
             return producto.Calpventa(costo, porcentaje);
         }
-        public void Actualizarproduc(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, Image Imagen, string porcentaje, FrmModoficar vista)
+        // Cambiamos 'void' por 'bool'
+        public bool Actualizarproduc(string Codigo, string Nombre, string Descripciom, string TipVenta, string Costo, string Precioventa, string Categoria, string Stockactuaal, string Stockminimo, string RutaImagenOrigen, string porcentaje, FrmModoficar vista)
         {
-
             if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Descripciom) || string.IsNullOrWhiteSpace(TipVenta) || string.IsNullOrWhiteSpace(Costo) || string.IsNullOrWhiteSpace(Precioventa) || string.IsNullOrWhiteSpace(Categoria) || string.IsNullOrWhiteSpace(Stockactuaal) || string.IsNullOrWhiteSpace(Stockminimo) || string.IsNullOrWhiteSpace(porcentaje))
             {
                 vista.notificarUsuario("Los campos no pueden estar vacíos", true);
-                return;
+                return false;
+            }
+
+            string nombreArchivoFinal = null;
+
+            if (!string.IsNullOrWhiteSpace(RutaImagenOrigen))
+            {
+                string extImagen = System.IO.Path.GetExtension(RutaImagenOrigen);
+                nombreArchivoFinal = Codigo + extImagen;
+
+                bool fotoGuardada = ClsGestorArchivos.GuardarImagen(RutaImagenOrigen, @"Productos\", nombreArchivoFinal);
+                if (!fotoGuardada)
+                {
+                    vista.notificarUsuario("Advertencia: No se pudo actualizar la imagen física en el servidor.", true);
+                    nombreArchivoFinal = null;
+                }
             }
 
             try
             {
-                bool esvalido = producto.Actualizarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, Imagen, porcentaje);
+                bool esvalido = producto.Actualizarproductos(Codigo, Nombre, Descripciom, TipVenta, Costo, Precioventa, Categoria, Stockactuaal, Stockminimo, nombreArchivoFinal, porcentaje);
                 if (esvalido)
                 {
                     vista.notificarUsuario("Los datos fueron actualizados correctamente", false);
+                    return true;
                 }
                 else
                 {
-                    vista.notificarUsuario("Eror al intentar actualizar los datos", true);
+                    vista.notificarUsuario("Error al intentar actualizar los datos", true);
+                    return false;
                 }
-
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message);
-                vista.notificarUsuario("Error en la conexion o Actualizacion", true);
+                vista.notificarUsuario("Error en la conexion o Actualizacion: " + E.Message, true);
+                return false;
             }
-
-
         }
         //termina codigo de actualizar
         //empeiza codigo de eliminar produto

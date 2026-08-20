@@ -8,6 +8,7 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
     {
         private clsUsuariosController usuario = new clsUsuariosController();
         private encryptado md5 = new encryptado();
+
         public FrmAgregarUsuario()
         {
             InitializeComponent();
@@ -45,6 +46,11 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
         }
         private void BtnAgregarUsuario_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtPassword.Text) || txtPassword.Text.Length > 8)
+            {
+                NotificarUsuario("La contraseña no puede estar vacía y debe tener un máximo de 8 caracteres.", true);
+                return; // Detiene el proceso de guardado
+            }
             if (cmbRol.SelectedValue == null)
             {
                 NotificarUsuario("Por favor, selecciona un rol de la lista.", true);

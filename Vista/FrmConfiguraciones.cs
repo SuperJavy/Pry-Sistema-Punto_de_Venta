@@ -30,14 +30,14 @@ namespace Pry_Sistema_Punto_de_Venta
             principal.agregaralcontenedor(new Frmticket(), pnlConfiguraciones);
         }
 
-        private void btnConexion_Click(object sender, EventArgs e)
-        {
-            principal.agregaralcontenedor(new FrmDatosConexion(), pnlConfiguraciones);
-        }
-
         private void btnConfImpresora_Click(object sender, EventArgs e)
         {
             principal.agregaralcontenedor(new FrmConfiguracionImpresora(), pnlConfiguraciones);
+        }
+
+        private void btnConexion_Click_1(object sender, EventArgs e)
+        {
+            principal.agregaralcontenedor(new FrmDatosConexion(), pnlConfiguraciones);
         }
     }
 }

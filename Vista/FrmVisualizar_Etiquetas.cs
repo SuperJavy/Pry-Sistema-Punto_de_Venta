@@ -63,10 +63,9 @@ namespace Pry_Sistema_Punto_de_Venta.Vista
                 if (dgvEtiquetas.Columns.Contains("codigo_barras"))
                     dgvEtiquetas.Columns["codigo_barras"].HeaderText = "Código de Barras";
 
-                if (dgvEtiquetas.Columns.Contains("img_codigoDeBarras"))
-                    dgvEtiquetas.Columns["img_codigoDeBarras"].HeaderText = "Imagen del Código de Barras";
+                // Se eliminó la validación obsoleta de 'img_codigoDeBarras'
 
-                dgvEtiquetas.ReadOnly = true; // Bloquea que escriban en las celdas
+                dgvEtiquetas.ReadOnly = true;
                 dgvEtiquetas.SelectionMode = DataGridViewSelectionMode.CellSelect;
             }
         }

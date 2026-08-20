@@ -1,4 +1,5 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
+using Pry_Sistema_Punto_de_Venta.Modelo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,33 +69,16 @@ namespace Pry_Sistema_Punto_de_Venta
 
                 txtStockactual.Text = producto["Stock"].ToString();
                 txtStockminimo.Text = producto["Stock_minimo"].ToString();
+                // NUEVA FORMA DE LEER RUTAS EN lugar de BYTES
+                // LÓGICA DE IMAGEN (ARQUITECTURA GESTOR CENTRAL)
                 if (dtproducto.Columns.Contains("Ruta_imagen") && producto["Ruta_imagen"] != DBNull.Value)
                 {
-                    try
-                    {
-                        // Extracción directa: MySQL ya nos manda el arreglo de bytes real
-                        byte[] imagenBytes = (byte[])producto["Ruta_imagen"];
-
-                        if (imagenBytes != null && imagenBytes.Length > 0)
-                        {
-                            using (System.IO.MemoryStream ms = new System.IO.MemoryStream(imagenBytes))
-                            {
-                                pcbImagen.Image = Image.FromStream(ms);
-                            }
-                        }
-                        else
-                        {
-                            pcbImagen.Image = null;
-                        }
-                    }
-                    catch (ArgumentException)
-                    {
-                        pcbImagen.Image = null;
-                    }
+                    string nombreArchivo = producto["Ruta_imagen"].ToString();
+                    pcbImagen.Image = ClsGestorArchivos.ExtraerImagen(@"Productos\", nombreArchivo);
                 }
                 else
                 {
-                    pcbImagen.Image = null;
+                    pcbImagen.Image = Properties.Resources.generico_1;
                 }
             }
             else
@@ -145,6 +129,7 @@ namespace Pry_Sistema_Punto_de_Venta
             txtPrecioventa.Clear();
             txtStockactual.Clear();
             txtStockminimo.Clear();
+            pcbImagen.Image = null;
         }
         private void txtCodigobarras_KeyDown_1(object sender, KeyEventArgs e)
         {

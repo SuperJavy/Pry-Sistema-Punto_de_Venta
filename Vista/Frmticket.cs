@@ -15,7 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta.vista
     public partial class Frmticket : Form
     {
         ClsTicketController controladorTicket = new ClsTicketController();
-
+        private string rutaLogoSeleccionado = "";
         public Frmticket()
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace Pry_Sistema_Punto_de_Venta.vista
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             controladorTicket.registrarConfiguracion(
-                picLogo.Image,
+                rutaLogoSeleccionado,
                 txtNombreNegocio.Text,
                 txtTelefono.Text,
                 txtDireccion.Text,
@@ -38,6 +38,8 @@ namespace Pry_Sistema_Punto_de_Venta.vista
                 txtMensajeFinal.Text,
                 this
             );
+
+            rutaLogoSeleccionado = "";
         }
 
         private void Frmticket_Load(object sender, EventArgs e)
@@ -98,6 +100,7 @@ namespace Pry_Sistema_Punto_de_Venta.vista
             if (buscador.ShowDialog() == DialogResult.OK)
             {
                 picLogo.Image = Image.FromFile(buscador.FileName);
+                rutaLogoSeleccionado = buscador.FileName; // <-- Guardamos la ruta física
             }
         }
 

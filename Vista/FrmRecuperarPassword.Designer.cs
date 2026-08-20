@@ -142,6 +142,7 @@
             txtConfirmarPass.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtConfirmarPass.Location = new Point(32, 462);
             txtConfirmarPass.Margin = new Padding(6, 7, 6, 7);
+            txtConfirmarPass.MaxLength = 8;
             txtConfirmarPass.Name = "txtConfirmarPass";
             txtConfirmarPass.PasswordChar = '*';
             txtConfirmarPass.Size = new Size(646, 45);
@@ -163,6 +164,7 @@
             txtNuevaPass.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtNuevaPass.Location = new Point(32, 312);
             txtNuevaPass.Margin = new Padding(6, 7, 6, 7);
+            txtNuevaPass.MaxLength = 8;
             txtNuevaPass.Name = "txtNuevaPass";
             txtNuevaPass.PasswordChar = '*';
             txtNuevaPass.Size = new Size(646, 45);

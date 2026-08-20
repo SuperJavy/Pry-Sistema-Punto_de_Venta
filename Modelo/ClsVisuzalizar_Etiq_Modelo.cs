@@ -46,30 +46,43 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
             try
             {
                 ClsConexion conexionBD = new ClsConexion();
-                DataTable dt = new DataTable();
+                DataTable dtOriginal = new DataTable();
 
+                // 1. Extraemos los textos de la BD
                 using (var conexion = conexionBD.abrirConexion())
                 {
-                    string Query = "SELECT codigo_barras, img_codigoDeBarras FROM codigo_Barras WHERE id_estado = @id";
+                    string Query = "SELECT codigo_barras FROM codigo_Barras WHERE id_estado = @id";
                     using (var consulta = new MySqlCommand(Query, conexion))
                     {
-                        consulta.Parameters.AddWithValue("@id",id);
-
+                        consulta.Parameters.AddWithValue("@id", id);
                         using (MySqlDataAdapter resultado = new MySqlDataAdapter(consulta))
                         {
-                            resultado.Fill(dt);
+                            resultado.Fill(dtOriginal);
                         }
                     }
                 }
-                return dt;
 
+                // 2. Creamos un DataTable nuevo con las DOS columnas (Texto e Imagen)
+                DataTable dtFinal = new DataTable();
+                dtFinal.Columns.Add("codigo_barras", typeof(string));
+                dtFinal.Columns.Add("imagen", typeof(Image)); // <-- ¡AQUÍ ESTABA EL FALTANTE!
+
+                // 3. Leemos cada fila, dibujamos el código en RAM y lo agregamos
+                foreach (DataRow row in dtOriginal.Rows)
+                {
+                    string codigo = row["codigo_barras"].ToString();
+
+                    Image imgReal = imgcodeb(codigo);
+
+                    dtFinal.Rows.Add(codigo, imgReal);
+                }
+
+                return dtFinal;
             }
             catch (Exception e)
             {
                 throw new Exception("Error en la consulta " + e.Message);
             }
-
-          
         }
 
         //empieza codigo de  eiquetas campos de estado

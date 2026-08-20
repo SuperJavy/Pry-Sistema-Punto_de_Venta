@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-Script adaptado y limpiado para MariaDB 10.6.10 (Punto de Venta)
+Script adaptado y limpiado para MariaDB 10.6.10 (Punto de Venta) con Arquitectura de Archivos Local/Red
 *********************************************************************
 */
 
@@ -36,7 +36,6 @@ DROP TABLE IF EXISTS `codigo_Barras`;
 CREATE TABLE `codigo_Barras` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Codigo_barras` varchar(13) NOT NULL,
-  `img_codigoDeBarras` longblob DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_estado` (`id_estado`),
@@ -65,7 +64,7 @@ CREATE TABLE `compra` (
 DROP TABLE IF EXISTS `configuracion_ticket`;
 CREATE TABLE `configuracion_ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `logo` longblob DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
   `nombre` varchar(150) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `direccion` varchar(255) NOT NULL,
@@ -151,7 +150,7 @@ CREATE TABLE `imagenes` (
 DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_codigoBarras` int(13) DEFAULT NULL,
+  `id_codigoBarras` int(11) DEFAULT NULL,
   `codigo_de_barras` varchar(100) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
@@ -161,8 +160,7 @@ CREATE TABLE `productos` (
   `id_categoria` int(11) NOT NULL,
   `stock` decimal(10,3) NOT NULL,
   `stock_minimo` decimal(10,3) NOT NULL,
-  `ruta_imagen` longblob NOT NULL,
-  `imagen_blob` longblob DEFAULT NULL,
+  `ruta_imagen` varchar(255) NOT NULL,
   `porcentaje` int(11) DEFAULT 0,
   `id_estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -214,7 +212,7 @@ CREATE TABLE `usuario` (
   `direccion` varchar(250) DEFAULT NULL,
   `correo` varchar(250) DEFAULT NULL,
   `telefono` varchar(12) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `id_rol` int(11) NOT NULL,
   `token_recuperacion` varchar(6) DEFAULT NULL,
   `fecha_expiracion_token` datetime DEFAULT NULL,

@@ -20,9 +20,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
         private clsTicketModelo configActual;
         private bool esTermica;
 
-        // ====================================================================
-        // 1. MÉTODOS PARA LA CONFIGURACIÓN DEL TICKET (Conecta Frmticket con clsTicketModelo)
-        // ====================================================================
 
         public clsTicketModelo cargarConfiguracion()
         {
@@ -37,14 +34,30 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
 
-        public void registrarConfiguracion(Image logo, string nombre, string telefono, string direccion, string rfc, string mensaje, Frmticket vista)
+        public void registrarConfiguracion(string rutaLogo, string nombre, string telefono, string direccion, string rfc, string mensaje, Frmticket vista)
         {
             try
             {
-                // Empaquetamos los datos recibidos de la vista en el objeto del modelo
+                string nombreArchivoFinal = null;
+
+                // Si el usuario seleccionó un nuevo logo, lo guardamos con el Gestor
+                if (!string.IsNullOrWhiteSpace(rutaLogo))
+                {
+                    string extImagen = System.IO.Path.GetExtension(rutaLogo);
+                    nombreArchivoFinal = "logo_ticket" + extImagen; // Nombre estático para que siempre se sobreescriba
+
+                    bool fotoGuardada = ClsGestorArchivos.GuardarImagen(rutaLogo, @"Logos\", nombreArchivoFinal);
+                    if (!fotoGuardada)
+                    {
+                        vista.notificarUsuario("Advertencia: No se pudo actualizar el logo físico en el servidor.", true);
+                        nombreArchivoFinal = null;
+                    }
+                }
+
+                // Empaquetamos los datos. OJO: Cambiaremos la propiedad 'Logo' en tu entidad para que sea string (Paso 3)
                 clsTicketModelo datosTicket = new clsTicketModelo
                 {
-                    Logo = logo,
+                    NombreArchivoLogo = nombreArchivoFinal, // <-- Nueva propiedad de texto
                     NombreNegocio = nombre,
                     Telefono = telefono,
                     Direccion = direccion,
@@ -52,17 +65,10 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                     MensajeFinal = mensaje
                 };
 
-                // Enviamos a guardar a la base de datos
                 bool exito = modeloTicket.guardarConfiguracion(datosTicket);
 
-                if (exito)
-                {
-                    vista.notificarUsuario("Configuración del ticket guardada correctamente.", false);
-                }
-                else
-                {
-                    vista.notificarUsuario("No se pudo guardar la configuración en la base de datos.", true);
-                }
+                if (exito) vista.notificarUsuario("Configuración del ticket guardada correctamente.", false);
+                else vista.notificarUsuario("No se pudo guardar la configuración en la base de datos.", true);
             }
             catch (Exception ex)
             {
@@ -70,10 +76,6 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
             }
         }
 
-
-        // ====================================================================
-        // 2. MÉTODOS PARA LA IMPRESIÓN DEL TICKET (Conecta FrmVentaproductos con el Hardware)
-        // ====================================================================
 
         public void ImprimirTicketVenta(ventas venta, string nombreImpresora, bool impresoraTermica)
         {

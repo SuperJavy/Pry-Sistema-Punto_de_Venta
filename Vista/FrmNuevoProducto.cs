@@ -15,6 +15,7 @@ namespace Pry_Sistema_Punto_de_Venta
     public partial class FrmNuevoProducto : Form
     {
         ClsProductController controlador = new ClsProductController();
+        private string rutaImagenSeleccionada = "";
         public FrmNuevoProducto()
         {
             InitializeComponent();
@@ -72,8 +73,16 @@ namespace Pry_Sistema_Punto_de_Venta
             }
 
 
-            bool guardadoExitoso = controlador.Registrarproductos(txtCodigo.Text, txtNombrep.Text, txtDescripcion.Text,
-                tipoventa.ToString(), cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, this);
+            bool guardadoExitoso = controlador.Registrarproductos(
+                txtCodigo.Text,
+                txtNombrep.Text,
+                txtDescripcion.Text,
+                tipoventa.ToString(),
+                cbxCategoria.SelectedValue.ToString(),
+                txtStockactual.Text,
+                txtStockminimo.Text,
+                rutaImagenSeleccionada, 
+                this);
 
             if (guardadoExitoso)
             {
@@ -87,6 +96,7 @@ namespace Pry_Sistema_Punto_de_Venta
                 {
                     // Si la ventana está incrustada en tu panel principal, solo limpiamos
                     LimpiarCampos();
+                    rutaImagenSeleccionada = "";
                 }
             }
         }
@@ -94,11 +104,12 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             OpenFileDialog buscador = new OpenFileDialog();
             buscador.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.bmp";
-            buscador.Title = "Seleccionar Logo del Negocio";
+            buscador.Title = "Seleccionar Imagen del Producto";
 
             if (buscador.ShowDialog() == DialogResult.OK)
             {
                 pcbImagen.Image = Image.FromFile(buscador.FileName);
+                rutaImagenSeleccionada = buscador.FileName;
             }
         }
         public void llenarComboRoles(DataTable dtCategoria)

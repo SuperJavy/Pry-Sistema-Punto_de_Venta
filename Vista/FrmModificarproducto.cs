@@ -1,13 +1,6 @@
 ﻿using Pry_Sistema_Punto_de_Venta.Controlador;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Pry_Sistema_Punto_de_Venta.Modelo;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pry_Sistema_Punto_de_Venta
 {
@@ -16,6 +9,7 @@ namespace Pry_Sistema_Punto_de_Venta
         ClsProductController controlador = new ClsProductController();
         private string _codigoCargado = null;
         private bool _cargandoDatos = false;
+        private string rutaImagenSeleccionada = "";
         public FrmModoficar()
         {
             InitializeComponent();
@@ -50,18 +44,18 @@ namespace Pry_Sistema_Punto_de_Venta
         }
         public void llenarCampos(DataTable dtproducto)
         {
-
-
+            _cargandoDatos = true;
             if (dtproducto != null && dtproducto.Rows.Count > 0)
             {
                 DataRow producto = dtproducto.Rows[0];
 
                 txtNombrep.Text = producto["nombre"].ToString();
-                txtDescripcion.Text = producto["Descripcion"].ToString();
+                txtDescripcion.Text = producto["descripcion"].ToString();
 
-                if (dtproducto.Columns.Contains("Categoria_id"))
+                // Corrección adicional: La base de datos devuelve 'id_categoria'
+                if (dtproducto.Columns.Contains("id_categoria"))
                 {
-                    cbxCategoria.SelectedValue = producto["Categoria_id"];
+                    cbxCategoria.SelectedValue = producto["id_categoria"];
                 }
 
                 string tipoVenta = producto["id_tipo_venta"].ToString();
@@ -76,48 +70,33 @@ namespace Pry_Sistema_Punto_de_Venta
                     chkGranel.Checked = true;
                 }
 
-                txtCosto.Text = producto["Costo"].ToString();
-                nudPorcentaje.Value = Convert.ToInt16(producto["Porcentaje"]);
+                txtCosto.Text = producto["costo"].ToString();
+                nudPorcentaje.Value = Convert.ToInt16(producto["porcentaje"]);
                 txtPrecioventa.Text = producto["precio_venta"].ToString();
 
-                txtStockactual.Text = producto["Stock"].ToString();
-                txtStockminimo.Text = producto["Stock_minimo"].ToString();
+                txtStockactual.Text = producto["stock"].ToString();
+                txtStockminimo.Text = producto["stock_minimo"].ToString();
+
+                // LÓGICA DE IMAGEN (NUEVA ARQUITECTURA)
+                // LÓGICA DE IMAGEN (ARQUITECTURA GESTOR CENTRAL)
                 if (dtproducto.Columns.Contains("Ruta_imagen") && producto["Ruta_imagen"] != DBNull.Value)
                 {
-                    try
-                    {
-                        // Extracción directa: MySQL ya nos manda el arreglo de bytes real
-                        byte[] imagenBytes = (byte[])producto["Ruta_imagen"];
-
-                        if (imagenBytes != null && imagenBytes.Length > 0)
-                        {
-                            using (System.IO.MemoryStream ms = new System.IO.MemoryStream(imagenBytes))
-                            {
-                                pcbImagen.Image = Image.FromStream(ms);
-                            }
-                        }
-                        else
-                        {
-                            pcbImagen.Image = null;
-                        }
-                    }
-                    catch (ArgumentException)
-                    {
-                        // Si la imagen en la BD guardada anteriormente sigue corrupta, no congelará el sistema
-                        pcbImagen.Image = null;
-                    }
+                    string nombreArchivo = producto["Ruta_imagen"].ToString();
+                    pcbImagen.Image = ClsGestorArchivos.ExtraerImagen(@"Productos\", nombreArchivo);
                 }
                 else
                 {
-                    pcbImagen.Image = null;
+                    pcbImagen.Image = Properties.Resources.generico_1;
                 }
+
+                // ¡ESTA ES LA LÍNEA VITAL QUE SE HABÍA BORRADO!
                 _codigoCargado = producto["codigo_efectivo"].ToString().Trim();
-                _cargandoDatos = false;
             }
             else
             {
                 LimpiarFormulario();
             }
+            _cargandoDatos = false;
         }
 
         private void LimpiarFormulario()
@@ -133,6 +112,7 @@ namespace Pry_Sistema_Punto_de_Venta
             txtPrecioventa.Clear();
             txtStockactual.Clear();
             txtStockminimo.Clear();
+            pcbImagen.Image = null;
         }
 
 
@@ -188,58 +168,13 @@ namespace Pry_Sistema_Punto_de_Venta
         {
             OpenFileDialog buscador = new OpenFileDialog();
             buscador.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.bmp";
-            buscador.Title = "Seleccionar Logo del Negocio";
+            buscador.Title = "Seleccionar Imagen";
 
             if (buscador.ShowDialog() == DialogResult.OK)
             {
                 pcbImagen.Image = Image.FromFile(buscador.FileName);
+                rutaImagenSeleccionada = buscador.FileName; // Guardamos la ruta
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int tipoventa = 0;
-            if (chkUnidad.Checked)
-            {
-                tipoventa = 1;
-            }
-            else if (chkGranel.Checked)
-            {
-                tipoventa = 2;
-            }
-            else
-            {
-                MessageBox.Show("Por favor, Seleccione un tipo de venta");
-                return;
-            }
-            string codigoActual = txtCodigodebarras.Text.Trim();
-
-            if (_codigoCargado == null || !string.Equals(codigoActual, _codigoCargado, StringComparison.OrdinalIgnoreCase))
-            {
-                notificarUsuario("Debe buscar el producto (presione Enter en el código de barras) antes de actualizarlo.", true);
-                return;
-            }
-
-            if (cbxCategoria.SelectedValue == null)
-            {
-                notificarUsuario("Debe seleccionar una categoría", true);
-                return;
-            }
-
-            DialogResult confirmacion = MessageBox.Show(
-                $"¿Está seguro de que desea actualizar el producto \"{txtNombrep.Text}\" (código {codigoActual})?",
-                "Confirmar actualización",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2);
-
-            if (confirmacion != DialogResult.Yes)
-            {
-                return;
-            }
-
-            controlador.Actualizarproduc(codigoActual, txtNombrep.Text, txtDescripcion.Text,
-                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(), txtStockactual.Text, txtStockminimo.Text, pcbImagen.Image, nudPorcentaje.Value.ToString(), this);
         }
 
         private void nudPorcentaje_ValueChanged(object sender, EventArgs e)
@@ -283,6 +218,63 @@ namespace Pry_Sistema_Punto_de_Venta
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnGuardarProducto_Click_1(object sender, EventArgs e)
+        {
+            int tipoventa = 0;
+            if (chkUnidad.Checked)
+            {
+                tipoventa = 1;
+            }
+            else if (chkGranel.Checked)
+            {
+                tipoventa = 2;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, Seleccione un tipo de venta");
+                return;
+            }
+            string codigoActual = txtCodigodebarras.Text.Trim();
+
+            if (_codigoCargado == null || !string.Equals(codigoActual, _codigoCargado, StringComparison.OrdinalIgnoreCase))
+            {
+                notificarUsuario("Debe buscar el producto (presione Enter en el código de barras) antes de actualizarlo.", true);
+                return;
+            }
+
+            if (cbxCategoria.SelectedValue == null)
+            {
+                notificarUsuario("Debe seleccionar una categoría", true);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show(
+                $"¿Está seguro de que desea actualizar el producto \"{txtNombrep.Text}\" (código {codigoActual})?",
+                "Confirmar actualización",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
+
+            if (confirmacion != DialogResult.Yes)
+            {
+                return;
+            }
+
+            bool exito = controlador.Actualizarproduc(codigoActual, txtNombrep.Text, txtDescripcion.Text,
+                tipoventa.ToString(), txtCosto.Text, txtPrecioventa.Text, cbxCategoria.SelectedValue.ToString(),
+                txtStockactual.Text, txtStockminimo.Text, rutaImagenSeleccionada, nudPorcentaje.Value.ToString(), this);
+
+            // Si el controlador nos dice que todo salió bien, vaciamos la pantalla
+            if (exito)
+            {
+                LimpiarFormulario();
+                txtCodigodebarras.Clear();
+                txtCodigodebarras.Focus();
+            }
+
+            rutaImagenSeleccionada = "";
         }
     }
 }

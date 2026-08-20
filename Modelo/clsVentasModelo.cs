@@ -56,21 +56,14 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         tipoVenta = dr["Tipo"].ToString()
                     };
 
-                    if (dr["imagen"] != DBNull.Value)
+                    if (dr["imagen"] != DBNull.Value && !string.IsNullOrWhiteSpace(dr["imagen"].ToString()))
                     {
-                        try
-                        {
-                            byte[] imagenBytes = (byte[])dr["imagen"];
-                            producto.imagen = BytesAImagen(imagenBytes);
-                        }
-                        catch
-                        {
-                            producto.imagen = null;
-                        }
+                        string nombreArchivo = dr["imagen"].ToString();
+                        producto.imagen = ClsGestorArchivos.ExtraerImagen(@"Productos\", nombreArchivo);
                     }
                     else
                     {
-                        producto.imagen = null;
+                        producto.imagen = Properties.Resources.generico_1;
                     }
                 }
             }
@@ -85,16 +78,7 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
 
             return producto;
         }
-        private Image BytesAImagen(byte[] bytes)
-        {
-            if (bytes == null || bytes.Length == 0) return null;
-
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                Image img = Image.FromStream(ms);
-                return new Bitmap(img); // Creamos un clon en memoria independiente del stream
-            }
-        }
+        
 
         public List<Producto> buscarProductoAv(string filtro)
         {
@@ -137,22 +121,16 @@ namespace Pry_Sistema_Punto_de_Venta.Modelo
                         tipoVenta = dr["Tipo"].ToString()
                     };
 
-                    if (dr["Imagen"] != DBNull.Value)
+                    if (dr["imagen"] != DBNull.Value && !string.IsNullOrWhiteSpace(dr["imagen"].ToString()))
                     {
-                        try
-                        {
-                            byte[] imagenBytes = (byte[])dr["Imagen"];
-                            prodTemporal.imagen = BytesAImagen(imagenBytes);
-                        }
-                        catch
-                        {
-                            prodTemporal.imagen = null;
-                        }
+                        string nombreArchivo = dr["imagen"].ToString();
+                        prodTemporal.imagen = ClsGestorArchivos.ExtraerImagen(@"Productos\", nombreArchivo);
                     }
                     else
                     {
-                        prodTemporal.imagen = null;
+                        prodTemporal.imagen = Properties.Resources.generico_1;
                     }
+                
 
                     producto.Add(prodTemporal);
                 }

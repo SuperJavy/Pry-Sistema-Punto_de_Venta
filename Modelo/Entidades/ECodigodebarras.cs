@@ -80,16 +80,15 @@
                 }
 
             }
-            public bool insertarBD(string codigo, Image img)
+            public bool insertarBD(string codigo)
             {
                 ClsConexion conexionBD = new ClsConexion();
                 using (var conex = conexionBD.abrirConexion())
                 {
-                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, img_codigoDeBarras, id_estado) VALUES (@codigo, @img,@estado);";
+                    string Query = "INSERT INTO codigo_Barras (Codigo_barras, id_estado) VALUES (@codigo,@estado);";
                     using(var consulta = new MySqlCommand(Query, conex))
                     {
                         consulta.Parameters.AddWithValue("@codigo",codigo);
-                        consulta.Parameters.AddWithValue("@img",imagenABytes(img));
                     consulta.Parameters.AddWithValue("@estado", int.Parse("2"));
                         using (var result = consulta.ExecuteReader())
                         {
@@ -108,24 +107,6 @@
                 }
             }
         
-            private byte[] imagenABytes(Image img)
-            {
-                if (img == null) return null;
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    return ms.ToArray();
-                }
-            }
-
-            private Image BytesAImagen(byte[] bytes)
-            {
-                if (bytes == null || bytes.Length == 0) return null;
-                using (MemoryStream ms = new MemoryStream(bytes))
-                {
-                    return Image.FromStream(ms);
-                }
-            }
 
         }
     }

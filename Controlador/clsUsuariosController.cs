@@ -22,6 +22,7 @@ namespace Pry_Sistema_Punto_de_Venta.Controlador
                                 "Campos Vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
                 bool exito = usuario.registrarUsuario(nombre.Trim(), apellidoP.Trim(), apellidoM.Trim(), nickname.Trim(),direcion.Trim(), telefono.Trim(), correo.Trim(),password, id_rol);

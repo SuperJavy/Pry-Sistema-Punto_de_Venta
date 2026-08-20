@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConfiguraciones));
             pnlSidebar = new Panel();
+            btnConexion = new Button();
             btnConfImpresora = new Button();
             pnlNavIndicator = new Panel();
             btnEditarTicket = new Button();
@@ -47,6 +48,7 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = SystemColors.ActiveCaption;
+            pnlSidebar.Controls.Add(btnConexion);
             pnlSidebar.Controls.Add(btnConfImpresora);
             pnlSidebar.Controls.Add(pnlNavIndicator);
             pnlSidebar.Controls.Add(btnEditarTicket);
@@ -57,6 +59,28 @@
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(260, 1000);
             pnlSidebar.TabIndex = 0;
+            // 
+            // btnConexion
+            // 
+            btnConexion.Cursor = Cursors.Hand;
+            btnConexion.FlatAppearance.BorderSize = 0;
+            btnConexion.FlatAppearance.MouseDownBackColor = Color.FromArgb(55, 65, 81);
+            btnConexion.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 72);
+            btnConexion.FlatStyle = FlatStyle.Flat;
+            btnConexion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnConexion.ForeColor = Color.White;
+            btnConexion.Image = (Image)resources.GetObject("btnConexion.Image");
+            btnConexion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConexion.Location = new Point(3, 457);
+            btnConexion.Name = "btnConexion";
+            btnConexion.Padding = new Padding(20, 0, 0, 0);
+            btnConexion.Size = new Size(254, 87);
+            btnConexion.TabIndex = 6;
+            btnConexion.Text = "Conexion";
+            btnConexion.TextAlign = ContentAlignment.MiddleLeft;
+            btnConexion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnConexion.UseVisualStyleBackColor = true;
+            btnConexion.Click += btnConexion_Click_1;
             // 
             // btnConfImpresora
             // 
@@ -217,5 +241,6 @@
         private System.Windows.Forms.Panel pnlConfiguraciones; // Este reemplaza a tu pnlConfiguraciones original de forma fluida
         private System.Windows.Forms.Panel pnlNavIndicator;
         private Button btnConfImpresora;
+        private Button btnConexion;
     }
 }
